@@ -16,10 +16,10 @@
   @else if $weight=='medium' {
     font-weight: map-get($font-weight, $weight);
   }
-  @else if $weight=='semi' {
+  @else if $weight=='bold' {
     font-weight: map-get($font-weight, $weight);
   }
-  @else if $weight=='bold' {
+  @else if $weight=='extra' {
     font-weight: map-get($font-weight, $weight);
   }
 }

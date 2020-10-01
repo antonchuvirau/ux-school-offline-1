@@ -1,0 +1,58 @@
+// .has-children {
+//     position: relative;
+//     & > a {
+//         padding-right: 1.4em;
+//         &::after {
+//             content: '';
+//             position: absolute;
+//             width: 1.4em;
+//             height: 1.4em;
+//             top: 50%;
+//             margin-top: -.7em;
+//             right: 0;
+//             background: url("../img/icons/ums-icon-down.svg") no-repeat 50%;
+//             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+//         }
+//         &::before {
+//             width: calc(100% - 1.4em);
+//         }
+//         &.menu {
+//             &__link {
+//                 &_style {
+//                     &-dark {
+//                         background: url("../img/icons/ums-icon-down-dark.svg") no-repeat 50%;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     &:hover {
+//         & .dropdown {
+//             opacity: 1;
+//             pointer-events: auto;
+//             transform: none;
+//         }
+//         & > a {
+//             &::after {
+//                 transform: scale3d(1, -1, 1);
+//             }
+//             &::before {
+//                 opacity: 0;
+//             }
+//         }
+//     }
+// }
+.wrapper {
+    background: $primary-100;
+    position: relative;
+    padding-top: 100px;
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 760px;
+        top: 0;
+        left: 0;
+        background: image("ums-wrapper.svg") no-repeat cover center bottom;
+    }
+}

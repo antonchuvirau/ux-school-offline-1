@@ -1,14 +1,18 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
-$font: '';
+$font: 'Montserrat';
 $base-font-size: 16px;
 $base-path: '../';
 //Colors
 $white: #fff;
-$black: #222;
+$black: #211130;
+$gray-500: #665D5D;
+$primary-100: #FCF0FF;
 //Font weight
 $font-weight: (
     'normal': normal,
-    'bold': bold
+    'medium': 500,
+    'bold': bold,
+    'extra': 800
 );

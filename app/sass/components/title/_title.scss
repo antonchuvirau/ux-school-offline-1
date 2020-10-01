@@ -1,0 +1,20 @@
+.title {
+    margin: 0;
+    font-size: 5rem;
+    letter-spacing: -.1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+    &_size {
+        &-m {
+            font-size: 4rem;
+            letter-spacing: -.03em;
+            line-height: 1.25;
+        }
+    }
+    &_style {
+        &-dark {
+            color: $black;
+        }
+    }
+}
