@@ -4,7 +4,10 @@
 'abstracts/functions',
 'abstracts/mixins';
 // 2. Vendors
-@import 'vendor/normalize';
+@import 'vendor/normalize',
+'vendor/fancybox',
+'vendor/jquerymodal',
+'vendor/swiper';
 // 3. Base stuff
 @import 'base/typography',
 'base/fonts',
