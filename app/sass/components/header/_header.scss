@@ -1,0 +1,82 @@
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 2;
+    padding: 25px 0;
+    &_style {
+        &-default {
+            position: relative;
+        }
+    }
+    &__info {
+        @include flex(row, center, flex-end);
+    }
+    &__select {
+        width: 130px;
+    }
+    &__phone {
+        &-number {
+            text-align: right;
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: -.3px;
+            color: $white;
+            margin-left: 50px;
+            &:hover {
+                color: rgba($white, .9);
+            }
+            & span {
+                display: block;
+                font-size: 1.2rem;
+                letter-spacing: 0;
+                font-weight: normal;
+                color: rgba($white, .7);
+                margin-top: 2px;
+            }
+            &_style {
+                &-dark {
+                    color: $dark;
+                    & span {
+                        color: $gray-500;
+                    }
+                    &:hover {
+                        color: rgba($dark, .8);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin-bar {
+    & .header {
+        top: 32px;
+    }
+}
+
+//Media
+@media screen and (max-width: 991px) {
+    .header {
+        padding: 20px 0;
+        &__select {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        &__phone-number {
+            margin: 0;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .header {
+        &__logo {
+            max-width: 115px;
+            opacity: .5;
+        }
+    }
+}

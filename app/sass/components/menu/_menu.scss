@@ -1,0 +1,95 @@
+.menu {
+    &__wrapper {
+        @include flex(row, center);
+    }
+    &__link {
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: $white;
+        padding: 5px 0;
+        &_style {
+            &-dark {
+                color: $dark;
+                &::before {
+                    background: $primary-200;
+                }
+                &:hover {
+                    &::before {
+                        background: $gray-200;
+                    }
+                }
+            }
+        }
+    }
+    &__item {
+        margin-right: 30px;
+        &:last-child {
+            margin-right: 0;
+        }
+        &.current-menu-item {
+            & .menu {
+                &__link {
+                    color: rgba($white, .3);
+                }
+            }
+        }
+    }
+}
+
+//Media
+@media screen and (max-width: 991px) {
+    .menu {
+        &__wrapper {
+            @include flex(column, stretch);
+        }
+        &__item {
+            margin: 0;
+            border-bottom: 1px solid rgba($white, .2);
+        }
+        &__link {
+            width: 100%;
+            font-size: 1.7rem;
+            letter-spacing: .01em;
+            line-height: 1.47;
+            padding: 15px;
+            &::before {
+                content: none;
+            }
+        }
+        &__dropdown {
+            position: relative;
+            margin: 0;
+            left: auto;
+            width: 100%;
+            transform: none;
+            padding: 0;
+            opacity: 1;
+            padding-bottom: 25px;
+            & .dropdown {
+                &__wrapper {
+                    background: transparent;
+                    box-shadow: none;
+                    padding: 0;
+                    border-radius: 0;
+                    &::before {
+                        content: none;
+                    }
+                }
+                &__item {
+                    padding: 0 15px;
+                    margin-bottom: 20px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                &__link {
+                    width: 100%;
+                    color: rgba($white, .7);
+                    font-size: 1.5rem;
+                    line-height: 1.3;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

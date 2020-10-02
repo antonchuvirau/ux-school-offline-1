@@ -1,0 +1,16 @@
+.button {}
+
+.ajax-btn {
+    @include flex(row, center, center);
+    width: 100%;
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.41;
+    & svg {
+        margin-left: 5px;
+        flex-shrink: 0;
+    }
+    &:active {
+        color: rgba($dark, .7);
+    }
+}

@@ -1,0 +1,94 @@
+.testimonials {
+    padding: 100px 0;
+    &__wrapper {
+        padding-bottom: 50px;
+        position: relative;
+    }
+    &__quote-icon {
+        position: absolute;
+        z-index: 1;
+        right: calc(100% + 10px);
+        bottom: 95%;
+    }
+    &__btn {
+        position: absolute;
+        @include flex(row, center, center);
+        width: 40px;
+        height: 40px;
+        top: calc(50% - 50px);
+        margin-top: 30px;
+        &-prev {
+            right: 100%;
+        }
+        &-next {
+            left: 100%;
+        }
+    }
+    &__option {
+        position: absolute;
+        @include flex(row, center);
+        bottom: 45px;
+        left: 15px;
+        z-index: 1;
+    }
+    &__pagination {
+        margin-right: 35px;
+        @include flex(row, center);
+        & .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background: $gray-200;
+            margin-right: 15px;
+            opacity: 1;
+            &:last-child {
+                margin-right: 0;
+            }
+            &-active {
+                background: $dark-200;
+            }
+        }
+    }
+    &__all-link {
+        text-decoration: none;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        &::before {
+            background: $primary-200;
+        }
+        &:hover {
+            &::before {
+                background: $gray-200;
+            }
+        }
+        &:active {
+            &::before {
+                background: $dark;
+            }
+        }
+    }
+    &__carousel {
+        overflow: visible;
+    }
+}
+
+.social-testimonials {
+    @include flex(row, center, center);
+    height: 80px;
+    padding: 0 30px;
+    background: $white;
+    border-radius: 5px;
+    box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+    &__name {
+        margin: 0;
+        font-size: 1.7rem;
+        letter-spacing: .01em;
+    }
+    &__link {
+        margin-left: 35px;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        will-change: transform;
+        &:hover {
+            transform: translateY(-3px);
+        }
+    }
+}

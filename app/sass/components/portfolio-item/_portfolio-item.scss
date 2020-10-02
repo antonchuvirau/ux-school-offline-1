@@ -1,0 +1,50 @@
+.portfolio-item {
+    position: relative;
+    cursor: pointer;
+    &__meta {
+        @include flex(column, flex-start, flex-end);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        padding: 30px 35px;
+        background: linear-gradient(195.29deg, rgba(48, 17, 48, 0) 38.16%, #301130 96.46%);
+    }
+    &__type {
+        margin: 0;
+        height: 20px;
+        padding: 0 10px;
+        border-radius: 15px;
+        background: rgba($white, .15);
+        color: $white;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+    &__name {
+        margin: 0;
+        text-decoration: none;
+        letter-spacing: -.03rem;
+        color: $white;
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-top: 7px;
+        position: relative;
+        padding-right: 25px;
+        &::before {
+            width: calc(100% - 25px);
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            background: icon("ums-icon-link.svg") no-repeat 50%;
+            top: 50%;
+            margin-top: -1rem;
+            right: 0;
+        }
+    }
+}

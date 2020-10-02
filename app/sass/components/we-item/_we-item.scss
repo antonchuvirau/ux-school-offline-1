@@ -1,0 +1,11 @@
+.we-item {
+    @include flex(column, center);
+    padding: 20px 35px;
+    &__title {
+        margin: 0;
+        font-size: 2rem;
+        line-height: 1.5;
+        letter-spacing: -.03rem;
+        margin-top: 15px;
+    }
+}

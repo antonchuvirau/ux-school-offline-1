@@ -1,0 +1,104 @@
+.course-list-item {
+    @include flex();
+    padding: 20px 40px;
+    padding-bottom: 0;
+    padding-right: 45px;
+    &__img {
+        display: block;
+        flex-shrink: 0;
+        margin-right: 25px;
+        & img {
+            max-width: 160px;
+            max-height: 90px;
+            border-radius: 5px;
+        }
+    }
+    &__info {
+        @include flex(row, center);
+        flex: 1 1 auto;
+        padding-top: 10px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $primary-200;
+    }
+    &__title {
+        text-decoration: none;
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: -.03rem;
+        max-width: 245px;
+        line-height: 1.5;
+    }
+    &__meta {
+        @include flex(row, center);
+        margin-left: 50px;
+        &-item {
+            color: $dark-100;
+            margin-right: 25px;
+            line-height: 1.3;
+            font-size: 1.5rem;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        &-value {
+            display: block;
+            line-height: 1.3;
+            font-size: 1.5rem;
+            color: $dark-200;
+            font-weight: 500;
+        }
+        &-inner {
+            color: $gray-200;
+            text-decoration: line-through;
+        }
+    }
+    &__select {
+        box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+        height: 40px;
+        width: 150px;
+        border-radius: 5px;
+        background: $white;
+        position: relative;
+        margin-left: 30px;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 6px;
+            background: icon("ums-icon-down-black.svg") no-repeat 50%;
+            top: 50%;
+            margin-top: -3px;
+            right: 20px;
+        }
+        & select {
+            width: 100%;
+            height: 100%;
+            padding: 0 15px;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+            &:active {
+                color: $dark;
+            }
+        }
+    }
+}
+
+//Media
+@media screen and (max-width: 1229px) {
+    .course-list-item {
+        @include flex(column, center);
+        padding: 20px;
+        &__img {
+            margin: 0 auto;
+            & img {
+                max-width: 250px;
+                max-height: 140px;
+            }
+        }
+        &__info {
+            @include flex();
+            padding: 0;
+        }
+    }
+}

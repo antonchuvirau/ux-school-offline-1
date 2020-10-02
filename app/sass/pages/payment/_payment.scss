@@ -1,0 +1,31 @@
+.payment-page {
+    &__title {
+        margin-bottom: 40px;
+    }
+}
+
+.ux-mind-payment {
+    &__text {
+        margin: 0;
+        letter-spacing: .01em;
+        font-size: 1.7rem;
+        line-height: 1.47;
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.halva-payment {
+    &__text {
+        margin: 0;
+        letter-spacing: .01em;
+        font-size: 1.7rem;
+        line-height: 1.47;
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

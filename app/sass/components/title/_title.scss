@@ -4,7 +4,7 @@
     letter-spacing: -.1rem;
     font-weight: 800;
     line-height: 1.2;
-    color: #fff;
+    color: $white;
     &_size {
         &-m {
             font-size: 4rem;
@@ -14,7 +14,16 @@
     }
     &_style {
         &-dark {
-            color: $black;
+            color: $dark;
         }
+    }
+}
+
+//Media
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 2.8rem;
+        letter-spacing: -.07rem;
+        line-height: 1.25;
     }
 }

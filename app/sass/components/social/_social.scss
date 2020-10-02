@@ -1,0 +1,12 @@
+.social {
+    @include flex(row, center);
+    &__link {
+        @include flex(row, center, center);
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+.blog-item {
+    background: $white;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 25px;
+    box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+    &__img {
+        margin-bottom: 13px;
+        text-decoration: none;
+        & img {
+            border-radius: 3px;
+        }
+    }
+    &__info {
+        padding: 0 10px;
+    }
+    &__title {
+        text-decoration: none;
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.5;
+        letter-spacing: -.03rem;
+    }
+    &__meta {
+        @include flex(row, center);
+        margin-top: 12px;
+    }
+    &__tag {
+        @include flex(row, center, center);
+        margin: 0;
+        height: 30px;
+        padding: 0 10px;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        border-radius: 5px;
+        border: 1px solid $primary-200;
+    }
+    &__date {
+        margin: 0;
+        font-size: 1.5rem;
+        color: $gray-500;
+        margin-left: 15px;
+    }
+}

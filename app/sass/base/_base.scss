@@ -17,12 +17,12 @@ html {
 }
 a {
     display: inline-block;
-    color: $black;
+    color: $dark;
 }
 
 p {
     font-size: 1.6rem;
-    color: $black;
+    color: $dark;
 }
 b, strong {
     @include font-weight('bold');
@@ -30,7 +30,7 @@ b, strong {
 body {
     @include font();
     @include font-weight('normal');
-    color: $black;
+    color: $dark;
     font-size: 1.6rem;
     background: $white;
 }
@@ -46,7 +46,7 @@ button {
     outline-color: transparent;
     box-shadow: none;
     border-radius: 0;
-    color: $black;
+    color: $dark;
 }
 select {
     @extend button;
