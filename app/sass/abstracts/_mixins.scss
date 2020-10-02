@@ -2,11 +2,12 @@
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
 
-@mixin flex($flex-direction: row, $align-items: flex-start, $justify-content: flex-start) {
+@mixin flex($flex-direction: row, $align-items: flex-start, $justify-content: flex-start, $flex-wrap: nowrap) {
   display: flex;
   flex-direction: $flex-direction;
   justify-content: $justify-content;
   align-items: $align-items;
+  flex-wrap: $flex-wrap;
 }
 
 @mixin font-weight($weight) {
