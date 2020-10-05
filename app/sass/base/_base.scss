@@ -77,6 +77,11 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+sup {
+    top: -.7em;
+    left: 1px;
+    font-size: .8rem;
+}
 ::-webkit-input-placeholder {
     font-size: 1.7rem;
     color: $gray-500;

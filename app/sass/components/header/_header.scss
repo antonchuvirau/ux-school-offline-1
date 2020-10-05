@@ -10,6 +10,9 @@
             position: relative;
         }
     }
+    &__logo {
+        @include flex(row, center);
+    }
     &__info {
         @include flex(row, center, flex-end);
     }
@@ -54,6 +57,11 @@
 .admin-bar {
     & .header {
         top: 32px;
+        &_style {
+            &-default {
+                top: 0;
+            }
+        }
     }
 }
 

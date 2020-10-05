@@ -1,12 +1,13 @@
 .course-list-item {
-    @include flex();
-    padding: 20px 40px;
+    @include flex(row, stretch);
+    padding: 0 40px;
     padding-bottom: 0;
     padding-right: 45px;
     &__img {
         display: block;
         flex-shrink: 0;
         margin-right: 25px;
+        padding: 20px 0;
         & img {
             max-width: 160px;
             max-height: 90px;
@@ -16,40 +17,54 @@
     &__info {
         @include flex(row, center);
         flex: 1 1 auto;
-        padding-top: 10px;
-        padding-bottom: 30px;
+        padding: 0;
         border-bottom: 1px solid $primary-200;
     }
     &__title {
+        display: inline-block;
         text-decoration: none;
-        font-size: 2rem;
+        font-size: 1.9rem;
         font-weight: bold;
         letter-spacing: -.03rem;
+        width: 100%;
         max-width: 245px;
         line-height: 1.5;
     }
     &__meta {
         @include flex(row, center);
+        flex: 1 1 auto;
         margin-left: 50px;
         &-item {
+            @include flex(row, center);
+            margin: 0;
+            width: 33.333%;
             color: $dark-100;
-            margin-right: 25px;
             line-height: 1.3;
             font-size: 1.5rem;
             &:last-child {
-                margin-right: 0;
+                justify-content: flex-end;
             }
         }
         &-value {
             display: block;
             line-height: 1.3;
             font-size: 1.5rem;
-            color: $dark-200;
-            font-weight: 500;
+            @include font-weight('medium');
+            white-space: nowrap;
+            color: $gray-200;
+            margin: 0;
         }
         &-inner {
+            @include font-weight('normal');
             color: $gray-200;
             text-decoration: line-through;
+            margin-right: 4px;
+        }
+        &-price {
+            color: $dark-200;
+            & sup {
+                @include font-weight('medium');
+            }
         }
     }
     &__select {
@@ -60,16 +75,6 @@
         background: $white;
         position: relative;
         margin-left: 30px;
-        &::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 6px;
-            background: icon("ums-icon-down-black.svg") no-repeat 50%;
-            top: 50%;
-            margin-top: -3px;
-            right: 20px;
-        }
         & select {
             width: 100%;
             height: 100%;
@@ -80,6 +85,9 @@
             &:active {
                 color: $dark;
             }
+        }
+        & svg {
+            margin-left: auto;
         }
     }
 }

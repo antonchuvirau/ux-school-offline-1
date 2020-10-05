@@ -30,6 +30,16 @@
             & .menu {
                 &__link {
                     color: rgba($white, .3);
+                    cursor: default;
+                    pointer-events: none;
+                    &::before {
+                        content: none;
+                    }
+                    &_style {
+                        &-dark {
+                            color: rgba($dark, .3);
+                        }
+                    }
                 }
             }
         }

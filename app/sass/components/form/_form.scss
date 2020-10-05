@@ -18,6 +18,12 @@
                 pointer-events: none;
             }
         }
+        &_disabled {
+            border-radius: 5px;
+            & input {
+                pointer-events: none;
+            }
+        }
     }
     &__select {
         position: relative;
@@ -148,6 +154,25 @@
     }
 }
 
+span {
+    &.wpcf7-form-control-wrap {
+        height: 100%;
+        display: block;
+    }
+    &.wpcf7-not-valid-tip {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 2px);
+        font-size: 1rem;
+    }
+}
+
+div {
+     &.wpcf7-response-output {
+        display: none !important;
+    }
+}
+
 .help-form {
     @include flex(row, center, center);
     &__input {
@@ -185,6 +210,12 @@
     }
     &__input {
         max-width: 570px;
+        &_width {
+            &-full {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
     }
 }
 
