@@ -1,1 +1,1 @@
-# ux-school-offline
+# UX Mind School
