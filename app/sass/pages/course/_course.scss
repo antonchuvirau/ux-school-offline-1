@@ -57,3 +57,69 @@
         }
     }
 }
+
+.about-course {
+    padding: 150px 0;
+    background: $primary-100;
+    position: relative;
+    padding-bottom: 30px;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 120px;
+        left: 0;
+        top: 100%;
+        background: image("ums-about-course-figure.svg") no-repeat;
+        background-size: 100% auto;
+        z-index: 1;
+    }
+    &__title {
+        text-align: left;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+    &__info {
+        & p {
+            margin: 0;
+            letter-spacing: .01em;
+            font-size: 1.7rem;
+            line-height: 1.47;
+            margin-bottom: 20px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__video {
+        position: relative;
+        width: 100%;
+        max-width: 630px;
+        height: 450px;
+        border-radius: 5px;
+        background: image("ums-about-course-img.svg") no-repeat;
+        background-size: cover;
+        &-img {
+            width: 100%;
+            max-width: 500px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -250px;
+        }
+    }
+    &__play-btn {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        z-index: 1;
+    }
+    &__author {
+        text-align: center;
+        margin: 0;
+        color: $gray-200;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-top: 15px;
+    }
+}
