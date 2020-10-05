@@ -1,0 +1,229 @@
+.form {
+    &__input {
+        height: 50px;
+        width: 100%;
+        position: relative;
+        & input {
+            width: 100%;
+            height: 100%;
+            letter-spacing: .01em;
+            position: relative;
+            z-index: 1;
+            border: 1px solid $primary-200;
+            border-radius: 5px;
+            &.wpcf7-not-valid {
+                border-color: $attention;
+            }
+            &:disabled {
+                pointer-events: none;
+            }
+        }
+    }
+    &__select {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: icon("ums-icon-down-black.svg") no-repeat 50%;
+            top: 50%;
+            margin-top: -10px;
+            right: 20px;
+            z-index: -1;
+        }
+        & select {
+            width: 100%;
+            height: 100%;
+            padding: 0 15px;
+            letter-spacing: .01em;
+            border: 1px solid $primary-200;
+            border-radius: 5px;
+            &:active {
+                color: $dark;
+            }
+        }
+    }
+    &__label {
+        position: absolute;
+        display: inline-block;
+        letter-spacing: .01em;
+        font-size: 1.7rem;
+        color: $gray-500;
+        left: 15px;
+        top: 50%;
+        line-height: 1.3;
+        transform: translateY(-50%);
+        &_active {
+            font-size: 1.2rem;
+            line-height: 1.25;
+            top: 5px;
+            transform: translateY(0);
+        }
+        &_position {
+            &-top {
+                top: 15px;
+                transform: none;
+                &.form {
+                    &__label {
+                        &_active {
+                            top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__textarea {
+        display: block;
+        height: 100px;
+        &_opened {
+            display: block;
+        }
+        &-btn {
+            margin-left: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-size: 1.7rem;
+            letter-spacing: .01em;
+            color: $gray-500;
+            @include flex(row, center);
+            & svg {
+                margin-left: 5px;
+                transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            &_active {
+                & svg {
+                    transform: rotate3d(0, 0, 1, 45deg);
+                }
+            }
+            &_visibility {
+                &-hide {
+                    display: none;
+                }
+            }
+        }
+        & textarea {
+            padding: 15px;
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 1px solid $primary-200;
+            border-radius: 5px;
+            z-index: 1;
+            position: relative;
+        }
+        &.form {
+            &__input {
+                &_focused {
+                    & textarea {
+                        border-color: $secondary-500;
+                        padding-top: 20px;
+                        &.wpcf7-not-valid {
+                            border-color: $attention;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__row {
+        margin-bottom: 20px;
+    }
+    &_focused {
+        & input {
+            border-color: $secondary-500;
+            padding-top: 15px;
+            &.wpcf7-not-valid {
+                border-color: $attention;
+            }
+        }
+    }
+    &_disabled {
+        background: $primary-150;
+        color: $dark;
+        & input {
+            border: 1px solid $primary-150;
+        }
+    }
+}
+
+.help-form {
+    @include flex(row, center, center);
+    &__input {
+        max-width: 300px;
+        margin-right: 5px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.payment-form {
+    &__method {
+        margin-right: 30px;
+        margin-bottom: 30px;
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+    &__section {
+        margin-bottom: 55px;
+        &:nth-child(2) {
+            margin-bottom: 25px;
+        }
+        &-name {
+            margin: 0;
+            margin-bottom: 25px;
+            letter-spacing: -.05rem;
+            font-size: 2.8rem;
+            line-height: 1.42;
+        }
+        &-options {
+            @include flex(row, center, flex-start, wrap);
+        }
+    }
+    &__input {
+        max-width: 570px;
+    }
+}
+
+.webpay-form {
+    &__item {
+        margin-bottom: 30px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    &__sale-checkbox {
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+    &__note {
+        margin: 0;
+        margin-top: 40px;
+        letter-spacing: .01em;
+        font-size: 1.7rem;
+        line-height: 1.47;
+        &-link {
+            text-decoration: none;
+            &::before {
+                background: $primary-200;
+            }
+            &:hover {
+                &::before {
+                    background: $gray-200;
+                }
+            }
+        }
+    }
+    &__payment {
+        &-level {
+            @include flex(row, center);
+            padding-left: 15px;
+        }
+    }
+    &__btn {
+        margin-top: 40px;
+    }
+}
