@@ -1,3 +1,90 @@
+.modal {
+    width: 100%;
+    max-width: 767px;
+    border-radius: 5px;
+    background: $white;
+    box-shadow: none;
+    padding: 50px 70px;
+    &-video-button * {
+        pointer-events: none;
+    }
+    & a {
+        &.close-modal {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            right: 10px;
+            top: 10px;
+            background: icons("ums-icon-close.svg") no-repeat 50%;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform;
+            &:hover {
+                transform: rotate3d(0, 0, 1, 90deg);
+            }
+        }
+    }
+    &__title {
+        margin: 0;
+        font-size: 4rem;
+        letter-spacing: -.03em;
+        font-weight: bold;
+        line-height: 1.25;
+        margin-bottom: 20px;
+    }
+    &__process {
+        margin-top: 70px;
+    }
+    &__social {
+        @include flex(row, center);
+        &-link {
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            &:hover {
+                & circle {
+                    fill: $secondary;
+                }
+                & path {
+                    fill: $white;
+                }
+            }
+        }
+    }
+    &__btn {
+        width: 100%;
+    }
+    &__privacy-checkbox {
+        margin-top: 25px;
+    }
+}
+
+.video-modal {
+    padding: 0;
+    height: 530px;
+    max-width: 940px;
+    background: transparent;
+    & iframe {
+        display: block;
+        border-radius: 5px;
+    }
+    & a {
+        &.close-modal {
+            top: auto;
+            bottom: calc(100% + 10px);
+            right: 0;
+            background: icons("ums-icon-close-white.svg") no-repeat 50%;
+        }
+    }
+}
+
+.testimonials-modal {
+    height: 100%;
+}
+
 .blocker {
     z-index: 10;
 }

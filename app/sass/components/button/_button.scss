@@ -1,4 +1,20 @@
-.button {}
+.btn {
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: $white;
+    line-height: 1.41;
+    background: linear-gradient(190.23deg, #33AAFF -20.82%, #CC30CF 105.72%);
+    &:disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: .5;
+    }
+}
 
 .ajax-btn {
     @include flex(row, center, center);

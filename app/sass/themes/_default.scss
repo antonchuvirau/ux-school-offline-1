@@ -360,6 +360,30 @@
     }
 }
 
+.help-section {
+    padding: 115px 0;
+    padding-top: 0;
+    position: relative;
+    text-align: center;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 120px;
+        background: image("ums-help-figure.svg") no-repeat center bottom / 100% auto;
+        left: 0;
+        bottom: calc(100% - 1px);
+    }
+    &__title {
+        margin-bottom: 15px;
+    }
+    &__form {
+        margin-top: 20px;
+    }
+    &__checkbox {
+        margin-top: 30px;
+    }
+}
 //Media
 @media screen and (max-width: 991px) {
     .course-list {
