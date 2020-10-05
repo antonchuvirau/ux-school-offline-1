@@ -96,4 +96,35 @@
     }
 }
 
-.erip {}
+.erip {
+    &__grid {
+        margin-top: 35px;
+        @include flex();
+    }
+    &__code-content {
+        padding: 35px;
+        border-radius: 5px;
+        border: 1px solid $primary-200;
+    }
+    &__code-number {
+        margin: 0;
+        text-align: center;
+        font-size: 1.7rem;
+        line-height: 1.47;
+        letter-spacing: .01em;
+        margin-top: 10px;
+    }
+    &__info {
+        margin-left: 30px;
+        & p {
+            margin: 0;
+            line-height: 1.47;
+            letter-spacing: .01em;
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
