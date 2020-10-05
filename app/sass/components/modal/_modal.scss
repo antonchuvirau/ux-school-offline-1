@@ -85,6 +85,63 @@
     height: 100%;
 }
 
+.lecturer-modal {
+    padding-bottom: 70px;
+    &__grid {
+        @include flex();
+    }
+    &__img {
+        flex-shrink: 0;
+        & img {
+            width: 100%;
+            max-width: 220px;
+            max-height: 220px;
+        }
+    }
+    &__info {
+        padding-left: 40px;
+    }
+    &__title {
+        max-width: 250px;
+    }
+    &__text {
+        margin-top: 10px;
+        & p {
+            margin: 0;
+            font-size: 1.5rem;
+            line-height: 1.3;
+            color: $gray-500;
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__social {
+        margin-top: 25px;
+    }
+}
+
+.order-modal {
+    &__btn {
+        height: 60px;
+    }
+}
+
+.success-modal {
+    text-align: center;
+    &__title {
+        margin-top: 20px;
+    }
+    &__text {
+        margin: 0;
+        font-size: 1.7rem;
+        letter-spacing: .01em;
+        line-height: 1.42;
+        color: $gray-500;
+    }
+}
+
 .blocker {
     z-index: 10;
 }
