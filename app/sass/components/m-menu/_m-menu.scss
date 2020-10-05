@@ -1,0 +1,66 @@
+.m-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    background: linear-gradient(225.11deg, #33AAFF -20.82%, #CC30CF 105.72%);
+    padding: 0 15px;
+    z-index: 3;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(-150%, 0, 0);
+    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &_opened {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+    &__wrapper {
+        @include flex(column, stretch);
+        width: 100%;
+    }
+    &__header {
+        padding: 20px 0;
+    }
+    &__social {
+        justify-content: center;
+        margin-top: 17px;
+    }
+    &__logo {
+        opacity: .5;
+        max-width: 115px;
+    }
+    &__grid {
+        padding-top: 20px;
+    }
+    &__footer {
+        padding: 30px 0;
+    }
+    &__options {
+        @include flex(row, center, flex-end);
+        margin-left: auto;
+        &-btn {
+            @include flex(row, center, center);
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+            & svg {
+                pointer-events: none;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+//Media
+@media screen and (max-width: 991px) {
+    .m-menu {
+        &__footer {
+            @include flex(column, center);
+        }
+    }
+}
