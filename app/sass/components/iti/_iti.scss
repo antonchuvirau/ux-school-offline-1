@@ -1,0 +1,14 @@
+.iti {
+    position: relative;
+    display: inline-block;
+    & * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box
+    }
+    &__hide {
+        display: none;
+    }
+    &__v-hide {
+        visibility: hidden;
+    }
+}

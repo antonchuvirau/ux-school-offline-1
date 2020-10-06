@@ -31,6 +31,13 @@
                 pointer-events: none;
             }
         }
+        & .iti {
+            & input {
+                flex: 1 1 auto;
+                width: auto;
+                max-width: 100%;
+            }
+        }
         &_disabled {
             border-radius: 5px;
             & input {
