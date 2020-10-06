@@ -27,8 +27,9 @@
         font-weight: bold;
         letter-spacing: -.03rem;
         width: 100%;
-        max-width: 245px;
+        max-width: 290px;
         line-height: 1.5;
+        margin: 0;
     }
     &__meta {
         @include flex(row, center);

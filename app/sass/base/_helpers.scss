@@ -20,7 +20,7 @@
         width: 100%;
         height: 1px;
         background: rgba($white, .2);
-        top: 100%;
+        top: calc(100% + 5px);
         left: 0;
     }
     &:hover {

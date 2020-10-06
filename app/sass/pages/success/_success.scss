@@ -1,0 +1,31 @@
+.success-payment-page {
+    &__title {
+        margin-top: 45px;
+        display: block;
+        text-align: center;
+    }
+    &__content {
+        margin-top: 20px;
+        text-align: center;
+        & p {
+            margin: 0;
+            font-size: 1.7rem;
+            letter-spacing: .01em;
+            line-height: 1.33;
+        }
+        & a {
+            text-decoration: none;
+            font-size: 1.7rem;
+            letter-spacing: .01em;
+            line-height: 1.33;
+            &::before {
+                background: $primary-200;
+            }
+            &:hover {
+                &::before {
+                    background: $gray-200;
+                }
+            }
+        }
+    }
+}
