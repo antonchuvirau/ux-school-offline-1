@@ -1,0 +1,24 @@
+.course-gallery {
+    position: relative;
+    &__img {
+        cursor: pointer;
+    }
+    &__btn {
+        @include flex(row, center, center);
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: $white;
+        border-radius: 50%;
+        box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.1), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+        top: 50%;
+        margin-top: -20px;
+        z-index: 1;
+        &-prev {
+            left: calc((100% - 1170px)/2 - 40px);
+        }
+        &-next {
+            right: calc((100% - 1170px)/2 - 40px);
+        }
+    }
+}
