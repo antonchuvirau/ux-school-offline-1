@@ -12,7 +12,12 @@
     &:disabled {
         cursor: not-allowed;
         pointer-events: none;
-        opacity: .5;
+        opacity: .3;
+    }
+    &_is {
+        &-loading {
+            opacity: .3;
+        }
     }
 }
 

@@ -51,6 +51,28 @@
                 margin-bottom: 0;
             }
         }
+        & ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            & li {
+                padding-left: 15px;
+                font-size: 15px;
+                color: $gray-500;
+                line-height: 1.33;
+                margin-bottom: 8px;
+                position: relative;
+                &::before {
+                    content: '–';
+                    position: absolute;
+                    left: 0;
+                    top: -1px;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
     &__more-btn {
         padding: 15px 0;
