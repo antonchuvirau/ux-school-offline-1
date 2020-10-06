@@ -64,6 +64,9 @@
             }
         }
     }
+    &__testimonials {
+        margin-top: 40px;
+    }
     &-menu {
         @include flex(row, flex-start, center);
         &__col {

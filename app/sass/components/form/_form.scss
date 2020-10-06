@@ -76,6 +76,13 @@
                 color: $dark;
             }
         }
+        &_state {
+            &-active {
+                &::after {
+                    transform: scale(-1);
+                }
+            }
+        }
     }
     &__label {
         position: absolute;
@@ -277,6 +284,13 @@ div {
                 width: 100%;
                 max-width: 100%;
             }
+        }
+    }
+    &__select {
+        &::after {
+            top: 0;
+            height: 100%;
+            margin-top: 0;
         }
     }
 }

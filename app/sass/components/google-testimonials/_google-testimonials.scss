@@ -1,0 +1,42 @@
+.google-testimonials {
+    position: relative;
+    padding: 10px 20px;
+    padding-bottom: 20px;
+    border: 1px solid rgba($white, .15);
+    border-radius: 5px;
+    max-width: 210px;
+    text-decoration: none;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        top: 10px;
+        right: 10px;
+        background: icon('ums-external-link-icon.svg') no-repeat 50%;
+        z-index: 1;
+    }
+    &:hover {
+        border-color: rgba($white, .25);
+    }
+    &__header {
+        @include flex(row, center);
+    }
+    &__text {
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 1.3;
+        color: rgba($white, .8);
+    }
+    &__rate {
+        margin: 0;
+        font-size: 2.8rem;
+        letter-spacing: -.5px;
+        color: $white;
+        line-height: 1.43;
+    }
+    &__stars {
+        height: 20px;
+        margin-left: 8px;
+    }
+}

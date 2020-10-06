@@ -17,11 +17,12 @@
         height: 40px;
         top: calc(50% - 50px);
         margin-top: 30px;
+        z-index: 1;
         &-prev {
-            right: 100%;
+            right: calc(100% - 20px);
         }
         &-next {
-            left: 100%;
+            left: calc(100% - 20px);
         }
     }
     &__option {

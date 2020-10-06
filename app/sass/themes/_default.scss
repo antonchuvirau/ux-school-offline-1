@@ -177,10 +177,10 @@
         margin-top: -20px;
         z-index: 1;
         &-prev {
-            right: 100%;
+            right: calc(100% - 30px)
         }
         &-next {
-            left: 100%;
+            left: calc(100% - 30px);
         }
     }
     &__title {

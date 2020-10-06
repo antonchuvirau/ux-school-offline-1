@@ -35,6 +35,7 @@
         padding-right: 25px;
         &::before {
             width: calc(100% - 25px);
+            top: calc(100% + 1px);
         }
         &::after {
             content: '';
@@ -45,6 +46,7 @@
             top: 50%;
             margin-top: -1rem;
             right: 0;
+            opacity: .5;
         }
         &_no-icon {
             padding-right: 0;
