@@ -34,3 +34,56 @@
         }
     }
 }
+
+.icon {
+    position: relative;
+    &-currency {
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            margin-left: 2px;
+        }
+    }
+    &-ruble {
+        &::after {
+            background: icon('ums-icon-ruble-light.svg') no-repeat 50%;
+        }
+        &_color {
+            &-dark {
+                &::after {
+                    background: icon('ums-icon-ruble-dark.svg') no-repeat 50%;
+                }
+            }
+            &-gray {
+                &::after {
+                    background: icon('ums-icon-ruble-gray.svg') no-repeat 50%;
+                }
+            }
+        }
+    }
+    &-dollar {
+        &::after {
+            width: 9px;
+            height: 15px;
+            background: icon('ums-icon-dollar-light.svg') no-repeat 50%;
+        }
+        &_color {
+            &-dark {
+                &::after {
+                    width: 9px;
+                    height: 15px;
+                    background: icon('ums-icon-dollar-dark.svg') no-repeat 50%;
+                }
+            }
+            &-gray {
+                &::after {
+                    width: 9px;
+                    height: 15px;
+                    background: icon('ums-icon-dollar-gray.svg') no-repeat 50%;
+                }
+            }
+        }
+    }
+}

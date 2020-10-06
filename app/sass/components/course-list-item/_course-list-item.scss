@@ -84,6 +84,9 @@
                 @include font-weight('medium');
             }
         }
+        &-info {
+            margin-left: 5px;
+        }
     }
     &__select {
         box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
