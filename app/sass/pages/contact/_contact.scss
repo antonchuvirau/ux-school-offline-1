@@ -12,6 +12,7 @@
     &__info {
         @include flex(column);
         &-item {
+            @include flex(column);
             margin: 0;
             margin-bottom: 35px;
             font-size: 2.8rem;
@@ -24,9 +25,26 @@
                 color: $gray-500;
                 letter-spacing: 0.01em;
                 pointer-events: none;
+                &::before {
+                    background: $primary-200;
+                }
+                &:hover {
+                    &::before {
+                        background: $primary-200;
+                    }
+                }
             }
             &:hover {
                 color: rgba($dark, .65);
+            }
+            &_active {
+                color: rgba($dark, .65);
+                pointer-events: none;
+                & span {
+                    &::before {
+                        background: $white;
+                    }
+                }
             }
         }
         &-link {

@@ -67,6 +67,9 @@ textarea {
     cursor: text;
     resize: none;
     font-size: 1.7rem;
+    &:focus {
+        border-color: $secondary-500;
+    }
 }
 img {
     display: block;

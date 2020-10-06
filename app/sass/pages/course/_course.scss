@@ -158,6 +158,11 @@
     padding: 120px 0;
     padding-top: 260px;
     background: $primary-100;
+    &_style {
+        &-no-bg {
+            background: $white;
+        }
+    }
     &__figure {
         height: 650px;
         width: 100%;
@@ -165,6 +170,11 @@
         top: 0;
         left: 0;
         background: image("ums-program-img.svg") no-repeat 50% / cover;
+        &_color {
+            &-white {
+                background: icon('ums-program-figure-vector-white.svg') no-repeat center bottom / 100% auto;
+            }
+        }
         &::after {
             content: '';
             position: absolute;

@@ -33,6 +33,11 @@
                 }
             }
         }
+        &_filled {
+            & input {
+                padding-top: 15px;
+            }
+        }
     }
     &__select {
         position: relative;
@@ -85,6 +90,20 @@
                             top: 5px;
                         }
                     }
+                }
+            }
+            &-static {
+                position: static;
+                transform: none;
+                top: auto;
+                left: auto;
+                margin: 0;
+            }
+        }
+        &_margin {
+            &-b {
+                &-10 {
+                    margin-bottom: 10px;
                 }
             }
         }
