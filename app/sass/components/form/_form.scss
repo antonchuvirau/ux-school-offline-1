@@ -3,6 +3,19 @@
         height: 50px;
         width: 100%;
         position: relative;
+        &-text {
+            @include flex(row, center);
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 1.7rem;
+            padding: 0 15px;
+            padding-top: 15px;
+            & span {
+                color: $dark;
+                @include font-weight('medium');
+            }
+        }
         & input {
             width: 100%;
             height: 100%;
