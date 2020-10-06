@@ -24,6 +24,15 @@
                 pointer-events: none;
             }
         }
+        &_width {
+            &-m {
+                width: calc((100% - 10px)/2);
+                margin-right: 10px;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
     }
     &__select {
         position: relative;
@@ -81,7 +90,6 @@
         }
     }
     &__textarea {
-        display: block;
         height: 100px;
         &_opened {
             display: block;
@@ -135,6 +143,9 @@
     }
     &__row {
         margin-bottom: 20px;
+    }
+    &__group {
+        @include flex(row, center);
     }
     &_focused {
         & input {

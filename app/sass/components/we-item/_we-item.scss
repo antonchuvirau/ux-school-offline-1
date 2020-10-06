@@ -1,11 +1,31 @@
 .we-item {
     @include flex(column, center);
-    padding: 20px 35px;
+    padding: 20px 0;
     &__title {
-        margin: 0;
+        margin: 15px 0;
         font-size: 2rem;
         line-height: 1.5;
         letter-spacing: -.03rem;
-        margin-top: 15px;
+        margin-bottom: 7px;
+    }
+    &__desc {
+        margin: 0;
+        text-align: center;
+        font-size: 1.5rem;
+        color: $gray-200;
+        line-height: 1.3;
+        & a {
+            text-decoration: none;
+            color: $gray-200;
+            &::before {
+                background: $gray-200;
+                top: 100%;
+            }
+            &:hover {
+                &::before {
+                    background: $dark;
+                }
+            }
+        }
     }
 }

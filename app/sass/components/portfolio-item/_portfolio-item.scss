@@ -10,7 +10,7 @@
         width: 100%;
         z-index: 1;
         padding: 30px 35px;
-        background: linear-gradient(195.29deg, rgba(48, 17, 48, 0) 38.16%, #301130 96.46%);
+        background: linear-gradient(192.21deg, rgba(48, 17, 48, 0) 34.9%, rgba(48, 17, 48, 0.08) 44.58%, rgba(48, 17, 48, 0.19) 53.23%, rgba(48, 17, 48, 0.4) 63.23%, rgba(48, 17, 48, 0.605752) 72.71%, #301130 97.32%);
     }
     &__type {
         margin: 0;
@@ -45,6 +45,15 @@
             top: 50%;
             margin-top: -1rem;
             right: 0;
+        }
+        &_no-icon {
+            padding-right: 0;
+            &::before {
+                width: 100%;
+            }
+            &::after {
+                content: none;
+            }
         }
     }
 }

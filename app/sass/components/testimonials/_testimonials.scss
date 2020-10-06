@@ -27,8 +27,8 @@
     &__option {
         position: absolute;
         @include flex(row, center);
-        bottom: 45px;
-        left: 15px;
+        bottom: 10px;
+        left: 20px;
         z-index: 1;
     }
     &__pagination {

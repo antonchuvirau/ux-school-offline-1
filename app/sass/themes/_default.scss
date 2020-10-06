@@ -1,48 +1,3 @@
-// .has-children {
-//     position: relative;
-//     & > a {
-//         padding-right: 1.4em;
-//         &::after {
-//             content: '';
-//             position: absolute;
-//             width: 1.4em;
-//             height: 1.4em;
-//             top: 50%;
-//             margin-top: -.7em;
-//             right: 0;
-//             background: url("../img/icons/ums-icon-down.svg") no-repeat 50%;
-//             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-//         }
-//         &::before {
-//             width: calc(100% - 1.4em);
-//         }
-//         &.menu {
-//             &__link {
-//                 &_style {
-//                     &-dark {
-//                         background: url("../img/icons/ums-icon-down-dark.svg") no-repeat 50%;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     &:hover {
-//         & .dropdown {
-//             opacity: 1;
-//             pointer-events: auto;
-//             transform: none;
-//         }
-//         & > a {
-//             &::after {
-//                 transform: scale3d(1, -1, 1);
-//             }
-//             &::before {
-//                 opacity: 0;
-//             }
-//         }
-//     }
-// }
-
 .wrapper {
     background: $primary-100;
     position: relative;
@@ -84,16 +39,43 @@
     }
     &__more-btn {
         @include flex(row, center, center);
+        position: relative;
         width: 100%;
-        height: 6rem;
+        max-width: 220px;
+        height: 5rem;
         font-size: 1.7rem;
         font-weight: 500;
-        border-radius: 5px;
+        border-radius: 75px;
+        margin: 0 auto;
+        background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
         & svg {
             margin-left: 5px;
         }
+        &_disabled {
+            display: none;
+        }
         &:active {
             color: rgba($dark-200, .7);
+        }
+    }
+    &__row {
+        &:last-child {
+            & .course-list {
+                &__item {
+                    &-info {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+    &__footer {
+        position: relative;
+        padding: 20px 40px;
+        &_state {
+            &-disabled {
+                padding: 0;
+            }
         }
     }
 }
@@ -101,6 +83,7 @@
 .advantages {
     &__item {
         @include flex(row, center);
+        padding-left: 30px;
         &:first-child {
             & .advantages {
                 &__name {
@@ -170,6 +153,12 @@
     padding-bottom: 0;
     &__btn {
         padding: 15px 0;
+        &_disabled {
+            display: none;
+        }
+    }
+    &__item {
+        display: block;
     }
 }
 
@@ -372,15 +361,6 @@
     padding-top: 0;
     position: relative;
     text-align: center;
-    &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 120px;
-        background: image("ums-help-figure.svg") no-repeat center bottom / 100% auto;
-        left: 0;
-        bottom: calc(100% - 1px);
-    }
     &__title {
         margin-bottom: 15px;
     }

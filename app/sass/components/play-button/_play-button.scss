@@ -1,5 +1,6 @@
 .play-button {
     @include flex(column, center);
+    cursor: pointer;
     &__icon {
         @include flex(row, center, center);
         width: 100px;
