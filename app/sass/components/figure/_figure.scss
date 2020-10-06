@@ -1,0 +1,18 @@
+.figure {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 3;
+    &_position {
+        &-bottom {
+            bottom: 0;
+        }
+        &-top {
+            top: 0;
+        }
+    }
+    & img {
+        width: 100%;
+        height: auto;
+    }
+}

@@ -6,9 +6,10 @@
         padding-bottom: 210px;
         &::before {
             height: 440px;
+            background: image("ums-courses.svg") no-repeat center bottom;
         }
         &::after {
-            bottom: -1px;
+            content: none;
         }
     }
 }

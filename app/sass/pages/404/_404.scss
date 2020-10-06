@@ -1,0 +1,28 @@
+.no-template {
+    padding: 50px 0;
+    padding-bottom: 190px;
+    &__img {
+        margin: 0 auto;
+    }
+    &__text {
+        margin: 0;
+        text-align: center;
+        font-size: 2rem;
+        line-height: 1.5;
+        color: $dark-100;
+        letter-spacing: -0.03em;
+        & a {
+            text-decoration: none;
+            color: $dark-100;
+            &::before {
+                background: $primary-200;
+                top: calc(100% + 1px);
+            }
+            &:hover {
+                &::before {
+                    background: $gray-200;
+                }
+            }
+        }
+    }
+}

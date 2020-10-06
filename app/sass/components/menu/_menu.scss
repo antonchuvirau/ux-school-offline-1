@@ -7,6 +7,9 @@
         font-size: 1.5rem;
         color: $white;
         padding: 5px 0;
+        &::before {
+            top: calc(100% + 2px);
+        }
         &_style {
             &-dark {
                 color: $dark;

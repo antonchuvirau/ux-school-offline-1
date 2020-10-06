@@ -5,6 +5,9 @@
     &__item {
         padding: 20px 30px;
         border-bottom: 1px solid $primary-200;
+        &:last-child {
+            border-bottom: none;
+        }
     }
     &__title {
         margin: 0;
@@ -95,5 +98,10 @@
     }
     &__more-btn {
         padding: 15px 0;
+        &_opened {
+            & svg {
+                transform: scale3d(1, -1, 1);
+            }
+        }
     }
 }

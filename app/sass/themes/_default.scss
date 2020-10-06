@@ -9,7 +9,7 @@
         height: 630px;
         top: 0;
         left: 0;
-        background: image("ums-wrapper.svg") no-repeat center bottom / cover;
+        background: image("ums-wrapper.svg") no-repeat center 97% / cover;
     }
 }
 
@@ -377,6 +377,23 @@
 
 .swiper-button-disabled {
     opacity: 0;
+}
+
+.grecaptcha-badge {
+    display: none !important;
+}
+
+.chaty-widget {
+    &-i {
+        &:not(.no-tooltip) {
+            &::before {
+                content: none !important;
+            }
+        }
+        & .wrap-svg, svg {
+            box-shadow: none !important;
+        }
+    }
 }
 //Media
 @media screen and (max-width: 991px) {
