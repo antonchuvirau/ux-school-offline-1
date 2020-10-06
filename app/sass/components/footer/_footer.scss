@@ -78,6 +78,11 @@
             &:last-child {
                 margin-bottom: 0;
             }
+            &_visibility {
+                &-hidden {
+                    display: none;
+                }
+            }
         }
         &__link {
             text-decoration: none;

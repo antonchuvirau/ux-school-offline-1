@@ -12,4 +12,12 @@
             margin-right: 0;
         }
     }
+    &__menu-btn {
+        &_active {
+            & svg {
+                fill: $secondary-500;
+                opacity: 1 !important;
+            }
+        }
+    }
 }

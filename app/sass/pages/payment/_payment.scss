@@ -32,7 +32,7 @@
         }
     }
     &__name {
-        @include flex(row, center, center);
+        @include flex(column, center, center);
         height: 160px;
         width: 100%;
         font-size: 1.7rem;
@@ -63,6 +63,11 @@
             right: 23px;
             top: 26px;
             opacity: 0;
+        }
+        & span {
+            color: $secondary-700;
+            font-size: 1.5rem;
+            line-height: 1.3;
         }
         &:hover {
             border-color: $secondary-500;
