@@ -36,6 +36,22 @@
             @include font-weight('normal');
             text-decoration: line-through;
         }
+        &-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba($white, .15);
+            margin-top: 5px;
+            margin-right: 8px;
+            &:hover {
+                background: rgba($white, .2);
+            }
+            &::before {
+                content: none;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
     &__select {
         position: relative;

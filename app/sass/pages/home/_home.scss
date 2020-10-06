@@ -1,9 +1,16 @@
 .homo-template {
     &__certificate {
-        margin-top: 45px;
+        margin-top: 55px;
     }
     &__header {
-        margin-bottom: 135px;
+        @include flex(column);
+        margin-bottom: 125px;
+    }
+    &__wrapper {
+        padding-top: 140px;
+    }
+    &__btn {
+        margin-top: 40px;
     }
 }
 
@@ -12,7 +19,7 @@
     width: 650px;
     height: 600px;
     top: 0;
-    right: calc((100% - 1170px)/2 - 10px);
+    right: calc((100% - 1170px)/2);
     &__link {
         display: block;
         text-decoration: none;
