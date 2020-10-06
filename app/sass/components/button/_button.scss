@@ -19,6 +19,19 @@
             opacity: .3;
         }
     }
+    &_theme {
+        &-pink {
+            height: 6rem;
+            background: linear-gradient(179.98deg, #FF8AF1 0.06%, #F149F8 46.65%, #E100FF 99.9%);
+            box-shadow: 0px 20px 20px rgba(65, 1, 121, 0.1), 0px 1px 1px rgba(65, 1, 121, 0.1);
+            border-radius: 30px;
+            line-height: 1.5;
+            letter-spacing: -.3px;
+            @include font-weight('medium');
+            padding: 0 30px;
+            font-size: 2rem;
+        }
+    }
 }
 
 .ajax-btn {

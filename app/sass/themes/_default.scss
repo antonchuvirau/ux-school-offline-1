@@ -186,6 +186,26 @@
     &__title {
         margin-bottom: 25px;
     }
+    &__pagination {
+        @include flex(row, center, center);
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+        & .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            opacity: 1;
+            margin-right: 15px;
+            background: $dark-100;
+            opacity: .3;
+            &-active {
+                opacity: 1;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
 }
 
 .blog-section {

@@ -12,11 +12,16 @@
     &__btn {
         margin-top: 40px;
     }
+    &__course-options {
+        margin-top: 15px;
+        margin-bottom: 35px;
+    }
 }
 
 .about-video {
     position: absolute;
-    width: 650px;
+    width: 100%;
+    max-width: 670px;
     height: 600px;
     top: 0;
     right: calc((100% - 1170px)/2);

@@ -37,6 +37,7 @@
         margin-left: 50px;
         &-item {
             @include flex(row, center);
+            position: relative;
             margin: 0;
             width: 33.333%;
             color: $dark-100;
@@ -44,6 +45,19 @@
             font-size: 1.5rem;
             &:last-child {
                 justify-content: flex-end;
+            }
+            &:nth-child(3) {
+                & .course-list-item {
+                    &__meta {
+                        &-value {
+                            &:not(.course-list-item__meta-value_data-null) {
+                                &::before {
+                                    content: attr(data-title);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         &-value {
@@ -54,6 +68,9 @@
             white-space: nowrap;
             color: $gray-200;
             margin: 0;
+            &::before {
+                content: none;
+            }
         }
         &-inner {
             @include font-weight('normal');
@@ -99,6 +116,40 @@
             cursor: pointer;
             margin: 0;
             height: 100%;
+        }
+    }
+    &__type {
+        @include flex(row, center);
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+        &-value {
+            font-size: 1rem;
+            @include font-weight('medium');
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            &_theme {
+                &-default {
+                    background: $primary-150;
+                    color: $dark-100;
+                }
+                &-0 {
+                    background: map-get($type, 0);
+                    color: $secondary-700;
+                }
+                &-1 {
+                    background:map-get($type, 1);
+                    color: $green;
+                }
+                &-2 {
+                    background: map-get($type, 2);
+                    color: $brown;
+                }
+            }
         }
     }
 }
