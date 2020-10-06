@@ -10,6 +10,86 @@
     z-index: 2;
     transform: rotate3d(1, 0, 0, 15deg);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    &-course-info {
+        width: 500px;
+        margin-left: -250px;
+        &__lecturer {
+            text-decoration: none;
+        }
+        &__wrapper {
+            padding: 15px 20px;
+        }
+        &__item {
+            @include flex();
+            margin-bottom: 15px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        &__name {
+            font-size: 1.5rem;
+            line-height: 1.33;
+            color: $gray-200;
+            text-align: right;
+            margin: 0;
+            width: 100%;
+            max-width: 145px;
+            flex-shrink: 0;
+            padding-right: 10px;
+        }
+        &__value {
+            position: relative;
+            margin: 0;
+            font-size: 1.5rem;
+            line-height: 1.33;
+            &-link {
+                &:active {
+                    color: $dark;
+                }
+                &::before {
+                    background: $primary-200;
+                    top: calc(100% + 4px);
+                }
+                &:hover {
+                    &::before {
+                        background: $gray-200;
+                    }
+                }
+                &_size {
+                    &-s {
+                        font-size: 1.2rem;
+                        line-height: 1.25;
+                    }
+                }
+            }
+        }
+        &__select {
+            position: relative;
+            &::before {
+                background: $primary-200;
+                top: calc(100% + 4px);
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                right: 0;
+                top: 50%;
+                margin-top: -10px;
+                background: icon("ums-icon-down-dark.svg") no-repeat 50%;
+            }
+            &:hover {
+                &::before {
+                    background: $gray-200;
+                }
+            }
+            & select {
+                padding-left: 0;
+                padding-right: 20px;
+            }
+        }
+    }
     &__wrapper {
         background: $white;
         box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.07), 0 1px 1px 0 rgba(65, 1, 121, 0.1);

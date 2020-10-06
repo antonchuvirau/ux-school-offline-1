@@ -73,6 +73,25 @@
                 }
             }
         }
+        & ol {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            & li {
+                margin: 0;
+                font-size: 1.5rem;
+                line-height: 1.3;
+                color: $gray-500;
+                margin-bottom: 5px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
     &__more-btn {
         padding: 15px 0;

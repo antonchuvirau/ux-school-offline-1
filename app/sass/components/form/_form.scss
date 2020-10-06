@@ -114,13 +114,19 @@
             display: block;
         }
         &-btn {
-            margin-left: 15px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            @include flex(row, center);
             font-size: 1.7rem;
             letter-spacing: .01em;
             color: $gray-500;
-            @include flex(row, center);
+            margin-left: 30px 15px;
+            margin-bottom: 0;
+            & + div {
+                & .form {
+                    &__textarea {
+                        margin-top: 15px;
+                    }
+                }
+            }
             & svg {
                 margin-left: 5px;
                 transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -165,6 +171,19 @@
     }
     &__group {
         @include flex(row, center);
+    }
+    &__error {
+        &-label {
+            display: none;
+            position: absolute;
+            color: #f00;
+            font-size: 1rem;
+            margin-top: 1px;
+            margin-left: 1px;
+            &_active {
+                display: block;
+            }
+        }
     }
     &_focused {
         & input {
@@ -258,7 +277,7 @@ div {
     }
     &__sale-checkbox {
         margin-left: 15px;
-        margin-top: 10px;
+        margin-top: 15px;
     }
     &__note {
         margin: 0;
