@@ -1,0 +1,57 @@
+.toggle-checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    &__input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        &:checked + {
+            & .toggle-checkbox {
+                &__element {
+                    background-color: $secondary-200;
+                    &::after {
+                        background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+                        transform: translate3d(15px, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+    &__name {
+        margin: 0;
+        font-size: 1.5rem;
+        color: $dark;
+        line-height: 1.3;
+        margin-left: 15px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    &__element {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 30px;
+        height: 10px;
+        background-color: $primary-150;
+        border-radius: 10px;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: $gray-100;
+            border-radius: 50%;
+            top: 50%;
+            margin-top: -10px;
+            left: 0;
+            transform: translate3d(-5px, 0, 0);
+            transition: transform .2s ease-in-out;
+            z-index: 1;
+        }
+    }
+
+}
