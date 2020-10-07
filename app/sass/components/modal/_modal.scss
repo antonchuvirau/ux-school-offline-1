@@ -21,6 +21,7 @@
             background: icons("ums-icon-close.svg") no-repeat 50%;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             will-change: transform;
+            z-index: 10;
             &:hover {
                 transform: rotate3d(0, 0, 1, 90deg);
             }

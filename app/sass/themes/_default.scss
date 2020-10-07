@@ -158,9 +158,22 @@
     padding: 70px 0;
     padding-bottom: 0;
     &__btn {
+        position: relative;
+        max-width: 220px;
+        margin: 0 auto;
+        height: 5rem;
+        background: linear-gradient(180deg, #3af 0%, #8b24b7 127.5%);
+        border-radius: 75px;
+        color: $white;
+        margin-top: 20px;
         padding: 15px 0;
         &_disabled {
             display: none;
+        }
+        & svg {
+            & path {
+                fill: $white;
+            }
         }
     }
     &__item {

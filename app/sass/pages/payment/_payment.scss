@@ -98,6 +98,18 @@
         &:last-child {
             margin-bottom: 0;
         }
+        & a {
+            text-decoration: none;
+            &::before {
+                background: $primary-200;
+                top: calc(100% + 1px);
+            }
+            &:hover {
+                &::before {
+                    background: $gray-100;
+                }
+            }
+        }
     }
 }
 
@@ -155,5 +167,51 @@
                 }
             }
         }
+    }
+}
+
+.bank-payment {
+    &__desc {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        margin-bottom: 40px;
+        & li {
+            font-size: 1.7rem;
+            letter-spacing: .01em;
+            line-height: 1.47;
+            color: $dark;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+            &::before {
+                content: '–';
+                position: absolute;
+                left: 0;
+                top: -1px;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+            & a {
+                text-decoration: none;
+                &::before {
+                    top: calc(100% + 1px);
+                    background: $primary-200;
+                }
+                &:hover {
+                    &::before {
+                        background: $gray-100;
+                    }
+                }
+            }
+        }
+    }
+    &__content {
+        margin: 0;
+        font-size: 1.7rem;
+        letter-spacing: .01em;
+        line-height: 2;
+        color: $dark;
     }
 }
