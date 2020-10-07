@@ -20,6 +20,9 @@
         font-weight: bold;
         line-height: 1.5;
         letter-spacing: -.03rem;
+        &:hover {
+            opacity: .8;
+        }
     }
     &__meta {
         @include flex(row, center);

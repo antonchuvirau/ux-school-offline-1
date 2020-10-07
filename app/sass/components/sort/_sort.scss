@@ -1,0 +1,27 @@
+.sort {
+    @include flex(column);
+    &__button {
+        height: 40px;
+        padding: 0 20px;
+        border: 1px solid $primary-150;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 1.7rem;
+        @include font-weight('medium');
+        color: $dark;
+        white-space: nowrap;
+        &:hover {
+            background: $primary-150;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &_state {
+            &-active {
+                background: $primary-150;
+                color: $gray-200;
+                pointer-events: none;
+            }
+        }
+    }
+}

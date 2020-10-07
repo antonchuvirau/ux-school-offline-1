@@ -222,6 +222,17 @@
             margin-bottom: 0;
         }
     }
+    & p {
+        & a {
+            display: inline;
+            text-decoration: none;
+            color: $gray-500;
+            letter-spacing: .01em;
+            font-size: 1.7rem;
+            line-height: 1.47;
+            border-bottom: 1px solid $gray-500;
+        }
+    }
 }
 
 .image-modal {

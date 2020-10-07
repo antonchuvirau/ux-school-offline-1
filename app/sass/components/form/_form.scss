@@ -23,6 +23,7 @@
             position: relative;
             z-index: 1;
             border: 1px solid $primary-200;
+            background: $white;
             border-radius: 5px;
             &.wpcf7-not-valid {
                 border-color: $attention;
@@ -107,6 +108,8 @@
         top: 50%;
         line-height: 1.3;
         transform: translateY(-50%);
+        z-index: 1;
+        pointer-events: none;
         &_active {
             font-size: 1.2rem;
             line-height: 1.25;
@@ -214,6 +217,7 @@
         &-label {
             display: none;
             position: absolute;
+            top: calc(100% + 1px);
             color: #f00;
             font-size: 1rem;
             margin-top: 1px;
@@ -261,7 +265,7 @@ div {
 }
 
 .help-form {
-    @include flex(row, center, center);
+    @include flex(row, stretch, center);
     &__input {
         max-width: 300px;
         margin-right: 5px;
@@ -358,5 +362,14 @@ div {
         width: 100%;
         max-width: none;
         height: 6rem;
+    }
+}
+
+.newsletter {
+    background: $primary-100;
+    position: relative;
+    &__figure {
+        bottom: 100%;
+        top: auto;
     }
 }
