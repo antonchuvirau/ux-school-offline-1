@@ -290,6 +290,68 @@
     }
 }
 
+.event-modal {
+    max-width: 540px;
+    padding: 40px 70px;
+    padding-bottom: 60px;
+    &__icon {
+        position: absolute;
+        right: 0;
+        top: 70px;
+        z-index: 1;
+        max-width: 100px;
+    }
+    &__title {
+        margin: 0;
+        letter-spacing: -.03em;
+        font-size: 4rem;
+        line-height: 1.25;
+        font-weight: bold;
+        color: #211130;
+        padding-right: 45px;
+        & span {
+            display: block;
+            font-weight: normal;
+            letter-spacing: .01em;
+            color: $gray-500;
+            font-size: 1.7rem;
+            line-height: 1.47;
+            margin-bottom: 5px;
+        }
+    }
+    &__desc {
+        margin: 0;
+        margin-top: 30px;
+        color: $dark-100;
+        font-size: 1.7rem;
+        line-height: 1.47;
+        letter-spacing: .01em;
+    }
+    &__details {
+        @include flex(column);
+        margin-top: 50px;
+        &-item {
+            @include flex(row, center);
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.5;
+            letter-spacing: -.3px;
+            color: $dark;
+            margin-bottom: 20px;
+            & svg {
+                margin-right: 10px;
+                flex-shrink: 0;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__form {
+        margin-top: 40px;
+    }
+}
+
 .blocker {
     z-index: 15;
 }
