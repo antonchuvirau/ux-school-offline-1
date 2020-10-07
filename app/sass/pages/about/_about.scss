@@ -113,3 +113,45 @@
         }
     }
 }
+
+.team {
+    @include flex(row, flex-start, flex-start, wrap);
+    &__item {
+        width: 33.333%;
+        text-align: center;
+        text-decoration: none;
+        margin-bottom: 30px;
+        &-img {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+            margin-bottom: 15px;
+            border-radius: 50%;
+        }
+        &-name {
+            margin: 0;
+            letter-spacing: -.3px;
+            font-size: 2rem;
+            line-height: 1.5;
+            color: $dark;
+        }
+        &-position {
+            margin: 0;
+            font-size: 1.5rem;
+            color: $dark-100;
+            margin-top: 3px;
+        }
+        &-link {
+            letter-spacing: -.3px;
+            font-size: 2rem;
+            line-height: 1.5;
+            color: $dark;
+            text-decoration: none;
+            display: inline;
+            border-bottom: 1px solid $gray-100;
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+}
