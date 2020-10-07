@@ -1,0 +1,16 @@
+.f-lecturers-page {
+    &__content {
+        margin-bottom: 40px;
+        & p {
+            margin: 0;
+            letter-spacing: -.3px;
+            font-size: 2rem;
+            line-height: 1.5;
+            color: $dark-100;
+            margin-bottom: 15px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
