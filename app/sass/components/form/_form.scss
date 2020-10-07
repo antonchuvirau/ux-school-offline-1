@@ -327,6 +327,13 @@ div {
     &__sale-checkbox {
         margin-left: 15px;
         margin-top: 15px;
+        &_state {
+            &-disabled {
+                opacity: .5;
+                pointer-events: none;
+                cursor: not-allowed;
+            }
+        }
     }
     &__note {
         margin: 0;

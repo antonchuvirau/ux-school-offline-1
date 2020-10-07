@@ -6,6 +6,34 @@
             display: block;
             margin-top: 20px;
         }
+        &-success {
+            & .form {
+                &__error {
+                    &-label {
+                        color: $green-100;
+                    }
+                }
+            }
+            & input {
+                border-color: $green-100;
+            }
+        }
+        &-error {
+            & .form {
+                &__error {
+                    &-label {
+                        color: red;
+                    }
+                }
+            }
+            & input {
+                border-color: red;
+            }
+        }
+        &-progress {
+            opacity: .5;
+            pointer-events: none;
+        }
     }
     &__btn {
         @include flex(row, center, center);
