@@ -1,0 +1,84 @@
+.lecturers-page {
+    &__col {
+        margin-bottom: 40px;
+    }
+    &__item {
+        @include flex(column, center);
+        text-decoration: none;
+        cursor: pointer;
+        &-img {
+            border-radius: 50%;
+            max-width: 200px;
+            max-height: 200px;
+            transition: transform .3s ease;
+            &.lazyloaded {
+                transition: transform .3s ease, opacity .3s;
+            }
+        }
+        &-name {
+            margin: 0;
+            margin-top: 15px;
+            color: $dark;
+            letter-spacing: -.3px;
+            font-size: 2rem;
+            line-height: 1.5;
+        }
+        &-position {
+            margin: 0;
+            font-size: 1.5rem;
+            line-height: 1.3;
+            margin-top: 1px;
+        }
+        &-link {
+            font-size: 2rem;
+            line-height: 1.5;
+            text-decoration: none;
+            display: inline;
+            border-bottom: 1px solid $gray-100;
+            &:hover {
+                opacity: .8;
+            }
+        }
+        &:hover {
+            & .lecturers-page {
+                &__item {
+                    &-img {
+                        transform: translate3d(0, -3px, 0);
+                    }
+                }
+            }
+        }
+    }
+    &__sort {
+        margin-bottom: 50px;
+        &-wrapper {
+            @include flex(row, center);
+        }
+        &-btn {
+            margin-right: 5px;
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid $primary-150;
+            border-radius: 5px;
+            font-size: 1.7rem;
+            color: $dark;
+            @include font-weight('medium');
+            line-height: 1.6;
+            white-space: nowrap;
+            &_state {
+                &-active {
+                    background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+                    color: $white;
+                    pointer-events: none;
+                    border: none;
+                }
+            }
+            &:hover {
+                background: $primary-150;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

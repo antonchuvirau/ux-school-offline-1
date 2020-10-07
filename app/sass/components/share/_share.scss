@@ -1,0 +1,35 @@
+.share {
+    @include flex(row, center);
+    &__link {
+        @include flex(row, center, center);
+        text-decoration: none;
+        height: 40px;
+        padding: 0 20px;
+        margin-right: 5px;
+        font-size: 1.7rem;
+        color: $white;
+        @include font-weight('medium');
+        border-radius: 5px;
+        & svg {
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+        &_social {
+            &-vk {
+                background: map-get($social, 'vk');
+            }
+            &-fb {
+                background: map-get($social, 'fb');
+            }
+            &-tg {
+                background: map-get($social, 'tg');
+            }
+            &-tw {
+                background: map-get($social, 'tw');
+            }
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
