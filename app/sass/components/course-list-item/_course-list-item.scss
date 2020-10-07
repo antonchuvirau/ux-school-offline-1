@@ -30,6 +30,14 @@
         max-width: 290px;
         line-height: 1.5;
         margin: 0;
+        &-value {
+            display: inline;
+            border-bottom: 1px solid transparent;
+            line-height: 1.45;
+            &:hover {
+                opacity: .8;
+            }
+        }
     }
     &__meta {
         @include flex(row, center);

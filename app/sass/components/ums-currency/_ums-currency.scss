@@ -26,4 +26,27 @@
         border: none;
         border-radius: 0;
     }
+    &.form {
+        &__input {
+            &_filled {
+                & input {
+                    padding-right: 0;
+                    max-width: 50px;
+                }
+            }
+        }
+    }
+    &_size {
+        &-s {
+            &.form {
+                &__input {
+                    &_filled {
+                        & input {
+                            max-width: 35px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -57,6 +57,12 @@
             & input {
                 padding-top: 15px;
             }
+            & .form {
+                &__ums-currency {
+                    padding-top: 15px;
+                    opacity: 1;
+                }
+            }
         }
     }
     &__select {
@@ -344,5 +350,13 @@ div {
     }
     &__btn {
         margin-top: 40px;
+    }
+}
+
+.free-start-form {
+    &__btn {
+        width: 100%;
+        max-width: none;
+        height: 6rem;
     }
 }
