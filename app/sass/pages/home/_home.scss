@@ -60,6 +60,30 @@
     }
 }
 
+.graduates {
+    padding: 45px 0;
+    text-align: center;
+    background-color: $primary-100;
+    &__title {
+        margin: 0;
+        font-size: 1.5rem;
+        color: $dark-200;
+        line-height: 1.333;
+        margin-bottom: 25px;
+    }
+    &__carousel {
+        & .swiper-wrapper {
+            align-items: center;
+        }
+        &-item {
+            @include flex(row, center, center);
+            & img {
+                max-height: 100px;
+            }
+        }
+    }
+}
+
 //Media
 @media screen and (max-width: 991px) {
     .home-template {
