@@ -1,0 +1,29 @@
+.page-navigation {
+    @include flex(column);
+    &__link {
+        @include flex(row, center);
+        text-decoration: none;
+        border: 1px solid $primary-150;
+        border-radius: 5px;
+        background: $white;
+        height: 40px;
+        padding: 0 20px;
+        margin-bottom: 10px;
+        font-size: 1.7rem;
+        @include font-weight('medium');
+        color: $dark;
+        &:hover {
+            border-color: $gray-200;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &_state {
+            &-active {
+                background: $primary-150;
+                color: $gray-200;
+                pointer-events: none;
+            }
+        }
+    }
+}
