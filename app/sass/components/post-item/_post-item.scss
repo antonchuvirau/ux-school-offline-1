@@ -1,0 +1,54 @@
+.post-item {
+    @include flex();
+    &__img {
+        display: block;
+        max-width: 470px;
+        flex-shrink: 0;
+        & img {
+            border-radius: 5px;
+        }
+    }
+    &__info {
+        padding-left: 30px;
+    }
+    &__title {
+        margin: 0;
+        display: inline-block;
+        letter-spacing: -.5px;
+        font-size: 2.8rem;
+        line-height: 1.43;
+        text-decoration: none;
+        &:hover {
+            opacity: .8;
+        }
+    }
+    &__meta {
+        @include flex(row, center, flex-start, wrap);
+        margin: 0;
+        margin-top: 15px;
+        &-tag {
+            height: 30px;
+            margin-bottom: 10px;
+            padding: 0 10px;
+            color: $dark;
+            border: 1px solid $primary-200;
+            border-radius: 5px;
+            line-height: 1.8;
+            &:nth-last-child(2) {
+                margin-right: 0;
+            }
+        }
+        &-date {
+            width: 100%;
+            display: block;
+        }
+        &-value {
+            color: $gray-500;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
