@@ -72,6 +72,9 @@
             @include flex(row, center, flex-start, wrap);
             margin-left: 10px;
         }
+        &-currency-price {
+            color: $secondary-100;
+        }
     }
     &__select {
         position: relative;

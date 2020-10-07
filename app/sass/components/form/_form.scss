@@ -193,6 +193,11 @@
             }
         }
     }
+    &__ums-currency {
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+    }
     &__row {
         margin-bottom: 20px;
     }

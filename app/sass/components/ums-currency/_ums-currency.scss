@@ -1,0 +1,29 @@
+.ums-currency {
+    @include flex(row, center);
+    &__value {
+        @include flex(row, center);
+        margin: 0;
+        letter-spacing: .01em;
+        color: $secondary-100;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        &_color {
+            &-gray {
+                color: $gray-200;
+            }
+        }
+    }
+    &__symbol {
+        color: $dark;
+    }
+}
+
+.currency-input-wrapper {
+    @include flex(row, center);
+    border: 1px solid $primary-200;
+    border-radius: 5px;
+    & input {
+        border: none;
+        border-radius: 0;
+    }
+}
