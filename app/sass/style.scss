@@ -54,7 +54,8 @@
 'components/post-item/post-item',
 'components/share/share',
 'components/toggle-checkbox/toggle-checkbox',
-'components/promocode-input/promocode-input';
+'components/promocode-input/promocode-input',
+'components/pagination/pagination';
 // 5. Themes
 @import 'themes/default';
 // 6. Pages
@@ -68,6 +69,7 @@
 'pages/find-lecturers/find-lecturers',
 'pages/single/single',
 'pages/blog/blog',
-'pages/lecturers/lecturers';
+'pages/lecturers/lecturers',
+'pages/certificates/certificates';
 // 7. Themes
 @import 'themes/media';

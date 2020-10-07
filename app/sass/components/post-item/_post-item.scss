@@ -34,6 +34,7 @@
             border: 1px solid $primary-200;
             border-radius: 5px;
             line-height: 1.8;
+            white-space: nowrap;
             &:nth-last-child(2) {
                 margin-right: 0;
             }

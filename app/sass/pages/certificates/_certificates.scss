@@ -1,0 +1,22 @@
+.certificates-page {
+    &__desc {
+        & p {
+            margin: 0;
+            font-size: 2rem;
+            line-height: 1.5;
+            letter-spacing: -.3px;
+            color: $dark-100;
+            margin-bottom: 15px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__img {
+        margin: 0;
+        margin-top: 40px;
+    }
+    &__calculation {
+        margin-top: 90px;
+    }
+}

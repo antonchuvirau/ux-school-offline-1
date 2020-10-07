@@ -1,4 +1,6 @@
 .blog-item {
+    @include flex(column, stretch);
+    height: 100%;
     background: $white;
     border-radius: 5px;
     padding: 10px;
@@ -12,12 +14,15 @@
         }
     }
     &__info {
+        @include flex(column, stretch);
+        flex: 1 1 auto;
         padding: 0 10px;
     }
     &__title {
+        margin-bottom: 12px;
         text-decoration: none;
         font-size: 2rem;
-        font-weight: bold;
+        @include font-weight('bold');
         line-height: 1.5;
         letter-spacing: -.03rem;
         &:hover {
@@ -25,23 +30,28 @@
         }
     }
     &__meta {
-        @include flex(row, center);
-        margin-top: 12px;
+        @include flex(row, center, flex-start, wrap);
+        margin-top: auto;
     }
     &__tag {
         @include flex(row, center, center);
         margin: 0;
+        margin-right: 15px;
+        margin-top: 10px;
         height: 30px;
         padding: 0 10px;
         font-size: 1.5rem;
         line-height: 1.3;
         border-radius: 5px;
         border: 1px solid $primary-200;
+        &:last-child {
+            margin-right: 0;
+        }
     }
     &__date {
         margin: 0;
         font-size: 1.5rem;
         color: $gray-500;
-        margin-left: 15px;
+        width: 100%;
     }
 }
