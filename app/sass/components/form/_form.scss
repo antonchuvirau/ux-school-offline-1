@@ -209,6 +209,11 @@
                 }
             }
         }
+        &_visibility {
+            &-hide {
+                display: none;
+            }
+        }
     }
     &__note {
         margin: 0;

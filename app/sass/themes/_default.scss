@@ -63,11 +63,9 @@
     }
     &__row {
         &:last-child {
-            & .course-list {
-                &__item {
-                    &-info {
-                        border-bottom: none;
-                    }
+            & .course-list-item {
+                &__info {
+                    border-bottom: none;
                 }
             }
         }

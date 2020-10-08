@@ -78,6 +78,9 @@
             margin: 0;
             &::before {
                 content: none;
+                color: $gray-200;
+                @include font-weight('medium');
+                margin-right: 5px;
             }
         }
         &-inner {
@@ -161,25 +164,6 @@
                     color: $brown;
                 }
             }
-        }
-    }
-}
-
-//Media
-@media screen and (max-width: 1229px) {
-    .course-list-item {
-        @include flex(column, center);
-        padding: 20px;
-        &__img {
-            margin: 0 auto;
-            & img {
-                max-width: 250px;
-                max-height: 140px;
-            }
-        }
-        &__info {
-            @include flex();
-            padding: 0;
         }
     }
 }
