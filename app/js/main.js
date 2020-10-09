@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     id: dataValue
                 },
                 beforeSend: function () {
-                    target.css('opacity', .5);
-                    target.text('Загружаем...');
+                    target.css.opacity = .5;
+                    target.textContent = 'Загружаем...';
                 },
                 success: function (resp) {
                     jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
