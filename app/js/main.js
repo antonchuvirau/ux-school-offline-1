@@ -556,24 +556,25 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (859 == event.detail.contactFormId || 837 == event.detail.contactFormId) {
                 if (859 == event.detail.contactFormId) {
                     const formData = event.detail.inputs;
-                    let crmData = {
-                        name: formData[14].value,
-                        customer: {
-                            email: formData[16].value,
-                            telephone: (formData[4].value + formData[15].value).replace(/[^0-9.]/g, "")
-                        },
-                        intensive: {
-                            name: formData[5].value,
-                            timestamp: +formData[9].value
-                        },
-                        tag: {
-                            name: 'Интенсив',
-                            value: formData[12].value
-                        }
-                    };
-                    jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
-                        console.log(JSON.parse(data));
-                    });
+                    console.log(formData);
+                    // let crmData = {
+                    //     name: formData[14].value,
+                    //     customer: {
+                    //         email: formData[16].value,
+                    //         telephone: (formData[4].value + formData[15].value).replace(/[^0-9.]/g, "")
+                    //     },
+                    //     intensive: {
+                    //         name: formData[5].value,
+                    //         timestamp: +formData[9].value
+                    //     },
+                    //     tag: {
+                    //         name: 'Интенсив',
+                    //         value: formData[12].value
+                    //     }
+                    // };
+                    // jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
+                    //     console.log(JSON.parse(data));
+                    // });
                 }
                 item.querySelector('button[type="submit"]').textContent = elementTextContent;
                 item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
@@ -674,6 +675,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 jQuery.modal.close();
                 jQuery('#success-modal-second').modal();
             } else if (1839 == event.detail.contactFormId) {
+                const formData = event.detail.inputs;
+                    let crmData = {
+                        name: formData[14].value,
+                        customer: {
+                            email: formData[16].value,
+                            telephone: (formData[4].value + formData[15].value).replace(/[^0-9.]/g, "")
+                        },
+                        intensive: {
+                            name: formData[5].value,
+                            timestamp: +formData[9].value
+                        },
+                        tag: {
+                            name: 'Интенсив',
+                            value: formData[12].value
+                        }
+                    };
+                    jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
+                        console.log(JSON.parse(data));
+                    });
                 item.querySelector('button[type="submit"]').textContent = elementTextContent;
                 item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
                 jQuery.modal.close();

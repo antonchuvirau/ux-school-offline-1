@@ -55,4 +55,8 @@
             pointer-events: none;
         }
     }
+    &__img {
+        max-width: 450px;
+        margin: 0 auto;
+    }
 }
