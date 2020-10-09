@@ -1,12 +1,5 @@
 'use strict';
 
-
-
-/* JQUERY */
-// jQuery(document).ready(function () {
-
-// });
-
 document.addEventListener('DOMContentLoaded', function () {
 
     let headerElement = document.querySelector('.header');
@@ -113,6 +106,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 scrollTop: jQuery('#map-anchor').offset().top
             }, 800);
         }
+        if (target.matches('.lecturers-page__sort-btn')) {
+            const dataValue = target.dataset.sort;
+            const buttonElementContent = target.textContent;
+            removeClass(document.querySelectorAll('.lecturers-page__sort-btn'), 'lecturers-page__sort-btn_state-active');
+            jQuery.ajax({
+                method: 'POST',
+                url: ajax.url,
+                data: {
+                    action: 'lecturers',
+                    id: dataValue
+                },
+                beforeSend: function () {
+                    target.css('opacity', .5);
+                    target.text('Загружаем...');
+                },
+                success: function (resp) {
+                    jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
+                    jQuery('.lecturers-page__list').prepend(resp);
+                    target.textContent = buttonElementContent;
+                    target.style.css.opacity = 1;
+                    target.classList.add('lecturers-page__sort-btn_state-active');
+                }
+            });
+        }
     });
 
     function sendDataToCRM(crmData, action) {
@@ -126,46 +143,53 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function removeClass(htmlCollection, className) {
+        for (let item of htmlCollection) {
+            item.classList.remove(className);
+        }
+        return;
+    }
+
     //Modal events
-    jQuery('.modal').on(jQuery.modal.OPEN, function () {
+    jQuery('.modal').on('modal:open', function () {
         if (document.querySelector('.current').querySelector('input[type="tel"]')) {
-            let countyCodeValue = document.querySelector('.current').querySelector('.iti__selected-dial-code').textContent;
-            let countyCodeInputElement = document.querySelector('.current').querySelector('input[name="ums-country-code"]');
+            const countyCodeValue = document.querySelector('.current').querySelector('.iti__selected-dial-code').textContent;
+            const countyCodeInputElement = document.querySelector('.current').querySelector('input[name="ums-country-code"]');
             if (countyCodeInputElement) {
                 countyCodeInputElement.value = countyCodeValue;
             }
         }
     });
 
-    jQuery('.video-modal').on($.modal.AFTER_CLOSE, function () {
+    jQuery('.video-modal').on('modal:after-close', function () {
         document.querySelector('.video-modal').innerHTML = '';
     });
 
-    jQuery('.lecturers-page__sort-btn').on('click', function () {
-        let dataValue = jQuery(this).data('sort');
-        let buttonElementContent = jQuery(this).text();
-        jQuery('.lecturers-page__sort-btn').removeClass('lecturers-page__sort-btn_state-active');
-        let buttonElement = jQuery(this);
-        jQuery.ajax({
-            method: 'POST',
-            url: ajax.url,
-            data: {
-                action: 'lecturers',
-                id: dataValue
-            },
-            beforeSend: function () {
-                buttonElement.css('opacity', .5);
-                buttonElement.text('Загружаем...');
-            },
-            success: function (resp) {
-                jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
-                jQuery('.lecturers-page__list').prepend(resp);
-                buttonElement.text(buttonElementContent);
-                buttonElement.css('opacity', 1);
-                buttonElement.addClass('lecturers-page__sort-btn_state-active');
-            }
-        });
-    });
+    // jQuery('.lecturers-page__sort-btn').on('click', function () {
+    //     let dataValue = jQuery(this).data('sort');
+    //     let buttonElementContent = jQuery(this).text();
+    //     jQuery('.lecturers-page__sort-btn').removeClass('lecturers-page__sort-btn_state-active');
+    //     let buttonElement = jQuery(this);
+    //     jQuery.ajax({
+    //         method: 'POST',
+    //         url: ajax.url,
+    //         data: {
+    //             action: 'lecturers',
+    //             id: dataValue
+    //         },
+    //         beforeSend: function () {
+    //             buttonElement.css('opacity', .5);
+    //             buttonElement.text('Загружаем...');
+    //         },
+    //         success: function (resp) {
+    //             jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
+    //             jQuery('.lecturers-page__list').prepend(resp);
+    //             buttonElement.text(buttonElementContent);
+    //             buttonElement.css('opacity', 1);
+    //             buttonElement.addClass('lecturers-page__sort-btn_state-active');
+    //         }
+    //     });
+    // });
     jQuery('.sort__button').on('click', function () {
         let dataValue = jQuery(this).data('sort');
         let buttonElementContent = jQuery(this).text();
