@@ -107,48 +107,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 800);
         }
         if (target.matches('.lecturers-page__sort-btn')) {
+            const lecturers = document.querySelectorAll('.lecturers-page__list-item');
+            const sortButtons = document.querySelectorAll('.lecturers-page__sort-btn');
             const dataValue = target.dataset.sort;
-            const buttonElementContent = target.textContent;
-            removeClass(document.querySelectorAll('.lecturers-page__sort-btn'), 'lecturers-page__sort-btn_state-active');
-            jQuery.ajax({
-                method: 'POST',
-                url: ajax.url,
-                data: {
-                    action: 'lecturers',
-                    id: dataValue
-                },
-                beforeSend: function () {
-                    target.style.opacity = .5;
-                    target.textContent = 'Загружаем...';
-                },
-                success: function (resp) {
-                    jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
-                    jQuery('.lecturers-page__list').prepend(resp);
-                    target.textContent = buttonElementContent;
-                    target.style.opacity = 1;
-                    target.classList.add('lecturers-page__sort-btn_state-active');
+            removeClass(sortButtons, 'lecturers-page__sort-btn_state-active');
+            removeClass(lecturers, 'd-none');
+            target.classList.add('lecturers-page__sort-btn_state-active');
+            
+            //Поиск тега
+            if (dataValue !== 'all') {
+                for (let item of lecturers) {
+                    let tagName = item.dataset.tag;
+    
+                    if (tagName !== dataValue) {
+                        item.classList.add('d-none');
+                    }
                 }
-            });
+            }
+            else {
+                removeClass(lecturers, 'd-none');
+            }
         }
     });
-
-    function sendDataToCRM(crmData, action) {
-        return jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: `amo_crm_${action}`,
-                data: crmData
-            }
-        });
-    }
-
-    function removeClass(htmlCollection, className) {
-        for (let item of htmlCollection) {
-            item.classList.remove(className);
-        }
-        return;
-    }
 
     //Modal events
     jQuery('.modal').on('modal:open', function () {
@@ -165,31 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.video-modal').innerHTML = '';
     });
 
-    // jQuery('.lecturers-page__sort-btn').on('click', function () {
-    //     let dataValue = jQuery(this).data('sort');
-    //     let buttonElementContent = jQuery(this).text();
-    //     jQuery('.lecturers-page__sort-btn').removeClass('lecturers-page__sort-btn_state-active');
-    //     let buttonElement = jQuery(this);
-    //     jQuery.ajax({
-    //         method: 'POST',
-    //         url: ajax.url,
-    //         data: {
-    //             action: 'lecturers',
-    //             id: dataValue
-    //         },
-    //         beforeSend: function () {
-    //             buttonElement.css('opacity', .5);
-    //             buttonElement.text('Загружаем...');
-    //         },
-    //         success: function (resp) {
-    //             jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
-    //             jQuery('.lecturers-page__list').prepend(resp);
-    //             buttonElement.text(buttonElementContent);
-    //             buttonElement.css('opacity', 1);
-    //             buttonElement.addClass('lecturers-page__sort-btn_state-active');
-    //         }
-    //     });
-    // });
     jQuery('.sort__button').on('click', function () {
         let dataValue = jQuery(this).data('sort');
         let buttonElementContent = jQuery(this).text();
@@ -1714,6 +1669,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
         }
+    }
+
+    function sendDataToCRM(crmData, action) {
+        return jQuery.ajax({
+            url: ajax.url,
+            type: 'POST',
+            data: {
+                action: `amo_crm_${action}`,
+                data: crmData
+            }
+        });
+    }
+
+    function removeClass(htmlCollection, className) {
+        for (let item of htmlCollection) {
+            item.classList.remove(className);
+        }
+        return;
     }
 
     // for (let item of paymentFormInputElements) {
