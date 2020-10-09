@@ -14,7 +14,7 @@ const del = require('del');
 sass.compiler = require('node-sass');
 
 gulp.task('styles', function(){
-    return gulp.src('app/sass/*.scss')
+    return gulp.src('app/scss/*.scss')
     .pipe(sass())
     .pipe(concat('application.css'))
     .pipe(postcss([autoprefixer()]))
@@ -30,7 +30,7 @@ gulp.task('scripts', function(){
         // emit here
         this.emit('end');
     })
-    .pipe(concat('scripts.js'))
+    .pipe(concat('application.js'))
     .pipe(terser())
     .pipe(gulp.dest('public/js/'))
 });
