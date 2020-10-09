@@ -118,14 +118,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     id: dataValue
                 },
                 beforeSend: function () {
-                    target.css.opacity = .5;
+                    target.style.opacity = .5;
                     target.textContent = 'Загружаем...';
                 },
                 success: function (resp) {
                     jQuery('.lecturers-page__list').find('div:not(:last-child)').remove();
                     jQuery('.lecturers-page__list').prepend(resp);
                     target.textContent = buttonElementContent;
-                    target.style.css.opacity = 1;
+                    target.style.opacity = 1;
                     target.classList.add('lecturers-page__sort-btn_state-active');
                 }
             });
