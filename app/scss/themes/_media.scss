@@ -264,27 +264,35 @@
         }
     }
 
-    .lecturers-page {
-        &__sort {
-            position: relative;
-            &-wrapper {
-                overflow-x: auto;
-                padding-bottom: 15px;
-            }
-        }
-    }
-
     .blog-template {
         &__sort {
             margin-bottom: 30px;
-            flex-direction: row;
         }
     }
 
-    .sort {
+    .sort-navigation {
+        padding-bottom: 15px;
+        overflow-x: auto;
+        &_direction {
+            &-vertical {
+                flex-direction: row;
+                & .sort-navigation {
+                    &__button {
+                        margin: 0;
+                        margin-right: 10px;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
         &__button {
             margin: 0;
             margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
         }
     }
 
@@ -1726,7 +1734,7 @@
         top: 250px;
     }
 
-    .sort {
+    .sort-navigation {
         &__button {
             font-size: 1.5rem;
         }
@@ -1761,9 +1769,7 @@
 
     .blog-template {
         &__sort {
-            overflow-x: auto;
             margin-bottom: 15px;
-            padding-bottom: 15px;
         }
         &__grid {
             padding-bottom: 150px;
@@ -2148,8 +2154,8 @@
         padding: 35px 30px;
     }
 
-    .lecturers-page {
-        &__sort-btn {
+    .sort-navigation {
+        &__button {
             font-size: 1.5rem;
         }
     }

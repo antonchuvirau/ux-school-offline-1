@@ -106,31 +106,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 scrollTop: jQuery('#map-anchor').offset().top
             }, 800);
         }
-        if (target.matches('.lecturers-page__sort-btn')) {
-            const lecturers = document.querySelectorAll('.lecturers-page__list-item');
-            const sortButtons = document.querySelectorAll('.lecturers-page__sort-btn');
-            const dataValue = target.dataset.sort;
-            removeClass(sortButtons, 'lecturers-page__sort-btn_state-active');
-            removeClass(lecturers, 'd-none');
-            target.classList.add('lecturers-page__sort-btn_state-active');
-            
-            //Поиск тега
-            if (dataValue !== 'all') {
-                for (let item of lecturers) {
-                    let tagName = item.dataset.tag;
-    
-                    if (tagName !== dataValue) {
+        if (target.matches('.sort-navigation__button')) {
+            const sortValue = target.dataset.sort;
+            const buttons = document.querySelectorAll('.sort-navigation__button');
+            const sortElements = document.querySelector('.sort-list').children;
+            removeClass(buttons, 'sort-navigation__button_state-active');
+            removeClass(sortElements, 'd-none');
+            target.classList.add('sort-navigation__button_state-active');
+
+            if (sortValue !== 'all') {
+                for (let item of sortElements) {
+                    let tagValues = item.dataset.tag;
+                    if (!tagValues.split(', ').includes(sortValue)) {
                         item.classList.add('d-none');
                     }
                 }
             }
-            else {
-                removeClass(lecturers, 'd-none');
-            }
         }
     });
 
-    //Modal events
+    //Events
+    
     jQuery('.modal').on('modal:open', function () {
         if (document.querySelector('.current').querySelector('input[type="tel"]')) {
             const countyCodeValue = document.querySelector('.current').querySelector('.iti__selected-dial-code').textContent;
@@ -145,30 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.video-modal').innerHTML = '';
     });
 
-    jQuery('.sort__button').on('click', function () {
-        let dataValue = jQuery(this).data('sort');
-        let buttonElementContent = jQuery(this).text();
-        jQuery('.sort__button').removeClass('sort__button_state-active');
-        let buttonElement = jQuery(this);
-        jQuery.ajax({
-            method: 'POST',
-            url: ajax.url,
-            data: {
-                action: 'blog',
-                id: dataValue
-            },
-            beforeSend: function () {
-                buttonElement.css('opacity', .5);
-                buttonElement.text('Загружаем...');
-            },
-            success: function (resp) {
-                jQuery('.blog-template__list').html(resp);
-                buttonElement.text(buttonElementContent);
-                buttonElement.css('opacity', 1);
-                buttonElement.addClass('sort__button_state-active');
-            }
-        });
-    });
     innerCarouselCollection.each(function (index) {
         jQuery(this).addClass('inner-carousel-instance-' + index);
         jQuery(this).parent().find('.swiper-pagination').addClass('inner-carousel-instance-' + index + '__pagination');

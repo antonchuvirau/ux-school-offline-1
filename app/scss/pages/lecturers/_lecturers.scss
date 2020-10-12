@@ -51,34 +51,5 @@
     }
     &__sort {
         margin-bottom: 50px;
-        &-wrapper {
-            @include flex(row, center);
-        }
-        &-btn {
-            margin-right: 5px;
-            height: 40px;
-            padding: 0 15px;
-            border: 1px solid $primary-150;
-            border-radius: 5px;
-            font-size: 1.7rem;
-            color: $dark;
-            @include font-weight('medium');
-            line-height: 1.6;
-            white-space: nowrap;
-            &_state {
-                &-active {
-                    background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
-                    color: $white;
-                    pointer-events: none;
-                    border: none;
-                }
-            }
-            &:hover {
-                background: $primary-150;
-            }
-            &:last-child {
-                margin-right: 0;
-            }
-        }
     }
 }
