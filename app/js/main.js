@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectValidation = false;
     let innerCarouselCollection = jQuery('.inner-carousel__grid');
     let dataCurrentPageValue = 1;
-    let dataMaxPagesValue = jQuery('.course-list__row:first-child').data('max-num-pages');
+    let dataMaxPagesValue = document.querySelector('.course-list__row_first').dataset.maxNumPages;
     let portfolioCurrentPageNum = 1;
     let btnElementActiveTemplate = 'Загружаем...';
     let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path> </svg>';
@@ -123,23 +123,119 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-    });
+        if (target.matches('.dropdown-course-info__lecturer')) {
+            const id = target.dataset.lecturerPostId;
+            const text = target.textContent;
+            target.textContent = 'Загружаем...';
+            jQuery.when(getLecturerInfo(id, target)).then((response) => {
+                target.style.opacity = 1;
+                target.textContent = text;
+                document.querySelector('.dropdown-lecturer-modal').innerHTML = response;
+                jQuery('.dropdown-lecturer-modal').modal();
+            });
+        }
+        if (target.matches('.js-tabs__btn')) {
+            const tabsHeader = target.closest('.course-list__header');
+            const tabsGrid = tabsHeader.nextElementSibling;
+            const id = target.dataset.termId;
+            const isShowFull = target.dataset.showFull;
+            dataCurrentPageValue = 1;
+            const buttons = document.querySelectorAll('.js-tabs__btn');
+            let data = {};
 
-    //Events
-    
-    jQuery('.modal').on('modal:open', function () {
-        if (document.querySelector('.current').querySelector('input[type="tel"]')) {
-            const countyCodeValue = document.querySelector('.current').querySelector('.iti__selected-dial-code').textContent;
-            const countyCodeInputElement = document.querySelector('.current').querySelector('input[name="ums-country-code"]');
-            if (countyCodeInputElement) {
-                countyCodeInputElement.value = countyCodeValue;
+            if (!Array.isArray(id)) {
+                if (isShowFull) {
+                    data = {
+                        action: 'tabs',
+                        showTestPost: false,
+                        id: id,
+                        showFullPosts: true
+                    }
+                } else {
+                    data = {
+                        action: 'tabs',
+                        showTestPost: false,
+                        id: id
+                    }
+                }
+            } else {
+                if (isShowFull) {
+                    data = {
+                        action: 'tabs',
+                        id: id,
+                        showFullPosts: true
+                    }
+                } else {
+                    data = {
+                        action: 'tabs',
+                        id: id
+                    }
+                }
             }
+            removeClass(buttons, 'tabs__btn_active');
+            target.classList.add('tabs__btn_active');
+            jQuery.ajax({
+                url: ajax.url,
+                type: 'POST',
+                data: data,
+                beforeSend: function () {
+                    tabsGrid.style.opacity = .6;
+                },
+                success: function (response) {
+                    setTimeout(function () {
+                        tabsGrid.style.opacity = 1;
+                    }, 600);
+                    document.querySelector('.course-list__wrapper').innerHTML = response;
+                    dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
+                    if (dataCurrentPageValue === dataMaxPagesValue) {
+                        document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
+                        document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
+                    } else {
+                        document.querySelector('.course-list__more-btn').classList.remove('course-list__more-btn_disabled');
+                        document.querySelector('.course-list__footer').classList.remove('course-list__footer_state-disabled');
+                    }
+                }
+            });
+        }
+        if (target.matches('.course-list__more-btn')) {
+            const gridElement = target.closest('.course-list__grid');
+            const btnElementActiveTemplate = 'Загружаем...';
+            const btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#fff"></path> </svg>';
+            jQuery.ajax({
+                url: ajax.url,
+                type: 'POST',
+                data: {
+                    action: 'courses',
+                    id: +document.querySelector('.tabs__btn_active').dataset.termId,
+                    current_page: dataCurrentPageValue
+                },
+                beforeSend: function () {
+                    gridElement.style.opacity = .6;
+                    target.innerHTML = btnElementActiveTemplate;
+                },
+                success: function (response) {
+                    setTimeout(function () {
+                        gridElement.style.opacity = 1;
+                    }, 600);
+                    document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
+                    target.innerHTML = btnElementDefaultTemplate;
+                    dataCurrentPageValue += 1;
+                    if (dataCurrentPageValue === dataMaxPagesValue) {
+                        document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
+                        document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
+                    }
+                }
+            });
         }
     });
 
-    jQuery('.video-modal').on('modal:after-close', function () {
-        document.querySelector('.video-modal').innerHTML = '';
-    });
+    //Variables
+    const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
+
+    //Events
+    jQuery('.modal').on('modal:open', modalOpenHandler);
+    jQuery('.video-modal').on('modal:after-close', videoModalHandler);
+    addCustomEventHandler(lecturersCollection, lecturerHandlerFunction);
 
     innerCarouselCollection.each(function (index) {
         jQuery(this).addClass('inner-carousel-instance-' + index);
@@ -162,126 +258,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    jQuery('.js-tabs__btn').on('click', function () {
-        let currentButton = jQuery(this);
-        let coursesListWrapperElement = currentButton.closest('.course-list__header').next();
-        let dataValue = currentButton.data('term-id');
-        let showFullPosts = currentButton.data('show-full');
-        let ajaxData;
-        if (typeof (dataValue) !== 'object') {
-            if (showFullPosts) {
-                ajaxData = {
-                    action: 'tabs',
-                    showTestPost: false,
-                    id: dataValue,
-                    showFullPosts: true
-                }
-            } else {
-                ajaxData = {
-                    action: 'tabs',
-                    showTestPost: false,
-                    id: dataValue
-                }
-            }
-        } else {
-            if (showFullPosts) {
-                ajaxData = {
-                    action: 'tabs',
-                    id: dataValue,
-                    showFullPosts: true
-                }
-            } else {
-                ajaxData = {
-                    action: 'tabs',
-                    id: dataValue
-                }
-            }
-        }
-        dataCurrentPageValue = 1;
-        jQuery('.js-tabs__btn').removeClass('tabs__btn_active');
-        currentButton.addClass('tabs__btn_active');
-        jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: ajaxData,
-            beforeSend: function () {
-                coursesListWrapperElement.css('opacity', '.6');
-            },
-            success: function (response) {
-                setTimeout(function () {
-                    coursesListWrapperElement.css('opacity', 1);
-                }, 600);
-                jQuery('.course-list__wrapper').html(response);
-                dataMaxPagesValue = jQuery('.course-list__wrapper').find('article:first-child').data('max-num-pages');
-                if (dataCurrentPageValue === dataMaxPagesValue) {
-                    jQuery('.course-list__more-btn').addClass('course-list__more-btn_disabled');
-                    jQuery('.course-list__footer').addClass('course-list__footer_state-disabled');
-                } else {
-                    jQuery('.course-list__more-btn').removeClass('course-list__more-btn_disabled');
-                    jQuery('.course-list__footer').removeClass('course-list__footer_state-disabled');
-                }
-            }
-        });
-    });
-    jQuery(document).on('click', '.course-list__more-btn', function () {
-        let btnElement = jQuery(this);
-        let coursesListWrapperElement = btnElement.closest('.course-list__grid');
-        let btnElementActiveTemplate = 'Загружаем...';
-        let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#fff"></path> </svg>';
-        jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: 'courses',
-                id: +jQuery('.tabs__btn_active').data('term-id'),
-                current_page: dataCurrentPageValue
-            },
-            beforeSend: function () {
-                coursesListWrapperElement.css('opacity', '.6');
-                btnElement.html(btnElementActiveTemplate);
-            },
-            success: function (response) {
-                setTimeout(function () {
-                    coursesListWrapperElement.css('opacity', 1);
-                }, 600);
-                jQuery('.course-list__wrapper').append(response);
-                btnElement.html(btnElementDefaultTemplate);
-                dataCurrentPageValue += 1;
-                if (dataCurrentPageValue === dataMaxPagesValue) {
-                    jQuery('.course-list__footer').addClass('course-list__footer_state-disabled');
-                    jQuery('.course-list__more-btn').addClass('course-list__more-btn_disabled');
-                }
-            }
-        });
-    });
-
-    jQuery(document).on('click', '.dropdown-course-info__lecturer', function (e) {
-        let lecturerIdValue = jQuery(this).data('lecturer-post-id');
-        let clickedElement = jQuery(this);
-        let clickedElementTextValue = clickedElement.text();
-        clickedElement.text('Загружаем...');
-        // let isMobileAjaxCompleted = false;
-        jQuery.when(getLecturerInfo(lecturerIdValue, clickedElement)).then((response) => {
-            clickedElement.css('opacity', 1);
-            clickedElement.text(clickedElementTextValue);
-            jQuery('.dropdown-lecturer-modal').html(response);
-            jQuery('.dropdown-lecturer-modal').modal();
-        });
-    });
-    jQuery(document).on('click', '.lecturers-page__item', function (e) {
-        let lecturerIdValue = jQuery(this).data('lecturer-post-id');
-        let clickedElement = jQuery(this);
-        // let isMobileAjaxCompleted = false;
-        jQuery.when(getTeamLecturerInfo(lecturerIdValue, clickedElement)).then((response) => {
-            clickedElement.css('opacity', 1);
-            jQuery('.ajax-lecturer-modal').html(response);
-            if (window.innerWidth < 992) {
-                jQuery('.ajax-lecturer-modal .lecturer-modal__img img').after(jQuery('.ajax-lecturer-modal .modal__title'));
-                jQuery('.ajax-lecturer-modal').append(jQuery('.ajax-lecturer-modal .lecturer-modal__text'));
-            }
-            jQuery('.ajax-lecturer-modal').modal();
-        });
-    });
 
     jQuery('.payment-modal__btn').on('click', function (e) {
         e.preventDefault();
@@ -1378,7 +1354,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 id: lecturerIdValue
             },
             beforeSend: function () {
-                clickedElement.css('opacity', .3);
+                clickedElement.style.opacity = .3;
             }
         });
     }
@@ -1392,8 +1368,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 id: lecturerIdValue
             },
             beforeSend: function () {
-                clickedElement.css('opacity', .3);
-                // clickedElement.text('Загружаем...');
+                clickedElement.style.opacity = .3;
             }
         });
     }
@@ -1677,6 +1652,44 @@ document.addEventListener('DOMContentLoaded', function () {
     function removeClass(htmlCollection, className) {
         for (let item of htmlCollection) {
             item.classList.remove(className);
+        }
+        return;
+    }
+
+    function modalOpenHandler() {
+        const currentModal = document.querySelector('.current');
+        const telInput = currentModal.querySelector('input[type="tel"]');
+        if (telInput) {
+            const code = currentModal.querySelector('.iti__selected-dial-code').textContent;
+            const telInputEl = currentModal.querySelector('input[name="ums-country-code"]');
+            console.log(code);
+            if (telInputEl) {
+                telInputEl.value = code;
+            }
+        }
+    }
+
+    function videoModalHandler() {
+        document.querySelector('.video-modal').innerHTML = '';
+    }
+
+    function lecturerHandlerFunction(e) {
+        const target = e.target.closest('.lecturers-page__item');
+        const id = target.dataset.lecturerPostId;
+        jQuery.when(getTeamLecturerInfo(id, target)).then((response) => {
+            target.style.opacity = 1;
+            document.querySelector('.ajax-lecturer-modal').innerHTML = response;
+            if (window.innerWidth < 992) {
+                jQuery('.ajax-lecturer-modal .lecturer-modal__img img').after(jQuery('.ajax-lecturer-modal .modal__title'));
+                jQuery('.ajax-lecturer-modal').append(jQuery('.ajax-lecturer-modal .lecturer-modal__text'));
+            }
+            jQuery('.ajax-lecturer-modal').modal();
+        });
+    }
+
+    function addCustomEventHandler(collection, handlerFunction) {
+        for (let item of collection) {
+            item.addEventListener('click', handlerFunction);
         }
         return;
     }

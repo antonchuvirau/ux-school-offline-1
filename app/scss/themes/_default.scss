@@ -59,6 +59,7 @@
         background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
         & svg {
             margin-left: 5px;
+            pointer-events: none;
         }
         &_disabled {
             display: none;
