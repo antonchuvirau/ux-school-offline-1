@@ -64,9 +64,6 @@
         &_disabled {
             display: none;
         }
-        &:active {
-            color: rgba($dark-200, .7);
-        }
     }
     &__row {
         &:last-child {

@@ -1,10 +1,31 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function () {
+    //Privacy checkbox
+    (function() {
+        const inputs = document.querySelectorAll('.privacy-checkbox__input');
+        
+        if (inputs) {
+            for (let input of inputs) {
+                input.addEventListener('click', privacyInputHandler);
+            }
+        }
+        
+        function privacyInputHandler(event) {
+            const target = event.target;
+            const button = target.closest('.checkbox').previousElementSibling.querySelector('button');
+            
+            if (target.checked) {
+                button.disabled = false
+            } else {
+                button.disabled = true;
+            }
+        }
+    })();
 
     let headerElement = document.querySelector('.header');
     let formInputs = document.querySelectorAll('.js-form__input input, .js-form__input textarea');
-    let privacyCheckboxInputElement = document.querySelectorAll('.privacy-checkbox__input');
+    
     let textareaBtnElement = document.querySelector('.form__textarea-btn');
     let playVideoBtnElement = document.querySelectorAll('.modal-video-button');
 
@@ -43,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectValidation = false;
     let innerCarouselCollection = jQuery('.inner-carousel__grid');
     let dataCurrentPageValue = 1;
+    let wpcf7Elm = document.querySelectorAll('.wpcf7');
     let dataMaxPagesValue;
     if (document.querySelector('.course-list__row_first')) {
         dataMaxPagesValue = document.querySelector('.course-list__row_first').dataset.maxNumPages;
@@ -56,11 +78,18 @@ document.addEventListener('DOMContentLoaded', function () {
     let courseTypeArray = [];
     let clickedBool = false;
     let elementTextContent;
-    let wpcf7Elm = document.querySelectorAll('.wpcf7');
+    
     let deliveryElement = document.querySelector('select[name="delivery"]');
     let umsUtilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
     let umsTestimonialsCarousel, umsGraduatesCarousel;
     let umsSelectCollection, umsInputCollection;
+
+    //Variables
+    let defaultSubmitButtonText;
+    const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
+    const wpcf7Collection = document.querySelectorAll('.wpcf7');
+    const contactPageItems = document.querySelectorAll('.contact-page__info-item');
+    
 
     initWeCarousel();
     detectDeviceWidth();
@@ -230,16 +259,82 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
-    });
+        if (target.matches('.course-list-item__select-name')) {
+            (function() {
+                const buttons = document.querySelectorAll('.course-list-item__select-name');
+                const dropdowns = document.querySelectorAll('.dropdown');
+                const activeClass = 'course-list-item__select-name_active';
+                const openClass = 'dropdown_opened';
 
-    //Variables
-    const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
+                if (target.classList.contains(activeClass)) {
+                    target.classList.remove(activeClass)
+                    target.nextElementSibling.classList.remove(openClass);
+                }
+                else {
+                    removeClass(buttons, activeClass);
+                    removeClass(dropdowns, openClass);
+                    target.classList.add(activeClass);
+                    target.nextElementSibling.classList.add(openClass);
+                }
+            })();
+        }
+        if (target.matches('.wpcf7 button[type="submit"]')) {
+            (function() {
+                defaultSubmitButtonText = target.textContent;
+                const activeText = 'Отправляем...';
+                const activeClass = 'btn_is-loading';
+                target.classList.add(activeClass);
+                target.textContent = activeText;
+            })();
+        }
+        if (target.matches('.contact-page__info-item')) {
+            const activeClass = 'contact-page__info-item_active';
+            removeClass(contactPageItems, activeClass);
+            target.classList.add(activeClass);
+        }
+    });
 
     //Events
     jQuery('.modal').on('modal:open', modalOpenHandler);
-    jQuery('.video-modal').on('modal:after-close', videoModalHandler);
-    addCustomEventHandler(lecturersCollection, lecturerHandlerFunction);
+    jQuery('.video-modal').on('modal:after-close', videoModalCloseHandler);
+    addCustomEventHandler('click', lecturersCollection, lecturerHandlerFunction);
+    addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
+    addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
 
+    window.addEventListener('resize', function () {
+        detectDeviceWidth();
+        changeLayout();
+    });
+    window.addEventListener('scroll', function () {
+        //Mobile menu button
+        (function() {
+            const button = document.querySelector('.m-options__menu-btn');
+            const activeClass = 'm-options__menu-btn_active';
+            
+            if (button) {
+                if (pageYOffset >= 900) {
+                    button.classList.add(activeClass);
+                    return;
+                }
+                button.classList.remove(activeClass);
+            }
+            return;
+        })();
+    });
+
+    document.body.addEventListener('mouseover', (event) => {
+        const target = event.target;
+        if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && window.innerWidth > 991) {
+            target.closest('svg').nextElementSibling.classList.add('info__content_opened');
+        }
+    });
+    document.body.addEventListener('mouseout', (event) => {
+        const target = event.target;
+        if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && !event.relatedTarget.closest('svg') && window.innerWidth > 991) {
+            target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
+        }
+    });
+    
     innerCarouselCollection.each(function (index) {
         jQuery(this).addClass('inner-carousel-instance-' + index);
         jQuery(this).parent().find('.swiper-pagination').addClass('inner-carousel-instance-' + index + '__pagination');
@@ -307,17 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }, 500);
                 }
             });
-        }
-    });
-    jQuery(document).on('click', '.course-list-item__select-name', function () {
-        if (jQuery(this).hasClass('course-list-item__select-name_active')) {
-            jQuery(this).removeClass('course-list-item__select-name_active');
-            jQuery(this).next().removeClass('dropdown_opened');
-        } else {
-            jQuery('.course-list-item__select-name').removeClass('course-list-item__select-name_active');
-            jQuery('.dropdown').removeClass('dropdown_opened');
-            jQuery(this).addClass('course-list-item__select-name_active');
-            jQuery(this).next().addClass('dropdown_opened');
         }
     });
     jQuery('.portfolio__btn_location-home').on('click', function () {
@@ -400,12 +484,6 @@ document.addEventListener('DOMContentLoaded', function () {
         jQuery('.faq__item:nth-child(n+7)').toggle(300);
         clickedBool = !clickedBool;
     });
-    jQuery('.contact-page__info-item').on('click', function () {
-        let itemIndex = jQuery('.contact-page__info-item').index(jQuery(this));
-        jQuery('.contact-page__info-item').removeClass('contact-page__info-item_active');
-        // jQuery('.contact-page__map').hide().eq(itemIndex).show();
-        jQuery('.contact-page__info-item').eq(itemIndex).addClass('contact-page__info-item_active');
-    });
     courseGallery = new Swiper('.course-gallery__grid', {
         slidesPerView: 5,
         loop: true,
@@ -431,232 +509,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    jQuery(document).on('click', '.course-list__test-item', function () {
-        jQuery(jQuery(this).data('modal-id')).modal();
-    });
-    if (jQuery('select[name="test-course-date"]').length !== 0) {
-        let selectedValue = jQuery('select[name="test-course-date"]').find('option').eq(0).val();
-        jQuery('input[name="ums-date"]').val(selectedValue);
-    }
-
-    jQuery('.modal__checkbox input').on('click', function () {
-        let selectedValue = jQuery(this).val();
-        if (jQuery(this).is(':checked')) {
-            courseTypeArray.push(selectedValue);
-            resultStr = courseTypeArray.join(', ');
-            jQuery('input[name="ums-choice"]').val(resultStr);
-        } else {
-            let currentElementArrayIndex = courseTypeArray.indexOf(selectedValue);
-            courseTypeArray.splice(currentElementArrayIndex, 1);
-            resultStr = courseTypeArray.join(', ');
-            jQuery('input[name="ums-choice"]').val(resultStr);
-        }
-    });
     //CF7 EVENTS
-    jQuery('.wpcf7 button[type="submit"]').on('click', function () {
-        elementTextContent = jQuery(this).text();
-        jQuery(this).addClass('btn_is-loading').text('Отправляем...');
-    });
-    for (let item of wpcf7Elm) {
-        item.addEventListener('wpcf7invalid', (event) => {
-            item.querySelector('button[type="submit"]').textContent = elementTextContent;
-            item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-        });
-        item.addEventListener('wpcf7mailsent', (event) => {
-            if (131 == event.detail.contactFormId) {
-                let baseURI = event.target.baseURI;
-                //VK Conversion
-                VK.Goal('lead');
-                //Google conversion
-                sendGoogleConversion(baseURI);
-                gtag('event', 'click', {
-                    'send_to': 'analytics',
-                    'event_category': 'button'
-                });
-                //Yandex conversion
-                ym(49171171, 'reachGoal', 'lead_form');
-                //Send to CRM
-                let formData = event.detail.inputs;
-                let crmData = {
-                    title: formData[4].value + ', ' + formData[13].value,
-                    price: +formData[5].value,
-                    name: formData[0].value,
-                    type: formData[6].value,
-                    time: formData[7].value,
-                    date: +formData[8].value,
-                    address: formData[9].value,
-                    lecturer: formData[10].value,
-                    statusId: +formData[11].value,
-                    customer: {
-                        name: formData[13].value,
-                        email: formData[15].value,
-                        telephone: (formData[3].value + formData[14].value).replace(/[^0-9.]/g, "")
-                    },
-                    tag: {
-                        value: formData[12].value
-                    }
-                };
-                jQuery.when(sendDataToCRM(crmData, 'lead')).then(function(data) {
-                    console.log(JSON.parse(data));
-                });
-                //Close modal
-                item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-first').modal();
-            } else if (859 == event.detail.contactFormId || 837 == event.detail.contactFormId) {
-                if (859 == event.detail.contactFormId) {
-                    const formData = event.detail.inputs;
-                    console.log(formData);
-                    // let crmData = {
-                    //     name: formData[14].value,
-                    //     customer: {
-                    //         email: formData[16].value,
-                    //         telephone: (formData[4].value + formData[15].value).replace(/[^0-9.]/g, "")
-                    //     },
-                    //     intensive: {
-                    //         name: formData[5].value,
-                    //         timestamp: +formData[9].value
-                    //     },
-                    //     tag: {
-                    //         name: 'Интенсив',
-                    //         value: formData[12].value
-                    //     }
-                    // };
-                    // jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
-                    //     console.log(JSON.parse(data));
-                    // });
-                }
-                item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-first').modal();
-            } else if (1447 == event.detail.contactFormId) {
-                const customerEmail = event.detail.inputs[3].value;
-                const customerName = event.detail.inputs[1].value;
-                const customerTelephone = (event.detail.inputs[0].value + ' ' + event.detail.inputs[2].value).replace(/[^0-9.]/g, "");
-                let crmData = {
-                    customer: {
-                        name: customerName,
-                        email: customerEmail,
-                        telephone: customerTelephone
-                    },
-                    tag: {
-                        name: 'Начни учиться бесплатно'
-                    }
-                }
-                jQuery.when(sendDataToCRM(crmData, 'free')).then(function(data) {
-                    console.log(JSON.parse(data));
-                });
-                jQuery.when(sendCustomerToSendPulse(customerEmail, 89064264)).then((resp) => {
-                    let respObject = JSON.parse(resp);
-                    if (respObject.result) {
-                        //VK Conversion
-                        VK.Goal('conversion');
-                        //Yandex conversion
-                        ym(49171171, 'reachGoal', 'freelessons');
-                        //Google conversion
-                        gtag('event', 'click', {
-                            'send_to': 'analytics',
-                            'event_category': 'freelessons'
-                        });
-                        item.querySelector('.form__input').classList.remove('form__input_filled');
-                        item.querySelector('.form__label').classList.remove('form__label_active');
-                        item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                        item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                        jQuery.modal.close();
-                        jQuery('#success-modal-free-start').modal();
-                    }
-                });
-
-            } else if (1655 == event.detail.contactFormId) {
-                let customerEmail = event.detail.inputs[1].value;
-                jQuery.when(sendCustomerToSendPulse(customerEmail, 89064300)).then((resp) => {
-                    let respObject = JSON.parse(resp);
-                    if (respObject.result) {
-                        item.querySelector('.form__input').classList.remove('form__input_filled');
-                        item.querySelector('.form__label').classList.remove('form__label_active');
-                        item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                        item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                        jQuery.modal.close();
-                        jQuery('#success-modal-test').modal();
-                    }
-                });
-            } else if (1628 == event.detail.contactFormId) {
-                let customerEmail = event.detail.inputs[0].value;
-                jQuery.when(sendCustomerToSendPulse(customerEmail, 89086955)).then((resp) => {
-                    let respObject = JSON.parse(resp);
-                    if (respObject.result) {
-                        //VK Conversion
-                        VK.Goal('subscribe');
-                        //Google conversion
-                        gtag('event', 'click', {
-                            'send_to': 'analytics',
-                            'event_category': 'emailbutton'
-                        });
-                        //Yandex conversion
-                        ym(49171171, 'reachGoal', 'emailsub');
-                        item.querySelector('.form__input').classList.remove('form__input_filled');
-                        item.querySelector('.form__label').classList.remove('form__label_active');
-                        item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                        item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                        jQuery('#success-modal-third').modal();
-                    }
-                });
-            } else if (779 == event.detail.contactFormId) {
-                //VK conversion
-                VK.Goal('contact');
-                const fromData = event.detail.inputs;
-                const crmData = {
-                    customer: {
-                        name: fromData[1]['value'],
-                        telephone: (fromData[0]['value'] + ' ' + fromData[2]['value']).replace(/[^0-9.]/g, ""),
-                        email: fromData[3]['value'],
-                        message: fromData[4]['value']
-                    },
-                    tag: {
-                        name: 'Обратный звонок'
-                    }
-                }
-                jQuery.when(sendDataToCRM(crmData, 'call')).then(function(data) {
-                    console.log(JSON.parse(data));
-                });
-                item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-second').modal();
-            } else if (1839 == event.detail.contactFormId) {
-                const formData = event.detail.inputs;
-                    let crmData = {
-                        name: formData[14].value,
-                        customer: {
-                            email: formData[16].value,
-                            telephone: (formData[4].value + formData[15].value).replace(/[^0-9.]/g, "")
-                        },
-                        intensive: {
-                            name: formData[5].value,
-                            timestamp: +formData[9].value
-                        },
-                        tag: {
-                            name: 'Интенсив',
-                            value: formData[12].value
-                        }
-                    };
-                    jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
-                        console.log(JSON.parse(data));
-                    });
-                item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-first').modal();
-            } else if (1805 != event.detail.contactFormId) {
-                item.querySelector('button[type="submit"]').textContent = elementTextContent;
-                item.querySelector('button[type="submit"]').classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-second').modal();
-            }
-        });
-    }
     jQuery('.payment-item__input').on('click', function () {
         paymentMethodIndex = jQuery('.payment-item').index(jQuery(this).parent());
         jQuery('body, html').animate({
@@ -858,36 +711,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    //Variables
-
-    // window.intlTelInputGlobals.loadUtils(umsUtilsPath);
-
-    // //Init functions
-    // initSwiperInstance();
-    // initSelectListener();
-    // initInputListener();
-
-
-    //Listeners
-    window.addEventListener('resize', function () {
-        detectDeviceWidth();
-        changeLayout();
-    });
-
-    window.addEventListener('scroll', function () {
-        if (pageYOffset >= 900) {
-            if (document.querySelector('.m-options__menu-btn')) {
-                document.querySelector('.m-options__menu-btn').classList.add('m-options__menu-btn_active');
-            }
-        } else {
-            if (document.querySelector('.m-options__menu-btn')) {
-                document.querySelector('.m-options__menu-btn').classList.add('m-options__menu-btn_active');
-            }
-        }
-    });
-
-
-
 
     //Init functions
     initSwiperInstance();
@@ -895,27 +718,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initInputListener();
 
     //Events
-
-    if (privacyCheckboxInputElement) {
-        for (let item of privacyCheckboxInputElement) {
-            item.addEventListener('click', function () {
-                if (item.checked) {
-                    item.closest('.checkbox').previousElementSibling.querySelector('button').removeAttribute('disabled');
-                } else {
-                    item.closest('.checkbox').previousElementSibling.querySelector('button').setAttribute('disabled', 'disabled');
-                }
-            });
-        }
-    }
-    // if (playVideoBtnElement) {
-    //     let videoModalElement = document.querySelector('.video-modal');
-    //     for (let item of playVideoBtnElement) {
-    //         item.addEventListener('click', (event) => {
-    //             let dataVideoId = item.dataset.videoId;
-    //             videoModalElement.firstElementChild.setAttribute('src', 'https://www.youtube.com/embed/' + dataVideoId);
-    //         });
-    //     }
-    // }
     if (textareaBtnElement) {
         textareaBtnElement.addEventListener('click', function () {
             this.classList.toggle('form__textarea-btn_active');
@@ -932,18 +734,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
-    document.body.addEventListener('mouseover', (event) => {
-        let target = event.target;
-        if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && window.innerWidth > 991) {
-            target.closest('svg').nextElementSibling.classList.add('info__content_opened');
-        }
-    });
-    document.body.addEventListener('mouseout', (event) => {
-        let target = event.target;
-        if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && !event.relatedTarget.closest('svg') && window.innerWidth > 991) {
-            target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
-        }
-    });
     if (telInputsCollection) {
         for (let input of telInputsCollection) {
             window.intlTelInput(input, {
@@ -1295,9 +1085,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function changeElementText(element, text) {
-        if (document.querySelector(element)) {
-            document.querySelector(element).textContent = text;
+        const el = document.querySelector(element);
+        if (el) {
+            el.textContent = text;
         }
+        return;
     }
 
     function changeLayout() {
@@ -1434,6 +1226,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
             });
         }
+        return;
     }
 
     function getCustomerIpInfo() {
@@ -1443,8 +1236,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function initWeCarousel() {
-        if (document.querySelector('.we__carousel')) {
-            weCarousel = new Swiper('.we__carousel', {
+        const carousel = document.querySelector('.we__carousel');
+        if (carousel) {
+            weCarousel = new Swiper(carousel, {
                 slidesPerView: 4,
                 spaceBetween: 30,
                 loop: true,
@@ -1481,12 +1275,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
+        return;
     }
 
     function destroyWeCarousel() {
-        if (document.querySelector('.we__carousel')) {
+        const carousel = document.querySelector('.we__carousel');
+        if (carousel) {
             weCarousel.destroy();
         }
+        return;
     }
 
     function getCookie(name) {
@@ -1509,19 +1306,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showPopup() {
-        const popupModalElement = document.querySelector('#event-modal');
-        if (popupModalElement) {
-            let myCookie = getCookie('event');
-            if (!myCookie) {
-                //Set cookie
-                setCookie('event', 'true', {
-                    path: '/',
-                    secure: true,
-                    'max-age': 3600
-                });
-                //Show modal
+        const modal = jQuery('#event-modal');
+        const cookieData = {
+            path: '/',
+            secure: true,
+            'max-age': 3600
+        };
+        if (modal) {
+            const cookie = getCookie('event');
+            if (!cookie) {
+                setCookie('event', 'true', cookieData);
                 setTimeout(function () {
-                    jQuery('#event-modal').modal({
+                    modal.modal({
                         fadeDuration: 300
                     });
                 }, 8000);
@@ -1660,20 +1456,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function modalOpenHandler() {
-        const currentModal = document.querySelector('.current');
-        const telInput = currentModal.querySelector('input[type="tel"]');
+        const modal = document.querySelector('.current');
+        const telInput = modal.querySelector('input[type="tel"]');
         if (telInput) {
-            const code = currentModal.querySelector('.iti__selected-dial-code').textContent;
-            const telInputEl = currentModal.querySelector('input[name="ums-country-code"]');
-            console.log(code);
-            if (telInputEl) {
-                telInputEl.value = code;
+            const code = modal.querySelector('.iti__selected-dial-code').textContent;
+            const hiddenInput = modal.querySelector('input[name="ums-country-code"]');
+            if (hiddenInput) {
+                hiddenInput.value = code;
             }
         }
     }
 
-    function videoModalHandler() {
+    function videoModalCloseHandler() {
         document.querySelector('.video-modal').innerHTML = '';
+        return;
     }
 
     function lecturerHandlerFunction(e) {
@@ -1690,50 +1486,194 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function addCustomEventHandler(collection, handlerFunction) {
+    function addCustomEventHandler(event, collection, handlerFunction) {
         for (let item of collection) {
-            item.addEventListener('click', handlerFunction);
+            item.addEventListener(event, handlerFunction);
         }
         return;
     }
 
-    // for (let item of paymentFormInputElements) {
-    //     if (item.value) {
-    //         item.parentElement.classList.add('form__input_filled');
-    //         item.nextElementSibling.classList.add('form__label_active');
-    //     }
-    //     item.addEventListener('focus', () => {
-    //         item.parentElement.classList.add('form__input_filled');
-    //         item.parentElement.classList.add('form__input_focused');
-    //         item.nextElementSibling.classList.add('form__label_active');
-    //     });
-    //     item.addEventListener('blur', () => {
-    //         if (item.value) {
-    //             item.parentElement.classList.remove('form__input_focused');
-    //         } else {
-    //             item.parentElement.classList.remove('form__input_filled');
-    //             item.parentElement.classList.remove('form__input_focused');
-    //             item.nextElementSibling.classList.remove('form__label_active');
-    //         }
-    //     });
-    // }
+    function wpcf7InvalidHandler(event) {
+        const target = event.target;
+        const button = target.querySelector('button[type="submit"]');
+
+        button.textContent = defaultSubmitButtonText;
+        button.classList.remove('btn_is-loading');
+    }
+
+    function wpcf7SentHandler(event) {
+        const target = event.target;
+        const id = +event.detail.contactFormId;
+        const uri = event.target.baseURI;
+        const inputs = event.detail.inputs;
+        const button = target.querySelector('button[type="submit"]');
+        let crmData;
+
+        switch(id) {
+            case 131:
+                //VK Conversion
+                VK.Goal('lead');
+                //Google conversion
+                sendGoogleConversion(uri);
+                gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'button'});
+                //Yandex conversion
+                ym(49171171, 'reachGoal', 'lead_form');
+                //Send to CRM
+                crmData = {
+                    title: inputs[4].value + ', ' + inputs[13].value,
+                    price: +inputs[5].value,
+                    name: inputs[0].value,
+                    type: inputs[6].value,
+                    time: inputs[7].value,
+                    date: +inputs[8].value,
+                    address: inputs[9].value,
+                    lecturer: inputs[10].value,
+                    statusId: +inputs[11].value,
+                    customer: {
+                        name: inputs[13].value,
+                        email: inputs[15].value,
+                        telephone: (inputs[3].value + inputs[14].value).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        value: inputs[12].value
+                    }
+                };
+                jQuery.when(sendDataToCRM(crmData, 'lead')).then(function(data) {
+                    console.log(JSON.parse(data));
+                });
+                //Close modal
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+                break;
+            case 837:
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+                break;
+            case 859:
+                crmData = {
+                    name: inputs[14].value,
+                    customer: {
+                        email: inputs[16].value,
+                        telephone: (inputs[4].value + inputs[15].value).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: inputs[5].value,
+                        timestamp: +inputs[9].value
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: inputs[12].value
+                    }
+                };
+                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
+                    console.log(JSON.parse(data));
+                });
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+                break;
+            case 1447:
+                crmData = {
+                    customer: {
+                        name: inputs[1].value,
+                        email: inputs[3].value,
+                        telephone: (inputs[0].value + ' ' + inputs[2].value).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        name: 'Начни учиться бесплатно'
+                    }
+                }
+                jQuery.when(sendDataToCRM(crmData, 'free')).then(function(data) {
+                    console.log(JSON.parse(data));
+                });
+                jQuery.when(sendCustomerToSendPulse(inputs[3].value, 89064264)).then((resp) => {
+                    let respObject = JSON.parse(resp);
+                    if (respObject.result) {
+                        //VK Conversion
+                        VK.Goal('conversion');
+                        //Yandex conversion
+                        ym(49171171, 'reachGoal', 'freelessons');
+                        //Google conversion
+                        gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'freelessons'});
+                        target.querySelector('.form__input').classList.remove('form__input_filled');
+                        target.querySelector('.form__label').classList.remove('form__label_active');
+                        button.textContent = defaultSubmitButtonText;
+                        button.classList.remove('btn_is-loading');
+                        jQuery.modal.close();
+                        jQuery('#success-modal-free-start').modal();
+                    }
+                });
+                break;
+            case 1655:
+                jQuery.when(sendCustomerToSendPulse(inputs[1].value, 89064300)).then((resp) => {
+                    let respObject = JSON.parse(resp);
+                    if (respObject.result) {
+                        target.querySelector('.form__input').classList.remove('form__input_filled');
+                        target.querySelector('.form__label').classList.remove('form__label_active');
+                        button.textContent = defaultSubmitButtonText;
+                        button.classList.remove('btn_is-loading');
+                        jQuery.modal.close();
+                        jQuery('#success-modal-test').modal();
+                    }
+                });
+                break;
+            case 1628:
+                jQuery.when(sendCustomerToSendPulse(inputs[0].value, 89086955)).then((resp) => {
+                    let respObject = JSON.parse(resp);
+                    if (respObject.result) {
+                        //VK Conversion
+                        VK.Goal('subscribe');
+                        //Google conversion
+                        gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'emailbutton'});
+                        //Yandex conversion
+                        ym(49171171, 'reachGoal', 'emailsub');
+                        target.querySelector('.form__input').classList.remove('form__input_filled');
+                        target.querySelector('.form__label').classList.remove('form__label_active');
+                        button.textContent = defaultSubmitButtonText;
+                        button.classList.remove('btn_is-loading');
+                        jQuery('#success-modal-third').modal();
+                    }
+                });
+                break;
+            case 779:
+                //VK conversion
+                VK.Goal('contact');
+                crmData = {
+                    customer: {
+                        name: inputs[1].value,
+                        telephone: (inputs[0].value + ' ' + inputs[2].value).replace(/[^0-9.]/g, ""),
+                        email: inputs[3].value,
+                        message: inputs[4].value
+                    },
+                    tag: {
+                        name: 'Обратный звонок'
+                    }
+                }
+                jQuery.when(sendDataToCRM(crmData, 'call')).then(function(data) {
+                    console.log(JSON.parse(data));
+                });
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-second').modal();
+                break;
+            case 1839:
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+                break;
+            case 1805:
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-second').modal();
+                break;
+        }
+    }
 });
-
-
-
-// jQuery(window).on('resize', function () {
-//     detectDeviceWidth();
-//     changeLayout();
-// });
-
-// jQuery(window).on('scroll', function () {
-//     if (jQuery(window).scrollTop() >= 900) {
-//         if (jQuery('.m-options__menu-btn')) {
-//             jQuery('.m-options__menu-btn').addClass('m-options__menu-btn_active');
-//         }
-//     } else {
-//         jQuery('.m-options__menu-btn').removeClass('m-options__menu-btn_active');
-//     }
-// });
-
-/* FUNCTIONS */

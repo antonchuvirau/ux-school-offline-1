@@ -130,6 +130,9 @@
             cursor: pointer;
             margin: 0;
             height: 100%;
+            & svg {
+                pointer-events: none;
+            }
         }
     }
     &__type {

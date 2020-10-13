@@ -15,8 +15,10 @@
     &__menu-btn {
         &_active {
             & svg {
-                fill: $secondary-500;
-                opacity: 1 !important;
+                & path {
+                    fill: $secondary-500;
+                    opacity: 1 !important;
+                }
             }
         }
     }

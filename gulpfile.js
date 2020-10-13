@@ -24,7 +24,9 @@ gulp.task('styles', function(){
 
 gulp.task('scripts', function(){
     return gulp.src(['app/js/plugins.js', 'app/js/main.js'])
-    .pipe(babel())
+    .pipe(babel({
+        presets: ['@babel/preset-env']
+    }))
     .on('error', function(e) {
         console.log('>>> ERROR', e);
         // emit here
