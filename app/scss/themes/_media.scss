@@ -2194,6 +2194,12 @@
             margin-bottom: 45px;
         }
     }
+
+    .testimonial-item {
+        &__img {
+            max-width: 280px;
+        }
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1229px) {

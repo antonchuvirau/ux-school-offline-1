@@ -43,7 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectValidation = false;
     let innerCarouselCollection = jQuery('.inner-carousel__grid');
     let dataCurrentPageValue = 1;
-    let dataMaxPagesValue = document.querySelector('.course-list__row_first').dataset.maxNumPages;
+    let dataMaxPagesValue;
+    if (document.querySelector('.course-list__row_first')) {
+        dataMaxPagesValue = document.querySelector('.course-list__row_first').dataset.maxNumPages;
+    }
     let portfolioCurrentPageNum = 1;
     let btnElementActiveTemplate = 'Загружаем...';
     let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path> </svg>';
