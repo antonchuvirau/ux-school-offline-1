@@ -75,8 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let dropdownCoursePrice;
     let dropdownCourseSalePrice;
     let totalPrice;
-    let toggleCheckboxCollection = document.querySelectorAll('.toggle-checkbox__input');
-    let promocodeButtonElement = document.querySelector('.promocode-input__btn');
+
     let dropdownElement = document.querySelector('.ums-select');
     let dropdownItemsCollection;
     let dropdownType;
@@ -117,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
-    
 
     initWeCarousel();
     detectDeviceWidth();
@@ -797,35 +795,45 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    if (toggleCheckboxCollection.length) {
-        toggleCheckboxCollection.forEach((item) => {
-            item.addEventListener('click', (event) => {
-                //Clear input styles
-                item.parentElement.nextElementSibling.querySelector('input').value = '';
-                item.parentElement.nextElementSibling.classList.remove('promocode-input_state-success');
-                item.parentElement.nextElementSibling.classList.remove('promocode-input_state-error');
-                item.parentElement.nextElementSibling.querySelector('.form__error-label').classList.remove('form__error-label_active');
-                item.parentElement.nextElementSibling.classList.remove('form__input_filled');
-                //Change promocode state
-                item.parentElement.nextElementSibling.classList.toggle('promocode-input_state-active');
+
+    (function() {
+        //Promocode
+        const toggleInput = document.querySelector('.toggle-checkbox__input');
+        const el = document.querySelector('.promocode-input');
+        const button = el.querySelector('.promocode-input__btn');
+        const input = el.querySelector('input');
+        const processMessage = 'Проверяем...';
+        const classes = {
+            active: 'promocode-input_state-active',
+            progress: 'promocode-input_state-progress',
+            success: 'promocode-input_state-success',
+            error: 'promocode-input_state-error'
+        };
+        const data = {
+            action: 'promocode'
+        };
+        if (toggleInput) {
+            toggleInput.addEventListener('click', () => {
+                input.value = '';
+                el.classList.remove(classes.success);
+                el.classList.remove(classes.error);
+                el.classList.toggle(classes.active);
+                // el.classList.remove('form__input_filled');
+                el.querySelector('.form__error-label').classList.remove('form__error-label_active');
                 if (dropdownType === 'payment') {
-                    item.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
-                    item.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
+                    el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
+                    el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                 }
                 changeInputPrice(paymentMethodIndex, false, false);
             });
-        });
-    }
-    if (promocodeButtonElement) {
-        promocodeButtonElement.addEventListener('click', (event) => {
-            let buttonTextContent = promocodeButtonElement.textContent;
-            promocodeButtonElement.textContent = 'Проверяем...';
-            promocodeButtonElement.parentElement.classList.add('promocode-input_state-progress');
-            let promocode = promocodeButtonElement.parentElement.querySelector('input').value;
-            let data = {
-                action: 'promocode'
-            };
-            fetch(ajax.url, {
+        }
+        if (button) {
+            button.addEventListener('click', () => {
+                const defaultButtonText = button.textContent;
+                const value = input.value;
+                button.textContent = processMessage;
+                el.classList.add(classes.progress);
+                fetch(ajax.url, {
                     method: 'POST',
                     credentials: 'same-origin',
                     headers: {
@@ -836,25 +844,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .then((resp) => resp.json())
                 .then((data) => {
-                    promocodeButtonElement.textContent = buttonTextContent;
-                    promocodeButtonElement.parentElement.classList.remove('promocode-input_state-progress');
+                    button.textContent = defaultButtonText;
+                    el.classList.remove(classes.progress);
                     if (data.length) {
-                        let promocodeObject = data.find((item) => item.name.toUpperCase() === promocode.toUpperCase());
-                        if (promocodeObject !== undefined) {
-                            changeInputPrice(paymentMethodIndex, false, promocodeObject);
-                            //Show message
-                            showPromocodeMessage('success');
+                        const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
+                        if (result) {
+                            changeInputPrice(paymentMethodIndex, false, true);
+                            showPromocodeMessage(el, 'success');
                         } else {
-                            showPromocodeMessage('error');
+                            showPromocodeMessage(el, 'error');
                             changeInputPrice(paymentMethodIndex, false, false);
                         }
                     } else {
-                        showPromocodeMessage('error');
+                        showPromocodeMessage(el, 'error');
                         changeInputPrice(paymentMethodIndex, false, false);
                     }
                 });
-        });
-    }
+            });
+        }
+    })();
+    
     if (dropdownElement) {
         dropdownItemsCollection = dropdownElement.querySelectorAll('.ums-select__list-item');
         dropdownType = dropdownElement.dataset.type;
@@ -1032,16 +1041,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showPromocodeMessage(state) {
+    function showPromocodeMessage(el, state) {
         if (state == 'success') {
-            promocodeButtonElement.parentElement.classList.remove('promocode-input_state-error');
-            promocodeButtonElement.parentElement.querySelector('.form__error-label').textContent = 'Промокод успешно применен';
+            el.classList.remove('promocode-input_state-error');
+            el.querySelector('.form__error-label').textContent = 'Промокод успешно применен';
         } else {
-            promocodeButtonElement.parentElement.classList.remove('promocode-input_state-success');
-            promocodeButtonElement.parentElement.querySelector('.form__error-label').textContent = 'Недействительный промокод';
+            el.classList.remove('promocode-input_state-success');
+            el.querySelector('.form__error-label').textContent = 'Недействительный промокод';
         }
-        promocodeButtonElement.parentElement.classList.add('promocode-input_state-' + state);
-        promocodeButtonElement.parentElement.querySelector('.form__error-label').classList.add('form__error-label_active');
+        el.classList.add('promocode-input_state-' + state);
+        el.querySelector('.form__error-label').classList.add('form__error-label_active');
     }
 
     function initSwiperSlider(element) {
