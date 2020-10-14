@@ -1,6 +1,6 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     //Privacy checkbox
     (function() {
         const inputs = document.querySelectorAll('.privacy-checkbox__input');
@@ -20,6 +20,33 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 button.disabled = true;
             }
+        }
+    })();
+    //Inner carousel
+    (function() {
+        const innerCarouselsCollection = Array.from(document.querySelectorAll('.inner-carousel__grid'));
+        const defaultCarouselClass = 'inner-carousel-instance-';
+
+        if (innerCarouselsCollection.length) {
+            innerCarouselsCollection.forEach((item, index) => {
+                const carousel = item.closest('.inner-carousel');
+    
+                item.classList.add(defaultCarouselClass + index);
+                new Swiper(item, {
+                    pagination: {
+                        el: carousel.querySelector('.swiper-pagination'),
+                        type: 'bullets'
+                    },
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+                    navigation: {
+                        prevEl: carousel.querySelector('.inner-carousel__btn-prev'),
+                        nextEl: carousel.querySelector('.inner-carousel__btn-next')
+                    }
+                });
+            });
         }
     })();
 
@@ -89,16 +116,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
+    const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
     
 
     initWeCarousel();
     detectDeviceWidth();
     changeLayout();
     showPopup();
+    initSwiperInstance();
+    initSelectListener();
+    initInputListener();
 
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (event) => {
         //Get target element
-        const target = e.target;
+        const target = event.target;
         //Find current element
         if (target.matches('.m-options__menu-btn')) {
             let scrollBarWidth = getScrollbarWidth();
@@ -292,6 +323,15 @@ document.addEventListener('DOMContentLoaded', function () {
             removeClass(contactPageItems, activeClass);
             target.classList.add(activeClass);
         }
+        if (target.matches('.form__textarea-btn')) {
+            (function() {
+                const activeClass = 'form__textarea-btn_active';
+                const disableClass = 'form__textarea_visibility-hide';
+
+                target.classList.toggle(activeClass);
+                target.nextElementSibling.lastElementChild.classList.toggle(disableClass);
+            })();
+        }
     });
 
     //Events
@@ -300,12 +340,13 @@ document.addEventListener('DOMContentLoaded', function () {
     addCustomEventHandler('click', lecturersCollection, lecturerHandlerFunction);
     addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
     addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
+    addCustomEventHandler('click', navigationLinksCollection, pageNavigationLinkHandler);
 
-    window.addEventListener('resize', function () {
+    window.addEventListener('resize', () => {
         detectDeviceWidth();
         changeLayout();
     });
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', () => {
         //Mobile menu button
         (function() {
             const button = document.querySelector('.m-options__menu-btn');
@@ -335,28 +376,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
     
-    innerCarouselCollection.each(function (index) {
-        jQuery(this).addClass('inner-carousel-instance-' + index);
-        jQuery(this).parent().find('.swiper-pagination').addClass('inner-carousel-instance-' + index + '__pagination');
-        jQuery(this).parent().find('.inner-carousel__btn-prev').addClass('inner-carousel-instance-' + index + '__btn-prev');
-        jQuery(this).parent().find('.inner-carousel__btn-next').addClass('inner-carousel-instance-' + index + '__btn-next');
-        new Swiper(jQuery(this), {
-            pagination: {
-                el: '.inner-carousel-instance-' + index + '__pagination',
-                type: 'bullets'
-            },
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            navigation: {
-                prevEl: '.inner-carousel-instance-' + index + '__btn-prev',
-                nextEl: '.inner-carousel-instance-' + index + '__btn-next'
-            }
-        });
-    });
-
-
     jQuery('.payment-modal__btn').on('click', function (e) {
         e.preventDefault();
         let paymentForm = jQuery(this).closest('.form');
@@ -711,29 +730,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    //Init functions
-    initSwiperInstance();
-    initSelectListener();
-    initInputListener();
-
-    //Events
-    if (textareaBtnElement) {
-        textareaBtnElement.addEventListener('click', function () {
-            this.classList.toggle('form__textarea-btn_active');
-            this.nextElementSibling.lastElementChild.classList.toggle('form__textarea_visibility-hide');
-        });
-    }
-    if (pageNavigationLinksCollection.length) {
-        for (let link of pageNavigationLinksCollection) {
-            link.addEventListener('click', (event) => {
-                pageNavigationLinksCollection.forEach((item) => {
-                    item.classList.remove('page-navigation__link_state-active');
-                });
-                link.classList.add('page-navigation__link_state-active');
-            });
-        }
-    }
+    
     if (telInputsCollection) {
         for (let input of telInputsCollection) {
             window.intlTelInput(input, {
@@ -1675,5 +1672,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 jQuery('#success-modal-second').modal();
                 break;
         }
+    }
+
+    function pageNavigationLinkHandler(event) {
+        const target = event.target;
+        const activeClass = 'page-navigation__link_state-active';
+
+        removeClass(pageNavigationLinksCollection, activeClass);
+        target.classList.add(activeClass);
+        return;
     }
 });
