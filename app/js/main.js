@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     })();
+
     //Inner carousel
     (function() {
         const innerCarouselsCollection = Array.from(document.querySelectorAll('.inner-carousel__grid'));
@@ -59,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // let paymentFormInputElements = document.querySelectorAll('.payment-form__input input');
     let pageNavigationLinksCollection = document.querySelectorAll('.page-navigation__link');
     let weCarousel;
-    let telInputsCollection = document.querySelectorAll("input[type='tel']");
     let inputMaskFromPlaceholder;
     let isCompleted = false;
     let customSwiper;
@@ -71,14 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let saleType = 'Без скидки';
     let saleValue = 0;
     let paymentLevel;
-    let dropdownCourseName;
-    let dropdownCoursePrice;
-    let dropdownCourseSalePrice;
-    let totalPrice;
+    // let current;
+    // let price;
+    // let salePrice;
 
-    let dropdownElement = document.querySelector('.ums-select');
-    let dropdownItemsCollection;
-    let dropdownType;
+    
     let calculationButtonElement = document.querySelector('.calculation__btn');
     let calculationButtonText;
     let requiredInputsCollection;
@@ -99,25 +96,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnElementActiveTemplate = 'Загружаем...';
     let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path> </svg>';
     let postPortfolioPageNum = 1;
-    let courseGallery;
     let resultStr;
     let courseTypeArray = [];
     let clickedBool = false;
     let elementTextContent;
     
     let deliveryElement = document.querySelector('select[name="delivery"]');
-    let umsUtilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
+    
     let umsTestimonialsCarousel, umsGraduatesCarousel;
     let umsSelectCollection, umsInputCollection;
 
     //Variables
     let defaultSubmitButtonText;
+    const utilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
     const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
+    let dropdownType;
+    let totalPrice;
+    let salePrice;
+    let price;
+    let current;
 
     initWeCarousel();
+    initCourseGallery();
     detectDeviceWidth();
     changeLayout();
     showPopup();
@@ -501,31 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         jQuery('.faq__item:nth-child(n+7)').toggle(300);
         clickedBool = !clickedBool;
     });
-    courseGallery = new Swiper('.course-gallery__grid', {
-        slidesPerView: 5,
-        loop: true,
-        autoplay: {
-            delay: 3000
-        },
-        navigation: {
-            prevEl: '.course-gallery__btn-prev',
-            nextEl: '.course-gallery__btn-next'
-        },
-        breakpoints: {
-            320: {
-                slidesPerView: 1
-            },
-            576: {
-                slidesPerView: 2
-            },
-            768: {
-                slidesPerView: 3
-            },
-            992: {
-                slidesPerView: 5
-            }
-        }
-    });
     //CF7 EVENTS
     jQuery('.payment-item__input').on('click', function () {
         paymentMethodIndex = jQuery('.payment-item').index(jQuery(this).parent());
@@ -574,14 +552,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ajaxData = {
                     action: 'payment_' + paymentMethodValue,
                     totalPrice: totalPrice * 100,
-                    productName: dropdownCourseName,
+                    productName: current,
                     customerName: parentElement.find('input[name="name"]').val()
                 }
             } else {
                 ajaxData = {
                     action: 'payment_' + paymentMethodValue,
                     orderAmount: totalPrice * 100,
-                    orderTitle: dropdownCourseName,
+                    orderTitle: current,
                     customerName: parentElement.find('input[name="name"]').val(),
                     customerSaleType: saleType,
                     customerSaleValue: saleValue
@@ -728,80 +706,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
-    if (telInputsCollection) {
-        for (let input of telInputsCollection) {
-            window.intlTelInput(input, {
-                nationalMode: true,
-                autoHideDialCode: false,
-                autoPlaceholder: 'aggressive',
-                separateDialCode: true,
-                preferredCountries: ['by', 'ru', 'ua'],
-                initialCountry: 'auto',
-                geoIpLookup: function (success, failure) {
-                    //Create date
-                    let date = new Date();
-                    //Format date
-                    let dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
-                    //Get local storage data
-                    let localStorageData = JSON.parse(localStorage.getItem('ums-country-code'));
-                    if (localStorageData) {
-                        if (localStorageData.date != dateString) {
-                            jQuery.when(getCustomerIpInfo()).then((resp) => {
-                                if (resp) {
-                                    success(resp.country);
-                                    localStorage.setItem('ums-country-code', JSON.stringify({
-                                        date: dateString,
-                                        value: resp.country
-                                    }));
-                                } else {
-                                    failure(resp.country);
-                                }
-                            });
-                        } else {
-                            success(localStorageData.value);
-                        }
-                    } else {
-                        jQuery.when(getCustomerIpInfo()).then((resp) => {
-                            if (resp) {
-                                success(resp.country);
-                                localStorage.setItem('ums-country-code', JSON.stringify({
-                                    date: dateString,
-                                    value: resp.country
-                                }));
-                            } else {
-                                failure(resp.country);
-                            }
-                        });
-                    }
-                },
-                utilsScript: umsUtilsPath,
-                customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-                    let customPlaceholder = selectedCountryPlaceholder.replace(/[0-9]/g, '_');
-                    let customMask = selectedCountryPlaceholder.replace(/[0-9]/g, 9);
-                    let customMaskObject = new Inputmask(customMask, {
-                        showMaskOnHover: false,
-                        greedy: false
-                    });
-                    customMaskObject.mask(input);
-                    return customPlaceholder;
-                }
-            });
-            //Event
-            input.addEventListener("countrychange", function () {
-                let instance = window.intlTelInputGlobals.getInstance(input);
-                let parentElement = input.closest('.form') ? '.form' : 'form';
-                input.closest(parentElement).querySelector('input[name="ums-country-code"]').value = '+' + instance.s.dialCode;
-            });
-        }
-    }
 
+    //Promocode
     (function() {
         //Promocode
         const toggleInput = document.querySelector('.toggle-checkbox__input');
-        const el = document.querySelector('.promocode-input');
-        const button = el.querySelector('.promocode-input__btn');
-        const input = el.querySelector('input');
         const processMessage = 'Проверяем...';
         const classes = {
             active: 'promocode-input_state-active',
@@ -812,22 +721,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = {
             action: 'promocode'
         };
+        
         if (toggleInput) {
+            const el = document.querySelector('.promocode-input');
+            const button = el.querySelector('.promocode-input__btn');
+            const input = el.querySelector('input');
+
             toggleInput.addEventListener('click', () => {
                 input.value = '';
                 el.classList.remove(classes.success);
                 el.classList.remove(classes.error);
                 el.classList.toggle(classes.active);
-                // el.classList.remove('form__input_filled');
+                el.classList.remove('form__input_filled');
                 el.querySelector('.form__error-label').classList.remove('form__error-label_active');
+                el.querySelector('.form__label').classList.remove('form__label_active');
                 if (dropdownType === 'payment') {
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                 }
                 changeInputPrice(paymentMethodIndex, false, false);
             });
-        }
-        if (button) {
+
             button.addEventListener('click', () => {
                 const defaultButtonText = button.textContent;
                 const value = input.value;
@@ -863,73 +777,80 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     })();
-    
-    if (dropdownElement) {
-        dropdownItemsCollection = dropdownElement.querySelectorAll('.ums-select__list-item');
-        dropdownType = dropdownElement.dataset.type;
-        dropdownCourseName = dropdownElement.querySelector('button').textContent;
-        dropdownCoursePrice = +dropdownElement.querySelector('button').dataset.price;
-        if (dropdownElement && dropdownType === 'payment') {
-            dropdownCourseSalePrice = +dropdownElement.querySelector('button').dataset.salePrice;
-            totalPrice = dropdownCourseSalePrice;
-        } else if (dropdownElement && dropdownType === 'certificate') {
-            totalPrice = dropdownCoursePrice;
-        }
-        dropdownElement.addEventListener('click', function (event) {
-            let target = event.target;
-            let targetSalePrice;
-            let targetPrice;
-            if (target.tagName.toLowerCase() === 'button') {
-                target.classList.toggle('ums-select__btn_state-active');
-                target.closest('.form__select').classList.toggle('form__select_state-active');
-                target.nextElementSibling.classList.toggle('ums-select__list_visibility-open');
+
+    //Custom select
+    (function() {
+        const el = document.querySelector('.ums-select');
+
+        if (el) {
+            const items = el.querySelectorAll('.ums-select__list-item');
+            current = el.querySelector('button').textContent;
+            price = el.querySelector('button').dataset.price;
+            dropdownType = el.dataset.type;
+
+            if (dropdownType === 'payment') {
+                salePrice = el.querySelector('button').dataset.salePrice;
+                totalPrice = salePrice;
             }
-            if (target.tagName.toLowerCase() === 'li' && !target.classList.contains('ums-select__list-item_state-active')) {
-                for (let item of dropdownItemsCollection) {
-                    item.classList.remove('ums-select__list-item_state-active');
+            else {
+                totalPrice = price;
+            }
+
+            el.addEventListener('click', (event) => {
+                const target = event.target;
+                let targetSalePrice, targetPrice;
+
+                if (target.matches('button')) {
+                    target.classList.toggle('ums-select__btn_state-active');
+                    target.closest('.form__select').classList.toggle('form__select_state-active');
+                    target.nextElementSibling.classList.toggle('ums-select__list_visibility-open');
                 }
-                target.classList.add('ums-select__list-item_state-active');
-                if (target.textContent === 'Оплата второго этапа действующего курса') {
-                    paymentMethodIndex = 0;
-                    jQuery('.payment-item').css('display', 'none');
-                    jQuery('.payment-item:nth-child(1)').css('display', 'block');
-                    jQuery('.payment-section').css('display', 'none');
-                    jQuery('.payment-section:nth-child(1)').css('display', 'block');
-                    jQuery('.payment-item:nth-child(1) input').prop('checked', true);
-                    jQuery('.webpay-form').prev().css('display', 'block');
-                    jQuery('.webpay-form__sale-checkbox').css('display', 'none');
-//                     jQuery('.toggle-checkbox').parent().css('display', 'none');
-                } else {
-                    jQuery('.payment-item').css('display', 'block');
-//                     jQuery('.payment-item:nth-child(2)').css('display', 'none');
-                    jQuery('.webpay-form__sale-checkbox').css('display', 'inline-block');
-//                     jQuery('.toggle-checkbox').parent().css('display', 'block');
-                }
-                if (dropdownType === 'payment') {
-                    targetSalePrice = target.dataset.salePrice;
-                    targetPrice = target.dataset.price;
-                    let saleInputsElements = document.querySelectorAll('input[name="sale"]');
-                    target.closest('.ums-select__list').previousElementSibling.dataset.salePrice = targetSalePrice;
-                    for (let input of saleInputsElements) {
-                        input.checked = false;
+                if (target.matches('li') && !target.classList.contains('ums-select__list-item_state-active')) {
+                    removeClass(items, 'ums-select__list-item_state-active');
+                    target.classList.add('ums-select__list-item_state-active');
+
+                    if (target.textContent === 'Оплата второго этапа действующего курса') {
+                        paymentMethodIndex = 0;
+                        jQuery('.payment-item').css('display', 'none');
+                        jQuery('.payment-item:nth-child(1)').css('display', 'block');
+                        jQuery('.payment-section').css('display', 'none');
+                        jQuery('.payment-section:nth-child(1)').css('display', 'block');
+                        jQuery('.payment-item:nth-child(1) input').prop('checked', true);
+                        jQuery('.webpay-form').prev().css('display', 'block');
+                        jQuery('.webpay-form__sale-checkbox').css('display', 'none');
+                    } else {
+                        jQuery('.payment-item').css('display', 'block');
+                        jQuery('.webpay-form__sale-checkbox').css('display', 'inline-block');
                     }
-                } else {
-                    targetPrice = target.dataset.price;
+
+                    if (dropdownType === 'payment') {
+                        targetSalePrice = target.dataset.salePrice;
+                        targetPrice = target.dataset.price;
+                        const saleInputs = document.querySelectorAll('input[name="sale"]');
+                        target.closest('.ums-select__list').previousElementSibling.dataset.salePrice = targetSalePrice;
+                        for (let input of saleInputs) {
+                            input.checked = false;
+                        }
+                    } else {
+                        targetPrice = target.dataset.price;
+                    }
+
+                    target.closest('.form__select').classList.toggle('form__select_state-active');
+                    target.closest('.ums-select__list').previousElementSibling.dataset.price = targetPrice;
+                    target.closest('.ums-select__list').previousElementSibling.textContent = target.textContent;
+                    target.closest('.ums-select__list').previousElementSibling.classList.remove('ums-select__btn_state-active');
+                    target.closest('.ums-select__list').classList.remove('ums-select__list_visibility-open');
+                    current = target.textContent;
+                    price = targetPrice;
+                    salePrice = targetSalePrice;
+                    //Update the price
+                    changeInputPrice(paymentMethodIndex);
                 }
-                target.closest('.form__select').classList.toggle('form__select_state-active');
-                target.closest('.ums-select__list').previousElementSibling.dataset.price = targetPrice;
-                target.closest('.ums-select__list').previousElementSibling.textContent = target.textContent;
-                target.closest('.ums-select__list').previousElementSibling.classList.remove('ums-select__btn_state-active');
-                target.closest('.ums-select__list').classList.remove('ums-select__list_visibility-open');
-                dropdownCourseName = target.textContent;
-                dropdownCoursePrice = targetPrice;
-                dropdownCourseSalePrice = targetSalePrice;
-                //Update the price
-                changeInputPrice(paymentMethodIndex);
-            }
-        });
-        changeInputPrice(paymentMethodIndex);
-    }
+            });
+        }
+    })();
+
+    //Certificate form
     (function() {
         const form = document.querySelector('#wpcf7-f1805-o1');
         const processMessage = 'Обрабатываем данные...';
@@ -957,6 +878,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
+    //International telephone input
+    (function() {
+        const inputs = document.querySelectorAll("input[type='tel']");
+
+        if (inputs) {
+            for (let input of inputs) {
+                window.intlTelInput(input, {
+                    nationalMode: true,
+                    autoHideDialCode: false,
+                    autoPlaceholder: 'aggressive',
+                    separateDialCode: true,
+                    preferredCountries: ['by', 'ru', 'ua'],
+                    initialCountry: 'auto',
+                    geoIpLookup: function (success, failure) {
+                        const date = new Date();
+                        const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+                        const localStorageData = JSON.parse(localStorage.getItem('ums-country-code'));
+                        if (localStorageData) {
+                            if (localStorageData.date != dateString) {
+                                jQuery.when(getCustomerIpInfo()).then((resp) => {
+                                    if (resp) {
+                                        success(resp.country);
+                                        localStorage.setItem('ums-country-code', JSON.stringify({
+                                            date: dateString,
+                                            value: resp.country
+                                        }));
+                                    } else {
+                                        failure(resp.country);
+                                    }
+                                });
+                            } else {
+                                success(localStorageData.value);
+                            }
+                        } else {
+                            jQuery.when(getCustomerIpInfo()).then((resp) => {
+                                if (resp) {
+                                    success(resp.country);
+                                    localStorage.setItem('ums-country-code', JSON.stringify({
+                                        date: dateString,
+                                        value: resp.country
+                                    }));
+                                } else {
+                                    failure(resp.country);
+                                }
+                            });
+                        }
+                    },
+                    utilsScript: utilsPath,
+                    customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+                        const customPlaceholder = selectedCountryPlaceholder.replace(/[0-9]/g, '_');
+                        const customMask = selectedCountryPlaceholder.replace(/[0-9]/g, 9);
+                        const customMaskObject = new Inputmask(customMask, {
+                            showMaskOnHover: false,
+                            greedy: false
+                        });
+                        customMaskObject.mask(input);
+                        return customPlaceholder;
+                    }
+                });
+                input.addEventListener("countrychange", (event) => {
+                    const target = event.target;
+                    const el = target.closest('form') ? 'form' : '.form';
+                    const instance = window.intlTelInputGlobals.getInstance(target);
+                    const codeInput = target.closest(el).querySelector('input[name="ums-country-code"]');
+                    codeInput.value = '+' + instance.s.dialCode;
+                });
+            }
+        }
+    })();
+
     function addErrorClass(inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
@@ -971,28 +962,28 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (index) {
             case 0:
                 if (sale) {
-                    totalPrice = dropdownCourseSalePrice - (dropdownCourseSalePrice * .1);
+                    totalPrice = salePrice - (salePrice * .1);
                     saleType = 'Я студент-очник / я раньше уже учился у вас';
                     saleValue = 10;
                 } else if (promocode) {
                     if (dropdownType === 'payment') {
-						totalPrice = dropdownCourseSalePrice - 50;
-//                      totalPrice = dropdownCourseSalePrice - (dropdownCourseSalePrice * (+promocode.value / 100));
+						totalPrice = salePrice - 50;
+//                      totalPrice = salePrice - (salePrice * (+promocode.value / 100));
                         saleType = 'Промокод ' + promocode.name;
                         saleValue = promocode.value
                     } else if (dropdownType === 'certificate') {
-						totalPrice = dropdownCoursePrice - 50;
-//                      totalPrice = dropdownCoursePrice - (dropdownCoursePrice * (+promocode.value / 100));
+						totalPrice = price - 50;
+//                      totalPrice = price - (price * (+promocode.value / 100));
                         saleType = 'Промокод ' + promocode.name;
                         saleValue = promocode.value
                     }
                 } else {
                     if (dropdownType === 'payment') {
-                        totalPrice = dropdownCourseSalePrice;
+                        totalPrice = salePrice;
                         saleType = 'Без скидки';
                         saleValue = 0;
                     } else if (dropdownType === 'certificate') {
-                        totalPrice = dropdownCoursePrice;
+                        totalPrice = price;
                         saleType = 'Без скидки';
                         saleValue = 0;
                     }
@@ -1000,17 +991,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case 2:
                 if (sale) {
-                    totalPrice = Math.round(dropdownCourseSalePrice / 2 - dropdownCourseSalePrice / 2 * .1);
+                    totalPrice = Math.round(salePrice / 2 - salePrice / 2 * .1);
                     saleType = 'Я студент-очник / я раньше уже учился у вас';
                     saleValue = 10;
                 } else {
-                    totalPrice = dropdownCourseSalePrice / 2;
+                    totalPrice = salePrice / 2;
                     saleType = 'Без скидки';
                     saleValue = 0;
                 }
                 break;
             case 3:
-                totalPrice = dropdownCourseSalePrice;
+                totalPrice = salePrice;
                 break;
         }
         changeCurenciesPrice(paymentMethodIndex);
@@ -1424,26 +1415,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initInputListener() {
-        umsInputCollection = document.querySelectorAll('.form__input input, .form__input textarea');
-        for (let item of umsInputCollection) {
-            if (item.name !== 'ums-tel') {
-                if (item.value !== '') {
-                    item.closest('.form__input').classList.add('form__input_filled');
-                    item.closest('.form__input').querySelector('.form__label').classList.add('form__label_active');
+        const inputs = document.querySelectorAll('.form__input input, .form__input textarea');
+
+        for (let input of inputs) {
+            const wrapper = input.closest('.form__input');
+
+            if (input.name !== 'ums-tel') {
+                if (input.value !== '') {
+                    wrapper.classList.add('form__input_filled');
+                    wrapper.querySelector('.form__label').classList.add('form__label_active');
                 }
-                item.addEventListener('focus', function () {
-                    item.closest('.form__input').classList.add('form__input_focused');
-                    item.closest('.form__input').classList.add('form__input_filled');
-                    item.closest('.form__input').querySelector('.form__label').classList.add('form__label_active');
+                input.addEventListener('focus', () => {
+                    wrapper.classList.add('form__input_focused');
+                    wrapper.classList.add('form__input_filled');
+                    wrapper.querySelector('.form__label').classList.add('form__label_active');
                 });
-                item.addEventListener('blur', function () {
-                    if (item.value !== '') {
-                        item.closest('.form__input').classList.remove('form__input_focused');
-                    } else {
-                        item.closest('.form__input').classList.remove('form__input_filled');
-                        item.closest('.form__input').classList.remove('form__input_focused');
-                        item.closest('.form__input').querySelector('.form__label').classList.remove('form__label_active');
+                input.addEventListener('blur', () => {
+                    if (input.value !== '') {
+                        wrapper.classList.remove('form__input_focused');
+                        return;
                     }
+                    wrapper.classList.remove('form__input_filled');
+                    wrapper.classList.remove('form__input_focused');
+                    wrapper.querySelector('.form__label').classList.remove('form__label_active');
                 });
             }
         }
@@ -1695,6 +1689,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         removeClass(pageNavigationLinksCollection, activeClass);
         target.classList.add(activeClass);
+        return;
+    }
+
+    function initCourseGallery() {
+        const el = document.querySelector('.course-gallery__grid');
+
+        if (el) {
+            new Swiper(el, {
+                slidesPerView: 5,
+                loop: true,
+                autoplay: {
+                    delay: 3000
+                },
+                navigation: {
+                    prevEl: '.course-gallery__btn-prev',
+                    nextEl: '.course-gallery__btn-next'
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1
+                    },
+                    576: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    992: {
+                        slidesPerView: 5
+                    }
+                }
+            });
+        }
         return;
     }
 });
