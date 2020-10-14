@@ -921,26 +921,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         changeInputPrice(paymentMethodIndex);
     }
-    if (calculationButtonElement) {
-        document.querySelector(certificateForm).addEventListener('wpcf7mailsent', function () {
-            calculationButtonElement.textContent = 'Обрабатываем данные...';
-            jQuery.ajax({
-                url: ajax.url,
-                method: 'POST',
-                data: certificatePaymentObject,
-                success: function (resp) {
-                    calculationButtonElement.textContent = 'Перенаправляем на оплату...';
-                    setTimeout(function () {
-                        document.location.replace(JSON.parse(resp).formUrl);
-                    }, 300);
-                }
+    (function() {
+        const form = document.querySelector('#wpcf7-f1805-o1');
+        const processMessage = 'Обрабатываем данные...';
+        const transferMessage = 'Перенаправляем на оплату...';
+
+        if (form) {
+            form.addEventListener('wpcf7mailsent', () => {
+                calculationButtonElement.textContent = processMessage;
+                jQuery.ajax({
+                    url: ajax.url,
+                    method: 'POST',
+                    data: certificatePaymentObject,
+                    success: function (resp) {
+                        calculationButtonElement.textContent = transferMessage;
+                        setTimeout(function () {
+                            document.location.replace(JSON.parse(resp).formUrl);
+                        }, 300);
+                    }
+                });
             });
-        });
-        document.querySelector(certificateForm).addEventListener('wpcf7invalid', function () {
-            calculationButtonElement.classList.remove('btn_is-loading');
-            calculationButtonElement.textContent = calculationButtonText;
-        });
-    }
+            form.addEventListener('wpcf7invalid', () => {
+                calculationButtonElement.classList.remove('btn_is-loading');
+                calculationButtonElement.textContent = calculationButtonText;
+            });
+        }
+    })();
 
     function addErrorClass(inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
