@@ -524,11 +524,12 @@ document.addEventListener('DOMContentLoaded', () => {
             changeInputPrice(paymentMethodIndex);
         }
     });
-    jQuery('input[name="total"], input[name="wsb_total"]').on('input', function () {
-        jQuery('input[name="sale"]').prop('checked', false);
-        totalPrice = jQuery(this).val();
-        changeCurenciesPrice(paymentMethodIndex);
-    });
+    
+    (function() {
+        const inputs = document.querySelectorAll('input');
+        addCustomEventHandler('input', inputs, paymentInputsHandler);
+    })();
+    
     jQuery('.webpay-form__btn').on('click', function (e) {
         e.preventDefault();
         let storeIdValue;
@@ -606,6 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+    
     if (calculationButtonElement) {
         calculationButtonText = calculationButtonElement.textContent;
         requiredInputsCollection = calculationButtonElement.closest('.form').querySelectorAll('input:required');
@@ -1725,5 +1727,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         return;
+    }
+
+    function paymentInputsHandler(event) {
+        const target = event.target;
+        const saleInput = target.closest('.form').querySelector('input[name="sale"]');
+        saleInput.checked = false;
+        totalPrice = target.value;
+        changeCurenciesPrice(paymentMethodIndex);
     }
 });
