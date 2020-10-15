@@ -22,6 +22,10 @@
             letter-spacing: -.3px;
             font-size: 2rem;
             line-height: 1.5;
+            &::before {
+                background: $gray-100;
+                top: calc(100% + 1px);
+            }
         }
         &-position {
             margin: 0;
