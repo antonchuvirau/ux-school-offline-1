@@ -70,3 +70,51 @@
     // initSwiperInstance();
     // initSelectListener();
     // initInputListener();
+
+    jQuery('.payment-modal__btn').on('click', function (e) {
+        e.preventDefault();
+        let paymentForm = jQuery(this).closest('.form');
+        let totalPrice = paymentForm.find('input[name="total"]').val();
+        let courseNameValue = paymentForm.find('input[name="title"]').val();
+        let valid;
+        paymentForm.find('input[required]').each(function () {
+            if (!jQuery(this).val()) {
+                jQuery(this).addClass('wpcf7-not-valid').next().next().addClass('form__error-label_active');
+                valid = false;
+                return false;
+            } else {
+                jQuery(this).removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
+                valid = true;
+            }
+        });
+        if (valid) {
+            paymentForm.find('input[required]').removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
+            jQuery.ajax({
+                url: ajax.url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'payment_alfa',
+                    orderAmount: totalPrice * 100,
+                    orderTitle: courseNameValue,
+                    customerSaleType: 'Без скидки',
+                    customerSaleValue: 0,
+                    customerName: paymentForm.find('input[name="name"]').val()
+                },
+                beforeSend: function () {
+                    paymentForm.find('button').css('opacity', '.5');
+                    paymentForm.find('button').text('Обрабатываем данные...');
+                },
+                success: function (response) {
+                    setTimeout(function () {
+                        paymentForm.find('button').text('Перенаправляем на оплату...');
+                        //Get params and open link
+                        setTimeout(function () {
+                            location.href = response.formUrl;
+                            paymentForm.find('button').css('opacity', 1);
+                        }, 200);
+                    }, 500);
+                }
+            });
+        }
+    });

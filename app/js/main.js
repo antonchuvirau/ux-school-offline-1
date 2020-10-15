@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         function privacyInputHandler(event) {
             const target = event.target;
-            const button = target.closest('.checkbox').previousElementSibling.querySelector('button');
+            const button = target.closest('.checkbox').previousElementSibling.querySelector('button[type="submit"]');
             
             if (target.checked) {
                 button.disabled = false
@@ -112,13 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
-    const modals = document.querySelectorAll('.modal');
-    const videoModals = document.querySelectorAll('.video-modal');
+    const inputs = document.querySelectorAll('input');
     let dropdownType;
     let totalPrice;
     let salePrice;
     let price;
     let current;
+    let currentPage = 1;
 
     initWeCarousel();
     initCourseGallery();
@@ -333,6 +333,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 target.nextElementSibling.lastElementChild.classList.toggle(disableClass);
             })();
         }
+        if (target.matches('input[name="sale"]')) {
+            if (target.checked) {
+                changeInputPrice(paymentMethodIndex, true);
+                return;
+            }
+            changeInputPrice(paymentMethodIndex);
+        }
+        if (target.matches('.payment-item__input')) {
+            const index = +target.value;
+            const paymentSections = document.querySelectorAll('.payment-section');
+
+            paymentMethodIndex = index;
+
+            for (let section of paymentSections) {
+                section.style.display = 'none';
+            }
+            paymentSections[index].style.display = 'block';
+            changeInputPrice(paymentMethodIndex);
+            jQuery('body, html').animate({
+                scrollTop: jQuery('#payment-anchor').offset().top
+            }, 800);
+        }
+        if (target.matches('.content-list__more-btn')) {
+            const icon = `
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130" />
+                </svg>`;
+            const items = document.querySelectorAll('.faq__item:nth-child(n+7)');
+            if (target.classList.contains('content-list__more-btn_opened')) {
+                jQuery('html, body').animate({
+                    scrollTop: jQuery('.faq__title').offset().top - 50
+                }, 150);
+                target.innerHTML = `Показать ещё ${icon}`;
+                target.classList.remove('content-list__more-btn_opened');
+                for (let item of items) {
+                    item.style.display = 'none';
+                }
+                return;
+            }
+            target.innerHTML = `Скрыть ${icon}`;
+            target.classList.add('content-list__more-btn_opened');
+            for (let item of items) {
+                item.style.display = 'block';
+            }
+        }
+        if (target.matches('.portfolio__btn')) {
+            const data = target.dataset.location;
+            const pages = +target.dataset.maxPages;
+            const icon = `<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path></svg>`;
+            const activeTemplate = 'Загружаем...';
+            const template = `Показать ещё${icon}`;
+            const requestData = {
+                url: ajax.url,
+                type: 'POST',
+                data: {
+                    action: 'portfolio',
+                    currentPage: currentPage,
+                },
+                beforeSend: function () {
+                    document.querySelector('.portfolio').style.opacity = .7;
+                    target.textContent = activeTemplate;
+                },
+                success: function (response) {
+                    document.querySelector('.portfolio__list').insertAdjacentHTML('beforeEnd', response);
+                    currentPage++;
+                    if (currentPage === pages) {
+                        target.classList.add('portfolio__btn_disabled');
+                    }
+                    document.querySelector('.portfolio').style.opacity = 1;
+                    target.innerHTML = template;
+                }
+            }
+
+            if (data === 'post') {
+                const tag = target.dataset.postTag;
+                requestData.data.action = data + '_portfolio';
+                requestData.data.tag = tag;
+            }
+            jQuery.ajax(requestData);
+            return;
+        }
     });
 
     //Events
@@ -342,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
     addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
     addCustomEventHandler('click', navigationLinksCollection, pageNavigationLinkHandler);
+    addCustomEventHandler('input', inputs, paymentInputsHandler);
 
     window.addEventListener('resize', () => {
         detectDeviceWidth();
@@ -376,159 +458,6 @@ document.addEventListener('DOMContentLoaded', () => {
             target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
         }
     });
-    
-    jQuery('.payment-modal__btn').on('click', function (e) {
-        e.preventDefault();
-        let paymentForm = jQuery(this).closest('.form');
-        let totalPrice = paymentForm.find('input[name="total"]').val();
-        let courseNameValue = paymentForm.find('input[name="title"]').val();
-        let valid;
-        paymentForm.find('input[required]').each(function () {
-            if (!jQuery(this).val()) {
-                jQuery(this).addClass('wpcf7-not-valid').next().next().addClass('form__error-label_active');
-                valid = false;
-                return false;
-            } else {
-                jQuery(this).removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
-                valid = true;
-            }
-        });
-        if (valid) {
-            paymentForm.find('input[required]').removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
-            jQuery.ajax({
-                url: ajax.url,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    action: 'payment_alfa',
-                    orderAmount: totalPrice * 100,
-                    orderTitle: courseNameValue,
-                    customerSaleType: 'Без скидки',
-                    customerSaleValue: 0,
-                    customerName: paymentForm.find('input[name="name"]').val()
-                },
-                beforeSend: function () {
-                    paymentForm.find('button').css('opacity', '.5');
-                    paymentForm.find('button').text('Обрабатываем данные...');
-                },
-                success: function (response) {
-                    setTimeout(function () {
-                        paymentForm.find('button').text('Перенаправляем на оплату...');
-                        //Get params and open link
-                        setTimeout(function () {
-                            location.href = response.formUrl;
-                            paymentForm.find('button').css('opacity', 1);
-                        }, 200);
-                    }, 500);
-                }
-            });
-        }
-    });
-    jQuery('.portfolio__btn_location-home').on('click', function () {
-        let dataMaxPagesValue = jQuery(this).data('max-pages');
-        let portfolioBtnElement = jQuery(this);
-        let btnElementActiveTemplate = 'Загружаем...';
-        let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#fff"></path> </svg>';
-        jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: 'portfolio',
-                currentPage: portfolioCurrentPageNum,
-            },
-            beforeSend: function () {
-                jQuery('.portfolio').css('opacity', '.7');
-                portfolioBtnElement.html(btnElementActiveTemplate);
-            },
-            success: function (response) {
-                jQuery('.portfolio .row.no-gutters').append(response);
-                portfolioCurrentPageNum += 1;
-                if (portfolioCurrentPageNum === dataMaxPagesValue) {
-                    portfolioBtnElement.addClass('portfolio__btn_disabled');
-                }
-                jQuery('.portfolio').css('opacity', '1');
-                portfolioBtnElement.html(btnElementDefaultTemplate);
-            }
-        });
-    });
-    jQuery('.portfolio__btn_location-post').on('click', function () {
-        let postTagName = jQuery('.portfolio__btn_location-post').data('post-tag');
-        let postPortfolioMaxPages = jQuery('.portfolio__btn_location-post').data('max-pages');
-        let portfolioBtnElement = jQuery(this);
-        jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: 'post_portfolio',
-                tag: postTagName,
-                currentPage: postPortfolioPageNum
-            },
-            beforeSend: function () {
-                jQuery('.portfolio').css('opacity', '.7');
-                portfolioBtnElement.html(btnElementActiveTemplate);
-            },
-            success: function (response) {
-                jQuery('.portfolio .row.no-gutters').append(response);
-                postPortfolioPageNum += 1;
-                if (postPortfolioPageNum === postPortfolioMaxPages) {
-                    portfolioBtnElement.addClass('portfolio__btn_disabled');
-                }
-                jQuery('.portfolio').css('opacity', '1');
-                portfolioBtnElement.html(btnElementDefaultTemplate);
-            }
-        });
-    });
-    jQuery(document).on('click', '.content-list__more-btn', function () {
-        if (clickedBool) {
-            jQuery('html, body').animate({
-                scrollTop: jQuery('.faq__title').offset().top - 50
-            }, 150);
-            jQuery('.faq__footer').html(`<button type="button" class="ajax-btn content-list__more-btn">Показать еще
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z"
-            fill="#211130" />
-    </svg>
-    </button>`);
-        } else {
-            jQuery('.faq__footer').html(`<button type="button" class="ajax-btn content-list__more-btn content-list__more-btn_opened">Скрыть
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z"
-            fill="#211130" />
-    </svg>
-    </button>`);
-        }
-        jQuery('.faq__item:nth-child(n+7)').toggle(300);
-        clickedBool = !clickedBool;
-    });
-    //CF7 EVENTS
-    jQuery('.payment-item__input').on('click', function () {
-        paymentMethodIndex = jQuery('.payment-item').index(jQuery(this).parent());
-        jQuery('body, html').animate({
-            scrollTop: jQuery('#payment-anchor').offset().top
-        }, 800);
-        jQuery('.payment-section').hide();
-        jQuery('.payment-section').eq(paymentMethodIndex).show();
-        changeInputPrice(paymentMethodIndex);
-    });
-    jQuery('input[name="paymentLevel"]').on('click', function () {
-        paymentLevel = 'Оплата за ' + jQuery(this).val() + ' этап';
-    });
-    jQuery('input[name="sale"]').on('click', function () {
-        if (jQuery(this).is(':checked')) {
-            changeInputPrice(paymentMethodIndex, true);
-        } else {
-            changeInputPrice(paymentMethodIndex);
-        }
-    });
-    
-    (function() {
-        const inputs = document.querySelectorAll('input');
-        addCustomEventHandler('input', inputs, paymentInputsHandler);
-    })();
     
     jQuery('.webpay-form__btn').on('click', function (e) {
         e.preventDefault();
@@ -1731,9 +1660,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function paymentInputsHandler(event) {
         const target = event.target;
-        const saleInput = target.closest('.form').querySelector('input[name="sale"]');
-        saleInput.checked = false;
-        totalPrice = target.value;
-        changeCurenciesPrice(paymentMethodIndex);
+        const targetName = target.name;
+
+        if (targetName === 'total' || targetName === 'wsb_total') {
+            const saleInput = target.closest('.form').querySelector('input[name="sale"]');
+            if (saleInput) {
+                saleInput.checked = false;
+            }
+            totalPrice = target.value;
+            changeCurenciesPrice(paymentMethodIndex);
+        }
+
+        return;
     }
 });
