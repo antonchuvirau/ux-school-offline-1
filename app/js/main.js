@@ -108,11 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Variables
     let defaultSubmitButtonText;
-    const utilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
     const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
+    const modals = document.querySelectorAll('.modal');
+    const videoModals = document.querySelectorAll('.video-modal');
     let dropdownType;
     let totalPrice;
     let salePrice;
@@ -145,19 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.dataset.modal) {
             const modalId = target.dataset.modal;
-            if (modalId === '#video-modal') {
-                const videoId = target.dataset.videoId;
-                const videoLink = 'https://www.youtube.com/embed/' + videoId;
-                const videiIframeTemplate = `<iframe width="100%" height="100%" src="${videoLink}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                document.querySelector(modalId).innerHTML = videiIframeTemplate;
-                jQuery(modalId).modal({
-                    closeExisting: false
-                });
-            } else {
-                jQuery(modalId).modal({
-                    closeExisting: false
-                });
-            }
+            jQuery(modalId).modal({
+                closeExisting: false
+            });
+        }
+        if (target.dataset.videoId) {
+            const videoId = target.dataset.videoId;
+            const videoLink = 'https://www.youtube.com/embed/' + videoId;
+            const videoModal = document.querySelector('.video-modal');
+            videoModal.querySelector('iframe').setAttribute('src', videoLink);
+            jQuery('.video-modal').modal({
+                closeExisting: false
+            });
         }
         if (target.matches('.content-list__title')) {
             target.classList.toggle('content-list__title_active');
@@ -880,6 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //International telephone input
     (function() {
+        const utilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
         const inputs = document.querySelectorAll("input[type='tel']");
 
         if (inputs) {
@@ -1461,10 +1462,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function modalOpenHandler() {
-        const modal = document.querySelector('.current');
-        const telInput = modal.querySelector('input[type="tel"]');
-        if (telInput) {
+    function modalOpenHandler(event) {
+        const modal = event.target;
+        const input = modal.querySelector('input[type="tel"]');
+        if (input) {
             const code = modal.querySelector('.iti__selected-dial-code').textContent;
             const hiddenInput = modal.querySelector('input[name="ums-country-code"]');
             if (hiddenInput) {
@@ -1473,8 +1474,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function videoModalCloseHandler() {
-        document.querySelector('.video-modal').innerHTML = '';
+    function videoModalCloseHandler(event) {
+        const modal = event.target;
+        modal.querySelector('iframe').setAttribute('src', '');
         return;
     }
 
@@ -1493,8 +1495,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addCustomEventHandler(event, collection, handlerFunction) {
-        for (let item of collection) {
-            item.addEventListener(event, handlerFunction);
+        for (let el of collection) {
+            el.addEventListener(event, handlerFunction);
         }
         return;
     }
