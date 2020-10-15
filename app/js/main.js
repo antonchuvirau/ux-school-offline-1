@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     setTimeout(function () {
                         button.classList.remove('btn_is-loading');
-                        button.textContent = calculationButtonText;
+                        button.textContent = defaultText;
                     }, 300);
                 }
             });
@@ -666,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             form.addEventListener('wpcf7invalid', () => {
                 button.classList.remove('btn_is-loading');
-                button.textContent = calculationButtonText;
+                button.textContent = defaultText;
             });
         }
     })();
