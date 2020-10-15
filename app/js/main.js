@@ -2,19 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     //Privacy checkbox
-    (function() {
+    (function () {
         const inputs = document.querySelectorAll('.privacy-checkbox__input');
-        
+
         if (inputs) {
             for (let input of inputs) {
                 input.addEventListener('click', privacyInputHandler);
             }
         }
-        
+
         function privacyInputHandler(event) {
             const target = event.target;
             const button = target.closest('.checkbox').previousElementSibling.querySelector('button[type="submit"]');
-            
+
             if (target.checked) {
                 button.disabled = false
             } else {
@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     //Inner carousel
-    (function() {
+    (function () {
         const innerCarouselsCollection = Array.from(document.querySelectorAll('.inner-carousel__grid'));
         const defaultCarouselClass = 'inner-carousel-instance-';
 
         if (innerCarouselsCollection.length) {
             innerCarouselsCollection.forEach((item, index) => {
                 const carousel = item.closest('.inner-carousel');
-    
+
                 item.classList.add(defaultCarouselClass + index);
                 new Swiper(item, {
                     pagination: {
@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let headerElement = document.querySelector('.header');
     let formInputs = document.querySelectorAll('.js-form__input input, .js-form__input textarea');
-    
+
     let textareaBtnElement = document.querySelector('.form__textarea-btn');
     let playVideoBtnElement = document.querySelectorAll('.modal-video-button');
 
-    // let paymentFormInputElements = document.querySelectorAll('.payment-form__input input');
+    let paymentFormInputElements = document.querySelectorAll('.payment-form__input input');
     let pageNavigationLinksCollection = document.querySelectorAll('.page-navigation__link');
     let weCarousel;
     let inputMaskFromPlaceholder;
@@ -75,8 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // let price;
     // let salePrice;
 
-    
-    let calculationButtonElement = document.querySelector('.calculation__btn');
     let calculationButtonText;
     let requiredInputsCollection;
     let certificateForm = '#wpcf7-f1805-o1';
@@ -100,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let courseTypeArray = [];
     let clickedBool = false;
     let elementTextContent;
-    
+
     let deliveryElement = document.querySelector('select[name="delivery"]');
-    
+
     let umsTestimonialsCarousel, umsGraduatesCarousel;
     let umsSelectCollection, umsInputCollection;
 
@@ -292,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         if (target.matches('.course-list-item__select-name')) {
-            (function() {
+            (function () {
                 const buttons = document.querySelectorAll('.course-list-item__select-name');
                 const dropdowns = document.querySelectorAll('.dropdown');
                 const activeClass = 'course-list-item__select-name_active';
@@ -301,8 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (target.classList.contains(activeClass)) {
                     target.classList.remove(activeClass)
                     target.nextElementSibling.classList.remove(openClass);
-                }
-                else {
+                } else {
                     removeClass(buttons, activeClass);
                     removeClass(dropdowns, openClass);
                     target.classList.add(activeClass);
@@ -311,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })();
         }
         if (target.matches('.wpcf7 button[type="submit"]')) {
-            (function() {
+            (function () {
                 defaultSubmitButtonText = target.textContent;
                 const activeText = 'Отправляем...';
                 const activeClass = 'btn_is-loading';
@@ -325,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target.classList.add(activeClass);
         }
         if (target.matches('.form__textarea-btn')) {
-            (function() {
+            (function () {
                 const activeClass = 'form__textarea-btn_active';
                 const disableClass = 'form__textarea_visibility-hide';
 
@@ -414,6 +411,93 @@ document.addEventListener('DOMContentLoaded', () => {
             jQuery.ajax(requestData);
             return;
         }
+        if (target.matches('.webpay-form__btn')) {
+            event.preventDefault();
+
+            const buttonText = target.textContent;
+            target.textContent = 'Проверяем...';
+            target.style.opacity = .5;
+            const form = target.closest('.form');
+            const method = target.dataset.paymentMethod;
+            const inputs = form.querySelectorAll('input[required]');
+            const customer = (method === 'alfa') ? form.querySelector('input[name="name"]').value : form.querySelector('input[name="wsb_customer_name"]').value;
+            let isValid;
+            let ajaxData = {
+                action: 'payment_' + method,
+                totalPrice: totalPrice * 100,
+                productName: current,
+                customerName: customer
+            }
+
+            for (let input of inputs) {
+                const value = input.value;
+                const label = input.nextElementSibling.nextElementSibling;
+
+                if (!value) {
+                    input.classList.add('wpcf7-not-valid');
+                    label.classList.add('form__error-label_active');
+                    isValid = false;
+                    setTimeout(() => {
+                        target.textContent = buttonText;
+                        target.style.opacity = 1;
+                    }, 300);
+                    return;
+                } else {
+                    input.classList.remove('wpcf7-not-valid');
+                    label.classList.remove('form__error-label_active');
+                    isValid = true;
+                }
+            }
+
+            if (isValid) {
+                inputs.forEach(item => {
+                    const label = item.nextElementSibling.nextElementSibling;
+
+                    item.classList.remove('wpcf7-not-valid');
+                    label.classList.remove('form__error-label_active');
+                });
+                if (paymentMethodIndex !== 3) {
+                    ajaxData.customerSaleType = saleType;
+                    ajaxData.customerSaleValue = saleValue;
+                }
+                jQuery.ajax({
+                    url: ajax.url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: ajaxData,
+                    beforeSend: function () {
+                        target.style.opacity = .5;
+                        target.textContent = 'Обрабатываем данные...';
+                    },
+                    success: function (response) {
+                        //VK conversion
+                        VK.Goal('purchase');
+                        //Yandex conversion
+                        ym(49171171, 'reachGoal', 'payment');
+                        //Google conversion
+                        gtag('event', 'conversion', {
+                            'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
+                        });
+                        gtag('event', 'success', {
+                            'send_to': 'analytics',
+                            'event_category': 'payment'
+                        });
+
+                        target.textContent = 'Перенаправляем на оплату...';
+                        if (paymentMethodIndex === 3) {
+                            setTimeout(function () {
+                                document.location.replace(response.checkout.redirect_url);
+                            }, 200);
+                            return;
+                        }
+                        setTimeout(function () {
+                            document.location.replace(response.formUrl);
+                        }, 200);
+                        return;
+                    }
+                });
+            }
+        }
     });
 
     //Events
@@ -431,10 +515,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('scroll', () => {
         //Mobile menu button
-        (function() {
+        (function () {
             const button = document.querySelector('.m-options__menu-btn');
             const activeClass = 'm-options__menu-btn_active';
-            
+
             if (button) {
                 if (pageYOffset >= 900) {
                     button.classList.add(activeClass);
@@ -458,188 +542,137 @@ document.addEventListener('DOMContentLoaded', () => {
             target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
         }
     });
-    
-    jQuery('.webpay-form__btn').on('click', function (e) {
-        e.preventDefault();
-        let storeIdValue;
-        let ajaxData;
-        let parentElement = jQuery(this).closest('.form');
-        let paymentMethodValue = jQuery(this).data('payment-method');
-        let valid;
-        parentElement.find('input[required]').each(function () {
-            if (!jQuery(this).val()) {
-                jQuery(this).addClass('wpcf7-not-valid').next().next().addClass('form__error-label_active');
-                valid = false;
-                return false
-            } else {
-                jQuery(this).removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
-                valid = true;
-            }
-        });
-        if (valid) {
-            parentElement.find('input[required]').removeClass('wpcf7-not-valid').next().next().removeClass('form__error-label_active');
-            if (paymentMethodIndex === 3) {
-                ajaxData = {
-                    action: 'payment_' + paymentMethodValue,
-                    totalPrice: totalPrice * 100,
-                    productName: current,
-                    customerName: parentElement.find('input[name="name"]').val()
-                }
-            } else {
-                ajaxData = {
-                    action: 'payment_' + paymentMethodValue,
-                    orderAmount: totalPrice * 100,
-                    orderTitle: current,
-                    customerName: parentElement.find('input[name="name"]').val(),
-                    customerSaleType: saleType,
-                    customerSaleValue: saleValue
-                }
-            }
-            jQuery.ajax({
-                url: ajax.url,
-                type: 'POST',
-                dataType: 'json',
-                data: ajaxData,
-                beforeSend: function () {
-                    parentElement.find('.webpay-form__btn').css('opacity', '.5');
-                    parentElement.find('.webpay-form__btn').text('Обрабатываем данные...');
-                },
-                success: function (response) {
-                    //VK conversion
-                    VK.Goal('purchase');
-                    //Yandex conversion
-                    ym(49171171, 'reachGoal', 'payment');
-                    //Google conversion
-                    gtag('event', 'conversion', {
-                        'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
-                    });
-                    gtag('event', 'success', {
-                        'send_to': 'analytics',
-                        'event_category': 'payment'
-                    });
-                    if (paymentMethodIndex === 3) {
-                        parentElement.find('.webpay-form__btn').text('Перенаправляем на оплату...');
-                        setTimeout(function () {
-                            document.location.replace(response.checkout.redirect_url);
-                        }, 200);
-                    } else {
-                        setTimeout(function () {
-                            parentElement.find('button').removeClass('webpay-form__btn-ajax');
-                            parentElement.find('.webpay-form__btn').text('Перенаправляем на оплату...');
-                            setTimeout(function () {
-                                location.href = response.formUrl;
-                                parentElement.find('.webpay-form__btn').css('opacity', '1');
-                            }, 200);
-                        }, 500);
+
+    //Certificate
+    (function () {
+        const button = document.querySelector('.calculation__btn');
+        const form = document.querySelector('#wpcf7-f1805-o1');
+        const processMessage = 'Обрабатываем данные...';
+        const transferMessage = 'Перенаправляем на оплату...';
+
+        if (button) {
+            const defaultText = button.textContent;
+            requiredInputsCollection = button.closest('.form').querySelectorAll('input:required');
+            button.addEventListener('click', function (event) {
+                button.textContent = 'Отправляем...';
+                button.classList.add('btn_is-loading');
+                for (let input of requiredInputsCollection) {
+                    let inputType = input.getAttribute('type');
+                    if (inputType === 'tel') {
+                        //Get input value and remove all non-digit symbols
+                        let inputValue = input.value.replace(/\D/g, '');
+                        if (input.value == '' || inputValue.length < 9) {
+                            addErrorClass(input, input.closest('.form__input'));
+                            // validation = false;
+                            telInputValidation = false;
+                        } else {
+                            removeErrorClass(input, input.closest('.form__input'));
+                            // validation = true;
+                            telInputValidation = true;
+                        }
+                    }
+                    if (inputType === 'email') {
+                        if (input.value == '' || (input.value.indexOf('@') == -1)) {
+                            addErrorClass(input, input.closest('.form__input'));
+                            // validation = false;
+                            emailInputValidation = false;
+                        } else {
+                            removeErrorClass(input, input.closest('.form__input'));
+                            // validation = true;
+                            emailInputValidation = true;
+                        }
+                    }
+                    if (inputType === 'text') {
+                        if (input.value == '') {
+                            addErrorClass(input, input.parentElement);
+                            // validation = false;
+                            textInputValidation = false;
+                        } else {
+                            removeErrorClass(input, input.parentElement);
+                            // validation = true;
+                            textInputValidation = true;
+                        }
                     }
                 }
-            });
-        }
-    });
-    
-    if (calculationButtonElement) {
-        calculationButtonText = calculationButtonElement.textContent;
-        requiredInputsCollection = calculationButtonElement.closest('.form').querySelectorAll('input:required');
-        calculationButtonElement.addEventListener('click', function (event) {
-            calculationButtonElement.textContent = 'Отправляем...';
-            calculationButtonElement.classList.add('btn_is-loading');
-            for (let input of requiredInputsCollection) {
-                let inputType = input.getAttribute('type');
-                if (inputType === 'tel') {
-                    //Get input value and remove all non-digit symbols
-                    let inputValue = input.value.replace(/\D/g, '');
-                    if (input.value == '' || inputValue.length < 9) {
-                        addErrorClass(input, input.closest('.form__input'));
-                        // validation = false;
-                        telInputValidation = false;
-                    } else {
-                        removeErrorClass(input, input.closest('.form__input'));
-                        // validation = true;
-                        telInputValidation = true;
-                    }
-                }
-                if (inputType === 'email') {
-                    if (input.value == '' || (input.value.indexOf('@') == -1)) {
-                        addErrorClass(input, input.closest('.form__input'));
-                        // validation = false;
-                        emailInputValidation = false;
-                    } else {
-                        removeErrorClass(input, input.closest('.form__input'));
-                        // validation = true;
-                        emailInputValidation = true;
-                    }
-                }
-                if (inputType === 'text') {
-                    if (input.value == '') {
-                        addErrorClass(input, input.parentElement);
-                        // validation = false;
-                        textInputValidation = false;
-                    } else {
-                        removeErrorClass(input, input.parentElement);
-                        // validation = true;
-                        textInputValidation = true;
-                    }
-                }
-            }
-            //Get select data
-            let deliveryValue = +deliveryElement.value;
-            if (deliveryValue === 0) {
-                addErrorClass(deliveryElement, deliveryElement.parentElement);
-                selectValidation = false;
-                // validation = false
-            } else if (deliveryValue === 1) {
-                deliveryElement.classList.remove('wpcf7-not-valid');
-                deliveryElement.parentElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
-                let deliveryAddressElement = deliveryElement.parentElement.nextElementSibling.querySelector('input');
-                let deliveryAddress = deliveryAddressElement.value;
-                if (deliveryAddress === '') {
-                    addErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
-                    // validation = false;
+                //Get select data
+                let deliveryValue = +deliveryElement.value;
+                if (deliveryValue === 0) {
+                    addErrorClass(deliveryElement, deliveryElement.parentElement);
                     selectValidation = false;
+                    // validation = false
+                } else if (deliveryValue === 1) {
+                    deliveryElement.classList.remove('wpcf7-not-valid');
+                    deliveryElement.parentElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
+                    let deliveryAddressElement = deliveryElement.parentElement.nextElementSibling.querySelector('input');
+                    let deliveryAddress = deliveryAddressElement.value;
+                    if (deliveryAddress === '') {
+                        addErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
+                        // validation = false;
+                        selectValidation = false;
+                    } else {
+                        removeErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
+                        // validation = true;
+                        selectValidation = true;
+                    }
                 } else {
-                    removeErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
+                    removeErrorClass(deliveryElement, deliveryElement.parentElement);
                     // validation = true;
                     selectValidation = true;
                 }
-            } else {
-                removeErrorClass(deliveryElement, deliveryElement.parentElement);
-                // validation = true;
-                selectValidation = true;
-            }
-            //Send form
-            if (telInputValidation && emailInputValidation && textInputValidation && selectValidation) {
-                //Create payment object
-                certificatePaymentObject = {
-                    action: 'payment_alfa',
-                    orderAmount: +jQuery('input[name="total"]').val() * 100,
-                    orderTitle: jQuery('.ums-select__btn').text(),
-                    customerName: jQuery('input[name="name"]').val(),
-                    customerSaleType: 'Без скидки',
-                    customerSaleValue: 0
+                //Send form
+                if (telInputValidation && emailInputValidation && textInputValidation && selectValidation) {
+                    //Create payment object
+                    certificatePaymentObject = {
+                        action: 'payment_alfa',
+                        orderAmount: +jQuery('input[name="total"]').val() * 100,
+                        orderTitle: jQuery('.ums-select__btn').text(),
+                        customerName: jQuery('input[name="name"]').val(),
+                        customerSaleType: 'Без скидки',
+                        customerSaleValue: 0
+                    }
+                    if (document.querySelector('.promocode-input').classList.contains('promocode-input_state-success')) {
+                        certificatePaymentObject.customerSaleType = 'Промокод';
+                        certificatePaymentObject.customerSaleValue = 10;
+                    }
+                    //Fill hidden fields with data
+                    jQuery(certificateForm).find('input[name="ums-course"]').val(jQuery('.ums-select__btn').text());
+                    jQuery(certificateForm).find('input[name="ums-price"]').val(jQuery('input[name="total"]').val());
+                    jQuery(certificateForm).find('input[name="ums-name"]').val(jQuery('input[name="name"]').val());
+                    jQuery(certificateForm).find('input[name="ums-email"]').val(jQuery('input[name="email"]').val());
+                    jQuery(certificateForm).find('input[name="ums-tel"]').val(jQuery('input[name="tel"]').val());
+                    jQuery(certificateForm).find('input[name="ums-delivery"]').val(jQuery('select[name="delivery"] option:selected').text() + ', ' + jQuery('input[name="delivery-address"]').val());
+                    jQuery(certificateForm).find('form').trigger('submit');
+                } else {
+                    setTimeout(function () {
+                        button.classList.remove('btn_is-loading');
+                        button.textContent = calculationButtonText;
+                    }, 300);
                 }
-                if (document.querySelector('.promocode-input').classList.contains('promocode-input_state-success')) {
-                    certificatePaymentObject.customerSaleType = 'Промокод';
-                    certificatePaymentObject.customerSaleValue = 10;
-                }
-                //Fill hidden fields with data
-                jQuery(certificateForm).find('input[name="ums-course"]').val(jQuery('.ums-select__btn').text());
-                jQuery(certificateForm).find('input[name="ums-price"]').val(jQuery('input[name="total"]').val());
-                jQuery(certificateForm).find('input[name="ums-name"]').val(jQuery('input[name="name"]').val());
-                jQuery(certificateForm).find('input[name="ums-email"]').val(jQuery('input[name="email"]').val());
-                jQuery(certificateForm).find('input[name="ums-tel"]').val(jQuery('input[name="tel"]').val());
-                jQuery(certificateForm).find('input[name="ums-delivery"]').val(jQuery('select[name="delivery"] option:selected').text() + ', ' + jQuery('input[name="delivery-address"]').val());
-                jQuery(certificateForm).find('form').trigger('submit');
-            } else {
-                setTimeout(function () {
-                    calculationButtonElement.classList.remove('btn_is-loading');
-                    calculationButtonElement.textContent = calculationButtonText;
-                }, 300);
-            }
-        });
-    }
+            });
+
+            form.addEventListener('wpcf7mailsent', () => {
+                button.textContent = processMessage;
+                jQuery.ajax({
+                    url: ajax.url,
+                    method: 'POST',
+                    data: certificatePaymentObject,
+                    success: function (resp) {
+                        button.textContent = transferMessage;
+                        setTimeout(function () {
+                            document.location.replace(JSON.parse(resp).formUrl);
+                        }, 300);
+                    }
+                });
+            });
+            form.addEventListener('wpcf7invalid', () => {
+                button.classList.remove('btn_is-loading');
+                button.textContent = calculationButtonText;
+            });
+        }
+    })();
 
     //Promocode
-    (function() {
+    (function () {
         //Promocode
         const toggleInput = document.querySelector('.toggle-checkbox__input');
         const processMessage = 'Проверяем...';
@@ -652,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = {
             action: 'promocode'
         };
-        
+
         if (toggleInput) {
             const el = document.querySelector('.promocode-input');
             const button = el.querySelector('.promocode-input__btn');
@@ -679,38 +712,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.textContent = processMessage;
                 el.classList.add(classes.progress);
                 fetch(ajax.url, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Accept': 'application/json'
-                    },
-                    body: new URLSearchParams(data)
-                })
-                .then((resp) => resp.json())
-                .then((data) => {
-                    button.textContent = defaultButtonText;
-                    el.classList.remove(classes.progress);
-                    if (data.length) {
-                        const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
-                        if (result) {
-                            changeInputPrice(paymentMethodIndex, false, true);
-                            showPromocodeMessage(el, 'success');
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Accept': 'application/json'
+                        },
+                        body: new URLSearchParams(data)
+                    })
+                    .then((resp) => resp.json())
+                    .then((data) => {
+                        button.textContent = defaultButtonText;
+                        el.classList.remove(classes.progress);
+                        if (data.length) {
+                            const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
+                            if (result) {
+                                changeInputPrice(paymentMethodIndex, false, true);
+                                showPromocodeMessage(el, 'success');
+                            } else {
+                                showPromocodeMessage(el, 'error');
+                                changeInputPrice(paymentMethodIndex, false, false);
+                            }
                         } else {
                             showPromocodeMessage(el, 'error');
                             changeInputPrice(paymentMethodIndex, false, false);
                         }
-                    } else {
-                        showPromocodeMessage(el, 'error');
-                        changeInputPrice(paymentMethodIndex, false, false);
-                    }
-                });
+                    });
             });
         }
     })();
 
     //Custom select
-    (function() {
+    (function () {
         const el = document.querySelector('.ums-select');
 
         if (el) {
@@ -722,8 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dropdownType === 'payment') {
                 salePrice = el.querySelector('button').dataset.salePrice;
                 totalPrice = salePrice;
-            }
-            else {
+            } else {
                 totalPrice = price;
             }
 
@@ -781,36 +813,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    //Certificate form
-    (function() {
-        const form = document.querySelector('#wpcf7-f1805-o1');
-        const processMessage = 'Обрабатываем данные...';
-        const transferMessage = 'Перенаправляем на оплату...';
-
-        if (form) {
-            form.addEventListener('wpcf7mailsent', () => {
-                calculationButtonElement.textContent = processMessage;
-                jQuery.ajax({
-                    url: ajax.url,
-                    method: 'POST',
-                    data: certificatePaymentObject,
-                    success: function (resp) {
-                        calculationButtonElement.textContent = transferMessage;
-                        setTimeout(function () {
-                            document.location.replace(JSON.parse(resp).formUrl);
-                        }, 300);
-                    }
-                });
-            });
-            form.addEventListener('wpcf7invalid', () => {
-                calculationButtonElement.classList.remove('btn_is-loading');
-                calculationButtonElement.textContent = calculationButtonText;
-            });
-        }
-    })();
-
     //International telephone input
-    (function() {
+    (function () {
         const utilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
         const inputs = document.querySelectorAll("input[type='tel']");
 
@@ -899,13 +903,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     saleValue = 10;
                 } else if (promocode) {
                     if (dropdownType === 'payment') {
-						totalPrice = salePrice - 50;
-//                      totalPrice = salePrice - (salePrice * (+promocode.value / 100));
+                        totalPrice = salePrice - 50;
+                        //                      totalPrice = salePrice - (salePrice * (+promocode.value / 100));
                         saleType = 'Промокод ' + promocode.name;
                         saleValue = promocode.value
                     } else if (dropdownType === 'certificate') {
-						totalPrice = price - 50;
-//                      totalPrice = price - (price * (+promocode.value / 100));
+                        totalPrice = price - 50;
+                        //                      totalPrice = price - (price * (+promocode.value / 100));
                         saleType = 'Промокод ' + promocode.name;
                         saleValue = promocode.value
                     }
@@ -1448,13 +1452,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = target.querySelector('button[type="submit"]');
         let crmData;
 
-        switch(id) {
+        switch (id) {
             case 131:
                 //VK Conversion
                 VK.Goal('lead');
                 //Google conversion
                 sendGoogleConversion(uri);
-                gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'button'});
+                gtag('event', 'click', {
+                    'send_to': 'analytics',
+                    'event_category': 'button'
+                });
                 //Yandex conversion
                 ym(49171171, 'reachGoal', 'lead_form');
                 //Send to CRM
@@ -1477,7 +1484,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         value: inputs[12].value
                     }
                 };
-                jQuery.when(sendDataToCRM(crmData, 'lead')).then(function(data) {
+                jQuery.when(sendDataToCRM(crmData, 'lead')).then(function (data) {
                     console.log(JSON.parse(data));
                 });
                 //Close modal
@@ -1508,7 +1515,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         value: inputs[12].value
                     }
                 };
-                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function(data) {
+                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function (data) {
                     console.log(JSON.parse(data));
                 });
                 button.textContent = defaultSubmitButtonText;
@@ -1527,7 +1534,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         name: 'Начни учиться бесплатно'
                     }
                 }
-                jQuery.when(sendDataToCRM(crmData, 'free')).then(function(data) {
+                jQuery.when(sendDataToCRM(crmData, 'free')).then(function (data) {
                     console.log(JSON.parse(data));
                 });
                 jQuery.when(sendCustomerToSendPulse(inputs[3].value, 89064264)).then((resp) => {
@@ -1538,7 +1545,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         //Yandex conversion
                         ym(49171171, 'reachGoal', 'freelessons');
                         //Google conversion
-                        gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'freelessons'});
+                        gtag('event', 'click', {
+                            'send_to': 'analytics',
+                            'event_category': 'freelessons'
+                        });
                         target.querySelector('.form__input').classList.remove('form__input_filled');
                         target.querySelector('.form__label').classList.remove('form__label_active');
                         button.textContent = defaultSubmitButtonText;
@@ -1568,7 +1578,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         //VK Conversion
                         VK.Goal('subscribe');
                         //Google conversion
-                        gtag('event', 'click', {'send_to': 'analytics', 'event_category': 'emailbutton'});
+                        gtag('event', 'click', {
+                            'send_to': 'analytics',
+                            'event_category': 'emailbutton'
+                        });
                         //Yandex conversion
                         ym(49171171, 'reachGoal', 'emailsub');
                         target.querySelector('.form__input').classList.remove('form__input_filled');
@@ -1593,7 +1606,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         name: 'Обратный звонок'
                     }
                 }
-                jQuery.when(sendDataToCRM(crmData, 'call')).then(function(data) {
+                jQuery.when(sendDataToCRM(crmData, 'call')).then(function (data) {
                     console.log(JSON.parse(data));
                 });
                 button.textContent = defaultSubmitButtonText;
