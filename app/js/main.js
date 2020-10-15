@@ -1615,6 +1615,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 jQuery('#success-modal-second').modal();
                 break;
             case 1839:
+                crmData = {
+                    name: inputs[7].value,
+                    customer: {
+                        email: inputs[8].value,
+                        telephone: (inputs[3].value + inputs[9].value).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: inputs[4].value,
+                        timestamp: +inputs[5].value
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: inputs[6].value
+                    }
+                };
+                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function (data) {
+                    console.log(JSON.parse(data));
+                });
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
