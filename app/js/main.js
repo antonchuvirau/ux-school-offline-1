@@ -51,6 +51,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
+    //International telephone input
+    const iti = {
+        utilsPath: 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js',
+        init: function (el) {
+            window.intlTelInput(el, {
+                nationalMode: true,
+                autoHideDialCode: false,
+                autoPlaceholder: 'aggressive',
+                separateDialCode: true,
+                preferredCountries: ['by', 'ru', 'ua'],
+                initialCountry: 'auto',
+                geoIpLookup: function (success, failure) {
+                    const date = new Date();
+                    const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+                    const localStorageData = JSON.parse(localStorage.getItem('ums-country-code'));
+                    if (localStorageData) {
+                        if (localStorageData.date != dateString) {
+                            jQuery.when(getCustomerIpInfo()).then((resp) => {
+                                if (resp) {
+                                    success(resp.country);
+                                    localStorage.setItem('ums-country-code', JSON.stringify({
+                                        date: dateString,
+                                        value: resp.country
+                                    }));
+                                } else {
+                                    failure(resp.country);
+                                }
+                            });
+                        } else {
+                            success(localStorageData.value);
+                        }
+                    } else {
+                        jQuery.when(getCustomerIpInfo()).then((resp) => {
+                            if (resp) {
+                                success(resp.country);
+                                localStorage.setItem('ums-country-code', JSON.stringify({
+                                    date: dateString,
+                                    value: resp.country
+                                }));
+                            } else {
+                                failure(resp.country);
+                            }
+                        });
+                    }
+                },
+                utilsScript: this.utilsPath,
+                customPlaceholder: function (selectedCountryPlaceholder) {
+                    const customPlaceholder = selectedCountryPlaceholder.replace(/[0-9]/g, '_');
+                    const customMask = selectedCountryPlaceholder.replace(/[0-9]/g, 9);
+                    const customMaskObject = new Inputmask(customMask, {
+                        showMaskOnHover: false,
+                        greedy: false
+                    });
+                    customMaskObject.mask(el);
+                    return customPlaceholder;
+                }
+            });
+            return;
+        },
+        countryChange: function(el) {
+            el.addEventListener("countrychange", (event) => {
+                const target = event.target;
+                const form = target.closest('.wpcf7-form') || target.closest('.form');
+                const code = form.querySelector('.iti__selected-dial-code').textContent;
+                const hiddenInput = form.querySelector('input[name="ums-country-code"]');
+                hiddenInput.value = code;
+            });
+            return;
+        }
+    }
+
     let headerElement = document.querySelector('.header');
     let formInputs = document.querySelectorAll('.js-form__input input, .js-form__input textarea');
 
@@ -126,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSwiperInstance();
     initSelectListener();
     initInputListener();
+    initItiPlugin();
 
     document.addEventListener('click', (event) => {
         //Get target element
@@ -502,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Events
     jQuery('.modal').on('modal:open', modalOpenHandler);
+    jQuery('.modal').on('modal:close', modalCloseHandler);
     jQuery('.video-modal').on('modal:after-close', videoModalCloseHandler);
     addCustomEventHandler('click', lecturersCollection, lecturerHandlerFunction);
     addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
@@ -542,6 +615,20 @@ document.addEventListener('DOMContentLoaded', () => {
             target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
         }
     });
+
+    //Iti
+    function initItiPlugin () {
+        const telInputs = document.querySelectorAll('input[type="tel"]');
+
+        for (const input of telInputs) {
+            if (!input.closest('.modal')) {
+                iti.init(input);
+                iti.countryChange(input);
+            }
+        }
+
+        return;
+    }
 
     //Certificate
     (function () {
@@ -810,77 +897,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     changeInputPrice(paymentMethodIndex);
                 }
             });
-        }
-    })();
-
-    //International telephone input
-    (function () {
-        const utilsPath = 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js';
-        const inputs = document.querySelectorAll("input[type='tel']");
-
-        if (inputs) {
-            for (let input of inputs) {
-                window.intlTelInput(input, {
-                    nationalMode: true,
-                    autoHideDialCode: false,
-                    autoPlaceholder: 'aggressive',
-                    separateDialCode: true,
-                    preferredCountries: ['by', 'ru', 'ua'],
-                    initialCountry: 'auto',
-                    geoIpLookup: function (success, failure) {
-                        const date = new Date();
-                        const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
-                        const localStorageData = JSON.parse(localStorage.getItem('ums-country-code'));
-                        if (localStorageData) {
-                            if (localStorageData.date != dateString) {
-                                jQuery.when(getCustomerIpInfo()).then((resp) => {
-                                    if (resp) {
-                                        success(resp.country);
-                                        localStorage.setItem('ums-country-code', JSON.stringify({
-                                            date: dateString,
-                                            value: resp.country
-                                        }));
-                                    } else {
-                                        failure(resp.country);
-                                    }
-                                });
-                            } else {
-                                success(localStorageData.value);
-                            }
-                        } else {
-                            jQuery.when(getCustomerIpInfo()).then((resp) => {
-                                if (resp) {
-                                    success(resp.country);
-                                    localStorage.setItem('ums-country-code', JSON.stringify({
-                                        date: dateString,
-                                        value: resp.country
-                                    }));
-                                } else {
-                                    failure(resp.country);
-                                }
-                            });
-                        }
-                    },
-                    utilsScript: utilsPath,
-                    customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-                        const customPlaceholder = selectedCountryPlaceholder.replace(/[0-9]/g, '_');
-                        const customMask = selectedCountryPlaceholder.replace(/[0-9]/g, 9);
-                        const customMaskObject = new Inputmask(customMask, {
-                            showMaskOnHover: false,
-                            greedy: false
-                        });
-                        customMaskObject.mask(input);
-                        return customPlaceholder;
-                    }
-                });
-                input.addEventListener("countrychange", (event) => {
-                    const target = event.target;
-                    const el = target.closest('form') ? 'form' : '.form';
-                    const instance = window.intlTelInputGlobals.getInstance(target);
-                    const codeInput = target.closest(el).querySelector('input[name="ums-country-code"]');
-                    codeInput.value = '+' + instance.s.dialCode;
-                });
-            }
         }
     })();
 
@@ -1400,6 +1416,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function modalOpenHandler(event) {
         const modal = event.target;
         const input = modal.querySelector('input[type="tel"]');
+
+        iti.init(input);
+        iti.countryChange(input);
+
         if (input) {
             const code = modal.querySelector('.iti__selected-dial-code').textContent;
             const hiddenInput = modal.querySelector('input[name="ums-country-code"]');
@@ -1407,6 +1427,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 hiddenInput.value = code;
             }
         }
+
+        return;
+    }
+
+    function modalCloseHandler(event) {
+        const target = event.target;
+        const input = target.querySelector('input[type="tel"]');
+
+        if (input) {
+            const instance = window.intlTelInputGlobals.getInstance(input);
+            instance.destroy();
+        }
+
+        return;
     }
 
     function videoModalCloseHandler(event) {
