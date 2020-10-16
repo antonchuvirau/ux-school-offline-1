@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let deliveryElement = document.querySelector('select[name="delivery"]');
 
-    let umsTestimonialsCarousel, umsGraduatesCarousel;
     let umsSelectCollection, umsInputCollection;
 
     //Variables
@@ -900,17 +899,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    function addErrorClass(inputElement, errorTextElement) {
+    function addErrorClass (inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
+
+        return;
     }
 
-    function removeErrorClass(inputElement, errorTextElement) {
+    function removeErrorClass (inputElement, errorTextElement) {
         inputElement.classList.remove('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
+
+        return;
     }
 
-    function changeInputPrice(index, sale, promocode) {
+    function changeInputPrice (index, sale, promocode) {
         switch (index) {
             case 0:
                 if (sale) {
@@ -968,9 +971,11 @@ document.addEventListener('DOMContentLoaded', () => {
             totalInputElement.nextElementSibling.classList.add('form__label_active');
             totalInputElement.parentElement.classList.add('form__input_filled');
         }
+
+        return;
     }
 
-    function changeCurenciesPrice(index) {
+    function changeCurenciesPrice (index) {
         let totalPriceInUsd = (totalPrice / rates.usd).toFixed(0);
         let totalPriceInRub = (totalPrice / (rates.rub / 100)).toFixed(0);
         let currenciesPriceTemplate = `
@@ -982,9 +987,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (dropdownType === 'certificate') {
             document.querySelector('.ums-currency').innerHTML = currenciesPriceTemplate;
         }
+
+        return;
     }
 
-    function showPromocodeMessage(el, state) {
+    function showPromocodeMessage (el, state) {
         if (state == 'success') {
             el.classList.remove('promocode-input_state-error');
             el.querySelector('.form__error-label').textContent = 'Промокод успешно применен';
@@ -994,9 +1001,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         el.classList.add('promocode-input_state-' + state);
         el.querySelector('.form__error-label').classList.add('form__error-label_active');
+
+        return;
     }
 
-    function initSwiperSlider(element) {
+    function initSwiperSlider (element) {
         if (jQuery(element).length !== 0) {
             jQuery(element).addClass('swiper-container');
             jQuery(element).children().addClass('swiper-slide').wrapAll('<div class="swiper-wrapper"/>');
@@ -1006,17 +1015,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 freeModeMomentum: false
             });
         }
+
+        return;
     }
 
-    function destroySwiperSlider(element) {
+    function destroySwiperSlider (element) {
         if (customSwiper) {
             customSwiper.destroy();
             jQuery(element).removeClass('swiper-container');
             jQuery(element).children().children().removeClass('swiper-slide').unwrap();
         }
+
+        return;
     }
 
-    function detectDeviceWidth() {
+    function detectDeviceWidth () {
         if (window.innerWidth < 992) {
             isMobile = true;
             isTablet = false;
@@ -1027,27 +1040,33 @@ document.addEventListener('DOMContentLoaded', () => {
             isTablet = false;
             isMobile = false
         }
-    }
 
-    function destroyMobileMenu() {
-        jQuery('.header__info').append(jQuery('.header__menu'));
-        jQuery('.header__info').append(jQuery('.header__phone-number'));
-        jQuery('.header .col-3').append(jQuery('.header__select'));
-    }
-
-    function getScrollbarWidth() {
-        return window.innerWidth - document.documentElement.clientWidth;
-    }
-
-    function changeElementText(element, text) {
-        const el = document.querySelector(element);
-        if (el) {
-            el.textContent = text;
-        }
         return;
     }
 
-    function changeLayout() {
+    function destroyMobileMenu () {
+        jQuery('.header__info').append(jQuery('.header__menu'));
+        jQuery('.header__info').append(jQuery('.header__phone-number'));
+        jQuery('.header .col-3').append(jQuery('.header__select'));
+
+        return;
+    }
+
+    function getScrollbarWidth () {
+        return window.innerWidth - document.documentElement.clientWidth;
+    }
+
+    function changeElementText (element, text) {
+        const el = document.querySelector(element);
+
+        if (el) {
+            el.textContent = text;
+        }
+
+        return;
+    }
+
+    function changeLayout () {
         if (isMobile && !isCompleted) {
             // jQuery('.m-menu__grid').append(jQuery('.header__select'));
             // jQuery('.m-menu__grid').append(jQuery('.header__menu'));
@@ -1095,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function getTeamLecturerInfo(lecturerIdValue, clickedElement) {
+    function getTeamLecturerInfo (lecturerIdValue, clickedElement) {
         return jQuery.ajax({
             url: ajax.url,
             type: 'POST',
@@ -1109,7 +1128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function getLecturerInfo(lecturerIdValue, clickedElement) {
+    function getLecturerInfo (lecturerIdValue, clickedElement) {
         return jQuery.ajax({
             url: ajax.url,
             type: 'POST',
@@ -1123,7 +1142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function sendCustomerToSendPulse(customerEmail, addressBookId) {
+    function sendCustomerToSendPulse (customerEmail, addressBookId) {
         return jQuery.ajax({
             url: ajax.url,
             method: 'POST',
@@ -1135,7 +1154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function getPriceInCurrency(element, currency, value) {
+    function getPriceInCurrency (element, currency, value) {
         return jQuery.ajax({
             url: ajax.url,
             method: 'POST',
@@ -1150,7 +1169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function sendGoogleConversion(baseURI) {
+    function sendGoogleConversion (baseURI) {
         if (baseURI.indexOf('motion')) {
             gtag('event', 'conversion', {
                 'send_to': 'AW-795851636/jzVICKfr8tMBEPT2vvsC'
@@ -1181,17 +1200,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
             });
         }
+
         return;
     }
 
-    function getCustomerIpInfo() {
+    function getCustomerIpInfo () {
         return jQuery.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
             (resp && resp.country) ? resp.country: "";
         });
     }
 
-    function initWeCarousel() {
+    function initWeCarousel () {
         const carousel = document.querySelector('.we__carousel');
+
         if (carousel) {
             weCarousel = new Swiper(carousel, {
                 slidesPerView: 4,
@@ -1233,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function destroyWeCarousel() {
+    function destroyWeCarousel () {
         const carousel = document.querySelector('.we__carousel');
         if (carousel) {
             weCarousel.destroy();
@@ -1241,14 +1262,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function getCookie(name) {
-        let matches = document.cookie.match(new RegExp(
+    function getCookie (name) {
+        const matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    function setCookie(name, value, options = {}) {
+    function setCookie (name, value, options = {}) {
         let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
         for (let optionKey in options) {
             updatedCookie += "; " + optionKey;
@@ -1258,9 +1279,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         document.cookie = updatedCookie;
+        
+        return;
     }
 
-    function showPopup() {
+    function showPopup () {
         const modal = jQuery('#event-modal');
         const cookieData = {
             path: '/',
@@ -1278,64 +1301,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 8000);
             }
         }
+
         return;
     }
 
-    function initSwiperInstance() {
-        umsTestimonialsCarousel = new Swiper('.testimonials__carousel', {
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            loop: true,
-            autoplay: {
-                delay: 5000
-            },
-            navigation: {
-                nextEl: '.testimonials__btn-next',
-                prevEl: '.testimonials__btn-prev',
-            },
-            pagination: {
-                el: '.testimonials__pagination',
-                type: 'bullets',
-                clickable: true
-            }
-        });
-        umsGraduatesCarousel = new Swiper('.graduates__carousel', {
-            slidesPerView: 8,
-            spaceBetween: 25,
-            loop: true,
-            centeredSlides: true,
-            autoplay: {
-                delay: 3000
-            },
-            breakpoints: {
-                360: {
-                    slidesPerView: 2
+    function initSwiperInstance () {
+        const testimonialsEl = document.querySelector('.testimonials__carousel');
+        const graduatesCarousel = document.querySelector('.graduates__carousel');
+
+        if (testimonialsEl) {
+            new Swiper(testimonialsEl, {
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
                 },
-                480: {
-                    slidesPerView: 3
+                loop: true,
+                autoplay: {
+                    delay: 5000
                 },
-                576: {
-                    slidesPerView: 4
+                navigation: {
+                    nextEl: '.testimonials__btn-next',
+                    prevEl: '.testimonials__btn-prev',
                 },
-                768: {
-                    slidesPerView: 5
-                },
-                992: {
-                    slidesPerView: 6
-                },
-                1200: {
-                    slidesPerView: 8
+                pagination: {
+                    el: '.testimonials__pagination',
+                    type: 'bullets',
+                    clickable: true
                 }
-            }
-        });
+            });
+        }
+        if (graduatesCarousel) {
+            new Swiper(graduatesCarousel, {
+                slidesPerView: 8,
+                spaceBetween: 25,
+                loop: true,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 3000
+                },
+                breakpoints: {
+                    360: {
+                        slidesPerView: 2
+                    },
+                    480: {
+                        slidesPerView: 3
+                    },
+                    576: {
+                        slidesPerView: 4
+                    },
+                    768: {
+                        slidesPerView: 5
+                    },
+                    992: {
+                        slidesPerView: 6
+                    },
+                    1200: {
+                        slidesPerView: 8
+                    }
+                }
+            });
+        }
+
+        return;
     }
 
-    function handleSelect(e) {
-        let target = e.target;
-        let targetName = target.name;
-        let targetValue = target.value;
+    function handleSelect (e) {
+        const target = e.target;
+        const targetName = target.name;
+        const targetValue = target.value;
+
         switch (targetName) {
             case 'test-course-date':
                 document.querySelector('input[name="ums-date"]').value = targetValue;
@@ -1357,19 +1391,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 break;
         }
+
+        return;
     }
 
-    function initSelectListener() {
+    function initSelectListener () {
         umsSelectCollection = document.querySelectorAll('select');
-        for (let select of umsSelectCollection) {
+
+        for (const select of umsSelectCollection) {
             select.addEventListener('change', handleSelect, false);
         }
+
+        return;
     }
 
-    function initInputListener() {
+    function initInputListener () {
         const inputs = document.querySelectorAll('.form__input input, .form__input textarea');
 
-        for (let input of inputs) {
+        for (const input of inputs) {
             const wrapper = input.closest('.form__input');
 
             if (input.name !== 'ums-tel') {
@@ -1393,9 +1432,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
+
+        return;
     }
 
-    function sendDataToCRM(crmData, action) {
+    function sendDataToCRM (crmData, action) {
         return jQuery.ajax({
             url: ajax.url,
             type: 'POST',
@@ -1406,14 +1447,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function removeClass(htmlCollection, className) {
-        for (let item of htmlCollection) {
+    function removeClass (htmlCollection, className) {
+        for (const item of htmlCollection) {
             item.classList.remove(className);
         }
+
         return;
     }
 
-    function modalOpenHandler(event) {
+    function modalOpenHandler (event) {
         const modal = event.target;
         const input = modal.querySelector('input[type="tel"]');
 
@@ -1431,7 +1473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function modalCloseHandler(event) {
+    function modalCloseHandler (event) {
         const target = event.target;
         const input = target.querySelector('input[type="tel"]');
 
@@ -1443,15 +1485,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function videoModalCloseHandler(event) {
+    function videoModalCloseHandler (event) {
         const modal = event.target;
         modal.querySelector('iframe').setAttribute('src', '');
+
         return;
     }
 
-    function lecturerHandlerFunction(e) {
+    function lecturerHandlerFunction (e) {
         const target = e.target.closest('.lecturers-page__item');
         const id = target.dataset.lecturerPostId;
+
         jQuery.when(getTeamLecturerInfo(id, target)).then((response) => {
             target.style.opacity = 1;
             document.querySelector('.ajax-lecturer-modal').innerHTML = response;
@@ -1461,24 +1505,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             jQuery('.ajax-lecturer-modal').modal();
         });
+
+        return;
     }
 
-    function addCustomEventHandler(event, collection, handlerFunction) {
-        for (let el of collection) {
+    function addCustomEventHandler (event, collection, handlerFunction) {
+        for (const el of collection) {
             el.addEventListener(event, handlerFunction);
         }
         return;
     }
 
-    function wpcf7InvalidHandler(event) {
+    function wpcf7InvalidHandler (event) {
         const target = event.target;
         const button = target.querySelector('button[type="submit"]');
 
         button.textContent = defaultSubmitButtonText;
         button.classList.remove('btn_is-loading');
+
+        return;
     }
 
-    function wpcf7SentHandler(event) {
+    function wpcf7SentHandler (event) {
         const target = event.target;
         const id = +event.detail.contactFormId;
         const uri = event.target.baseURI;
@@ -1681,16 +1729,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function pageNavigationLinkHandler(event) {
+    function pageNavigationLinkHandler (event) {
         const target = event.target;
         const activeClass = 'page-navigation__link_state-active';
 
         removeClass(pageNavigationLinksCollection, activeClass);
         target.classList.add(activeClass);
+
         return;
     }
 
-    function initCourseGallery() {
+    function initCourseGallery () {
         const el = document.querySelector('.course-gallery__grid');
 
         if (el) {
@@ -1720,10 +1769,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
         return;
     }
 
-    function paymentInputsHandler(event) {
+    function paymentInputsHandler (event) {
         const target = event.target;
         const targetName = target.name;
 
