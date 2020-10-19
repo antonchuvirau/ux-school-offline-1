@@ -1396,27 +1396,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const input of inputs) {
             const wrapper = input.closest('.form__input');
+            const label = wrapper.querySelector('.form__label');
 
-            if (input.name !== 'ums-tel') {
-                if (input.value !== '') {
-                    wrapper.classList.add('form__input_filled');
-                    wrapper.querySelector('.form__label').classList.add('form__label_active');
+            if (input.value !== '') {
+                wrapper.classList.add('form__input_filled');
+                if (label) {
+                    label.classList.add('form__label_active');
                 }
-                input.addEventListener('focus', () => {
-                    wrapper.classList.add('form__input_focused');
-                    wrapper.classList.add('form__input_filled');
-                    wrapper.querySelector('.form__label').classList.add('form__label_active');
-                });
-                input.addEventListener('blur', () => {
-                    if (input.value !== '') {
-                        wrapper.classList.remove('form__input_focused');
-                        return;
-                    }
-                    wrapper.classList.remove('form__input_filled');
-                    wrapper.classList.remove('form__input_focused');
-                    wrapper.querySelector('.form__label').classList.remove('form__label_active');
-                });
             }
+            input.addEventListener('focus', () => {
+                wrapper.classList.add('form__input_focused');
+                wrapper.classList.add('form__input_filled');
+                if (label) {
+                    label.classList.add('form__label_active');
+                }
+            });
+            input.addEventListener('blur', () => {
+                if (input.value !== '') {
+                    wrapper.classList.remove('form__input_focused');
+                    return;
+                }
+                wrapper.classList.remove('form__input_filled');
+                wrapper.classList.remove('form__input_focused');
+                if (label) {
+                    label.classList.remove('form__label_active');
+                }
+            });
         }
 
         return;
