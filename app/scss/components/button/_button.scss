@@ -60,4 +60,16 @@
         margin-top: -5px;
         opacity: 0;
     }
+    &_state {
+        &-is-loading {
+            color: transparent;
+            pointer-events: none;
+            & svg {
+                opacity: 0;
+            }
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
 }

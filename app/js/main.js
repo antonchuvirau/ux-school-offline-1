@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let wpcf7Elm = document.querySelectorAll('.wpcf7');
     let dataMaxPagesValue;
     if (document.querySelector('.course-list__row_first')) {
-        dataMaxPagesValue = document.querySelector('.course-list__row_first').dataset.maxNumPages;
+        dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
     }
     let portfolioCurrentPageNum = 1;
     let btnElementActiveTemplate = 'Загружаем...';
@@ -331,27 +331,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         if (target.matches('.course-list__more-btn')) {
-            const gridElement = target.closest('.course-list__grid');
-            const btnElementActiveTemplate = 'Загружаем...';
-            const btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#fff"></path> </svg>';
+            const gridElement = target.parentElement.previousElementSibling;
+            const id = +document.querySelector('.tabs__btn_active').dataset.termId;
+
             jQuery.ajax({
                 url: ajax.url,
                 type: 'POST',
                 data: {
                     action: 'courses',
-                    id: +document.querySelector('.tabs__btn_active').dataset.termId,
+                    id: id,
                     current_page: dataCurrentPageValue
                 },
                 beforeSend: function () {
-                    gridElement.style.opacity = .6;
-                    target.innerHTML = btnElementActiveTemplate;
+                    gridElement.classList.add('course-list__wrapper_state-is-loading');
+                    target.classList.add('ajax-btn_state-is-loading');
                 },
                 success: function (response) {
                     setTimeout(function () {
-                        gridElement.style.opacity = 1;
+                        gridElement.classList.remove('course-list__wrapper_state-is-loading');
                     }, 600);
                     document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
-                    target.innerHTML = btnElementDefaultTemplate;
+                    target.classList.remove('ajax-btn_state-is-loading');
                     dataCurrentPageValue += 1;
                     if (dataCurrentPageValue === dataMaxPagesValue) {
                         document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
