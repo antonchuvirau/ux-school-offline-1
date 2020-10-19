@@ -40,7 +40,8 @@
     width: 100%;
     font-size: 1.7rem;
     font-weight: 500;
-    line-height: 1.41;
+    line-height: 1;
+    color: $white;
     & svg {
         margin-left: 5px;
         flex-shrink: 0;

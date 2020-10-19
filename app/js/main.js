@@ -268,12 +268,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         if (target.matches('.js-tabs__btn')) {
-            const tabsHeader = target.closest('.course-list__header');
-            const tabsGrid = tabsHeader.nextElementSibling;
+            const tabsGrid = target.parentElement.nextElementSibling;
+            const content = tabsGrid.querySelector('.course-list__wrapper');
             const id = target.dataset.termId;
             const isShowFull = target.dataset.showFull;
-            dataCurrentPageValue = 1;
             const buttons = document.querySelectorAll('.js-tabs__btn');
+            const ajaxButton = tabsGrid.querySelector('.course-list__more-btn');
+            const footer = ajaxButton.parentElement;
+            dataCurrentPageValue = 1;
             let data = {};
 
             if (!Array.isArray(id)) {
@@ -305,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
+
             removeClass(buttons, 'tabs__btn_active');
             target.classList.add('tabs__btn_active');
             jQuery.ajax({
@@ -312,21 +315,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: 'POST',
                 data: data,
                 beforeSend: function () {
-                    tabsGrid.style.opacity = .6;
+                    tabsGrid.classList.add('course-list__grid_state-is-loading');
                 },
                 success: function (response) {
                     setTimeout(function () {
-                        tabsGrid.style.opacity = 1;
-                    }, 600);
-                    document.querySelector('.course-list__wrapper').innerHTML = response;
-                    dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
-                    if (dataCurrentPageValue === dataMaxPagesValue) {
-                        document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
-                        document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
-                    } else {
-                        document.querySelector('.course-list__more-btn').classList.remove('course-list__more-btn_disabled');
-                        document.querySelector('.course-list__footer').classList.remove('course-list__footer_state-disabled');
-                    }
+                        tabsGrid.classList.remove('course-list__grid_state-is-loading');
+                        content.innerHTML = response;
+                        dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
+                        
+                        if (dataCurrentPageValue === dataMaxPagesValue) {
+                            ajaxButton.classList.add('course-list__more-btn_disabled');
+                            footer.classList.add('course-list__footer_state-disabled');
+                        } else {
+                            ajaxButton.classList.remove('course-list__more-btn_disabled');
+                            footer.classList.remove('course-list__footer_state-disabled');
+                        }
+                    }, 250);
                 }
             });
         }
@@ -348,10 +352,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 success: function (response) {
                     setTimeout(function () {
+                        document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
                         gridElement.classList.remove('course-list__wrapper_state-is-loading');
-                    }, 600);
-                    document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
-                    target.classList.remove('ajax-btn_state-is-loading');
+                        target.classList.remove('ajax-btn_state-is-loading');
+                    }, 250);
                     dataCurrentPageValue += 1;
                     if (dataCurrentPageValue === dataMaxPagesValue) {
                         document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
@@ -449,9 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.matches('.portfolio__btn')) {
             const data = target.dataset.location;
             const pages = +target.dataset.maxPages;
-            const icon = `<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path></svg>`;
-            const activeTemplate = 'Загружаем...';
-            const template = `Показать ещё${icon}`;
+            const content = document.querySelector('.portfolio__list');
             const requestData = {
                 url: ajax.url,
                 type: 'POST',
@@ -460,17 +462,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPage: currentPage,
                 },
                 beforeSend: function () {
-                    document.querySelector('.portfolio').style.opacity = .7;
-                    target.textContent = activeTemplate;
+                    content.classList.add('portfolio__list_state-is-loading');
+                    target.classList.add('ajax-btn_state-is-loading');
                 },
                 success: function (response) {
-                    document.querySelector('.portfolio__list').insertAdjacentHTML('beforeEnd', response);
-                    currentPage++;
-                    if (currentPage === pages) {
-                        target.classList.add('portfolio__btn_disabled');
-                    }
-                    document.querySelector('.portfolio').style.opacity = 1;
-                    target.innerHTML = template;
+                    setTimeout(() => {
+                        content.insertAdjacentHTML('beforeEnd', response);
+                        content.classList.remove('portfolio__list_state-is-loading');
+                        target.classList.remove('ajax-btn_state-is-loading');
+                        currentPage++;
+                        if (currentPage === pages) {
+                            target.classList.add('portfolio__btn_disabled');
+                        }
+                    }, 250);
                 }
             }
 

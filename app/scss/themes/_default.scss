@@ -45,6 +45,11 @@
         background: $white;
         border-radius: 5px;
         box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+        &_state {
+            &-is-loading {
+                opacity: .5;
+            }
+        }
     }
     &__wrapper {
         &_state {
@@ -173,7 +178,6 @@
         height: 5rem;
         background: linear-gradient(180deg, #3af 0%, #8b24b7 127.5%);
         border-radius: 75px;
-        color: $white;
         margin-top: 20px;
         padding: 15px 0;
         &_disabled {
@@ -187,6 +191,13 @@
     }
     &__item {
         display: block;
+    }
+    &__list {
+        &_state {
+            &-is-loading {
+                opacity: .5;
+            }
+        }
     }
 }
 
