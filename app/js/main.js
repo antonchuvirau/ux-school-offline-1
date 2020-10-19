@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isCustomSwiperInit = false;
     let isMobile = false;
     let isTablet = false;
-    let paymentMethodIndex = 0;
     let totalInputElementName;
     let saleType = 'Без скидки';
     let saleValue = 0;
@@ -197,6 +196,80 @@ document.addEventListener('DOMContentLoaded', () => {
     initSelectListener();
     initInputListener();
     initItiPlugin();
+
+    class PaymentMethod {
+        _index = 0;
+        _data = [
+            {
+                id: 0,
+                title: 'Оплатить картой',
+                checked: true
+            },
+            {
+                id: 1,
+                title: 'ЕРИП',
+                checked: false
+            },
+            {
+                id: 2,
+                title: 'Рассрочка 2 месяца от UX Mind School',
+                checked: false
+            },
+            {
+                id: 3,
+                title: 'Рассрочка от 2 до 9 месяцев по карте Халва',
+                checked: false
+            },
+            {
+                id: 4,
+                title: 'В отделении банка',
+                checked: false
+            }
+        ];
+
+        constructor() {
+            const el = document.querySelector('.payment-methods');
+            const forms = document.querySelectorAll('.payment-section');
+            el.addEventListener('click', (event) => {
+                const target = event.target;
+
+                if (target.matches('input')) {
+                    const index = +target.value;
+                    this.setMethodIndex(index);
+                    removeClass(forms, 'payment-section_state-active');
+                    forms[this.getMethodIndex()].classList.add('payment-section_state-active');
+                    changeInputPrice(this.getMethodIndex());
+                    jQuery('body, html').animate({
+                        scrollTop: jQuery('#payment-anchor').offset().top
+                    }, 800);
+                }
+            });
+        }
+
+        getMethodIndex () {
+            return this._index;
+        }
+
+        setMethodIndex (value) {
+            this._index = value;
+        }
+
+        render () {
+            return this._data.map(item => {
+                return `<label class="payment-item payment-form__method">
+                    <input ${item.checked ? 'checked' : ''} value="${item.id}" type="radio" name="payment" class="payment-item__input"/>
+                    <p class="payment-item__name">${item.title}</p>
+                </label>`;
+            }).join('');
+        }
+    }
+    const methods = new PaymentMethod();
+    const content = methods.render();
+    const paymentMethodsEl = document.querySelector('.payment-methods');
+
+    if (paymentMethodsEl) {
+        paymentMethodsEl.innerHTML = content;
+    }
 
     document.addEventListener('click', (event) => {
         //Get target element
@@ -407,25 +480,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('input[name="sale"]')) {
             if (target.checked) {
-                changeInputPrice(paymentMethodIndex, true);
+                changeInputPrice(methods.getMethodIndex(), true);
                 return;
             }
-            changeInputPrice(paymentMethodIndex);
-        }
-        if (target.matches('.payment-item__input')) {
-            const index = +target.value;
-            const paymentSections = document.querySelectorAll('.payment-section');
-
-            paymentMethodIndex = index;
-
-            for (let section of paymentSections) {
-                section.style.display = 'none';
-            }
-            paymentSections[index].style.display = 'block';
-            changeInputPrice(paymentMethodIndex);
-            jQuery('body, html').animate({
-                scrollTop: jQuery('#payment-anchor').offset().top
-            }, 800);
+            changeInputPrice(methods.getMethodIndex());
         }
         if (target.matches('.content-list__more-btn')) {
             const icon = `
@@ -531,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.classList.remove('wpcf7-not-valid');
                     label.classList.remove('form__error-label_active');
                 });
-                if (paymentMethodIndex !== 3) {
+                if (methods.getMethodIndex() !== 3) {
                     ajaxData.customerSaleType = saleType;
                     ajaxData.customerSaleValue = saleValue;
                 }
@@ -559,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
 
                         target.textContent = 'Перенаправляем на оплату...';
-                        if (paymentMethodIndex === 3) {
+                        if (methods.getMethodIndex() === 3) {
                             setTimeout(function () {
                                 document.location.replace(response.checkout.redirect_url);
                             }, 200);
@@ -779,7 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                 }
-                changeInputPrice(paymentMethodIndex, false, false);
+                changeInputPrice(methods.getMethodIndex(), false, false);
             });
 
             button.addEventListener('click', () => {
@@ -803,15 +861,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.length) {
                             const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
                             if (result) {
-                                changeInputPrice(paymentMethodIndex, false, true);
+                                changeInputPrice(methods.getMethodIndex(), false, true);
                                 showPromocodeMessage(el, 'success');
                             } else {
                                 showPromocodeMessage(el, 'error');
-                                changeInputPrice(paymentMethodIndex, false, false);
+                                changeInputPrice(methods.getMethodIndex(), false, false);
                             }
                         } else {
                             showPromocodeMessage(el, 'error');
-                            changeInputPrice(paymentMethodIndex, false, false);
+                            changeInputPrice(methods.getMethodIndex(), false, false);
                         }
                     });
             });
@@ -849,13 +907,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.classList.add('ums-select__list-item_state-active');
 
                     if (target.textContent === 'Оплата второго этапа действующего курса') {
-                        paymentMethodIndex = 0;
+                        methods.setMethodIndex(0);
+                        const paymentForms = document.querySelectorAll('.payment-section');
+                        removeClass(paymentForms, 'payment-section_state-active');
+                        paymentForms[0].classList.add('payment-section_state-active');
                         jQuery('.payment-item').css('display', 'none');
                         jQuery('.payment-item:nth-child(1)').css('display', 'block');
-                        jQuery('.payment-section').css('display', 'none');
-                        jQuery('.payment-section:nth-child(1)').css('display', 'block');
+                        // jQuery('.payment-section').css('display', 'none');
+                        // jQuery('.payment-section:nth-child(1)').css('display', 'block');
                         jQuery('.payment-item:nth-child(1) input').prop('checked', true);
-                        jQuery('.webpay-form').prev().css('display', 'block');
+                        // jQuery('.webpay-form').prev().css('display', 'block');
                         jQuery('.webpay-form__sale-checkbox').css('display', 'none');
                     } else {
                         jQuery('.payment-item').css('display', 'block');
@@ -883,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     price = targetPrice;
                     salePrice = targetSalePrice;
                     //Update the price
-                    changeInputPrice(paymentMethodIndex);
+                    changeInputPrice(methods.getMethodIndex());
                 }
             });
         }
@@ -949,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalPrice = salePrice;
                 break;
         }
-        changeCurenciesPrice(paymentMethodIndex);
+        changeCurenciesPrice(index);
         if (dropdownType === 'payment') {
             let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
             totalInputElementName = totalInputElement.length ? 'input[name="wsb_total"]' : 'input[name="total"]';
@@ -1778,7 +1839,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 saleInput.checked = false;
             }
             totalPrice = target.value;
-            changeCurenciesPrice(paymentMethodIndex);
+            changeCurenciesPrice(methods.getMethodIndex());
         }
 
         return;
@@ -1796,94 +1857,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return;
     }
-
-    // class paymentMethod {
-    //     _tagData = {
-    //         label: {
-    //             className: ['payment-item', 'payment-form__method'],
-    //             attr: {
-    //                 type: 'radio',
-    //                 name: 'payment',
-
-    //             }
-    //         },
-    //         input: 
-    //     }
-    //     _data = [
-    //         {
-    //             id: 0,
-    //             label: {
-    //                 className: []
-    //             }
-    //             name: 'Оплатить картой',
-    //             checked: true
-    //         },
-    //         {
-    //             id: 1,
-    //             name: 'ЕРИП',
-    //             checked: false
-    //         },
-    //         {
-    //             id: 2,
-    //             name: 'Рассрочка 2 месяца от UX Mind School',
-    //             checked: false
-    //         },
-    //         {
-    //             id: 3,
-    //             name: 'Рассрочка от 2 до 9 месяцев по карте Халва',
-    //             checked: false
-    //         },
-    //         {
-    //             id: 4,
-    //             name: 'В отделении банка',
-    //             checked: false
-    //         }
-    //     ];
-    //     constructor() {
-    //         this.el = '.payment-methods';
-    //         this.render();
-    //     }
-
-    //     createCustomEl (tag, classCollection, text, attrCollection) {
-    //         const el = document.createElement(tag);
-
-    //         for (const className of classCollection) {
-    //             el.classList.add(className);
-    //         }
-
-    //         if (text) {
-    //             el.textContent = text;
-    //         }
-
-    //         if (attrCollection) {
-    //             for (const attrItem of attrCollection) {
-    //                 el.setAttribute(attrItem.name, attrItem.value);
-    //             }
-    //         }
-
-    //         return el;
-    //     }
-
-    //     render () {
-    //         const list = this._data.map(item => {
-    //             const label = this.createCustomEl('label', []);
-    //             const input = this.createCustomEl('input', ['payment-item__input'], '', [
-    //                 {name: 'type', value: 'radio'},
-    //                 {name: 'name', value: 'payment'},
-    //                 {name: 'value', value: item.id}
-    //             ]);
-    //             const p = this.createCustomEl('p', ['payment-item__name'], item.text);
-
-    //             if (item.checked) {
-    //                 input.checked = item.checked;
-    //             }
-    //             label.appendChild(input);
-    //             label.appendChild(p);
-    //             return `${label}`;
-    //         }).join('');
-    //         console.log(list);
-    //     }
-    // }
-
-    // new paymentMethod();
 });
