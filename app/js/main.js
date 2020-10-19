@@ -615,20 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    //Iti
-    function initItiPlugin () {
-        const telInputs = document.querySelectorAll('input[type="tel"]');
-
-        for (const input of telInputs) {
-            if (!input.closest('.modal')) {
-                iti.init(input);
-                iti.countryChange(input);
-            }
-        }
-
-        return;
-    }
-
     //Certificate
     (function () {
         const button = document.querySelector('.calculation__btn');
@@ -1788,4 +1774,107 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return;
     }
+
+    function initItiPlugin () {
+        const telInputs = document.querySelectorAll('input[type="tel"]');
+
+        for (const input of telInputs) {
+            if (!input.closest('.modal')) {
+                iti.init(input);
+                iti.countryChange(input);
+            }
+        }
+
+        return;
+    }
+
+    // class paymentMethod {
+    //     _tagData = {
+    //         label: {
+    //             className: ['payment-item', 'payment-form__method'],
+    //             attr: {
+    //                 type: 'radio',
+    //                 name: 'payment',
+
+    //             }
+    //         },
+    //         input: 
+    //     }
+    //     _data = [
+    //         {
+    //             id: 0,
+    //             label: {
+    //                 className: []
+    //             }
+    //             name: 'Оплатить картой',
+    //             checked: true
+    //         },
+    //         {
+    //             id: 1,
+    //             name: 'ЕРИП',
+    //             checked: false
+    //         },
+    //         {
+    //             id: 2,
+    //             name: 'Рассрочка 2 месяца от UX Mind School',
+    //             checked: false
+    //         },
+    //         {
+    //             id: 3,
+    //             name: 'Рассрочка от 2 до 9 месяцев по карте Халва',
+    //             checked: false
+    //         },
+    //         {
+    //             id: 4,
+    //             name: 'В отделении банка',
+    //             checked: false
+    //         }
+    //     ];
+    //     constructor() {
+    //         this.el = '.payment-methods';
+    //         this.render();
+    //     }
+
+    //     createCustomEl (tag, classCollection, text, attrCollection) {
+    //         const el = document.createElement(tag);
+
+    //         for (const className of classCollection) {
+    //             el.classList.add(className);
+    //         }
+
+    //         if (text) {
+    //             el.textContent = text;
+    //         }
+
+    //         if (attrCollection) {
+    //             for (const attrItem of attrCollection) {
+    //                 el.setAttribute(attrItem.name, attrItem.value);
+    //             }
+    //         }
+
+    //         return el;
+    //     }
+
+    //     render () {
+    //         const list = this._data.map(item => {
+    //             const label = this.createCustomEl('label', []);
+    //             const input = this.createCustomEl('input', ['payment-item__input'], '', [
+    //                 {name: 'type', value: 'radio'},
+    //                 {name: 'name', value: 'payment'},
+    //                 {name: 'value', value: item.id}
+    //             ]);
+    //             const p = this.createCustomEl('p', ['payment-item__name'], item.text);
+
+    //             if (item.checked) {
+    //                 input.checked = item.checked;
+    //             }
+    //             label.appendChild(input);
+    //             label.appendChild(p);
+    //             return `${label}`;
+    //         }).join('');
+    //         console.log(list);
+    //     }
+    // }
+
+    // new paymentMethod();
 });
