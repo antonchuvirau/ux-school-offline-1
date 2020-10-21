@@ -438,8 +438,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.matches('.dropdown-course-info__lecturer')) {
             const id = target.dataset.lecturerPostId;
             const text = target.textContent;
+            const requestObject = {
+                action: 'lecturer',
+                id: id
+            }
+            const beforeSendHandler = function () {
+                target.style.opacity = .3;
+            }
             target.textContent = 'Загружаем...';
-            jQuery.when(getLecturerInfo(id, target)).then((response) => {
+            jQuery.when(ajaxRequest(requestObject, beforeSendHandler, target)).then((response) => {
                 target.style.opacity = 1;
                 target.textContent = text;
                 document.querySelector('.dropdown-lecturer-modal').innerHTML = response;
@@ -1271,32 +1278,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function getLecturerInfo (lecturerIdValue, clickedElement) {
-        return jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: 'lecturer',
-                id: lecturerIdValue
-            },
-            beforeSend: function () {
-                clickedElement.style.opacity = .3;
-            }
-        });
-    }
-
-    function sendCustomerToSendPulse (customerEmail, addressBookId) {
-        return jQuery.ajax({
-            url: ajax.url,
-            method: 'POST',
-            data: {
-                action: 'add_to_book',
-                id: addressBookId,
-                email: customerEmail
-            }
-        });
-    }
-
     function getPriceInCurrency (element, currency, value) {
         return jQuery.ajax({
             url: ajax.url,
@@ -1677,6 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputs = event.detail.inputs;
         const button = target.querySelector('button[type="submit"]');
         let requestData, crmObject;
+        let sendPulseData;
 
         switch (id) {
             case 131:
@@ -1720,9 +1702,14 @@ document.addEventListener('DOMContentLoaded', () => {
             case 1447:
                 crmObject = new Crm(1447, inputs, 'free');
                 requestData = crmObject.getRequestObject();
+                sendPulseData = {
+                    action: 'add_to_book',
+                    id: 89064264,
+                    email: inputs[3].value
+                }
                 jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
-                jQuery.when(sendCustomerToSendPulse(inputs[3].value, 89064264)).then((resp) => {
-                    let respObject = JSON.parse(resp);
+                jQuery.when(ajaxRequest(sendPulseData)).then(resp => {
+                    const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         //VK Conversion
                         VK.Goal('conversion');
@@ -1740,11 +1727,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         jQuery.modal.close();
                         jQuery('#success-modal-free-start').modal();
                     }
-                });
+                }, error => console.log(new Error(error)));
                 break;
             case 1655:
-                jQuery.when(sendCustomerToSendPulse(inputs[1].value, 89064300)).then((resp) => {
-                    let respObject = JSON.parse(resp);
+                sendPulseData = {
+                    action: 'add_to_book',
+                    id: 89064300,
+                    email: inputs[1].value
+                }
+                jQuery.when(ajaxRequest(sendPulseData)).then((resp) => {
+                    const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         target.querySelector('.form__input').classList.remove('form__input_filled');
                         target.querySelector('.form__label').classList.remove('form__label_active');
@@ -1753,11 +1745,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         jQuery.modal.close();
                         jQuery('#success-modal-test').modal();
                     }
-                });
+                }, error => console.log(new Error(error)));
                 break;
             case 1628:
-                jQuery.when(sendCustomerToSendPulse(inputs[0].value, 89086955)).then((resp) => {
-                    let respObject = JSON.parse(resp);
+                sendPulseData = {
+                    action: 'add_to_book',
+                    id: 89086955,
+                    email: inputs[0].value
+                }
+                jQuery.when(ajaxRequest(sendPulseData)).then((resp) => {
+                    const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         //VK Conversion
                         VK.Goal('subscribe');
@@ -1774,7 +1771,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         button.classList.remove('btn_is-loading');
                         jQuery('#success-modal-third').modal();
                     }
-                });
+                }, error => console.log(new Error(error)));
                 break;
             case 779:
                 //VK conversion
