@@ -230,20 +230,22 @@ document.addEventListener('DOMContentLoaded', () => {
         constructor() {
             const el = document.querySelector('.payment-methods');
             const forms = document.querySelectorAll('.payment-section');
-            el.addEventListener('click', (event) => {
-                const target = event.target;
-
-                if (target.matches('input')) {
-                    const index = +target.value;
-                    this.setMethodIndex(index);
-                    removeClass(forms, 'payment-section_state-active');
-                    forms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                    changeInputPrice(this.getMethodIndex());
-                    jQuery('body, html').animate({
-                        scrollTop: jQuery('#payment-anchor').offset().top
-                    }, 800);
-                }
-            });
+            if (el) {
+                el.addEventListener('click', (event) => {
+                    const target = event.target;
+    
+                    if (target.matches('input')) {
+                        const index = +target.value;
+                        this.setMethodIndex(index);
+                        removeClass(forms, 'payment-section_state-active');
+                        forms[this.getMethodIndex()].classList.add('payment-section_state-active');
+                        changeInputPrice(this.getMethodIndex());
+                        jQuery('body, html').animate({
+                            scrollTop: jQuery('#payment-anchor').offset().top
+                        }, 800);
+                    }
+                });
+            }
         }
 
         getMethodIndex () {
@@ -263,6 +265,110 @@ document.addEventListener('DOMContentLoaded', () => {
             }).join('');
         }
     }
+
+    class Crm {
+        constructor (id, formData, actionName) {
+            this.id = id;
+            this.formData = formData;
+            this.actionName = actionName;
+        }
+
+        getRequestObject () {
+            return {
+                action: `amo_crm_${this.actionName}`,
+                data: this.getFormData()
+            }
+        }
+
+        getFormData () {
+            if (this.id === 131) {
+                return {
+                    title: this.getFormValue(4) + ', ' + this.getFormValue(13),
+                    price: +this.getFormValue(5),
+                    name: this.getFormValue(0),
+                    type: this.getFormValue(6),
+                    time: this.getFormValue(7),
+                    date: +this.getFormValue(8),
+                    address: this.getFormValue(9),
+                    lecturer: this.getFormValue(10),
+                    statusId: +this.getFormValue(11),
+                    customer: {
+                        name: this.getFormValue(13),
+                        email: this.getFormValue(15),
+                        telephone: (this.getFormValue(3) + this.getFormValue(14)).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        value: this.getFormValue(12)
+                    }
+                }
+            }
+            if (this.id === 859) {
+                return {
+                    name: this.getFormValue(14),
+                    customer: {
+                        email: this.getFormValue(16),
+                        telephone: (this.getFormValue(4) + this.getFormValue(15)).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: this.getFormValue(5),
+                        timestamp: +this.getFormValue(9)
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: this.getFormValue(12)
+                    }
+                }
+            }
+            if (this.id === 1447) {
+                return {
+                    customer: {
+                        name: this.getFormValue(1),
+                        email: this.getFormValue(3),
+                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        name: 'Начни учиться бесплатно'
+                    }
+                }
+            }
+            if (this.id === 779) {
+                return {
+                    customer: {
+                        name: this.getFormValue(1),
+                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, ""),
+                        email: this.getFormValue(3),
+                        message: this.getFormValue(4)
+                    },
+                    tag: {
+                        name: 'Обратный звонок'
+                    }
+                }
+            }
+            if (this.id === 1839) {
+                return {
+                    name: this.getFormValue(7),
+                    customer: {
+                        email: this.getFormValue(8),
+                        telephone: (this.getFormValue(3) + this.getFormValue(9)).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: this.getFormValue(4),
+                        timestamp: +this.getFormValue(5)
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: this.getFormValue(6)
+                    }
+                }
+            }
+            return;
+        }
+
+        getFormValue (index) {
+            return this.formData[index].value;
+        }
+    }
+    
     const methods = new PaymentMethod();
     const content = methods.render();
     const paymentMethodsEl = document.querySelector('.payment-methods');
@@ -1165,20 +1271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function getTeamLecturerInfo (lecturerIdValue, clickedElement) {
-        return jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: 'team',
-                id: lecturerIdValue
-            },
-            beforeSend: function () {
-                clickedElement.style.opacity = .3;
-            }
-        });
-    }
-
     function getLecturerInfo (lecturerIdValue, clickedElement) {
         return jQuery.ajax({
             url: ajax.url,
@@ -1492,17 +1584,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function sendDataToCRM (crmData, action) {
-        return jQuery.ajax({
-            url: ajax.url,
-            type: 'POST',
-            data: {
-                action: `amo_crm_${action}`,
-                data: crmData
-            }
-        });
-    }
-
     function removeClass (htmlCollection, className) {
         for (const item of htmlCollection) {
             item.classList.remove(className);
@@ -1513,12 +1594,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function modalOpenHandler (event) {
         const modal = event.target;
+        console.log(modal);
         const input = modal.querySelector('input[type="tel"]');
 
-        iti.init(input);
-        iti.countryChange(input);
-
         if (input) {
+            iti.init(input);
+            iti.countryChange(input);
             const code = modal.querySelector('.iti__selected-dial-code').textContent;
             const hiddenInput = modal.querySelector('input[name="ums-country-code"]');
             if (hiddenInput) {
@@ -1548,11 +1629,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function lecturerHandlerFunction (e) {
-        const target = e.target.closest('.lecturers-page__item');
+    function lecturerHandlerFunction (evt) {
+        const target = evt.target.closest('.lecturers-page__item');
         const id = target.dataset.lecturerPostId;
+        const data = {
+            action: 'team',
+            id: id
+        }
+        const beforeSendHandler = function () {
+            target.style.opacity = .3;
+        }
 
-        jQuery.when(getTeamLecturerInfo(id, target)).then((response) => {
+        jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then((response) => {
             target.style.opacity = 1;
             document.querySelector('.ajax-lecturer-modal').innerHTML = response;
             if (window.innerWidth < 992) {
@@ -1560,7 +1648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 jQuery('.ajax-lecturer-modal').append(jQuery('.ajax-lecturer-modal .lecturer-modal__text'));
             }
             jQuery('.ajax-lecturer-modal').modal();
-        });
+        }, error =>  console.log(new Error(error)));
 
         return;
     }
@@ -1588,7 +1676,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const uri = event.target.baseURI;
         const inputs = event.detail.inputs;
         const button = target.querySelector('button[type="submit"]');
-        let crmData;
+        let requestData, crmObject;
 
         switch (id) {
             case 131:
@@ -1603,28 +1691,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 //Yandex conversion
                 ym(49171171, 'reachGoal', 'lead_form');
                 //Send to CRM
-                crmData = {
-                    title: inputs[4].value + ', ' + inputs[13].value,
-                    price: +inputs[5].value,
-                    name: inputs[0].value,
-                    type: inputs[6].value,
-                    time: inputs[7].value,
-                    date: +inputs[8].value,
-                    address: inputs[9].value,
-                    lecturer: inputs[10].value,
-                    statusId: +inputs[11].value,
-                    customer: {
-                        name: inputs[13].value,
-                        email: inputs[15].value,
-                        telephone: (inputs[3].value + inputs[14].value).replace(/[^0-9.]/g, "")
-                    },
-                    tag: {
-                        value: inputs[12].value
-                    }
-                };
-                jQuery.when(sendDataToCRM(crmData, 'lead')).then(function (data) {
-                    console.log(JSON.parse(data));
-                });
+                crmObject = new Crm(131, inputs, 'lead');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(ajaxRequest(requestData)).then(data => {
+                    console.log(data);
+                }, error => console.log(new Error(error)));
                 //Close modal
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
@@ -1638,43 +1709,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 jQuery('#success-modal-first').modal();
                 break;
             case 859:
-                crmData = {
-                    name: inputs[14].value,
-                    customer: {
-                        email: inputs[16].value,
-                        telephone: (inputs[4].value + inputs[15].value).replace(/[^0-9.]/g, "")
-                    },
-                    intensive: {
-                        name: inputs[5].value,
-                        timestamp: +inputs[9].value
-                    },
-                    tag: {
-                        name: 'Интенсив',
-                        value: inputs[12].value
-                    }
-                };
-                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function (data) {
-                    console.log(JSON.parse(data));
-                });
+                crmObject = new Crm(859, inputs, 'intensive');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
                 jQuery('#success-modal-first').modal();
                 break;
             case 1447:
-                crmData = {
-                    customer: {
-                        name: inputs[1].value,
-                        email: inputs[3].value,
-                        telephone: (inputs[0].value + ' ' + inputs[2].value).replace(/[^0-9.]/g, "")
-                    },
-                    tag: {
-                        name: 'Начни учиться бесплатно'
-                    }
-                }
-                jQuery.when(sendDataToCRM(crmData, 'free')).then(function (data) {
-                    console.log(JSON.parse(data));
-                });
+                crmObject = new Crm(1447, inputs, 'free');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 jQuery.when(sendCustomerToSendPulse(inputs[3].value, 89064264)).then((resp) => {
                     let respObject = JSON.parse(resp);
                     if (respObject.result) {
@@ -1733,44 +1779,18 @@ document.addEventListener('DOMContentLoaded', () => {
             case 779:
                 //VK conversion
                 VK.Goal('contact');
-                crmData = {
-                    customer: {
-                        name: inputs[1].value,
-                        telephone: (inputs[0].value + ' ' + inputs[2].value).replace(/[^0-9.]/g, ""),
-                        email: inputs[3].value,
-                        message: inputs[4].value
-                    },
-                    tag: {
-                        name: 'Обратный звонок'
-                    }
-                }
-                jQuery.when(sendDataToCRM(crmData, 'call')).then(function (data) {
-                    console.log(JSON.parse(data));
-                });
+                crmObject = new Crm(779, inputs, 'call');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
                 jQuery('#success-modal-second').modal();
                 break;
             case 1839:
-                crmData = {
-                    name: inputs[7].value,
-                    customer: {
-                        email: inputs[8].value,
-                        telephone: (inputs[3].value + inputs[9].value).replace(/[^0-9.]/g, "")
-                    },
-                    intensive: {
-                        name: inputs[4].value,
-                        timestamp: +inputs[5].value
-                    },
-                    tag: {
-                        name: 'Интенсив',
-                        value: inputs[6].value
-                    }
-                };
-                jQuery.when(sendDataToCRM(crmData, 'intensive')).then(function (data) {
-                    console.log(JSON.parse(data));
-                });
+                crmObject = new Crm(1839, inputs, 'intensive');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -1856,5 +1876,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return;
+    }
+    
+    function ajaxRequest (data, beforeSendHandler, target) {
+        const requestData = {
+            method: 'POST',
+            url: ajax.url,
+            data: data
+        }
+
+        if (beforeSendHandler) {
+            requestData.beforeSend = beforeSendHandler;
+        }
+
+        return jQuery.ajax(requestData);
     }
 });
