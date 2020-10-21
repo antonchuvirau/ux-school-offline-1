@@ -542,32 +542,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
                 }
             }, error => console.log(new Error(error)));
-
-            // jQuery.ajax({
-            //     url: ajax.url,
-            //     type: 'POST',
-            //     data: {
-            //         action: 'courses',
-            //         id: id,
-            //         current_page: dataCurrentPageValue
-            //     },
-            //     beforeSend: function () {
-            //         gridElement.classList.add('course-list__wrapper_state-is-loading');
-            //         target.classList.add('ajax-btn_state-is-loading');
-            //     },
-            //     success: function (response) {
-            //         setTimeout(function () {
-            //             document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
-            //             gridElement.classList.remove('course-list__wrapper_state-is-loading');
-            //             target.classList.remove('ajax-btn_state-is-loading');
-            //         }, 250);
-            //         dataCurrentPageValue += 1;
-            //         if (dataCurrentPageValue === dataMaxPagesValue) {
-            //             document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
-            //             document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
-            //         }
-            //     }
-            // });
         }
         if (target.matches('.course-list-item__select-name')) {
             (function () {
