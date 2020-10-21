@@ -454,15 +454,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         if (target.matches('.js-tabs__btn')) {
+            const buttons = document.querySelectorAll('.js-tabs__btn');
+            const id = target.dataset.termId;
             const tabsGrid = target.parentElement.nextElementSibling;
             const content = tabsGrid.querySelector('.course-list__wrapper');
-            const id = target.dataset.termId;
             const isShowFull = target.dataset.showFull;
-            const buttons = document.querySelectorAll('.js-tabs__btn');
             const ajaxButton = tabsGrid.querySelector('.course-list__more-btn');
             const footer = ajaxButton.parentElement;
             dataCurrentPageValue = 1;
             let data = {};
+            const beforeSendHandler = function () {
+                const el = target.parentElement.nextElementSibling;
+                el.classList.add('course-list__grid_state-is-loading');
+            }
 
             if (!Array.isArray(id)) {
                 if (isShowFull) {
@@ -496,59 +500,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
             removeClass(buttons, 'tabs__btn_active');
             target.classList.add('tabs__btn_active');
-            jQuery.ajax({
-                url: ajax.url,
-                type: 'POST',
-                data: data,
-                beforeSend: function () {
-                    tabsGrid.classList.add('course-list__grid_state-is-loading');
-                },
-                success: function (response) {
-                    setTimeout(function () {
-                        tabsGrid.classList.remove('course-list__grid_state-is-loading');
-                        content.innerHTML = response;
-                        dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
-                        
-                        if (dataCurrentPageValue === dataMaxPagesValue) {
-                            ajaxButton.classList.add('course-list__more-btn_disabled');
-                            footer.classList.add('course-list__footer_state-disabled');
-                        } else {
-                            ajaxButton.classList.remove('course-list__more-btn_disabled');
-                            footer.classList.remove('course-list__footer_state-disabled');
-                        }
-                    }, 250);
-                }
-            });
+            jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then(resp => {
+                setTimeout(function () {
+                    tabsGrid.classList.remove('course-list__grid_state-is-loading');
+                    content.innerHTML = resp;
+                    dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
+                    
+                    if (dataCurrentPageValue === dataMaxPagesValue) {
+                        ajaxButton.classList.add('course-list__more-btn_disabled');
+                        footer.classList.add('course-list__footer_state-disabled');
+                    } else {
+                        ajaxButton.classList.remove('course-list__more-btn_disabled');
+                        footer.classList.remove('course-list__footer_state-disabled');
+                    }
+                }, 250);
+            }, error => console.log(new Error(error)));
         }
         if (target.matches('.course-list__more-btn')) {
             const gridElement = target.parentElement.previousElementSibling;
             const id = +document.querySelector('.tabs__btn_active').dataset.termId;
+            const data = {
+                action: 'courses',
+                id: id,
+                current_page: dataCurrentPageValue
+            }
+            const beforeSendHandler = function () {
+                const el = target.parentElement.previousElementSibling;
+                el.classList.add('course-list__wrapper_state-is-loading');
+                target.classList.add('ajax-btn_state-is-loading');
+            }
 
-            jQuery.ajax({
-                url: ajax.url,
-                type: 'POST',
-                data: {
-                    action: 'courses',
-                    id: id,
-                    current_page: dataCurrentPageValue
-                },
-                beforeSend: function () {
-                    gridElement.classList.add('course-list__wrapper_state-is-loading');
-                    target.classList.add('ajax-btn_state-is-loading');
-                },
-                success: function (response) {
-                    setTimeout(function () {
-                        document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
-                        gridElement.classList.remove('course-list__wrapper_state-is-loading');
-                        target.classList.remove('ajax-btn_state-is-loading');
-                    }, 250);
-                    dataCurrentPageValue += 1;
-                    if (dataCurrentPageValue === dataMaxPagesValue) {
-                        document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
-                        document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
-                    }
+            jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then(resp => {
+                setTimeout(function () {
+                    document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', resp);
+                    gridElement.classList.remove('course-list__wrapper_state-is-loading');
+                    target.classList.remove('ajax-btn_state-is-loading');
+                }, 250);
+                dataCurrentPageValue += 1;
+                if (dataCurrentPageValue === dataMaxPagesValue) {
+                    document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
+                    document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
                 }
-            });
+            }, error => console.log(new Error(error)));
+
+            // jQuery.ajax({
+            //     url: ajax.url,
+            //     type: 'POST',
+            //     data: {
+            //         action: 'courses',
+            //         id: id,
+            //         current_page: dataCurrentPageValue
+            //     },
+            //     beforeSend: function () {
+            //         gridElement.classList.add('course-list__wrapper_state-is-loading');
+            //         target.classList.add('ajax-btn_state-is-loading');
+            //     },
+            //     success: function (response) {
+            //         setTimeout(function () {
+            //             document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', response);
+            //             gridElement.classList.remove('course-list__wrapper_state-is-loading');
+            //             target.classList.remove('ajax-btn_state-is-loading');
+            //         }, 250);
+            //         dataCurrentPageValue += 1;
+            //         if (dataCurrentPageValue === dataMaxPagesValue) {
+            //             document.querySelector('.course-list__footer').classList.add('course-list__footer_state-disabled');
+            //             document.querySelector('.course-list__more-btn').classList.add('course-list__more-btn_disabled');
+            //         }
+            //     }
+            // });
         }
         if (target.matches('.course-list-item__select-name')) {
             (function () {
@@ -1575,7 +1594,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function modalOpenHandler (event) {
         const modal = event.target;
-        console.log(modal);
         const input = modal.querySelector('input[type="tel"]');
 
         if (input) {
