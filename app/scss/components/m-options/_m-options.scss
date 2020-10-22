@@ -12,14 +12,23 @@
             margin-right: 0;
         }
     }
-    &__menu-btn {
-        &_active {
-            & svg {
-                & path {
-                    fill: $secondary-500;
-                    opacity: 1 !important;
-                }
+    &__phone-link {
+        background: icon('phone-icon.svg') no-repeat 50% / 21px auto;
+        &_style {
+            &-gradient {
+                background: icon('phone-icon-with-gradient.svg') no-repeat 50% / 21px auto;
             }
+        }
+    }
+    &__menu-btn {
+        background: icon('menu-icon.svg') no-repeat 50% / 24px auto;
+        &_style {
+            &-gradient {
+                background: icon('menu-icon-with-gradient.svg') no-repeat 50% / 24px auto;
+            }
+        }
+        &_active {
+            background: icon('menu-icon-active.svg') no-repeat 50% / 24px auto;
         }
     }
 }

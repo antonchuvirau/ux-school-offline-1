@@ -5,8 +5,24 @@
         width: 20px;
         height: 20px;
         margin-right: 15px;
+        position: relative;
         &:last-child {
             margin-right: 0;
+        }
+        &[data-icon="vk"] {
+            background: icon('vk-icon.svg') no-repeat 50%;
+        }
+        &[data-icon="behance"] {
+            background: icon('behance-icon.svg') no-repeat 50%;
+        }
+        &[data-icon="dribbble"] {
+            background: icon('dribbble-icon.svg') no-repeat 50%;
+        }
+        &[data-icon="instagram"] {
+            background: icon('instagram-icon.svg') no-repeat 50%;
+        }
+        &[data-icon="youtube"] {
+            background: icon('youtube-icon.svg') no-repeat 50%;
         }
     }
 }

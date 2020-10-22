@@ -382,13 +382,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = event.target;
         //Find current element
         if (target.matches('.m-options__menu-btn')) {
-            let scrollBarWidth = getScrollbarWidth();
-            target.closest('header').nextElementSibling.classList.add('m-menu_opened');
+            const mobileMenuEl = document.querySelector('.m-menu');
+            const scrollBarWidth = getScrollbarWidth();
+            mobileMenuEl.classList.add('m-menu_opened');
             document.body.style.paddingRight = scrollBarWidth;
             document.documentElement.classList.add('is-locked');
         }
         if (target.matches('.m-menu__options-close-btn')) {
-            target.closest('.m-menu').classList.remove('m-menu_opened');
+            const mobileMenuEl = document.querySelector('.m-menu');
+            mobileMenuEl.classList.remove('m-menu_opened');
             document.body.style.paddingRight = 0;
             document.documentElement.classList.remove('is-locked');
         }

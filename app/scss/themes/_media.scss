@@ -711,22 +711,13 @@
 
     .menu {
         &__link {
-            &_style {
-                &-dark {
-                    color: $white;
-                }
-            }
-        }
-        &__item {
-            &.current-menu-item {
-                & .menu {
-                    &__link {
-                        &_style {
-                            &-dark {
-                                color: rgba($white, .3);
-                            }
-                        }
-                    }
+            color: $white;
+            &[aria-current="page"] {
+                color: rgba($white, .3);
+                cursor: default;
+                pointer-events: none;
+                &::before {
+                    content: none;
                 }
             }
         }
@@ -1817,6 +1808,7 @@
         }
         &__logo {
             max-width: none;
+            opacity: .5;
             & svg {
                 max-width: none;
             }
