@@ -6,23 +6,37 @@
         height: 20px;
         margin-right: 15px;
         position: relative;
+        background-repeat: no-repeat;
+        background-position: 50%;
         &:last-child {
             margin-right: 0;
         }
         &[data-icon="vk"] {
-            background: icon('vk-icon.svg') no-repeat 50%;
+            background-image: icon('vk-icon.svg');
         }
         &[data-icon="behance"] {
-            background: icon('behance-icon.svg') no-repeat 50%;
+            background-image: icon('behance-icon.svg');
         }
         &[data-icon="dribbble"] {
-            background: icon('dribbble-icon.svg') no-repeat 50%;
+            background-image: icon('dribbble-icon.svg');
         }
         &[data-icon="instagram"] {
-            background: icon('instagram-icon.svg') no-repeat 50%;
+            background-image: icon('instagram-icon.svg');
         }
         &[data-icon="youtube"] {
-            background: icon('youtube-icon.svg') no-repeat 50%;
+            background-image: icon('youtube-icon.svg');
+        }
+        &_style {
+            &-background {
+                width: 30px;
+                height: 30px;
+                border-radius: 20px;
+                background-color: rgba($white, .15);
+                margin-right: 10px;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
 }
