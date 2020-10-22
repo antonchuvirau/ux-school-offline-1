@@ -10,9 +10,25 @@
         &::before {
             top: calc(100% + 2px);
         }
+        &[aria-current="page"] {
+            color: rgba($white, .3);
+            cursor: default;
+            pointer-events: none;
+            &::before {
+                content: none;
+            }
+        }
         &_style {
             &-dark {
                 color: $dark;
+                &[aria-current="page"] {
+                    color: rgba($dark, .3);
+                    cursor: default;
+                    pointer-events: none;
+                    &::before {
+                        content: none;
+                    }
+                }
                 &::before {
                     background: $primary-200;
                 }
@@ -28,23 +44,6 @@
         margin-right: 30px;
         &:last-child {
             margin-right: 0;
-        }
-        &.current-menu-item {
-            & .menu {
-                &__link {
-                    color: rgba($white, .3);
-                    cursor: default;
-                    pointer-events: none;
-                    &::before {
-                        content: none;
-                    }
-                    &_style {
-                        &-dark {
-                            color: rgba($dark, .3);
-                        }
-                    }
-                }
-            }
         }
     }
 }

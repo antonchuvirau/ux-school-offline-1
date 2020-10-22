@@ -460,9 +460,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const content = tabsGrid.querySelector('.course-list__wrapper');
             const isShowFull = target.dataset.showFull;
             const ajaxButton = tabsGrid.querySelector('.course-list__more-btn');
-            const footer = ajaxButton.parentElement;
+            const footer = ajaxButton ? ajaxButton.parentElement : null;
             dataCurrentPageValue = 1;
-            let data = {};
+            const data = {
+                action: 'tabs',
+                id: id
+            };
             const beforeSendHandler = function () {
                 const el = target.parentElement.nextElementSibling;
                 el.classList.add('course-list__grid_state-is-loading');
@@ -470,31 +473,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!Array.isArray(id)) {
                 if (isShowFull) {
-                    data = {
-                        action: 'tabs',
-                        showTestPost: false,
-                        id: id,
-                        showFullPosts: true
-                    }
+                    data.showTestPost = false;
+                    data.showFullPosts = true;
                 } else {
-                    data = {
-                        action: 'tabs',
-                        showTestPost: false,
-                        id: id
-                    }
+                    data.showTestPost = false;
                 }
             } else {
                 if (isShowFull) {
-                    data = {
-                        action: 'tabs',
-                        id: id,
-                        showFullPosts: true
-                    }
-                } else {
-                    data = {
-                        action: 'tabs',
-                        id: id
-                    }
+                    data.showFullPosts = true;
                 }
             }
 
@@ -504,14 +490,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(function () {
                     tabsGrid.classList.remove('course-list__grid_state-is-loading');
                     content.innerHTML = resp;
-                    dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
-                    
-                    if (dataCurrentPageValue === dataMaxPagesValue) {
-                        ajaxButton.classList.add('course-list__more-btn_disabled');
-                        footer.classList.add('course-list__footer_state-disabled');
-                    } else {
-                        ajaxButton.classList.remove('course-list__more-btn_disabled');
-                        footer.classList.remove('course-list__footer_state-disabled');
+                    if (!isShowFull) {
+                        dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
+                        if (dataCurrentPageValue === dataMaxPagesValue) {
+                            ajaxButton.classList.add('course-list__more-btn_disabled');
+                            footer.classList.add('course-list__footer_state-disabled');
+                        } else {
+                            ajaxButton.classList.remove('course-list__more-btn_disabled');
+                            footer.classList.remove('course-list__footer_state-disabled');
+                        }
                     }
                 }, 250);
             }, error => console.log(new Error(error)));
