@@ -132,9 +132,14 @@
             border-radius: 5px;
             box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
         }
+        &__header {
+            margin-bottom: 2px;
+            padding-bottom: 13px;
+        }
     }
 
     .tabs {
+        overflow-x: auto;
         &__btn {
             width: auto;
         }
@@ -2218,16 +2223,6 @@
     .we {
         &__pagination {
             display: none;
-        }
-    }
-}
-
-@media screen and (min-width: 1230px) {
-    .course-list {
-        &__header {
-            padding-bottom: 15px;
-            overflow-x: auto;
-            margin-bottom: 0;
         }
     }
 }

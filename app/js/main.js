@@ -1,14 +1,184 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-    //Add analytics
-    // (function () {
-    //     const promise = loadScript("https://ux-school.by/wp-content/themes/ux-mind-school/js/analytics.js");
-    //     promise.then(
-    //         script => console.log(`${script.src} загружен!`),
-    //         error => console.log(`Ошибка: ${error.message}`)
-    //     );
-    // })();
+    class PaymentMethod {
+        _index = 0;
+        _data = [{
+                id: 0,
+                title: 'Оплатить картой',
+                checked: true
+            },
+            {
+                id: 1,
+                title: 'ЕРИП',
+                checked: false
+            },
+            {
+                id: 2,
+                title: 'Рассрочка 2 месяца от UX Mind School',
+                checked: false
+            },
+            {
+                id: 3,
+                title: 'Рассрочка от 2 до 9 месяцев по карте Халва',
+                checked: false
+            },
+            {
+                id: 4,
+                title: 'В отделении банка',
+                checked: false
+            }
+        ];
+
+        constructor() {
+            const el = document.querySelector('.payment-methods');
+            const forms = document.querySelectorAll('.payment-section');
+            const template = document.querySelector('#payment-method');
+            this.fragment = document.createDocumentFragment();
+            if (template) {
+                this.template = template.content;
+            }
+            if (el) {
+                el.addEventListener('click', (event) => {
+                    const target = event.target;
+
+                    if (target.matches('input')) {
+                        const index = +target.value;
+                        this.setMethodIndex(index);
+                        removeClass(forms, 'payment-section_state-active');
+                        forms[this.getMethodIndex()].classList.add('payment-section_state-active');
+                        changeInputPrice(this.getMethodIndex());
+                        jQuery('body, html').animate({
+                            scrollTop: jQuery('#payment-anchor').offset().top
+                        }, 800);
+                    }
+                });
+            }
+        }
+
+        getMethodIndex() {
+            return this._index;
+        }
+
+        setMethodIndex(value) {
+            this._index = value;
+        }
+
+        render() {
+            for (const item of this._data) {
+                const el = this.template.cloneNode(true);
+
+                el.querySelector('input').value = item.id;
+                el.querySelector('.payment-item__name').textContent = item.title;
+                item.checked ? el.querySelector('input').checked = true : null;
+                this.fragment.appendChild(el);
+            }
+            return this.fragment;
+        }
+    }
+
+    class Crm {
+        constructor(id, formData, actionName) {
+            this.id = id;
+            this.formData = formData;
+            this.actionName = actionName;
+        }
+
+        getRequestObject() {
+            return {
+                action: `amo_crm_${this.actionName}`,
+                data: this.getFormData()
+            }
+        }
+
+        getFormData() {
+            if (this.id === 131) {
+                return {
+                    title: this.getFormValue(4) + ', ' + this.getFormValue(13),
+                    price: +this.getFormValue(5),
+                    name: this.getFormValue(0),
+                    type: this.getFormValue(6),
+                    time: this.getFormValue(7),
+                    date: +this.getFormValue(8),
+                    address: this.getFormValue(9),
+                    lecturer: this.getFormValue(10),
+                    statusId: +this.getFormValue(11),
+                    customer: {
+                        name: this.getFormValue(13),
+                        email: this.getFormValue(15),
+                        telephone: (this.getFormValue(3) + this.getFormValue(14)).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        value: this.getFormValue(12)
+                    }
+                }
+            }
+            if (this.id === 859) {
+                return {
+                    name: this.getFormValue(14),
+                    customer: {
+                        email: this.getFormValue(16),
+                        telephone: (this.getFormValue(4) + this.getFormValue(15)).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: this.getFormValue(5),
+                        timestamp: +this.getFormValue(9)
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: this.getFormValue(12)
+                    }
+                }
+            }
+            if (this.id === 1447) {
+                return {
+                    customer: {
+                        name: this.getFormValue(1),
+                        email: this.getFormValue(3),
+                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, "")
+                    },
+                    tag: {
+                        name: 'Начни учиться бесплатно'
+                    }
+                }
+            }
+            if (this.id === 779) {
+                return {
+                    customer: {
+                        name: this.getFormValue(1),
+                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, ""),
+                        email: this.getFormValue(3),
+                        message: this.getFormValue(4)
+                    },
+                    tag: {
+                        name: 'Обратный звонок'
+                    }
+                }
+            }
+            if (this.id === 1839) {
+                return {
+                    name: this.getFormValue(7),
+                    customer: {
+                        email: this.getFormValue(8),
+                        telephone: (this.getFormValue(3) + this.getFormValue(9)).replace(/[^0-9.]/g, "")
+                    },
+                    intensive: {
+                        name: this.getFormValue(4),
+                        timestamp: +this.getFormValue(5)
+                    },
+                    tag: {
+                        name: 'Интенсив',
+                        value: this.getFormValue(6)
+                    }
+                }
+            }
+            return;
+        }
+
+        getFormValue(index) {
+            return this.formData[index].value;
+        }
+    }
 
     //Privacy checkbox
     (function () {
@@ -119,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             return;
         },
-        countryChange: function(el) {
+        countryChange: function (el) {
             el.addEventListener("countrychange", (event) => {
                 const target = event.target;
                 const form = target.closest('.wpcf7-form') || target.closest('.form');
@@ -131,30 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    let headerElement = document.querySelector('.header');
-    let formInputs = document.querySelectorAll('.js-form__input input, .js-form__input textarea');
-
-    let textareaBtnElement = document.querySelector('.form__textarea-btn');
-    let playVideoBtnElement = document.querySelectorAll('.modal-video-button');
-
-    let paymentFormInputElements = document.querySelectorAll('.payment-form__input input');
     let pageNavigationLinksCollection = document.querySelectorAll('.page-navigation__link');
-    let weCarousel;
-    let inputMaskFromPlaceholder;
     let isCompleted = false;
-    let customSwiper;
-    let isCustomSwiperInit = false;
     let isMobile = false;
-    let isTablet = false;
     let totalInputElementName;
     let saleType = 'Без скидки';
     let saleValue = 0;
-    let paymentLevel;
-    // let current;
-    // let price;
-    // let salePrice;
-
-    let calculationButtonText;
     let requiredInputsCollection;
     let certificateForm = '#wpcf7-f1805-o1';
     let certificatePaymentObject;
@@ -162,25 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let emailInputValidation = false;
     let textInputValidation = false;
     let selectValidation = false;
-    let innerCarouselCollection = jQuery('.inner-carousel__grid');
     let dataCurrentPageValue = 1;
-    let wpcf7Elm = document.querySelectorAll('.wpcf7');
     let dataMaxPagesValue;
     if (document.querySelector('.course-list__row_first')) {
         dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
     }
-    let portfolioCurrentPageNum = 1;
-    let btnElementActiveTemplate = 'Загружаем...';
-    let btnElementDefaultTemplate = 'Показать ещё<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130"></path> </svg>';
-    let postPortfolioPageNum = 1;
-    let resultStr;
-    let courseTypeArray = [];
-    let clickedBool = false;
-    let elementTextContent;
-
     let deliveryElement = document.querySelector('select[name="delivery"]');
-
-    let umsSelectCollection, umsInputCollection;
 
     //Variables
     let defaultSubmitButtonText;
@@ -189,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
     const inputs = document.querySelectorAll('input');
+    const selects = document.querySelectorAll('select');
     let dropdownType;
     let totalPrice;
     let salePrice;
@@ -196,199 +336,127 @@ document.addEventListener('DOMContentLoaded', () => {
     let current;
     let currentPage = 1;
 
-    initWeCarousel();
-    initCourseGallery();
-    detectDeviceWidth();
+    const weCarouselOptions = {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 5000
+        },
+        navigation: {
+            nextEl: '.we__btn-next',
+            prevEl: '.we__btn-prev',
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                pagination: {
+                    el: '.we__pagination',
+                    type: 'bullets'
+                }
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+                pagination: {
+                    el: null
+                }
+            },
+            992: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            },
+            1230: {
+                slidesPerView: 4
+            }
+        }
+    }
+    const courseGalleryCarouselOptions = {
+        slidesPerView: 5,
+        loop: true,
+        autoplay: {
+            delay: 3000
+        },
+        navigation: {
+            prevEl: '.course-gallery__btn-prev',
+            nextEl: '.course-gallery__btn-next'
+        },
+        breakpoints: {
+            320: {
+                slidesPerView: 1
+            },
+            576: {
+                slidesPerView: 2
+            },
+            768: {
+                slidesPerView: 3
+            },
+            992: {
+                slidesPerView: 5
+            }
+        }
+    }
+    const graduatesCarouselOptions = {
+        slidesPerView: 8,
+        spaceBetween: 25,
+        loop: true,
+        centeredSlides: true,
+        autoplay: {
+            delay: 3000
+        },
+        breakpoints: {
+            360: {
+                slidesPerView: 2
+            },
+            480: {
+                slidesPerView: 3
+            },
+            576: {
+                slidesPerView: 4
+            },
+            768: {
+                slidesPerView: 5
+            },
+            992: {
+                slidesPerView: 6
+            },
+            1200: {
+                slidesPerView: 8
+            }
+        }
+    }
+    const testimonialsCarouselOptions = {
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        loop: true,
+        autoplay: {
+            delay: 5000
+        },
+        navigation: {
+            nextEl: '.testimonials__btn-next',
+            prevEl: '.testimonials__btn-prev',
+        },
+        pagination: {
+            el: '.testimonials__pagination',
+            type: 'bullets',
+            clickable: true
+        }
+    }
+    initSwiper('.we__carousel', weCarouselOptions);
+    initSwiper('.course-gallery__grid', courseGalleryCarouselOptions);
+    initSwiper('.graduates__carousel', graduatesCarouselOptions);
+    initSwiper('.testimonials__carousel', testimonialsCarouselOptions);
     changeLayout();
     showPopup();
-    initSwiperInstance();
-    initSelectListener();
     initInputListener();
     initItiPlugin();
 
-    class PaymentMethod {
-        _index = 0;
-        _data = [
-            {
-                id: 0,
-                title: 'Оплатить картой',
-                checked: true
-            },
-            {
-                id: 1,
-                title: 'ЕРИП',
-                checked: false
-            },
-            {
-                id: 2,
-                title: 'Рассрочка 2 месяца от UX Mind School',
-                checked: false
-            },
-            {
-                id: 3,
-                title: 'Рассрочка от 2 до 9 месяцев по карте Халва',
-                checked: false
-            },
-            {
-                id: 4,
-                title: 'В отделении банка',
-                checked: false
-            }
-        ];
-
-        constructor() {
-            const el = document.querySelector('.payment-methods');
-            const forms = document.querySelectorAll('.payment-section');
-            const template = document.querySelector('#payment-method');
-            this.fragment = document.createDocumentFragment();
-            if (template) {
-                this.template = template.content;
-            }
-            if (el) {
-                el.addEventListener('click', (event) => {
-                    const target = event.target;
-    
-                    if (target.matches('input')) {
-                        const index = +target.value;
-                        this.setMethodIndex(index);
-                        removeClass(forms, 'payment-section_state-active');
-                        forms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                        changeInputPrice(this.getMethodIndex());
-                        jQuery('body, html').animate({
-                            scrollTop: jQuery('#payment-anchor').offset().top
-                        }, 800);
-                    }
-                });
-            }
-        }
-
-        getMethodIndex () {
-            return this._index;
-        }
-
-        setMethodIndex (value) {
-            this._index = value;
-        }
-
-        render () {
-            for (const item of this._data) {
-                const el = this.template.cloneNode(true);
-
-                el.querySelector('input').value = item.id;
-                el.querySelector('.payment-item__name').textContent = item.title;
-                item.checked ? el.querySelector('input').checked = true : null;
-                this.fragment.appendChild(el);
-            }
-            return this.fragment;
-        }
-    }
-
-    class Crm {
-        constructor (id, formData, actionName) {
-            this.id = id;
-            this.formData = formData;
-            this.actionName = actionName;
-        }
-
-        getRequestObject () {
-            return {
-                action: `amo_crm_${this.actionName}`,
-                data: this.getFormData()
-            }
-        }
-
-        getFormData () {
-            if (this.id === 131) {
-                return {
-                    title: this.getFormValue(4) + ', ' + this.getFormValue(13),
-                    price: +this.getFormValue(5),
-                    name: this.getFormValue(0),
-                    type: this.getFormValue(6),
-                    time: this.getFormValue(7),
-                    date: +this.getFormValue(8),
-                    address: this.getFormValue(9),
-                    lecturer: this.getFormValue(10),
-                    statusId: +this.getFormValue(11),
-                    customer: {
-                        name: this.getFormValue(13),
-                        email: this.getFormValue(15),
-                        telephone: (this.getFormValue(3) + this.getFormValue(14)).replace(/[^0-9.]/g, "")
-                    },
-                    tag: {
-                        value: this.getFormValue(12)
-                    }
-                }
-            }
-            if (this.id === 859) {
-                return {
-                    name: this.getFormValue(14),
-                    customer: {
-                        email: this.getFormValue(16),
-                        telephone: (this.getFormValue(4) + this.getFormValue(15)).replace(/[^0-9.]/g, "")
-                    },
-                    intensive: {
-                        name: this.getFormValue(5),
-                        timestamp: +this.getFormValue(9)
-                    },
-                    tag: {
-                        name: 'Интенсив',
-                        value: this.getFormValue(12)
-                    }
-                }
-            }
-            if (this.id === 1447) {
-                return {
-                    customer: {
-                        name: this.getFormValue(1),
-                        email: this.getFormValue(3),
-                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, "")
-                    },
-                    tag: {
-                        name: 'Начни учиться бесплатно'
-                    }
-                }
-            }
-            if (this.id === 779) {
-                return {
-                    customer: {
-                        name: this.getFormValue(1),
-                        telephone: (this.getFormValue(0) + ' ' + this.getFormValue(2)).replace(/[^0-9.]/g, ""),
-                        email: this.getFormValue(3),
-                        message: this.getFormValue(4)
-                    },
-                    tag: {
-                        name: 'Обратный звонок'
-                    }
-                }
-            }
-            if (this.id === 1839) {
-                return {
-                    name: this.getFormValue(7),
-                    customer: {
-                        email: this.getFormValue(8),
-                        telephone: (this.getFormValue(3) + this.getFormValue(9)).replace(/[^0-9.]/g, "")
-                    },
-                    intensive: {
-                        name: this.getFormValue(4),
-                        timestamp: +this.getFormValue(5)
-                    },
-                    tag: {
-                        name: 'Интенсив',
-                        value: this.getFormValue(6)
-                    }
-                }
-            }
-            return;
-        }
-
-        getFormValue (index) {
-            return this.formData[index].value;
-        }
-    }
-    
     const paymentMethodsEl = document.querySelector('.payment-methods');
     const methods = new PaymentMethod();
-    
+
     if (paymentMethodsEl) {
         const content = methods.render();
         paymentMethodsEl.appendChild(content);
@@ -768,9 +836,9 @@ document.addEventListener('DOMContentLoaded', () => {
     addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
     addCustomEventHandler('click', navigationLinksCollection, pageNavigationLinkHandler);
     addCustomEventHandler('input', inputs, paymentInputsHandler);
+    addCustomEventHandler('change', selects, handleSelect);
 
     window.addEventListener('resize', () => {
-        detectDeviceWidth();
         changeLayout();
     });
     window.addEventListener('scroll', () => {
@@ -1076,21 +1144,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    function addErrorClass (inputElement, errorTextElement) {
+    function addErrorClass(inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
 
         return;
     }
 
-    function removeErrorClass (inputElement, errorTextElement) {
+    function removeErrorClass(inputElement, errorTextElement) {
         inputElement.classList.remove('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
 
         return;
     }
 
-    function changeInputPrice (index, sale, promocode) {
+    function changeInputPrice(index, sale, promocode) {
         switch (index) {
             case 0:
                 if (sale) {
@@ -1152,7 +1220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function changeCurenciesPrice (index) {
+    function changeCurenciesPrice(index) {
         let totalPriceInUsd = (totalPrice / rates.usd).toFixed(0);
         let totalPriceInRub = (totalPrice / (rates.rub / 100)).toFixed(0);
         let currenciesPriceTemplate = `
@@ -1168,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function showPromocodeMessage (el, state) {
+    function showPromocodeMessage(el, state) {
         if (state == 'success') {
             el.classList.remove('promocode-input_state-error');
             el.querySelector('.form__error-label').textContent = 'Промокод успешно применен';
@@ -1182,116 +1250,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function initSwiperSlider (element) {
-        if (jQuery(element).length !== 0) {
-            jQuery(element).addClass('swiper-container');
-            jQuery(element).children().addClass('swiper-slide').wrapAll('<div class="swiper-wrapper"/>');
-            customSwiper = new Swiper(element, {
-                slidesPerView: 'auto',
-                freeMode: true,
-                freeModeMomentum: false
-            });
-        }
-
-        return;
-    }
-
-    function destroySwiperSlider (element) {
-        if (customSwiper) {
-            customSwiper.destroy();
-            jQuery(element).removeClass('swiper-container');
-            jQuery(element).children().children().removeClass('swiper-slide').unwrap();
-        }
-
-        return;
-    }
-
-    function detectDeviceWidth () {
+    function detectDeviceWidth() {
         if (window.innerWidth < 992) {
             isMobile = true;
-            isTablet = false;
-        } else if (window.innerWidth > 991 && window.innerWidth < 1229) {
-            isTablet = true;
-            isMobile = false;
-        } else if (window.innerWidth > 1229) {
-            isTablet = false;
-            isMobile = false
+            return;
         }
+        isMobile = false;
 
         return;
     }
 
-    function destroyMobileMenu () {
-        jQuery('.header__info').append(jQuery('.header__menu'));
-        jQuery('.header__info').append(jQuery('.header__phone-number'));
-        jQuery('.header .col-3').append(jQuery('.header__select'));
-
-        return;
-    }
-
-    function getScrollbarWidth () {
+    function getScrollbarWidth() {
         return window.innerWidth - document.documentElement.clientWidth;
     }
 
-    function changeElementText (element, text) {
-        const el = document.querySelector(element);
-
-        if (el) {
-            el.textContent = text;
-        }
-
-        return;
-    }
-
-    function changeLayout () {
+    function changeLayout() {
+        detectDeviceWidth();
         if (isMobile && !isCompleted) {
-            // jQuery('.m-menu__grid').append(jQuery('.header__select'));
-            // jQuery('.m-menu__grid').append(jQuery('.header__menu'));
-            // jQuery('.m-menu__footer').prepend(jQuery('.header__phone-number'));
-            changeElementText('.about-video__text', 'О школе');
-            changeElementText('.portfolio__title', 'Работы учеников');
-            changeElementText('.social-testimonials__name', 'Больше отзывов:');
-            changeElementText('.play-button__name-js', 'О курсе');
-            changeElementText('.form__textarea-btn-name', 'Комментарий');
             jQuery('.about-course__title').after(jQuery('.about-course__author'));
             jQuery('.about-course__title').after(jQuery('.about-course__video'));
             jQuery('.lecturer-modal__grid').after(jQuery('.lecturer-modal__text'));
             jQuery('.lecturer-modal__img img').after(jQuery('.lecturer-modal__title'));
             jQuery('.footer-menu').after(jQuery('.google-testimonials'));
-            if (!isCustomSwiperInit) {
-                initSwiperSlider('.tabs');
-                isCustomSwiperInit = true;
-            }
-            // destroyWeCarousel();
             isCompleted = true;
         } else if (!isMobile && isCompleted) {
-            destroyMobileMenu();
-            changeElementText('.about-video__text', 'Видео о школе');
-            changeElementText('.portfolio__title', 'Работы выпускников');
-            changeElementText('.social-testimonials__name', 'А еще о нас много отзывов на:');
-            changeElementText('.form__textarea-btn-name', 'Добавить комментарий');
             jQuery('.about-course .col-lg-7').append(jQuery('.about-course__video'));
             jQuery('.about-course .col-lg-7').append(jQuery('.about-course__author'));
             jQuery('.lecturer-modal__info').append(jQuery('.lecturer-modal__title'));
             jQuery('.lecturer-modal__info').append(jQuery('.lecturer-modal__text'));
             jQuery('.footer__logo').after(jQuery('.google-testimonials'));
-            changeElementText('.play-button__name-js', 'Видео о курсе');
-            if (isCustomSwiperInit) {
-                destroySwiperSlider('.tabs');
-                isCustomSwiperInit = false;
-            }
-            // initWeCarousel();
             isCompleted = false;
-        } else if (isTablet && !isCustomSwiperInit) {
-            initSwiperSlider('.tabs');
-            isCustomSwiperInit = true;
-        } else if (!isTablet && !isMobile && isCustomSwiperInit) {
-            destroySwiperSlider('.tabs');
-            isCustomSwiperInit = false;
         }
     }
 
-    function getPriceInCurrency (element, currency, value) {
+    function getPriceInCurrency(element, currency, value) {
         return jQuery.ajax({
             url: ajax.url,
             method: 'POST',
@@ -1306,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function sendGoogleConversion (baseURI) {
+    function sendGoogleConversion(baseURI) {
         if (baseURI.indexOf('motion')) {
             gtag('event', 'conversion', {
                 'send_to': 'AW-795851636/jzVICKfr8tMBEPT2vvsC'
@@ -1341,72 +1333,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function getCustomerIpInfo () {
+    function getCustomerIpInfo() {
         return jQuery.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
             (resp && resp.country) ? resp.country: "";
         });
     }
 
-    function initWeCarousel () {
-        const carousel = document.querySelector('.we__carousel');
-
-        if (carousel) {
-            weCarousel = new Swiper(carousel, {
-                slidesPerView: 4,
-                spaceBetween: 30,
-                loop: true,
-                autoplay: {
-                    delay: 5000
-                },
-                navigation: {
-                    nextEl: '.we__btn-next',
-                    prevEl: '.we__btn-prev',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                        pagination: {
-                            el: '.we__pagination',
-                            type: 'bullets'
-                        }
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 30,
-                        pagination: {
-                            el: null
-                        }
-                    },
-                    992: {
-                        slidesPerView: 3,
-                        spaceBetween: 30
-                    },
-                    1230: {
-                        slidesPerView: 4
-                    }
-                }
-            });
-        }
-        return;
-    }
-
-    function destroyWeCarousel () {
-        const carousel = document.querySelector('.we__carousel');
-        if (carousel) {
-            weCarousel.destroy();
-        }
-        return;
-    }
-
-    function getCookie (name) {
+    function getCookie(name) {
         const matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    function setCookie (name, value, options = {}) {
+    function setCookie(name, value, options = {}) {
         let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
         for (let optionKey in options) {
             updatedCookie += "; " + optionKey;
@@ -1416,11 +1356,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         document.cookie = updatedCookie;
-        
+
         return;
     }
 
-    function showPopup () {
+    function showPopup() {
         const modal = jQuery('#event-modal');
         const cookieData = {
             path: '/',
@@ -1442,68 +1382,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function initSwiperInstance () {
-        const testimonialsEl = document.querySelector('.testimonials__carousel');
-        const graduatesCarousel = document.querySelector('.graduates__carousel');
-
-        if (testimonialsEl) {
-            new Swiper(testimonialsEl, {
-                effect: 'fade',
-                fadeEffect: {
-                    crossFade: true
-                },
-                loop: true,
-                autoplay: {
-                    delay: 5000
-                },
-                navigation: {
-                    nextEl: '.testimonials__btn-next',
-                    prevEl: '.testimonials__btn-prev',
-                },
-                pagination: {
-                    el: '.testimonials__pagination',
-                    type: 'bullets',
-                    clickable: true
-                }
-            });
-        }
-        if (graduatesCarousel) {
-            new Swiper(graduatesCarousel, {
-                slidesPerView: 8,
-                spaceBetween: 25,
-                loop: true,
-                centeredSlides: true,
-                autoplay: {
-                    delay: 3000
-                },
-                breakpoints: {
-                    360: {
-                        slidesPerView: 2
-                    },
-                    480: {
-                        slidesPerView: 3
-                    },
-                    576: {
-                        slidesPerView: 4
-                    },
-                    768: {
-                        slidesPerView: 5
-                    },
-                    992: {
-                        slidesPerView: 6
-                    },
-                    1200: {
-                        slidesPerView: 8
-                    }
-                }
-            });
-        }
-
-        return;
-    }
-
-    function handleSelect (e) {
-        const target = e.target;
+    function handleSelect(evt) {
+        const target = evt.target;
         const targetName = target.name;
         const targetValue = target.value;
 
@@ -1532,17 +1412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function initSelectListener () {
-        umsSelectCollection = document.querySelectorAll('select');
-
-        for (const select of umsSelectCollection) {
-            select.addEventListener('change', handleSelect, false);
-        }
-
-        return;
-    }
-
-    function initInputListener () {
+    function initInputListener() {
         const inputs = document.querySelectorAll('.form__input input, .form__input textarea');
 
         for (const input of inputs) {
@@ -1578,7 +1448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function removeClass (htmlCollection, className) {
+    function removeClass(htmlCollection, className) {
         for (const item of htmlCollection) {
             item.classList.remove(className);
         }
@@ -1586,7 +1456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function modalOpenHandler (event) {
+    function modalOpenHandler(event) {
         const modal = event.target;
         const input = modal.querySelector('input[type="tel"]');
 
@@ -1603,7 +1473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function modalCloseHandler (event) {
+    function modalCloseHandler(event) {
         const target = event.target;
         const input = target.querySelector('input[type="tel"]');
 
@@ -1615,14 +1485,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function videoModalCloseHandler (event) {
+    function videoModalCloseHandler(event) {
         const modal = event.target;
         modal.querySelector('iframe').setAttribute('src', '');
 
         return;
     }
 
-    function lecturerHandlerFunction (evt) {
+    function lecturerHandlerFunction(evt) {
         const target = evt.target.closest('.lecturers-page__item');
         const id = target.dataset.lecturerPostId;
         const data = {
@@ -1641,19 +1511,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 jQuery('.ajax-lecturer-modal').append(jQuery('.ajax-lecturer-modal .lecturer-modal__text'));
             }
             jQuery('.ajax-lecturer-modal').modal();
-        }, error =>  console.log(new Error(error)));
+        }, error => console.log(new Error(error)));
 
         return;
     }
 
-    function addCustomEventHandler (event, collection, handlerFunction) {
+    function addCustomEventHandler(event, collection, handlerFunction) {
         for (const el of collection) {
             el.addEventListener(event, handlerFunction);
         }
         return;
     }
 
-    function wpcf7InvalidHandler (event) {
+    function wpcf7InvalidHandler(event) {
         const target = event.target;
         const button = target.querySelector('button[type="submit"]');
 
@@ -1663,7 +1533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function wpcf7SentHandler (event) {
+    function wpcf7SentHandler(event) {
         const target = event.target;
         const id = +event.detail.contactFormId;
         const uri = event.target.baseURI;
@@ -1814,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function pageNavigationLinkHandler (event) {
+    function pageNavigationLinkHandler(event) {
         const target = event.target;
         const activeClass = 'page-navigation__link_state-active';
 
@@ -1824,41 +1694,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function initCourseGallery () {
-        const el = document.querySelector('.course-gallery__grid');
-
-        if (el) {
-            new Swiper(el, {
-                slidesPerView: 5,
-                loop: true,
-                autoplay: {
-                    delay: 3000
-                },
-                navigation: {
-                    prevEl: '.course-gallery__btn-prev',
-                    nextEl: '.course-gallery__btn-next'
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1
-                    },
-                    576: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 5
-                    }
-                }
-            });
-        }
-
-        return;
-    }
-
-    function paymentInputsHandler (event) {
+    function paymentInputsHandler(event) {
         const target = event.target;
         const targetName = target.name;
 
@@ -1874,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function initItiPlugin () {
+    function initItiPlugin() {
         const telInputs = document.querySelectorAll('input[type="tel"]');
 
         for (const input of telInputs) {
@@ -1886,8 +1722,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return;
     }
-    
-    function ajaxRequest (data, beforeSendHandler, target) {
+
+    function ajaxRequest(data, beforeSendHandler, target) {
         const requestData = {
             method: 'POST',
             url: ajax.url,
@@ -1901,16 +1737,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return jQuery.ajax(requestData);
     }
 
-    // function loadScript(src) {
-    //     return new Promise(function(resolve, reject) {
-    //       let script = document.createElement('script');
-    //       script.src = src;
-    //       script.async = true;
-      
-    //       script.onload = () => resolve(script);
-    //       script.onerror = () => reject(new Error(`Ошибка загрузки скрипта ${src}`));
-      
-    //       document.head.append(script);
-    //     });
-    //   }
+    function initSwiper(className, options) {
+        const domEl = document.querySelector(className);
+
+        if (domEl) {
+            return new Swiper(domEl, options);
+        }
+
+        return;
+    }
 });

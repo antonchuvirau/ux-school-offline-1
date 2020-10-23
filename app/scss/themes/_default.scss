@@ -40,6 +40,7 @@
 .course-list {
     &__header {
         margin-bottom: 10px;
+        overflow-x: auto;
     }
     &__grid {
         background: $white;
