@@ -1,6 +1,15 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
+    //Add analytics
+    // (function () {
+    //     const promise = loadScript("https://ux-school.by/wp-content/themes/ux-mind-school/js/analytics.js");
+    //     promise.then(
+    //         script => console.log(`${script.src} загружен!`),
+    //         error => console.log(`Ошибка: ${error.message}`)
+    //     );
+    // })();
+
     //Privacy checkbox
     (function () {
         const inputs = document.querySelectorAll('.privacy-checkbox__input');
@@ -230,6 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
         constructor() {
             const el = document.querySelector('.payment-methods');
             const forms = document.querySelectorAll('.payment-section');
+            const template = document.querySelector('#payment-method');
+            this.fragment = document.createDocumentFragment();
+            if (template) {
+                this.template = template.content;
+            }
             if (el) {
                 el.addEventListener('click', (event) => {
                     const target = event.target;
@@ -257,12 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         render () {
-            return this._data.map(item => {
-                return `<label class="payment-item payment-form__method">
-                    <input ${item.checked ? 'checked' : ''} value="${item.id}" type="radio" name="payment" class="payment-item__input"/>
-                    <p class="payment-item__name">${item.title}</p>
-                </label>`;
-            }).join('');
+            for (const item of this._data) {
+                const el = this.template.cloneNode(true);
+
+                el.querySelector('input').value = item.id;
+                el.querySelector('.payment-item__name').textContent = item.title;
+                item.checked ? el.querySelector('input').checked = true : null;
+                this.fragment.appendChild(el);
+            }
+            return this.fragment;
         }
     }
 
@@ -369,12 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    const methods = new PaymentMethod();
-    const content = methods.render();
     const paymentMethodsEl = document.querySelector('.payment-methods');
-
+    const methods = new PaymentMethod();
+    
     if (paymentMethodsEl) {
-        paymentMethodsEl.innerHTML = content;
+        const content = methods.render();
+        paymentMethodsEl.appendChild(content);
     }
 
     document.addEventListener('click', (event) => {
@@ -396,6 +413,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.dataset.modal) {
             const modalId = target.dataset.modal;
+
+            if (modalId === '#personal-data-modal') {
+                const data = {
+                    action: 'personal_data'
+                }
+                jQuery.when(ajaxRequest(data)).then(resp => {
+                    const modal = document.querySelector('.personal-data-modal');
+                    modal.insertAdjacentHTML('afterBegin', resp);
+                    jQuery(modal).modal({
+                        closeExisting: false
+                    });
+                }, error => console.log(new Error(error)));
+                return;
+            }
             jQuery(modalId).modal({
                 closeExisting: false
             });
@@ -1869,4 +1900,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return jQuery.ajax(requestData);
     }
+
+    // function loadScript(src) {
+    //     return new Promise(function(resolve, reject) {
+    //       let script = document.createElement('script');
+    //       script.src = src;
+    //       script.async = true;
+      
+    //       script.onload = () => resolve(script);
+    //       script.onerror = () => reject(new Error(`Ошибка загрузки скрипта ${src}`));
+      
+    //       document.head.append(script);
+    //     });
+    //   }
 });
