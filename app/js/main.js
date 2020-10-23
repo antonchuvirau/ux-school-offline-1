@@ -1283,21 +1283,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function getPriceInCurrency(element, currency, value) {
-        return jQuery.ajax({
-            url: ajax.url,
-            method: 'POST',
-            data: {
-                action: 'currency',
-                currency: currency,
-                price: value
-            },
-            beforeSend: function () {
-                element.textContent = 'Загрузка...';
-            }
-        });
-    }
-
     function sendGoogleConversion(baseURI) {
         if (baseURI.indexOf('motion')) {
             gtag('event', 'conversion', {
