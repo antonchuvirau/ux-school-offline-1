@@ -300,15 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
     }
-
-    let pageNavigationLinksCollection = document.querySelectorAll('.page-navigation__link');
-    let isCompleted = false;
-    let isMobile = false;
+    
+    //Variables
+    let defaultSubmitButtonText;
     let totalInputElementName;
-    let saleType = 'Без скидки';
-    let saleValue = 0;
     let requiredInputsCollection;
-    let certificateForm = '#wpcf7-f1805-o1';
     let certificatePaymentObject;
     let telInputValidation = false;
     let emailInputValidation = false;
@@ -320,9 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
         dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
     }
     let deliveryElement = document.querySelector('select[name="delivery"]');
-
-    //Variables
-    let defaultSubmitButtonText;
+    let saleType = 'Без скидки';
+    let saleValue = 0;
+    let isCompleted = false;
+    let isMobile = false;
+    const certificateForm = '#wpcf7-f1805-o1';
     const lecturersCollection = document.querySelectorAll('.lecturers-page__item');
     const wpcf7Collection = document.querySelectorAll('.wpcf7');
     const contactPageItems = document.querySelectorAll('.contact-page__info-item');
@@ -1677,7 +1675,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = event.target;
         const activeClass = 'page-navigation__link_state-active';
 
-        removeClass(pageNavigationLinksCollection, activeClass);
+        removeClass(navigationLinksCollection, activeClass);
         target.classList.add(activeClass);
 
         return;
