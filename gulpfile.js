@@ -23,7 +23,7 @@ gulp.task('styles', function(){
 });
 
 gulp.task('scripts', function(){
-    return gulp.src(['app/js/plugins.js', 'app/js/main.js'])
+    return gulp.src(['app/js/plugins.js', 'app/js/utils.js', 'app/js/main.js'])
     .pipe(babel({
         presets: ['@babel/preset-env']
     }))

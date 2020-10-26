@@ -16,7 +16,22 @@
         return element;
     }
 
+    function ajaxRequest(data, beforeSendHandler, target) {
+        const requestData = {
+            method: 'POST',
+            url: ajax.url,
+            data: data
+        }
+
+        if (beforeSendHandler) {
+            requestData.beforeSend = beforeSendHandler;
+        }
+
+        return jQuery.ajax(requestData);
+    }
+
     window.utils = {
-        createDOMElement
+        createDOMElement: createDOMElement,
+        ajaxRequest: ajaxRequest
     }
 })();

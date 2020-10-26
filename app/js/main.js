@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = {
                     action: 'personal_data'
                 }
-                jQuery.when(ajaxRequest(data)).then(resp => {
+                jQuery.when(window.utils.ajaxRequest(data)).then(resp => {
                     const modal = document.querySelector('.personal-data-modal');
                     modal.insertAdjacentHTML('afterBegin', resp);
                     jQuery(modal).modal({
@@ -547,10 +547,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 target.style.opacity = .3;
             }
             target.textContent = 'Загружаем...';
-            jQuery.when(ajaxRequest(requestObject, beforeSendHandler, target)).then((response) => {
+            jQuery.when(window.utils.ajaxRequest(requestObject, beforeSendHandler, target)).then((response) => {
                 target.style.opacity = 1;
                 target.textContent = text;
-                document.querySelector('.dropdown-lecturer-modal').innerHTML = response;
+                document.querySelector('.dropdown-lecturer-modal').innerHTML = '';
+                document.querySelector('.dropdown-lecturer-modal').insertAdjacentHTML('afterBegin', response);
                 jQuery('.dropdown-lecturer-modal').modal();
             });
         }
@@ -587,10 +588,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             removeClass(buttons, 'tabs__btn_active');
             target.classList.add('tabs__btn_active');
-            jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then(resp => {
+            jQuery.when(window.utils.ajaxRequest(data, beforeSendHandler, target)).then(resp => {
                 setTimeout(function () {
                     tabsGrid.classList.remove('course-list__grid_state-is-loading');
-                    content.innerHTML = resp;
+                    content.innerHTML = '';
+                    content.insertAdjacentHTML('afterBegin', resp);
                     if (!isShowFull) {
                         dataMaxPagesValue = +content.querySelector('.course-list__row_first').dataset.maxNumPages;
                         if (dataCurrentPageValue === dataMaxPagesValue) {
@@ -618,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 target.classList.add('ajax-btn_state-is-loading');
             }
 
-            jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then(resp => {
+            jQuery.when(window.utils.ajaxRequest(data, beforeSendHandler, target)).then(resp => {
                 setTimeout(function () {
                     document.querySelector('.course-list__wrapper').insertAdjacentHTML('beforeEnd', resp);
                     gridElement.classList.remove('course-list__wrapper_state-is-loading');
@@ -1230,7 +1232,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dropdownType === 'payment') {
             jQuery('.payment-section').eq(index).find('.ums-currency').html(currenciesPriceTemplate);
         } else if (dropdownType === 'certificate') {
-            document.querySelector('.ums-currency').innerHTML = currenciesPriceTemplate;
+            document.querySelector('.ums-currency').innerHTML = '';
+            document.querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
         }
 
         return;
@@ -1488,9 +1491,10 @@ document.addEventListener('DOMContentLoaded', () => {
             target.style.opacity = .3;
         }
 
-        jQuery.when(ajaxRequest(data, beforeSendHandler, target)).then((response) => {
+        jQuery.when(window.utils.ajaxRequest(data, beforeSendHandler, target)).then((response) => {
             target.style.opacity = 1;
-            document.querySelector('.ajax-lecturer-modal').innerHTML = response;
+            document.querySelector('.ajax-lecturer-modal').innerHTML = '';
+            document.querySelector('.ajax-lecturer-modal').insertAdjacentHTML('afterBegin', response);
             if (window.innerWidth < 992) {
                 jQuery('.ajax-lecturer-modal .lecturer-modal__img img').after(jQuery('.ajax-lecturer-modal .modal__title'));
                 jQuery('.ajax-lecturer-modal').append(jQuery('.ajax-lecturer-modal .lecturer-modal__text'));
@@ -1542,7 +1546,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 //Send to CRM
                 crmObject = new Crm(131, inputs, 'lead');
                 requestData = crmObject.getRequestObject();
-                jQuery.when(ajaxRequest(requestData)).then(data => {
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
                     console.log(data);
                 }, error => console.log(new Error(error)));
                 //Close modal
@@ -1560,7 +1564,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 859:
                 crmObject = new Crm(859, inputs, 'intensive');
                 requestData = crmObject.getRequestObject();
-                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -1574,8 +1578,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: 89064264,
                     email: inputs[3].value
                 }
-                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
-                jQuery.when(ajaxRequest(sendPulseData)).then(resp => {
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
+                jQuery.when(window.utils.ajaxRequest(sendPulseData)).then(resp => {
                     const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         //VK Conversion
@@ -1602,7 +1606,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: 89064300,
                     email: inputs[1].value
                 }
-                jQuery.when(ajaxRequest(sendPulseData)).then((resp) => {
+                jQuery.when(window.utils.ajaxRequest(sendPulseData)).then((resp) => {
                     const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         target.querySelector('.form__input').classList.remove('form__input_filled');
@@ -1620,7 +1624,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: 89086955,
                     email: inputs[0].value
                 }
-                jQuery.when(ajaxRequest(sendPulseData)).then((resp) => {
+                jQuery.when(window.utils.ajaxRequest(sendPulseData)).then((resp) => {
                     const respObject = JSON.parse(resp);
                     if (respObject.result) {
                         //VK Conversion
@@ -1645,7 +1649,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 VK.Goal('contact');
                 crmObject = new Crm(779, inputs, 'call');
                 requestData = crmObject.getRequestObject();
-                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -1654,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 1839:
                 crmObject = new Crm(1839, inputs, 'intensive');
                 requestData = crmObject.getRequestObject();
-                jQuery.when(ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {}, error => console.log(new Error(error)));
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -1706,20 +1710,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return;
-    }
-
-    function ajaxRequest(data, beforeSendHandler, target) {
-        const requestData = {
-            method: 'POST',
-            url: ajax.url,
-            data: data
-        }
-
-        if (beforeSendHandler) {
-            requestData.beforeSend = beforeSendHandler;
-        }
-
-        return jQuery.ajax(requestData);
     }
 
     function initSwiper(className, options) {
