@@ -2,11 +2,12 @@
 
 //Написать методы для получения и назначения значений
 (function() {
-    let totalPrice;
-    let price;
-    let current;
-    let dropdownType;
-    let salePrice;
+    let totalPrice = 0;
+    let price = 0;
+    let current = '';
+    let dropdownType = window.paymentSelect.instance.getPaymentType();
+    let salePrice = 0;
+
     class PaymentMethod {
         _index = 0;
         _data = [{
@@ -53,6 +54,7 @@
                         this.setMethodIndex(index);
                         window.utils.removeClass(forms, 'payment-section_state-active');
                         forms[this.getMethodIndex()].classList.add('payment-section_state-active');
+                        window.payment.updatePrices(this.getMethodIndex());
                         changeInputPrice(this.getMethodIndex());
                         jQuery('body, html').animate({
                             scrollTop: jQuery('#payment-anchor').offset().top
@@ -80,6 +82,17 @@
                 this.fragment.appendChild(el);
             }
             return this.fragment;
+        }
+    }
+
+    function updatePrices(index) {
+        const data = window.paymentSelect.instance.getCourseData();
+        if (index === 3) {
+            window.payment.totalPrice = data.fullPrice;
+            return;
+        }
+        else {
+            window.payment.totalPrice = data.salePrice;
         }
     }
 
@@ -130,12 +143,12 @@
                 break;
         }
         window.payment.changeCurenciesPrice(index);
-        if (window.payment.dropdownType === 'payment') {
+        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
             let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
             let totalInputElementName = totalInputElement.length ? 'input[name="wsb_total"]' : 'input[name="total"]';
             jQuery('.payment-section').eq(index).find(totalInputElementName).val(window.payment.totalPrice);
             jQuery('.payment-section').eq(index).find(totalInputElementName).next().addClass('form__label_active').parent().addClass('form__input_filled');
-        } else if (dropdownType === 'certificate') {
+        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
             let totalInputElement = document.querySelector('input[name="total"]');
             totalInputElement.value = window.payment.totalPrice;
             totalInputElement.nextElementSibling.classList.add('form__label_active');
@@ -150,10 +163,10 @@
                 <p class="ums-currency__value ums-currency__symbol">BYN</p>
                 <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>
                 <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-ruble_color-gray">&nbsp;≈&nbsp;${totalPriceInRub}</p>`;
-        if (window.payment.dropdownType === 'payment') {
+        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
             document.querySelectorAll('.payment-section')[index].querySelector('.ums-currency').innerHTML = '';
             document.querySelectorAll('.payment-section')[index].querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-        } else if (window.payment.dropdownType === 'certificate') {
+        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
             document.querySelector('.ums-currency').innerHTML = '';
             document.querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
         }
@@ -174,6 +187,7 @@
         current,
         dropdownType,
         methods,
+        updatePrices: updatePrices,
         changeInputPrice: changeInputPrice,
         changeCurenciesPrice: changeCurenciesPrice
     }
