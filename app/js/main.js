@@ -1,82 +1,6 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-    class PaymentMethod {
-        _index = 0;
-        _data = [{
-                id: 0,
-                title: 'Оплатить картой',
-                checked: true
-            },
-            {
-                id: 1,
-                title: 'ЕРИП',
-                checked: false
-            },
-            {
-                id: 2,
-                title: 'Рассрочка 2 месяца от UX Mind School',
-                checked: false
-            },
-            {
-                id: 3,
-                title: 'Рассрочка от 2 до 9 месяцев по карте Халва',
-                checked: false
-            },
-            {
-                id: 4,
-                title: 'В отделении банка',
-                checked: false
-            }
-        ];
-
-        constructor() {
-            const el = document.querySelector('.payment-methods');
-            const forms = document.querySelectorAll('.payment-section');
-            const template = document.querySelector('#payment-method');
-            this.fragment = document.createDocumentFragment();
-            if (template) {
-                this.template = template.content;
-            }
-            if (el) {
-                el.addEventListener('click', (event) => {
-                    const target = event.target;
-
-                    if (target.matches('input')) {
-                        const index = +target.value;
-                        this.setMethodIndex(index);
-                        removeClass(forms, 'payment-section_state-active');
-                        forms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                        changeInputPrice(this.getMethodIndex());
-                        jQuery('body, html').animate({
-                            scrollTop: jQuery('#payment-anchor').offset().top
-                        }, 800);
-                    }
-                });
-            }
-        }
-
-        getMethodIndex() {
-            return this._index;
-        }
-
-        setMethodIndex(value) {
-            this._index = value;
-        }
-
-        render() {
-            for (const item of this._data) {
-                const el = this.template.cloneNode(true);
-
-                el.querySelector('input').value = item.id;
-                el.querySelector('.payment-item__name').textContent = item.title;
-                item.checked ? el.querySelector('input').checked = true : null;
-                this.fragment.appendChild(el);
-            }
-            return this.fragment;
-        }
-    }
-
     class Crm {
         constructor(id, formData, actionName) {
             this.id = id;
@@ -172,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
-            return;
         }
 
         getFormValue(index) {
@@ -287,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return customPlaceholder;
                 }
             });
-            return;
         },
         countryChange: function (el) {
             el.addEventListener("countrychange", (event) => {
@@ -297,13 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const hiddenInput = form.querySelector('input[name="ums-country-code"]');
                 hiddenInput.value = code;
             });
-            return;
         }
     }
     
     //Variables
     let defaultSubmitButtonText;
-    let totalInputElementName;
     let requiredInputsCollection;
     let certificatePaymentObject;
     let telInputValidation = false;
@@ -312,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectValidation = false;
     let dataCurrentPageValue = 1;
     let dataMaxPagesValue;
+    let currentPage = 1;
     if (document.querySelector('.course-list__row_first')) {
         dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
     }
@@ -327,13 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
     const inputs = document.querySelectorAll('input');
     const selects = document.querySelectorAll('select');
-    let dropdownType;
-    let totalPrice;
-    let salePrice;
-    let price;
-    let current;
-    let currentPage = 1;
-
     const weCarouselOptions = {
         slidesPerView: 4,
         spaceBetween: 30,
@@ -443,6 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
             clickable: true
         }
     }
+    
+
     initSwiper('.we__carousel', weCarouselOptions);
     initSwiper('.course-gallery__grid', courseGalleryCarouselOptions);
     initSwiper('.graduates__carousel', graduatesCarouselOptions);
@@ -451,14 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showPopup();
     initInputListener();
     initItiPlugin();
-
-    const paymentMethodsEl = document.querySelector('.payment-methods');
-    const methods = new PaymentMethod();
-
-    if (paymentMethodsEl) {
-        const content = methods.render();
-        paymentMethodsEl.appendChild(content);
-    }
 
     document.addEventListener('click', (event) => {
         //Get target element
@@ -491,7 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         closeExisting: false
                     });
                 }, error => console.log(new Error(error)));
-                return;
             }
             jQuery(modalId).modal({
                 closeExisting: false
@@ -521,8 +428,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const sortValue = target.dataset.sort;
             const buttons = document.querySelectorAll('.sort-navigation__button');
             const sortElements = document.querySelector('.sort-list').children;
-            removeClass(buttons, 'sort-navigation__button_state-active');
-            removeClass(sortElements, 'd-none');
+            window.utils.removeClass(buttons, 'sort-navigation__button_state-active');
+            window.utils.removeClass(sortElements, 'd-none');
             target.classList.add('sort-navigation__button_state-active');
 
             if (sortValue !== 'all') {
@@ -555,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('.js-tabs__btn')) {
             const buttons = document.querySelectorAll('.js-tabs__btn');
-            const id = target.dataset.termId;
+            const id = target.dataset.id.split(',');
             const tabsGrid = target.parentElement.nextElementSibling;
             const content = tabsGrid.querySelector('.course-list__wrapper');
             const isShowFull = target.dataset.showFull;
@@ -571,20 +478,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.classList.add('course-list__grid_state-is-loading');
             }
 
-            if (!Array.isArray(id)) {
-                if (isShowFull) {
-                    data.showTestPost = false;
-                    data.showFullPosts = true;
-                } else {
-                    data.showTestPost = false;
-                }
+            if (isShowFull) {
+                data.showTestPost = false;
+                data.showFullPosts = true;
             } else {
-                if (isShowFull) {
-                    data.showFullPosts = true;
-                }
+                data.showTestPost = false;
             }
 
-            removeClass(buttons, 'tabs__btn_active');
+            window.utils.removeClass(buttons, 'tabs__btn_active');
             target.classList.add('tabs__btn_active');
             jQuery.when(window.utils.ajaxRequest(data, beforeSendHandler, target)).then(resp => {
                 setTimeout(function () {
@@ -642,8 +543,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.classList.remove(activeClass)
                     target.nextElementSibling.classList.remove(openClass);
                 } else {
-                    removeClass(buttons, activeClass);
-                    removeClass(dropdowns, openClass);
+                    window.utils.removeClass(buttons, activeClass);
+                    window.utils.removeClass(dropdowns, openClass);
                     target.classList.add(activeClass);
                     target.nextElementSibling.classList.add(openClass);
                 }
@@ -660,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('.contact-page__info-item')) {
             const activeClass = 'contact-page__info-item_active';
-            removeClass(contactPageItems, activeClass);
+            window.utils.removeClass(contactPageItems, activeClass);
             target.classList.add(activeClass);
         }
         if (target.matches('.form__textarea-btn')) {
@@ -674,10 +575,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('input[name="sale"]')) {
             if (target.checked) {
-                changeInputPrice(methods.getMethodIndex(), true);
+                window.payment.changeInputPrice(window.payment.methods.getMethodIndex(), true);
                 return;
             }
-            changeInputPrice(methods.getMethodIndex());
+            window.payment.changeInputPrice(window.payment.methods.getMethodIndex());
         }
         if (target.matches('.content-list__more-btn')) {
             const icon = `
@@ -689,14 +590,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 jQuery('html, body').animate({
                     scrollTop: jQuery('.faq__title').offset().top - 50
                 }, 150);
-                target.innerHTML = `Показать ещё ${icon}`;
+                target.innerHTML = '';
+                target.insertAdjacentHTML('afterBegin', `Показать ещё ${icon}`);
                 target.classList.remove('content-list__more-btn_opened');
                 for (let item of items) {
                     item.style.display = 'none';
                 }
                 return;
             }
-            target.innerHTML = `Скрыть ${icon}`;
+            target.innerHTML = '';
+            target.insertAdjacentHTML('afterBegin', `Скрыть ${icon}`);
             target.classList.add('content-list__more-btn_opened');
             for (let item of items) {
                 item.style.display = 'block';
@@ -736,7 +639,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestData.data.tag = tag;
             }
             jQuery.ajax(requestData);
-            return;
         }
         if (target.matches('.webpay-form__btn')) {
             event.preventDefault();
@@ -751,8 +653,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let isValid;
             let ajaxData = {
                 action: 'payment_' + method,
-                totalPrice: totalPrice * 100,
-                productName: current,
+                totalPrice: window.payment.totalPrice * 100,
+                productName: window.payment.current,
                 customerName: customer
             }
 
@@ -783,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.classList.remove('wpcf7-not-valid');
                     label.classList.remove('form__error-label_active');
                 });
-                if (methods.getMethodIndex() !== 3) {
+                if (window.payment.methods.getMethodIndex() !== 3) {
                     ajaxData.customerSaleType = saleType;
                     ajaxData.customerSaleValue = saleValue;
                 }
@@ -811,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
 
                         target.textContent = 'Перенаправляем на оплату...';
-                        if (methods.getMethodIndex() === 3) {
+                        if (window.payment.methods.getMethodIndex() === 3) {
                             setTimeout(function () {
                                 document.location.replace(response.checkout.redirect_url);
                             }, 200);
@@ -820,7 +722,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(function () {
                             document.location.replace(response.formUrl);
                         }, 200);
-                        return;
                     }
                 });
             }
@@ -842,20 +743,16 @@ document.addEventListener('DOMContentLoaded', () => {
         changeLayout();
     });
     window.addEventListener('scroll', () => {
-        //Mobile menu button
-        (function () {
-            const button = document.querySelector('.m-options__menu-btn');
-            const activeClass = 'm-options__menu-btn_active';
-
-            if (button) {
-                if (pageYOffset >= 900) {
-                    button.classList.add(activeClass);
-                    return;
-                }
-                button.classList.remove(activeClass);
+        const button = document.querySelector('.m-options__menu-btn');
+        const activeClass = 'm-options__menu-btn_active';
+        
+        if (button) {
+            if (pageYOffset >= 900) {
+                button.classList.add(activeClass);
+                return;
             }
-            return;
-        })();
+            button.classList.remove(activeClass);
+        }
     });
 
     document.body.addEventListener('mouseover', (event) => {
@@ -1027,11 +924,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.classList.remove('form__input_filled');
                 el.querySelector('.form__error-label').classList.remove('form__error-label_active');
                 el.querySelector('.form__label').classList.remove('form__label_active');
-                if (dropdownType === 'payment') {
+                if (window.payment.dropdownType === 'payment') {
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                 }
-                changeInputPrice(methods.getMethodIndex(), false, false);
+                window.payment.changeInputPrice(window.payment.methods.getMethodIndex(), false, false);
             });
 
             button.addEventListener('click', () => {
@@ -1055,15 +952,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.length) {
                             const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
                             if (result) {
-                                changeInputPrice(methods.getMethodIndex(), false, true);
+                                window.payment.changeInputPrice(window.payment.methods.getMethodIndex(), false, true);
                                 showPromocodeMessage(el, 'success');
                             } else {
                                 showPromocodeMessage(el, 'error');
-                                changeInputPrice(methods.getMethodIndex(), false, false);
+                                window.payment.changeInputPrice(window.payment.methods.getMethodIndex(), false, false);
                             }
                         } else {
                             showPromocodeMessage(el, 'error');
-                            changeInputPrice(methods.getMethodIndex(), false, false);
+                            window.payment.changeInputPrice(window.payment.methods.getMethodIndex(), false, false);
                         }
                     });
             });
@@ -1076,15 +973,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (el) {
             const items = el.querySelectorAll('.ums-select__list-item');
-            current = el.querySelector('button').textContent;
-            price = el.querySelector('button').dataset.price;
-            dropdownType = el.dataset.type;
+            window.payment.current = el.querySelector('button').textContent;
+            window.payment.price = el.querySelector('button').dataset.price;
+            window.payment.dropdownType = el.dataset.type;
 
-            if (dropdownType === 'payment') {
-                salePrice = el.querySelector('button').dataset.salePrice;
-                totalPrice = salePrice;
+            if (window.payment.dropdownType === 'payment') {
+                window.payment.salePrice = el.querySelector('button').dataset.salePrice;
+                window.payment.totalPrice = window.payment.salePrice;
             } else {
-                totalPrice = price;
+                window.payment.totalPrice = window.payment.salePrice;
             }
 
             el.addEventListener('click', (event) => {
@@ -1097,13 +994,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.nextElementSibling.classList.toggle('ums-select__list_visibility-open');
                 }
                 if (target.matches('li') && !target.classList.contains('ums-select__list-item_state-active')) {
-                    removeClass(items, 'ums-select__list-item_state-active');
+                    window.utils.removeClass(items, 'ums-select__list-item_state-active');
                     target.classList.add('ums-select__list-item_state-active');
 
                     if (target.textContent === 'Оплата второго этапа действующего курса') {
-                        methods.setMethodIndex(0);
+                        window.payment.methods.setMethodIndex(0);
                         const paymentForms = document.querySelectorAll('.payment-section');
-                        removeClass(paymentForms, 'payment-section_state-active');
+                        window.utils.removeClass(paymentForms, 'payment-section_state-active');
                         paymentForms[0].classList.add('payment-section_state-active');
                         jQuery('.payment-item').css('display', 'none');
                         jQuery('.payment-item:nth-child(1)').css('display', 'block');
@@ -1117,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         jQuery('.webpay-form__sale-checkbox').css('display', 'inline-block');
                     }
 
-                    if (dropdownType === 'payment') {
+                    if (window.payment.dropdownType === 'payment') {
                         targetSalePrice = target.dataset.salePrice;
                         targetPrice = target.dataset.price;
                         const saleInputs = document.querySelectorAll('input[name="sale"]');
@@ -1134,11 +1031,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.closest('.ums-select__list').previousElementSibling.textContent = target.textContent;
                     target.closest('.ums-select__list').previousElementSibling.classList.remove('ums-select__btn_state-active');
                     target.closest('.ums-select__list').classList.remove('ums-select__list_visibility-open');
-                    current = target.textContent;
-                    price = targetPrice;
-                    salePrice = targetSalePrice;
+                    window.payment.current = target.textContent;
+                    window.payment.price = targetPrice;
+                    window.payment.salePrice = targetSalePrice;
                     //Update the price
-                    changeInputPrice(methods.getMethodIndex());
+                    window.payment.changeInputPrice(window.payment.methods.getMethodIndex());
                 }
             });
         }
@@ -1147,94 +1044,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function addErrorClass(inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
-
-        return;
     }
 
     function removeErrorClass(inputElement, errorTextElement) {
         inputElement.classList.remove('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
-
-        return;
-    }
-
-    function changeInputPrice(index, sale, promocode) {
-        switch (index) {
-            case 0:
-                if (sale) {
-                    totalPrice = salePrice - (salePrice * .1);
-                    saleType = 'Я студент-очник / я раньше уже учился у вас';
-                    saleValue = 10;
-                } else if (promocode) {
-                    if (dropdownType === 'payment') {
-                        totalPrice = salePrice - 50;
-                        //                      totalPrice = salePrice - (salePrice * (+promocode.value / 100));
-                        saleType = 'Промокод ' + promocode.name;
-                        saleValue = promocode.value
-                    } else if (dropdownType === 'certificate') {
-                        totalPrice = price - 50;
-                        //                      totalPrice = price - (price * (+promocode.value / 100));
-                        saleType = 'Промокод ' + promocode.name;
-                        saleValue = promocode.value
-                    }
-                } else {
-                    if (dropdownType === 'payment') {
-                        totalPrice = salePrice;
-                        saleType = 'Без скидки';
-                        saleValue = 0;
-                    } else if (dropdownType === 'certificate') {
-                        totalPrice = price;
-                        saleType = 'Без скидки';
-                        saleValue = 0;
-                    }
-                }
-                break;
-            case 2:
-                if (sale) {
-                    totalPrice = Math.round(salePrice / 2 - salePrice / 2 * .1);
-                    saleType = 'Я студент-очник / я раньше уже учился у вас';
-                    saleValue = 10;
-                } else {
-                    totalPrice = salePrice / 2;
-                    saleType = 'Без скидки';
-                    saleValue = 0;
-                }
-                break;
-            case 3:
-                totalPrice = salePrice;
-                break;
-        }
-        changeCurenciesPrice(index);
-        if (dropdownType === 'payment') {
-            let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
-            totalInputElementName = totalInputElement.length ? 'input[name="wsb_total"]' : 'input[name="total"]';
-            jQuery('.payment-section').eq(index).find(totalInputElementName).val(totalPrice);
-            jQuery('.payment-section').eq(index).find(totalInputElementName).next().addClass('form__label_active').parent().addClass('form__input_filled');
-        } else if (dropdownType === 'certificate') {
-            let totalInputElement = document.querySelector('input[name="total"]');
-            totalInputElement.value = totalPrice;
-            totalInputElement.nextElementSibling.classList.add('form__label_active');
-            totalInputElement.parentElement.classList.add('form__input_filled');
-        }
-
-        return;
-    }
-
-    function changeCurenciesPrice(index) {
-        let totalPriceInUsd = (totalPrice / rates.usd).toFixed(0);
-        let totalPriceInRub = (totalPrice / (rates.rub / 100)).toFixed(0);
-        let currenciesPriceTemplate = `
-                <p class="ums-currency__value ums-currency__symbol">BYN</p>
-                <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>
-                <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-ruble_color-gray">&nbsp;≈&nbsp;${totalPriceInRub}</p>`;
-        if (dropdownType === 'payment') {
-            jQuery('.payment-section').eq(index).find('.ums-currency').html(currenciesPriceTemplate);
-        } else if (dropdownType === 'certificate') {
-            document.querySelector('.ums-currency').innerHTML = '';
-            document.querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-        }
-
-        return;
     }
 
     function showPromocodeMessage(el, state) {
@@ -1247,8 +1061,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         el.classList.add('promocode-input_state-' + state);
         el.querySelector('.form__error-label').classList.add('form__error-label_active');
-
-        return;
     }
 
     function detectDeviceWidth() {
@@ -1257,8 +1069,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         isMobile = false;
-
-        return;
     }
 
     function getScrollbarWidth() {
@@ -1315,8 +1125,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
             });
         }
-
-        return;
     }
 
     function getCustomerIpInfo() {
@@ -1342,8 +1150,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         document.cookie = updatedCookie;
-
-        return;
     }
 
     function showPopup() {
@@ -1364,8 +1170,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 8000);
             }
         }
-
-        return;
     }
 
     function handleSelect(evt) {
@@ -1394,8 +1198,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 break;
         }
-
-        return;
     }
 
     function initInputListener() {
@@ -1430,16 +1232,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-
-        return;
-    }
-
-    function removeClass(htmlCollection, className) {
-        for (const item of htmlCollection) {
-            item.classList.remove(className);
-        }
-
-        return;
     }
 
     function modalOpenHandler(event) {
@@ -1455,8 +1247,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 hiddenInput.value = code;
             }
         }
-
-        return;
     }
 
     function modalCloseHandler(event) {
@@ -1467,15 +1257,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const instance = window.intlTelInputGlobals.getInstance(input);
             instance.destroy();
         }
-
-        return;
     }
 
     function videoModalCloseHandler(event) {
         const modal = event.target;
         modal.querySelector('iframe').setAttribute('src', '');
-
-        return;
     }
 
     function lecturerHandlerFunction(evt) {
@@ -1499,15 +1285,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             jQuery('.ajax-lecturer-modal').modal();
         }, error => console.log(new Error(error)));
-
-        return;
     }
 
     function addCustomEventHandler(event, collection, handlerFunction) {
         for (const el of collection) {
             el.addEventListener(event, handlerFunction);
         }
-        return;
     }
 
     function wpcf7InvalidHandler(event) {
@@ -1516,8 +1299,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         button.textContent = defaultSubmitButtonText;
         button.classList.remove('btn_is-loading');
-
-        return;
     }
 
     function wpcf7SentHandler(event) {
@@ -1675,10 +1456,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = event.target;
         const activeClass = 'page-navigation__link_state-active';
 
-        removeClass(navigationLinksCollection, activeClass);
+        window.utils.removeClass(navigationLinksCollection, activeClass);
         target.classList.add(activeClass);
-
-        return;
     }
 
     function paymentInputsHandler(event) {
@@ -1690,11 +1469,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (saleInput) {
                 saleInput.checked = false;
             }
-            totalPrice = target.value;
-            changeCurenciesPrice(methods.getMethodIndex());
+            window.payment.totalPrice = target.value;
+            window.payment.changeCurenciesPrice(window.payment.methods.getMethodIndex());
         }
-
-        return;
     }
 
     function initItiPlugin() {
@@ -1706,8 +1483,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 iti.countryChange(input);
             }
         }
-
-        return;
     }
 
     function initSwiper(className, options) {
@@ -1716,7 +1491,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (domEl) {
             return new Swiper(domEl, options);
         }
-
-        return;
     }
 });
