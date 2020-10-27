@@ -116,7 +116,7 @@
                 break;
             case 2:
                 if (sale) {
-                    window.payment.totalPrice = Math.round(window.payment.price / 2 - window.payment.salePrice / 2 * .1);
+                    window.payment.totalPrice = Math.round(window.payment.salePrice / 2 - window.payment.salePrice / 2 * .1);
                     saleType = 'Я студент-очник / я раньше уже учился у вас';
                     saleValue = 10;
                 } else {
