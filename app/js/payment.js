@@ -5,85 +5,8 @@
     let totalPrice = 0;
     let price = 0;
     let current = '';
-    let dropdownType = window.paymentSelect.instance.getPaymentType();
+    let dropdownType = '';
     let salePrice = 0;
-
-    class PaymentMethod {
-        _index = 0;
-        _data = [{
-                id: 0,
-                title: 'Оплатить картой',
-                checked: true
-            },
-            {
-                id: 1,
-                title: 'ЕРИП',
-                checked: false
-            },
-            {
-                id: 2,
-                title: 'Рассрочка 2 месяца от UX Mind School',
-                checked: false
-            },
-            {
-                id: 3,
-                title: 'Рассрочка от 2 до 9 месяцев по карте Халва',
-                checked: false
-            },
-            {
-                id: 4,
-                title: 'В отделении банка',
-                checked: false
-            }
-        ];
-
-        constructor() {
-            const el = document.querySelector('.payment-methods');
-            const forms = document.querySelectorAll('.payment-section');
-            const template = document.querySelector('#payment-method');
-            this.fragment = document.createDocumentFragment();
-            if (template) {
-                this.template = template.content;
-            }
-            if (el) {
-                el.addEventListener('click', (event) => {
-                    const target = event.target;
-
-                    if (target.matches('input')) {
-                        const index = +target.value;
-                        this.setMethodIndex(index);
-                        window.utils.removeClass(forms, 'payment-section_state-active');
-                        forms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                        window.payment.updatePrices(this.getMethodIndex());
-                        changeInputPrice(this.getMethodIndex());
-                        jQuery('body, html').animate({
-                            scrollTop: jQuery('#payment-anchor').offset().top
-                        }, 800);
-                    }
-                });
-            }
-        }
-
-        getMethodIndex() {
-            return this._index;
-        }
-
-        setMethodIndex(value) {
-            this._index = value;
-        }
-
-        render() {
-            for (const item of this._data) {
-                const el = this.template.cloneNode(true);
-
-                el.querySelector('input').value = item.id;
-                el.querySelector('.payment-item__name').textContent = item.title;
-                item.checked ? el.querySelector('input').checked = true : null;
-                this.fragment.appendChild(el);
-            }
-            return this.fragment;
-        }
-    }
 
     function updatePrices(index) {
         const data = window.paymentSelect.instance.getCourseData();
@@ -96,7 +19,7 @@
         }
     }
 
-    function changeInputPrice(index, sale, promocode) {
+    function changeInputPrice(index, sale = false, promocode) {
         switch (index) {
             case 0:
                 if (sale) {
@@ -142,7 +65,7 @@
                 window.payment.totalPrice = window.payment.price;
                 break;
         }
-        window.payment.changeCurenciesPrice(index);
+        changeCurenciesPrice(index);
         if (window.paymentSelect.instance.getPaymentType() === 'payment') {
             let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
             let totalInputElementName = totalInputElement.length ? 'input[name="wsb_total"]' : 'input[name="total"]';
@@ -157,27 +80,21 @@
     }
 
     function changeCurenciesPrice(index) {
+        const container = document.querySelectorAll('.payment-section');
+        const input = container[index].querySelector('.ums-currency');
         let totalPriceInUsd = (window.payment.totalPrice / rates.usd).toFixed(0);
         let totalPriceInRub = (window.payment.totalPrice / (rates.rub / 100)).toFixed(0);
         let currenciesPriceTemplate = `
                 <p class="ums-currency__value ums-currency__symbol">BYN</p>
                 <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>
                 <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-ruble_color-gray">&nbsp;≈&nbsp;${totalPriceInRub}</p>`;
-        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-            document.querySelectorAll('.payment-section')[index].querySelector('.ums-currency').innerHTML = '';
-            document.querySelectorAll('.payment-section')[index].querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-            document.querySelector('.ums-currency').innerHTML = '';
-            document.querySelector('.ums-currency').insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+        if (window.paymentSelect.instance.getPaymentType() === 'payment' && input) {
+            input.innerHTML = '';
+            input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate' && input) {
+            input.innerHTML = '';
+            input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
         }
-    }
-
-    const methods = new PaymentMethod();
-    const paymentMethodsEl = document.querySelector('.payment-methods');
-
-    if (paymentMethodsEl) {
-        const content = methods.render();
-        paymentMethodsEl.appendChild(content);
     }
 
     window.payment = {
@@ -186,9 +103,8 @@
         price,
         current,
         dropdownType,
-        methods,
-        updatePrices: updatePrices,
-        changeInputPrice: changeInputPrice,
+        update: updatePrices,
+        changePrice: changeInputPrice,
         changeCurenciesPrice: changeCurenciesPrice
     }
 })();

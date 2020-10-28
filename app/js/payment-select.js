@@ -26,7 +26,7 @@
                         window.utils.removeClass(items, 'ums-select__list-item_state-active');
                         target.classList.add('ums-select__list-item_state-active');
                         if (target.textContent === 'Оплата второго этапа действующего курса') {
-                            window.payment.methods.setMethodIndex(0);
+                            window.paymentMethod.instance.setMethodIndex(0);
                             const paymentForms = document.querySelectorAll('.payment-section');
                             window.utils.removeClass(paymentForms, 'payment-section_state-active');
                             paymentForms[0].classList.add('payment-section_state-active');
@@ -57,7 +57,7 @@
                         window.payment.current = this._courseData.title;
                         window.payment.price = this._courseData.fullPrice;
                         window.payment.salePrice = this._courseData.salePrice;
-                        window.payment.changeInputPrice(window.payment.methods.getMethodIndex());
+                        window.payment.changePrice(window.paymentMethod.instance.getMethodIndex());
                     }
                 });
             }
