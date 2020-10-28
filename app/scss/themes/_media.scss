@@ -516,8 +516,7 @@
     }
 
     .footer {
-        background: image('ums-footer.svg') no-repeat 50%;
-        background-size: cover;
+        background: image('ums-footer.svg') no-repeat 50% / cover;
         &__top {
             padding: 50px 0;
         }
@@ -538,12 +537,28 @@
             display: block;
             margin: 0 auto;
             text-align: center;
+            & img {
+                display: inline-block;
+                width: 190px;
+            }
         }
         &__social {
             justify-content: center;
             margin-top: 20px;
             padding-bottom: 45px;
             border-bottom: 1px solid rgba($white, .15);
+            & .social {
+                &__link {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: rgba($white, .15);
+                    margin-right: 10px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
         }
         &__testimonials {
             margin-top: 0;
@@ -558,6 +573,14 @@
             }
             &-links {
                 margin-bottom: 40px;
+            }
+            & img {
+                max-width: 400px;
+                margin: 0 auto;
+                margin-bottom: 15px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
         &-menu {
@@ -1659,12 +1682,10 @@
                 max-height: 150px;
             }
             &-name {
-                font-size: 1.8rem;
-                text-align: center;
+                font-size: 1.6rem;
             }
             &-position {
                 font-size: 1.5rem;
-                text-align: center;
             }
         }
     }
@@ -2195,6 +2216,19 @@
     .testimonial-item {
         &__img {
             max-width: 280px;
+        }
+    }
+
+    .lecturers-page {
+        &__item {
+            &-img {
+                max-width: 120px;
+                max-height: 120px;
+            }
+            &-name {
+                font-size: 1.5rem;
+                margin-top: 10px;
+            }
         }
     }
 }
