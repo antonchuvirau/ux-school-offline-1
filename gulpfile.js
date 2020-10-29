@@ -26,6 +26,7 @@ gulp.task('scripts', function(){
     return gulp.src([
         'app/js/plugins.js',
         'app/js/utils.js',
+        'app/js/privacy-checkbox.js',
         'app/js/payment-method.js',
         'app/js/payment-select.js',
         'app/js/payment.js',

@@ -1,4 +1,6 @@
-export const privacyCheckbox = function() {
+'use strict';
+
+(function() {
     const inputs = document.querySelectorAll('.privacy-checkbox__input');
     
     if (inputs) {
@@ -7,13 +9,13 @@ export const privacyCheckbox = function() {
         }
     }
 
-    function privacyInputHandler(event) {
-        const target = event.target;
+    function privacyInputHandler(evt) {
+        const target = evt.target;
         const button = target.closest('.checkbox').previousElementSibling.querySelector('button');
         if (target.checked) {
-            button.disabled = false
-        } else {
-            button.disabled = true;
+            button.disabled = false;
+            return;
         }
+        button.disabled = true;
     }
-}
+})();
