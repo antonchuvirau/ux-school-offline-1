@@ -575,6 +575,7 @@
                 margin-bottom: 40px;
             }
             & img {
+                width: 100%;
                 max-width: 400px;
                 margin: 0 auto;
                 margin-bottom: 15px;
@@ -1299,6 +1300,7 @@
         &__menu {
             &-btn {
                 position: fixed;
+                right: 7px;
             }
         }
         &__phone {
@@ -1862,10 +1864,10 @@
         &__btn {
             top: 140px;
             &-prev {
-                left: -15px;
+                left: -10px;
             }
             &-next {
-                right: -15px;
+                right: -10px;
             }
         }
         &-item {
