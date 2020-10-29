@@ -1,6 +1,7 @@
 'use strict';
 
 (function() {
+    
     function createDOMElement(tagName, className = '', text = '', params = []) {
         const element = document.createElement(tagName);
 

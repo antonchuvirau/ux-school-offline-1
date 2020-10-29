@@ -30,6 +30,7 @@ gulp.task('scripts', function(){
         'app/js/payment-method.js',
         'app/js/payment-select.js',
         'app/js/payment.js',
+        'app/js/promocode.js',
         'app/js/main.js'
     ])
     .pipe(babel({

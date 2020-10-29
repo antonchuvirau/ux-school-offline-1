@@ -877,77 +877,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })();
 
-    //Promocode
-    (function () {
-        //Promocode
-        const toggleInput = document.querySelector('.toggle-checkbox__input');
-        const processMessage = 'Проверяем...';
-        const classes = {
-            active: 'promocode-input_state-active',
-            progress: 'promocode-input_state-progress',
-            success: 'promocode-input_state-success',
-            error: 'promocode-input_state-error'
-        };
-        const data = {
-            action: 'promocode'
-        };
-
-        if (toggleInput) {
-            const el = document.querySelector('.promocode-input');
-            const button = el.querySelector('.promocode-input__btn');
-            const input = el.querySelector('input');
-
-            toggleInput.addEventListener('click', () => {
-                input.value = '';
-                el.classList.remove(classes.success);
-                el.classList.remove(classes.error);
-                el.classList.toggle(classes.active);
-                el.classList.remove('form__input_filled');
-                el.querySelector('.form__error-label').classList.remove('form__error-label_active');
-                el.querySelector('.form__label').classList.remove('form__label_active');
-                if (window.payment.dropdownType === 'payment') {
-                    el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
-                    el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
-                }
-                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
-            });
-
-            button.addEventListener('click', () => {
-                const defaultButtonText = button.textContent;
-                const value = input.value;
-                button.textContent = processMessage;
-                el.classList.add(classes.progress);
-                fetch(ajax.url, {
-                        method: 'POST',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Accept': 'application/json'
-                        },
-                        body: new URLSearchParams(data)
-                    })
-                    .then((resp) => resp.json())
-                    .then((data) => {
-                        button.textContent = defaultButtonText;
-                        el.classList.remove(classes.progress);
-                        if (data.length) {
-                            const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
-                            if (result) {
-                                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, true);
-                                showPromocodeMessage(el, 'success');
-                            } else {
-                                showPromocodeMessage(el, 'error');
-                                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
-                            }
-                        } else {
-                            showPromocodeMessage(el, 'error');
-                            window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
-                        }
-                    });
-            });
-        }
-    })();
-
     function addErrorClass(inputElement, errorTextElement) {
         inputElement.classList.add('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
@@ -956,18 +885,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function removeErrorClass(inputElement, errorTextElement) {
         inputElement.classList.remove('wpcf7-not-valid');
         errorTextElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
-    }
-
-    function showPromocodeMessage(el, state) {
-        if (state == 'success') {
-            el.classList.remove('promocode-input_state-error');
-            el.querySelector('.form__error-label').textContent = 'Промокод успешно применен';
-        } else {
-            el.classList.remove('promocode-input_state-success');
-            el.querySelector('.form__error-label').textContent = 'Недействительный промокод';
-        }
-        el.classList.add('promocode-input_state-' + state);
-        el.querySelector('.form__error-label').classList.add('form__error-label_active');
     }
 
     function detectDeviceWidth() {
