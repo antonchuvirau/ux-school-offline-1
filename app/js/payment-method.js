@@ -31,10 +31,10 @@
         ];
 
         constructor(paymentMethodscontainer) {
-            this.el = document.querySelector(paymentMethodscontainer);
-            if (this.el) {
-                this.renderPaymentMethods(this.el, this._data);
-                this.el.addEventListener('click', (event) => {
+            this._el = document.querySelector(paymentMethodscontainer);
+            if (this._el) {
+                this.renderPaymentMethods(this._el, this._data);
+                this._el.addEventListener('click', (event) => {
                     const target = event.target;
                     const paymentForms = document.querySelectorAll('.payment-section');
 
@@ -81,11 +81,15 @@
 
             return duplicatedPaymentMethodElement;
         }
+
+        setCheckedInput(inputIndex) {
+            this._el.querySelector(`input[name="payment"][value="${inputIndex}"]`).checked = true;
+        }
     }
 
-    const methods = new PaymentMethod('.payment-methods');
+    const paymentMethod = new PaymentMethod('.payment-methods');
 
     window.paymentMethod = {
-        instance: methods
+        instance: paymentMethod
     }
 })();

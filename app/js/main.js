@@ -1,5 +1,7 @@
 'use strict';
 
+const paymentMethodInstance = window.paymentMethod.instance;
+
 document.addEventListener('DOMContentLoaded', () => {
     class Crm {
         constructor(id, formData, actionName) {
@@ -575,11 +577,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('input[name="sale"]')) {
             if (target.checked) {
-                window.payment.changePrice(window.paymentMethod.instance.getMethodIndex(), true);
+                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), true);
                 return;
             }
-            window.payment.update(window.paymentMethod.instance.getMethodIndex());
-            window.payment.changePrice(window.paymentMethod.instance.getMethodIndex());
+            window.payment.update(paymentMethodInstance.getMethodIndex());
+            window.payment.changePrice(paymentMethodInstance.getMethodIndex());
         }
         if (target.matches('.content-list__more-btn')) {
             const icon = `
@@ -686,7 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.classList.remove('wpcf7-not-valid');
                     label.classList.remove('form__error-label_active');
                 });
-                if (window.paymentMethod.instance.getMethodIndex() !== 3) {
+                if (paymentMethodInstance.getMethodIndex() !== 3) {
                     ajaxData.customerSaleType = saleType;
                     ajaxData.customerSaleValue = saleValue;
                 }
@@ -714,7 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
 
                         target.textContent = 'Перенаправляем на оплату...';
-                        if (window.paymentMethod.instance.getMethodIndex() === 3) {
+                        if (paymentMethodInstance.getMethodIndex() === 3) {
                             setTimeout(function () {
                                 document.location.replace(response.checkout.redirect_url);
                             }, 200);
@@ -929,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                     el.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                 }
-                window.payment.changePrice(window.paymentMethod.instance.getMethodIndex(), false, false);
+                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
             });
 
             button.addEventListener('click', () => {
@@ -953,15 +955,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.length) {
                             const result = data.find((item) => item.name.toUpperCase() === value.toUpperCase());
                             if (result) {
-                                window.payment.changePrice(window.paymentMethod.instance.getMethodIndex(), false, true);
+                                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, true);
                                 showPromocodeMessage(el, 'success');
                             } else {
                                 showPromocodeMessage(el, 'error');
-                                window.payment.changePrice(window.paymentMethod.instance.getMethodIndex(), false, false);
+                                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
                             }
                         } else {
                             showPromocodeMessage(el, 'error');
-                            window.payment.changePrice(window.paymentMethod.instance.getMethodIndex(), false, false);
+                            window.payment.changePrice(paymentMethodInstance.getMethodIndex(), false, false);
                         }
                     });
             });
@@ -1397,7 +1399,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 saleInput.checked = false;
             }
             window.payment.totalPrice = target.value;
-            window.payment.changeCurenciesPrice(window.paymentMethod.instance.getMethodIndex());
+            window.payment.changeCurenciesPrice(paymentMethodInstance.getMethodIndex());
         }
     }
 
