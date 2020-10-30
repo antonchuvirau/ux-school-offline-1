@@ -7,7 +7,7 @@
     class Promocode {
 
         _processMessage = 'Проверяем...';
-        _requestData = {
+        _promocodeRequestSettings = {
             action: 'promocode'
         }
         _promocodeClasses = {
@@ -47,7 +47,7 @@
                         target.textContent = this._processMessage;
                         this._el.querySelector('.promocode-input').classList.add(this._promocodeClasses.progress);
                         
-                        const promocodesData = this.getPromocodesData(this._requestData);
+                        const promocodesData = this.getPromocodesData(this._promocodeRequestSettings);
                         promocodesData.then((resp) => resp.json()).then((data) => {
                             target.textContent = defaultButtonText;
                             this._el.querySelector('.promocode-input').classList.remove(this._promocodeClasses.progress);
