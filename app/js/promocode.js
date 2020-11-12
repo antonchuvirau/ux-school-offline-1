@@ -40,7 +40,7 @@
                             promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                             promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                         }
-                        paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
+                        paymentInstance.changeInputPrice(paymentMethod.getMethodIndex(), false, false);
                     }
                     if (target.matches('button')) {
                         const defaultButtonText = target.textContent;
@@ -55,15 +55,15 @@
                             if (data.length) {
                                 const result = data.find((item) => item.name.toUpperCase() === inputValue.toUpperCase());
                                 if (result) {
-                                    paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, true);
+                                    paymentInstance.changeInputPrice(paymentMethod.getMethodIndex(), false, true);
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'success');
                                 } else {
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'error');
-                                    paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
+                                    paymentInstance.changeInputPrice(paymentMethod.getMethodIndex(), false, false);
                                 }
                             } else {
                                 this.showMessage(this._el.querySelector('.promocode-input'), 'error');
-                                paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
+                                paymentInstance.changeInputPrice(paymentMethod.getMethodIndex(), false, false);
                             }
                         });
                     }

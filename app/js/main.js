@@ -552,12 +552,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })();
         }
         if (target.matches('input[name="sale"]')) {
+            const paymentMethodIndex = paymentMethodInstance.getMethodIndex();
             if (target.checked) {
-                paymentInstance.changePrice(paymentMethodInstance.getMethodIndex(), true);
+                paymentInstance.changeInputPrice(paymentMethodIndex, true);
                 return;
             }
-            paymentInstance.update(paymentMethodInstance.getMethodIndex());
-            paymentInstance.changePrice(paymentMethodInstance.getMethodIndex());
+            paymentInstance.updatePrices(paymentMethodIndex);
+            paymentInstance.changeInputPrice(paymentMethodIndex);
         }
         if (target.matches('.content-list__more-btn')) {
             const icon = `

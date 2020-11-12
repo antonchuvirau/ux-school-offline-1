@@ -2,15 +2,21 @@
 
 (function () {
     class Payment {
-        _totalPrice = 0;
-        _price = 0;
-        _current = ``;
-        _dropdownType = ``;
-        _salePrice = 0;
-        _saleType = `Без скидки`;
-        _saleValue = 0;
+        _totalPrice;
+        _price;
+        _current;
+        _dropdownType;
+        _salePrice;
+        _saleType;
+        _saleValue;
 
-        constructor() {}
+        constructor() {
+            this.setTotalPrice(0);
+            this.setPrice(0);
+            this.setSalePrice(0);
+            this.setSaleValue(0);
+            this.setSaleType(`Без скидки`);
+        }
 
         getTotalPrice() {
             return this._totalPrice;
@@ -62,11 +68,11 @@
             }
             this.setTotalPrice(data.salePrice);
         }
-        changeInputPrice(index, sale = false, promocode) {
+        changeInputPrice(index, isSale = false, promocode = false) {
             switch (index) {
                 case 0:
-                    if (sale) {
-                        this.setTotalPrice(this.getSalePrice - (this.getSalePrice * .1));
+                    if (isSale) {
+                        this.setTotalPrice(this.getSalePrice() - (this.getSalePrice() * .1));
                         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
                         this.setSaleValue(10);
                     } else if (promocode) {
@@ -92,7 +98,7 @@
                     }
                     break;
                 case 2:
-                    if (sale) {
+                    if (isSale) {
                         this.setTotalPrice(Math.round(this.getSalePrice() / 2 - this.getSalePrice() / 2 * .1));
                         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
                         this.setSaleValue(10);
@@ -122,8 +128,8 @@
         changeCurenciesPrice(index) {
             const container = document.querySelectorAll('.payment-section');
             const input = container[index].querySelector('.ums-currency');
-            let totalPriceInUsd = (this.getTotalPrice() / rates.usd).toFixed(0);
-            let totalPriceInRub = (this.getTotalPrice() / (rates.rub / 100)).toFixed(0);
+            let totalPriceInUsd = (this.getTotalPrice() / parseFloat(rates['usd'])).toFixed(0);
+            let totalPriceInRub = (this.getTotalPrice() / (parseFloat(rates['rub']) / 100)).toFixed(0);
             let currenciesPriceTemplate = `
                     <p class="ums-currency__value ums-currency__symbol">BYN</p>
                     <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>

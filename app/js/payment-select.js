@@ -71,7 +71,7 @@
                         paymentInstance.setCurrent(this._courseData.title);
                         paymentInstance.setPrice(this._courseData.fullPrice);
                         paymentInstance.setSalePrice(this._courseData.salePrice);
-                        paymentInstance.changePrice(paymentMethodInstance.getMethodIndex());
+                        paymentInstance.changeInputPrice(paymentMethodInstance.getMethodIndex());
                     }
                 });
             }

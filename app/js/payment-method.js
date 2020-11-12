@@ -45,8 +45,8 @@
                         this.setMethodIndex(index);
                         window.utils.removeClass(paymentForms, 'payment-section_state-active');
                         paymentForms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                        paymentInstance.update(this.getMethodIndex());
-                        paymentInstance.changePrice(this.getMethodIndex());
+                        paymentInstance.updatePrices(this.getMethodIndex());
+                        paymentInstance.changeInputPrice(this.getMethodIndex());
                         jQuery('body, html').animate({
                             scrollTop: jQuery('#payment-anchor').offset().top
                         }, 800);
@@ -89,9 +89,9 @@
         }
     }
 
-    const paymentMethod = new PaymentMethod('.payment-methods');
+    const paymentMethodInstance = new PaymentMethod('.payment-methods');
 
     window.paymentMethod = {
-        instance: paymentMethod
+        instance: paymentMethodInstance
     }
 })();
