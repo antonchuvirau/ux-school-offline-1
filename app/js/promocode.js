@@ -3,6 +3,7 @@
 (function(){
     const paymentSelect = window.paymentSelect.instance;
     const paymentMethod = window.paymentMethod.instance;
+    const paymentInstance = window.payment.instance;
 
     class Promocode {
 
@@ -39,7 +40,7 @@
                             promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
                             promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                         }
-                        window.payment.changePrice(paymentMethod.getMethodIndex(), false, false);
+                        paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
                     }
                     if (target.matches('button')) {
                         const defaultButtonText = target.textContent;
@@ -54,15 +55,15 @@
                             if (data.length) {
                                 const result = data.find((item) => item.name.toUpperCase() === inputValue.toUpperCase());
                                 if (result) {
-                                    window.payment.changePrice(paymentMethod.getMethodIndex(), false, true);
+                                    paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, true);
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'success');
                                 } else {
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'error');
-                                    window.payment.changePrice(paymentMethod.getMethodIndex(), false, false);
+                                    paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
                                 }
                             } else {
                                 this.showMessage(this._el.querySelector('.promocode-input'), 'error');
-                                window.payment.changePrice(paymentMethod.getMethodIndex(), false, false);
+                                paymentInstance.changePrice(paymentMethod.getMethodIndex(), false, false);
                             }
                         });
                     }

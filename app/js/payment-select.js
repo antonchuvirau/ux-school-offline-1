@@ -2,6 +2,7 @@
 
 (function() {
     const paymentMethodInstance = window.paymentMethod.instance;
+    const paymentInstance = window.payment.instance;
     const utils = window.utils;
     
     class PaymentSelect {
@@ -51,13 +52,13 @@
                         }
     
                         if (this.getPaymentType() === 'payment') {
-                            window.payment.totalPrice = this._courseData.salePrice;
+                            paymentInstance.setTotalPrice(this._courseData.salePrice);
                             const saleInputs = document.querySelectorAll('input[name="sale"]');
                             for (let input of saleInputs) {
                                 input.checked = false;
                             }
                         } else {
-                            window.payment.totalPrice = this._courseData.fullPrice;
+                            paymentInstance.setTotalPrice(this._courseData.fullPrice);
                         }
 
                         paymentButton.dataset.price = this._courseData.fullPrice;
@@ -67,10 +68,10 @@
                         this._el.closest('.form__select').classList.toggle('form__select_state-active')
                         this._el.querySelector('.ums-select__list').classList.remove('ums-select__list_visibility-open');
 
-                        window.payment.current = this._courseData.title;
-                        window.payment.price = this._courseData.fullPrice;
-                        window.payment.salePrice = this._courseData.salePrice;
-                        window.payment.changePrice(paymentMethodInstance.getMethodIndex());
+                        paymentInstance.setCurrent(this._courseData.title);
+                        paymentInstance.setPrice(this._courseData.fullPrice);
+                        paymentInstance.setSalePrice(this._courseData.salePrice);
+                        paymentInstance.changePrice(paymentMethodInstance.getMethodIndex());
                     }
                 });
             }

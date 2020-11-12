@@ -1,6 +1,8 @@
 'use strict';
 
 (function() {
+    const paymentInstance = window.payment.instance;
+
     class PaymentMethod {
         _index = 0;
         _data = [{
@@ -43,8 +45,8 @@
                         this.setMethodIndex(index);
                         window.utils.removeClass(paymentForms, 'payment-section_state-active');
                         paymentForms[this.getMethodIndex()].classList.add('payment-section_state-active');
-                        window.payment.update(this.getMethodIndex());
-                        window.payment.changePrice(this.getMethodIndex());
+                        paymentInstance.update(this.getMethodIndex());
+                        paymentInstance.changePrice(this.getMethodIndex());
                         jQuery('body, html').animate({
                             scrollTop: jQuery('#payment-anchor').offset().top
                         }, 800);

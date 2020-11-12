@@ -1,6 +1,7 @@
 'use strict';
 
 const paymentMethodInstance = window.paymentMethod.instance;
+const paymentInstance = window.payment.instance;
 
 document.addEventListener('DOMContentLoaded', () => {
     class Crm {
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     time: this.getFormValue(7),
                     date: +this.getFormValue(8),
                     address: this.getFormValue(9),
-                    lecturer: this.getFormValue(10),
                     statusId: +this.getFormValue(11),
                     customer: {
                         name: this.getFormValue(13),
@@ -217,8 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dataMaxPagesValue = +document.querySelector('.course-list__row_first').dataset.maxNumPages;
     }
     let deliveryElement = document.querySelector('select[name="delivery"]');
-    let saleType = 'Без скидки';
-    let saleValue = 0;
     let isCompleted = false;
     let isMobile = false;
     const certificateForm = '#wpcf7-f1805-o1';
@@ -487,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('.course-list__more-btn')) {
             const gridElement = target.parentElement.previousElementSibling;
-            const id = +document.querySelector('.tabs__btn_active').dataset.termId;
+            const id = +document.querySelector('.tabs__btn_active').dataset.id;
             const data = {
                 action: 'courses',
                 id: id,
@@ -555,11 +553,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (target.matches('input[name="sale"]')) {
             if (target.checked) {
-                window.payment.changePrice(paymentMethodInstance.getMethodIndex(), true);
+                paymentInstance.changePrice(paymentMethodInstance.getMethodIndex(), true);
                 return;
             }
-            window.payment.update(paymentMethodInstance.getMethodIndex());
-            window.payment.changePrice(paymentMethodInstance.getMethodIndex());
+            paymentInstance.update(paymentMethodInstance.getMethodIndex());
+            paymentInstance.changePrice(paymentMethodInstance.getMethodIndex());
         }
         if (target.matches('.content-list__more-btn')) {
             const icon = `
@@ -634,8 +632,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let isValid;
             let ajaxData = {
                 action: 'payment_' + method,
-                totalPrice: window.payment.totalPrice * 100,
-                productName: window.payment.current,
+                totalPrice: paymentInstance.getTotalPrice() * 100,
+                productName: paymentInstance.getCurrent(),
                 customerName: customer
             }
 
@@ -667,8 +665,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.classList.remove('form__error-label_active');
                 });
                 if (paymentMethodInstance.getMethodIndex() !== 3) {
-                    ajaxData.customerSaleType = saleType;
-                    ajaxData.customerSaleValue = saleValue;
+                    ajaxData.customerSaleType = paymentInstance.getSaleType();
+                    ajaxData.customerSaleValue = paymentInstance.getSaleValue();
                 }
                 jQuery.ajax({
                     url: ajax.url,
@@ -991,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     modal.modal({
                         fadeDuration: 300
                     });
-                }, 8000);
+                }, 25000);
             }
         }
     }
@@ -1293,8 +1291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (saleInput) {
                 saleInput.checked = false;
             }
-            window.payment.totalPrice = target.value;
-            window.payment.changeCurenciesPrice(paymentMethodInstance.getMethodIndex());
+            paymentInstance.setTotalPrice(target.value);
+            paymentInstance.changeCurenciesPrice(paymentMethodInstance.getMethodIndex());
         }
     }
 
