@@ -20,7 +20,7 @@
                 this._type = this._el.dataset.type;
                 this._el.addEventListener('click', (evt) => {
                     const target = evt.target;
-                    const courseListElements = document.querySelectorAll('.ums-select__list-item');
+                    const courseListElements = this._el.querySelectorAll('.ums-select__list-item');
 
                     if (target.matches('button')) {
                         this._el.querySelector('.ums-select__btn').classList.toggle('ums-select__btn_state-active');
@@ -32,9 +32,9 @@
                         const paymentButton = this._el.querySelector('.ums-select__btn');
                         this.fillCourseData(target);
                         utils.removeClass(courseListElements, 'ums-select__list-item_state-active');
-                        this._el.querySelector('.ums-select__list-item').classList.add('ums-select__list-item_state-active');
+                        target.classList.add('ums-select__list-item_state-active');
 
-                        if (paymentLevel === 2) {
+                        if (paymentLevel && paymentLevel === 2) {
                             const paymentForms = document.querySelectorAll('.payment-section');
                             paymentMethodInstance.setMethodIndex(0);
                             utils.removeClass(paymentForms, 'payment-section_state-active');
