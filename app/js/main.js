@@ -175,12 +175,6 @@ function sendGoogleConversion(baseURI) {
     }
 }
 
-function getCustomerIpInfo() {
-    return jQuery.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
-        (resp && resp.country) ? resp.country: "";
-    });
-}
-
 function getCookie(name) {
     const matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -282,18 +276,14 @@ function initInputListener() {
     }
 }
 
+
 function modalOpenHandler(event) {
     const modal = event.target;
     const input = modal.querySelector('input[type="tel"]');
 
     if (input) {
-        iti.init(input);
-        iti.countryChange(input);
-        const code = modal.querySelector('.iti__selected-dial-code').textContent;
-        const hiddenInput = modal.querySelector('input[name="ums-country-code"]');
-        if (hiddenInput) {
-            hiddenInput.value = code;
-        }
+        itiInstance.init(input);
+        input.addEventListener("countrychange", onItiCountyChangeHandler);
     }
 }
 
@@ -527,8 +517,8 @@ function initItiPlugin() {
 
     for (const input of telInputs) {
         if (!input.closest('.modal')) {
-            iti.init(input);
-            iti.countryChange(input);
+            itiInstance.init(input);
+            input.addEventListener("countrychange", onItiCountyChangeHandler);
         }
     }
 }
@@ -683,78 +673,18 @@ function onSortNavigationContainerClickHandler(evt) {
         }
     }
 }
+function onItiCountyChangeHandler(evt) {
+    const target = evt.target;
+    const form = target.closest('.wpcf7-form') || target.closest('.form');
+    const code = form.querySelector('.iti__selected-dial-code').textContent;
+    const hiddenInput = form.querySelector('input[name="ums-country-code"]');
+    hiddenInput.value = code;
+}
 
 const paymentMethodInstance = window.paymentMethod.instance;
 const paymentInstance = window.payment.instance;
 const globalUtils = window.utils;
-//International telephone input
-const iti = {
-    utilsPath: 'https://ux-school.by/wp-content/themes/ux-mind-school/js/utils.js',
-    init: function (el) {
-        window.intlTelInput(el, {
-            nationalMode: true,
-            autoHideDialCode: false,
-            autoPlaceholder: 'aggressive',
-            separateDialCode: true,
-            preferredCountries: ['by', 'ru', 'ua'],
-            initialCountry: 'auto',
-            geoIpLookup: function (success, failure) {
-                const date = new Date();
-                const dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
-                const localStorageData = JSON.parse(localStorage.getItem('ums-country-code'));
-                if (localStorageData) {
-                    if (localStorageData.date != dateString) {
-                        jQuery.when(getCustomerIpInfo()).then((resp) => {
-                            if (resp) {
-                                success(resp.country);
-                                localStorage.setItem('ums-country-code', JSON.stringify({
-                                    date: dateString,
-                                    value: resp.country
-                                }));
-                            } else {
-                                failure(resp.country);
-                            }
-                        });
-                    } else {
-                        success(localStorageData.value);
-                    }
-                } else {
-                    jQuery.when(getCustomerIpInfo()).then((resp) => {
-                        if (resp) {
-                            success(resp.country);
-                            localStorage.setItem('ums-country-code', JSON.stringify({
-                                date: dateString,
-                                value: resp.country
-                            }));
-                        } else {
-                            failure(resp.country);
-                        }
-                    });
-                }
-            },
-            utilsScript: this.utilsPath,
-            customPlaceholder: function (selectedCountryPlaceholder) {
-                const customPlaceholder = selectedCountryPlaceholder.replace(/[0-9]/g, '_');
-                const customMask = selectedCountryPlaceholder.replace(/[0-9]/g, 9);
-                const customMaskObject = new Inputmask(customMask, {
-                    showMaskOnHover: false,
-                    greedy: false
-                });
-                customMaskObject.mask(el);
-                return customPlaceholder;
-            }
-        });
-    },
-    countryChange: function (el) {
-        el.addEventListener("countrychange", (event) => {
-            const target = event.target;
-            const form = target.closest('.wpcf7-form') || target.closest('.form');
-            const code = form.querySelector('.iti__selected-dial-code').textContent;
-            const hiddenInput = form.querySelector('input[name="ums-country-code"]');
-            hiddenInput.value = code;
-        });
-    }
-}
+const itiInstance = window.iti.instance;
 
 //Variables
 let defaultSubmitButtonText;

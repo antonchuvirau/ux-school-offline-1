@@ -1,6 +1,6 @@
 'use strict';
 
-(function(){
+(function() {
     const paymentSelect = window.paymentSelect.instance;
     const paymentMethod = window.paymentMethod.instance;
     const paymentInstance = window.payment.instance;
