@@ -983,29 +983,19 @@ document.addEventListener('DOMContentLoaded', () => {
             })();
         }
         if (target.matches('.content-list__more-btn')) {
-            const icon = `
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.646484 1.35359L1.35359 0.646484L5.00004 4.29293L8.64648 0.646484L9.35359 1.35359L5.00004 5.70714L0.646484 1.35359Z" fill="#211130" />
-                </svg>`;
-            const items = document.querySelectorAll('.faq__item:nth-child(n+7)');
-            if (target.classList.contains('content-list__more-btn_opened')) {
+            const contentListContainer = target.parentElement.previousElementSibling;
+            if (target.classList.contains('content-list__more-btn_open')) {
                 jQuery('html, body').animate({
                     scrollTop: jQuery('.faq__title').offset().top - 50
                 }, 150);
-                target.innerHTML = '';
-                target.insertAdjacentHTML('afterBegin', `Показать ещё ${icon}`);
-                target.classList.remove('content-list__more-btn_opened');
-                for (let item of items) {
-                    item.style.display = 'none';
-                }
+                target.textContent = `Показать ещё`;
+                target.classList.remove('content-list__more-btn_open');
+                contentListContainer.classList.remove(`content-list__wrapper_open`);
                 return;
             }
-            target.innerHTML = '';
-            target.insertAdjacentHTML('afterBegin', `Скрыть ${icon}`);
-            target.classList.add('content-list__more-btn_opened');
-            for (let item of items) {
-                item.style.display = 'block';
-            }
+            target.textContent = `Скрыть`;
+            target.classList.add('content-list__more-btn_open');
+            contentListContainer.classList.add(`content-list__wrapper_open`);
         }
         if (target.matches('.webpay-form__btn')) {
             event.preventDefault();

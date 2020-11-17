@@ -96,10 +96,37 @@
             }
         }
     }
+    &__footer {
+        @include flex(row, center, center);
+    }
+    &__wrapper {
+        &_open {
+            & > div {
+                &:nth-child(n+7) {
+                    display: block;
+                }
+            }
+        }
+    }
     &__more-btn {
         padding: 15px 0;
-        &_opened {
-            & svg {
+        color: $dark;
+        font-size: 1.8rem;
+        @include font-weight('medium');
+        position: relative;
+        padding-right: 15px;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: icon('arrow-down.svg') no-repeat 50% / 10px auto;
+            top: 50%;
+            margin-top: -5px;
+            right: 0;
+        }
+        &_open {
+            &:after {
                 transform: scale(-1);
             }
         }
