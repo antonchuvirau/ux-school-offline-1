@@ -27,6 +27,7 @@ gulp.task('scripts', function(){
         'app/js/plugins.js',
         'app/js/utils.js',
         'app/js/privacy-checkbox.js',
+        'app/js/amocrm.js',
         'app/js/payment.js',
         'app/js/payment-method.js',
         'app/js/payment-select.js',

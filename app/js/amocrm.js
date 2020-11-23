@@ -1,19 +1,19 @@
-(function() {
-    class Crm {
-        constructor(id, formData, actionName) {
-            this.id = id;
-            this.formData = formData;
-            this.actionName = actionName;
-        }
+'use strict';
 
-        getRequestObject() {
+(function() {
+    
+    function Crm(id, formData, actionName) {
+        this.id = id;
+        this.formData = formData;
+        this.actionName = actionName;
+
+        this.getRequestObject = function() {
             return {
                 action: `amo_crm_${this.actionName}`,
                 data: this.getFormData()
             }
         }
-
-        getFormData() {
+        this.getFormData = function() {
             if (this.id === 131) {
                 return {
                     title: this.getFormValue(4) + ', ' + this.getFormValue(13),
@@ -94,13 +94,12 @@
                 }
             }
         }
-
-        getFormValue(index) {
+        this.getFormValue = function(index) {
             return this.formData[index].value;
         }
     }
 
-    window.crm = {
-        instance: Crm
+    window.amoCRM = {
+        init: Crm
     }
 })();

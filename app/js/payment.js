@@ -135,12 +135,16 @@
             if (window.paymentSelect.instance.getPaymentType() === 'payment') {
                 const container = document.querySelectorAll('.payment-section');
                 const input = container[index].querySelector('.ums-currency');
-                input.innerHTML = '';
-                input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+                if (input) {
+                    input.innerHTML = '';
+                    input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+                }
             } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
                 const input = document.querySelector('.ums-currency');
-                input.innerHTML = '';
-                input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+                if (input) {
+                    input.innerHTML = '';
+                    input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+                }
             }
         }
     }
