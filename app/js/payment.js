@@ -126,18 +126,19 @@
             }
         }
         changeCurenciesPrice(index) {
-            const container = document.querySelectorAll('.payment-section');
-            const input = container[index].querySelector('.ums-currency');
             let totalPriceInUsd = (this.getTotalPrice() / parseFloat(rates['usd'])).toFixed(0);
             let totalPriceInRub = (this.getTotalPrice() / (parseFloat(rates['rub']) / 100)).toFixed(0);
             let currenciesPriceTemplate = `
                     <p class="ums-currency__value ums-currency__symbol">BYN</p>
                     <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>
                     <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-ruble_color-gray">&nbsp;≈&nbsp;${totalPriceInRub}</p>`;
-            if (window.paymentSelect.instance.getPaymentType() === 'payment' && input) {
+            if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+                const container = document.querySelectorAll('.payment-section');
+                const input = container[index].querySelector('.ums-currency');
                 input.innerHTML = '';
                 input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-            } else if (window.paymentSelect.instance.getPaymentType() === 'certificate' && input) {
+            } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+                const input = document.querySelector('.ums-currency');
                 input.innerHTML = '';
                 input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
             }

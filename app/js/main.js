@@ -276,24 +276,33 @@ function initInputListener() {
     }
 }
 
-
-function modalOpenHandler(event) {
-    const modal = event.target;
+function modalOpenHandler(evt) {
+    const modal = evt.target;
     const input = modal.querySelector('input[type="tel"]');
 
     if (input) {
         itiInstance.init(input);
         input.addEventListener("countrychange", onItiCountyChangeHandler);
     }
+
+    if (modal.classList.contains(`order-modal`)) {
+        const textareaElement = modal.querySelector(`.form__textarea-btn`);
+        textareaElement.addEventListener(`click`, onTextareaElementClickHandler);
+    }
 }
 
-function modalCloseHandler(event) {
-    const target = event.target;
+function modalCloseHandler(evt) {
+    const target = evt.target;
     const input = target.querySelector('input[type="tel"]');
 
     if (input) {
         const instance = window.intlTelInputGlobals.getInstance(input);
         instance.destroy();
+    }
+
+    if (target.classList.contains(`order-modal`)) {
+        const textareaElement = target.querySelector(`.form__textarea-btn`);
+        textareaElement.removeEventListener(`click`, onTextareaElementClickHandler);
     }
 }
 
@@ -649,9 +658,12 @@ function onContactPageInfoContainerClickHandler(evt) {
     const target = evt.target;
 
     if (target.matches(`.contact-page__info-item`)) {
+        const contactPageAdresses = document.querySelectorAll(`.contact-page__info-item`);
         jQuery('body, html').animate({
             scrollTop: jQuery('#map-anchor').offset().top
         }, 800);
+        globalUtils.removeClass(contactPageAdresses, `contact-page__info-item_active`);
+        target.classList.add(`contact-page__info-item_active`);
     }
 }
 function onSortNavigationContainerClickHandler(evt) {
@@ -679,6 +691,12 @@ function onItiCountyChangeHandler(evt) {
     const code = form.querySelector('.iti__selected-dial-code').textContent;
     const hiddenInput = form.querySelector('input[name="ums-country-code"]');
     hiddenInput.value = code;
+}
+function onTextareaElementClickHandler(evt) {
+    const target = evt.target;
+
+    target.classList.toggle(`form__textarea-btn_active`);
+    target.nextElementSibling.lastElementChild.classList.toggle(`form__textarea_visibility-hide`);
 }
 
 const paymentMethodInstance = window.paymentMethod.instance;
@@ -867,21 +885,19 @@ document.addEventListener('DOMContentLoaded', () => {
     showPopup();
     initInputListener();
     initItiPlugin();
-    document.addEventListener('click', (event) => {
-        //Get target element
-        const target = event.target;
-
+    document.addEventListener('click', (evt) => {
+        const target = evt.target;
         if (target.dataset.modal) {
             const modalId = target.dataset.modal;
 
             if (modalId === '#personal-data-modal') {
-                const data = {
+                const modalOptionsData = {
                     action: 'personal_data'
                 }
-                jQuery.when(window.utils.ajaxRequest(data)).then(resp => {
-                    const modal = document.querySelector('.personal-data-modal');
-                    modal.insertAdjacentHTML('afterBegin', resp);
-                    jQuery(modal).modal({
+                jQuery.when(window.utils.ajaxRequest(modalOptionsData)).then(resp => {
+                    const modalElement = document.querySelector('.personal-data-modal');
+                    modalElement.insertAdjacentHTML('afterBegin', resp);
+                    jQuery(modalElement).modal({
                         closeExisting: false
                     });
                 }, error => console.log(new Error(error)));
@@ -893,12 +909,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.dataset.videoId) {
             const videoId = target.dataset.videoId;
             const videoLink = 'https://www.youtube.com/embed/' + videoId;
-            const videoModal = document.querySelector('.video-modal');
-            videoModal.querySelector('iframe').setAttribute('src', videoLink);
+            const videoModalElement = document.querySelector('.video-modal');
+            videoModalElement.querySelector('iframe').setAttribute('src', videoLink);
             jQuery('.video-modal').modal({
                 closeExisting: false
             });
         }
+        
         if (target.matches('.dropdown-course-info__lecturer')) {
             const id = target.dataset.lecturerPostId;
             const text = target.textContent;
@@ -967,20 +984,6 @@ document.addEventListener('DOMContentLoaded', () => {
             defaultSubmitButtonText = target.textContent;
             target.classList.add(`btn_is-loading`);
             target.textContent = `Отправляем...`;
-        }
-        if (target.matches('.contact-page__info-item')) {
-            const activeClass = 'contact-page__info-item_active';
-            window.utils.removeClass(contactPageItems, activeClass);
-            target.classList.add(activeClass);
-        }
-        if (target.matches('.form__textarea-btn')) {
-            (function () {
-                const activeClass = 'form__textarea-btn_active';
-                const disableClass = 'form__textarea_visibility-hide';
-
-                target.classList.toggle(activeClass);
-                target.nextElementSibling.lastElementChild.classList.toggle(disableClass);
-            })();
         }
         if (target.matches('.content-list__more-btn')) {
             const contentListContainer = target.parentElement.previousElementSibling;
@@ -1094,165 +1097,30 @@ document.addEventListener('DOMContentLoaded', () => {
     addCustomEventHandler('click', navigationLinksCollection, pageNavigationLinkHandler);
     addCustomEventHandler('input', inputs, paymentInputsHandler);
     addCustomEventHandler('change', selects, handleSelect);
-
     window.addEventListener('resize', () => {
         changeLayout();
     });
     window.addEventListener('scroll', () => {
-        const button = document.querySelector('.m-options__menu-btn');
-        const activeClass = 'm-options__menu-btn_active';
-        
-        if (button) {
+        if (mobileOptionsMenuOpenButton) {
             if (pageYOffset >= 900) {
-                button.classList.add(activeClass);
+                mobileOptionsMenuOpenButton.classList.add(`m-options__menu-btn_active`);
                 return;
             }
-            button.classList.remove(activeClass);
+            mobileOptionsMenuOpenButton.classList.remove(`m-options__menu-btn_active`);
         }
     });
-
-    document.body.addEventListener('mouseover', (event) => {
-        const target = event.target;
+    document.body.addEventListener('mouseover', (evt) => {
+        const target = evt.target;
         if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && window.innerWidth > 991) {
             target.closest('svg').nextElementSibling.classList.add('info__content_opened');
         }
     });
-    document.body.addEventListener('mouseout', (event) => {
-        const target = event.target;
+    document.body.addEventListener('mouseout', (evt) => {
+        const target = evt.target;
         if (target.closest('svg') && target.closest('svg').classList.contains('info__icon') && !event.relatedTarget.closest('svg') && window.innerWidth > 991) {
             target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
         }
     });
-
-    //Certificate
-    (function () {
-        const button = document.querySelector('.calculation__btn');
-        const form = document.querySelector('#wpcf7-f1805-o1');
-        const processMessage = 'Обрабатываем данные...';
-        const transferMessage = 'Перенаправляем на оплату...';
-
-        if (button) {
-            const defaultText = button.textContent;
-            requiredInputsCollection = button.closest('.form').querySelectorAll('input:required');
-            button.addEventListener('click', function (event) {
-                button.textContent = 'Отправляем...';
-                button.classList.add('btn_is-loading');
-                for (let input of requiredInputsCollection) {
-                    let inputType = input.getAttribute('type');
-                    if (inputType === 'tel') {
-                        //Get input value and remove all non-digit symbols
-                        let inputValue = input.value.replace(/\D/g, '');
-                        if (input.value == '' || inputValue.length < 9) {
-                            addErrorClass(input, input.closest('.form__input'));
-                            // validation = false;
-                            telInputValidation = false;
-                        } else {
-                            removeErrorClass(input, input.closest('.form__input'));
-                            // validation = true;
-                            telInputValidation = true;
-                        }
-                    }
-                    if (inputType === 'email') {
-                        if (input.value == '' || (input.value.indexOf('@') == -1)) {
-                            addErrorClass(input, input.closest('.form__input'));
-                            // validation = false;
-                            emailInputValidation = false;
-                        } else {
-                            removeErrorClass(input, input.closest('.form__input'));
-                            // validation = true;
-                            emailInputValidation = true;
-                        }
-                    }
-                    if (inputType === 'text') {
-                        if (input.value == '') {
-                            addErrorClass(input, input.parentElement);
-                            // validation = false;
-                            textInputValidation = false;
-                        } else {
-                            removeErrorClass(input, input.parentElement);
-                            // validation = true;
-                            textInputValidation = true;
-                        }
-                    }
-                }
-                //Get select data
-                let deliveryValue = +deliveryElement.value;
-                if (deliveryValue === 0) {
-                    addErrorClass(deliveryElement, deliveryElement.parentElement);
-                    selectValidation = false;
-                    // validation = false
-                } else if (deliveryValue === 1) {
-                    deliveryElement.classList.remove('wpcf7-not-valid');
-                    deliveryElement.parentElement.querySelector('.form__error-label').classList.remove('form__error-label_active');
-                    let deliveryAddressElement = deliveryElement.parentElement.nextElementSibling.querySelector('input');
-                    let deliveryAddress = deliveryAddressElement.value;
-                    if (deliveryAddress === '') {
-                        addErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
-                        // validation = false;
-                        selectValidation = false;
-                    } else {
-                        removeErrorClass(deliveryAddressElement, deliveryAddressElement.parentElement);
-                        // validation = true;
-                        selectValidation = true;
-                    }
-                } else {
-                    removeErrorClass(deliveryElement, deliveryElement.parentElement);
-                    // validation = true;
-                    selectValidation = true;
-                }
-                //Send form
-                if (telInputValidation && emailInputValidation && textInputValidation && selectValidation) {
-                    //Create payment object
-                    certificatePaymentObject = {
-                        action: 'payment_alfa',
-                        orderAmount: +jQuery('input[name="total"]').val() * 100,
-                        orderTitle: jQuery('.ums-select__btn').text(),
-                        customerName: jQuery('input[name="name"]').val(),
-                        customerSaleType: 'Без скидки',
-                        customerSaleValue: 0
-                    }
-                    if (document.querySelector('.promocode-input').classList.contains('promocode-input_state-success')) {
-                        certificatePaymentObject.customerSaleType = 'Промокод';
-                        certificatePaymentObject.customerSaleValue = 10;
-                    }
-                    //Fill hidden fields with data
-                    jQuery(certificateForm).find('input[name="ums-course"]').val(jQuery('.ums-select__btn').text());
-                    jQuery(certificateForm).find('input[name="ums-price"]').val(jQuery('input[name="total"]').val());
-                    jQuery(certificateForm).find('input[name="ums-name"]').val(jQuery('input[name="name"]').val());
-                    jQuery(certificateForm).find('input[name="ums-email"]').val(jQuery('input[name="email"]').val());
-                    jQuery(certificateForm).find('input[name="ums-tel"]').val(jQuery('input[name="tel"]').val());
-                    jQuery(certificateForm).find('input[name="ums-delivery"]').val(jQuery('select[name="delivery"] option:selected').text() + ', ' + jQuery('input[name="delivery-address"]').val());
-                    jQuery(certificateForm).find('form').trigger('submit');
-                } else {
-                    setTimeout(function () {
-                        button.classList.remove('btn_is-loading');
-                        button.textContent = defaultText;
-                    }, 300);
-                }
-            });
-
-            form.addEventListener('wpcf7mailsent', () => {
-                button.textContent = processMessage;
-                jQuery.ajax({
-                    url: ajax.url,
-                    method: 'POST',
-                    data: certificatePaymentObject,
-                    success: function (resp) {
-                        button.textContent = transferMessage;
-                        setTimeout(function () {
-                            document.location.replace(JSON.parse(resp).formUrl);
-                        }, 300);
-                    }
-                });
-            });
-            form.addEventListener('wpcf7invalid', () => {
-                button.classList.remove('btn_is-loading');
-                button.textContent = defaultText;
-            });
-        }
-    })();
-
-    //Events
     if (portfolioLoadMoreButton) {
         portfolioLoadMoreButton.addEventListener(`click`, onPortfolioLoadMoreButtonClickHandler);
     }
