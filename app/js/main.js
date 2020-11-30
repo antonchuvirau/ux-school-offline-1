@@ -841,17 +841,17 @@ document.addEventListener('click', (evt) => {
     }
     
     if (target.matches('.dropdown-course-info__lecturer')) {
-        const id = target.dataset.lecturerPostId;
+        const postId = target.dataset.postId;
         const text = target.textContent;
-        const requestObject = {
+        const requestData = {
             action: 'lecturer',
-            id: id
+            id: postId
         }
         const beforeSendHandler = function () {
             target.style.opacity = .3;
         }
         target.textContent = 'Загружаем...';
-        jQuery.when(window.utils.ajaxRequest(requestObject, beforeSendHandler, target)).then((response) => {
+        jQuery.when(window.utils.ajaxRequest(requestData, beforeSendHandler, target)).then((response) => {
             target.style.opacity = 1;
             target.textContent = text;
             document.querySelector('.dropdown-lecturer-modal').innerHTML = '';

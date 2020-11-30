@@ -1207,6 +1207,9 @@
             width: 100%;
             justify-content: flex-start;
             margin-top: 15px;
+            &-note {
+                text-align: left;
+            }
         }
         &__title {
             margin-left: 10px;
