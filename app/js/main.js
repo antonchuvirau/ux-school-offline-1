@@ -859,12 +859,12 @@ document.addEventListener('click', (evt) => {
             jQuery('.dropdown-lecturer-modal').modal();
         });
     }
-    if (target.matches('.course-list__more-btn')) {
+    if (target.matches(`.course-list__more-btn`)) {
         const gridElement = target.parentElement.previousElementSibling;
-        const id = +document.querySelector('.tabs__btn_active').dataset.id;
+        const id = document.querySelector(`.tabs__btn_active`).dataset.id;
         const data = {
-            action: 'courses',
-            id: id,
+            action: `courses`,
+            id: +id,
             current_page: dataCurrentPageValue
         }
         const beforeSendHandler = function () {

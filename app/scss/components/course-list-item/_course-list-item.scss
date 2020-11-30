@@ -154,15 +154,15 @@
                     background: $primary-150;
                     color: $dark-100;
                 }
-                &-0 {
+                &-offline {
                     background: map-get($type, 0);
                     color: $secondary-700;
                 }
-                &-1 {
+                &-online {
                     background:map-get($type, 1);
                     color: $green;
                 }
-                &-2 {
+                &-remote {
                     background: map-get($type, 2);
                     color: $brown;
                 }
