@@ -256,6 +256,9 @@
         &:nth-child(n+7) {
             display: none;
         }
+        &:nth-child(6) {
+            border-bottom: none;
+        }
     }
     &__video {
         @include flex(column, flex-start, flex-end);
@@ -264,7 +267,7 @@
         border-radius: 5px;
         padding: 20px;
         background-size: cover;
-        background-position: 50%;
+        background-position: center top;
         position: relative;
         &::after {
             content: '';

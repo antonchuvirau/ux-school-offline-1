@@ -106,17 +106,6 @@
             padding: 20px;
             width: 50%;
         }
-        &__more-btn {
-            color: $white;
-            background: linear-gradient(183.9deg, #33AAFF -20.82%, #CC30CF 105.72%);
-        }
-        &__more-btn {
-            & svg {
-                & path {
-                    fill: $white;
-                }
-            }
-        }
         &__footer {
             margin-top: 20px;
             padding: 0;
@@ -309,6 +298,17 @@
 }
 
 @media screen and (max-width: 991px) {
+    .section {
+        &__title {
+            margin-bottom: 20px;
+        }
+        &__note {
+            font-size: 1.5rem;
+            line-height: 1.3;
+            max-width: 270px;
+            margin: 0 auto;
+        }
+    }
     .calculation {
         &__section {
             margin-bottom: 45px;
@@ -488,18 +488,6 @@
 
     .portfolio {
         padding-top: 40px;
-    }
-
-    .section {
-        &__title {
-            margin-bottom: 20px;
-        }
-        &__note {
-            font-size: 1.5rem;
-            line-height: 1.3;
-            max-width: 270px;
-            margin: 0 auto;
-        }
     }
 
     .portfolio-item {
@@ -731,13 +719,6 @@
         }
     }
 
-    .course-list {
-        &__more-btn {
-            height: 4rem;
-            font-size: 1.5rem;
-        }
-    }
-
     .menu {
         &__link {
             color: $white;
@@ -845,9 +826,6 @@
                 width: 30px;
                 height: 30px;
             }
-        }
-        &__btn {
-            height: 4rem;
         }
         &__process {
             margin-top: 50px;
@@ -1133,7 +1111,7 @@
         background: transparent;
         box-shadow: none;
         &__title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             line-height: 1.33;
             &::after {
                 width: 20px;
@@ -1150,18 +1128,15 @@
             box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
         }
         &__more-btn {
+            width: 100%;
             color: $white;
-            background: linear-gradient(183.9deg, #33AAFF -20.82%, #CC30CF 105.72%);
+            background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
             border-radius: 5px;
             height: 4rem;
             padding: 0;
-            & svg {
-                & path {
-                    fill: $white;
-                }
-            }
-            &:active {
-                color: $white;
+            font-size: 1.7rem;
+            &::after {
+                content: none;
             }
         }
     }
@@ -1819,6 +1794,13 @@
             }
         }
     }
+
+    .modal {
+        &__btn {
+            font-size: 1.6rem;
+            height: 5rem;
+        }
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -1887,10 +1869,6 @@
         &__title {
             margin-bottom: 25px;
         }
-    }
-
-    .btn {
-        font-size: 1.5rem;
     }
 
     .privacy-checkbox {
@@ -2000,7 +1978,7 @@
         &__info {
             & p {
                 font-size: 1.5rem;
-                line-height: 1.33;
+                line-height: 1.45;
             }
         }
     }
@@ -2203,7 +2181,6 @@
 
     .we {
         &__title {
-            text-align: left;
             margin-bottom: 20px;
         }
     }
@@ -2231,6 +2208,12 @@
                 font-size: 1.5rem;
                 margin-top: 10px;
             }
+        }
+    }
+    
+    .content-list {
+        &__title {
+            font-size: 1.6rem;
         }
     }
 }

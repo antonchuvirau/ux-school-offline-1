@@ -105,6 +105,9 @@
                 &:nth-child(n+7) {
                     display: block;
                 }
+                &:nth-child(6) {
+                    border-bottom: 1px solid $primary-200;
+                }
             }
         }
     }

@@ -388,18 +388,16 @@ function initItiPlugin() {
         }
     }
 }
-function initSwiperInstance(swiperInstance, swiperInstatnceOptionsData) {
-    if (swiperInstance && typeof swiperInstance === `object`) {
+function initSwiperInstance(swiperInstance, swiperInstanceOptionsData) {
+    if (typeof swiperInstance === `object`) {
         const swiperInstances = Array.from(swiperInstance);
 
-        if (swiperInstances.length) {
             swiperInstances.forEach((swiperInstanceItem, index) => {
                 const swiperInstanceContainer = swiperInstanceItem.closest('.inner-carousel');
 
                 swiperInstanceContainer.classList.add(`inner-carousel-instance-${index}`);
-                new Swiper(swiperInstanceContainer, swiperInstatnceOptionsData);
+                new Swiper(swiperInstanceContainer, swiperInstanceOptionsData);
             });
-        }
 
         return;
     }
@@ -407,7 +405,7 @@ function initSwiperInstance(swiperInstance, swiperInstatnceOptionsData) {
         const swiperInstanceContainer = document.querySelector(swiperInstance);
     
         if (swiperInstanceContainer) {
-            return new Swiper(swiperInstanceContainer, swiperInstatnceOptionsData);
+            return new Swiper(swiperInstanceContainer, swiperInstanceOptionsData);
         }
     }
 }
@@ -506,7 +504,7 @@ function onPaymentPageClickHandler(evt) {
     }
 }
 function onMobileOptionsMenuOpenButtonClickHandler() {
-    const mobileMenuEl = mobileOptionsMenuOpenButton.querySelector('.m-menu');
+    const mobileMenuEl = document.querySelector('.m-menu');
     const scrollBarWidth = getScrollbarWidth();
     mobileMenuEl.classList.add('m-menu_opened');
     document.body.style.paddingRight = scrollBarWidth;
@@ -739,9 +737,9 @@ const testimonialsCarouselOptions = {
         clickable: true
     }
 }
-const swiperInstatnceOptionsData = {
+const innerCarouselOptions = {
     pagination: {
-        el: swiperInstanceContainer.querySelector('.swiper-pagination'),
+        el: '.inner-carousel__pagination',
         type: 'bullets'
     },
     effect: 'fade',
@@ -749,8 +747,8 @@ const swiperInstatnceOptionsData = {
         crossFade: true
     },
     navigation: {
-        prevEl: swiperInstanceContainer.querySelector('.inner-carousel__btn-prev'),
-        nextEl: swiperInstanceContainer.querySelector('.inner-carousel__btn-next')
+        prevEl: '.inner-carousel__btn-prev',
+        nextEl: '.inner-carousel__btn-next'
     }
 }
 const portfolioLoadMoreButton = document.querySelector(`.portfolio__btn`);
@@ -771,7 +769,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
     initItiPlugin();
     changeLayout();
     showPopup();
-    initSwiperInstance(innerCarouselElements, innerCarouselOptions);
+    if (innerCarouselElements.length) {
+        initSwiperInstance(innerCarouselElements, innerCarouselOptions);
+    }
     initSwiperInstance(`.we__carousel`, weCarouselOptions);
     initSwiperInstance(`.course-gallery__grid`, courseGalleryCarouselOptions);
     initSwiperInstance(`.graduates__carousel`, graduatesCarouselOptions);

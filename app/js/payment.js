@@ -76,21 +76,22 @@
                         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
                         this.setSaleValue(10);
                     } else if (promocode) {
-                        if (this.getDropdownType() === 'payment') {
-                            this.setTotalPrice(this.getSalePrice() - 50);
-                            this.setSaleType(`Промокод ${promocode.name}`);
-                            this.setSaleValue(promocode.value);
-                        } else if (this.getDropdownType() === 'certificate') {
-                            this.setTotalPrice(this.getPrice() - 50);
-                            this.setSaleType(`Промокод ${promocode.name}`);
-                            this.setSaleValue(promocode.value);
+                        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+                            this.setTotalPrice(+this.getSalePrice() - 100);
+                            console.log(`I am here`);
+                            this.setSaleType(`Промокод BLACKFRIDAY`);
+                            this.setSaleValue(`100 BYN`);
+                        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+                            this.setTotalPrice(+this.getPrice() - 100);
+                            this.setSaleType(`Промокод BLACKFRIDAY`);
+                            this.setSaleValue(`100 BYN`);
                         }
                     } else {
-                        if (this.getDropdownType() === 'payment') {
+                        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
                             this.setTotalPrice(this.getSalePrice());
                             this.setSaleType(`Нет скидки`);
                             this.setSaleValue(0);
-                        } else if (this.getDropdownType() === 'certificate') {
+                        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
                             this.setTotalPrice(this.getPrice());
                             this.setSaleType(`Нет скидки`);
                             this.setSaleValue(0);
