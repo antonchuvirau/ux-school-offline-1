@@ -1278,7 +1278,6 @@
         &__menu {
             &-btn {
                 position: fixed;
-                right: 7px;
             }
         }
         &__phone {
@@ -2245,6 +2244,25 @@
     .we {
         &__pagination {
             display: none;
+        }
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1229px) {
+    .menu {
+        &__item {
+            margin-right: 25px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .header {
+        &__phone {
+            &-number {
+                font-size: 1.8rem;
+                margin-left: 30px;
+            }
         }
     }
 }

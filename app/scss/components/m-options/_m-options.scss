@@ -21,14 +21,14 @@
         }
     }
     &__menu-btn {
-        background: icon('menu-icon.svg') no-repeat 50% / 24px auto;
+        background: icon('menu-icon.svg') no-repeat right 50% / 24px auto;
         &_style {
             &-gradient {
                 background: icon('menu-icon-with-gradient.svg') no-repeat 50% / 24px auto;
             }
         }
         &_active {
-            background: icon('menu-icon-active.svg') no-repeat 50% / 24px auto;
+            background: icon('menu-icon-active.svg') no-repeat right 50% / 24px auto;
         }
     }
 }
