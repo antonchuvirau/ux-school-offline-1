@@ -216,7 +216,7 @@ function wpcf7SentHandler(event) {
             //VK Conversion
             // VK.Goal('lead');
             //Google conversion
-            sendGoogleConversion(uri);
+            // sendGoogleConversion(uri);
             gtag('event', 'click', {
                 'send_to': 'analytics',
                 'event_category': 'button'
@@ -226,8 +226,8 @@ function wpcf7SentHandler(event) {
             //Send to CRM
             crmObject = new amoCRMInsance(131, inputs, 'lead');
             requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
-                console.log(data);
+            console.log(requestData);
+            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 //Close modal
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
@@ -244,8 +244,7 @@ function wpcf7SentHandler(event) {
         case 859:
             crmObject = new amoCRMInsance(859, inputs, 'intensive');
             requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
-                console.log(data);
+            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -333,7 +332,7 @@ function wpcf7SentHandler(event) {
             // VK.Goal('contact');
             crmObject = new amoCRMInsance(779, inputs, 'call');
             requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
+            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -343,7 +342,7 @@ function wpcf7SentHandler(event) {
         case 1839:
             crmObject = new amoCRMInsance(1839, inputs, 'intensive');
             requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
+            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
