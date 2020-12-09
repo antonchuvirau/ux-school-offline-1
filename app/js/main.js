@@ -214,7 +214,7 @@ function wpcf7SentHandler(event) {
     switch (id) {
         case 131:
             //VK Conversion
-            VK.Goal('lead');
+            // VK.Goal('lead');
             //Google conversion
             sendGoogleConversion(uri);
             gtag('event', 'click', {
@@ -264,7 +264,7 @@ function wpcf7SentHandler(event) {
                 const respObject = JSON.parse(data);
                 if (respObject.result) {
                     //VK Conversion
-                    VK.Goal('conversion');
+                    // VK.Goal('conversion');
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'freelessons');
                     //Google conversion
@@ -312,7 +312,7 @@ function wpcf7SentHandler(event) {
                 const respObject = JSON.parse(resp);
                 if (respObject.result) {
                     //VK Conversion
-                    VK.Goal('subscribe');
+                    // VK.Goal('subscribe');
                     //Google conversion
                     gtag('event', 'click', {
                         'send_to': 'analytics',
@@ -330,7 +330,7 @@ function wpcf7SentHandler(event) {
             break;
         case 779:
             //VK conversion
-            VK.Goal('contact');
+            // VK.Goal('contact');
             crmObject = new amoCRMInsance(779, inputs, 'call');
             requestData = crmObject.getRequestObject();
             jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
@@ -979,7 +979,7 @@ document.addEventListener('click', (evt) => {
                 },
                 success: function (response) {
                     //VK conversion
-                    VK.Goal('purchase');
+                    // VK.Goal('purchase');
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'payment');
                     //Google conversion
