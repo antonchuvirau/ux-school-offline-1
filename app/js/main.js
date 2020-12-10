@@ -226,7 +226,6 @@ function wpcf7SentHandler(event) {
             //Send to CRM
             crmObject = new amoCRMInsance(131, inputs, 'lead');
             requestData = crmObject.getRequestObject();
-            console.log(requestData);
             jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 //Close modal
                 button.textContent = defaultSubmitButtonText;
