@@ -23,6 +23,9 @@
   @else if $weight=='extra' {
     font-weight: map-get($font-weight, $weight);
   }
+  @else if $weight=='heavy' {
+    font-weight: map-get($font-weight, $weight);
+  }
 }
 
 @mixin font() {

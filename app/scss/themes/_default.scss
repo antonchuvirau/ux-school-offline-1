@@ -60,20 +60,12 @@
         }
     }
     &__more-btn {
-        @include flex(row, center, center);
-        position: relative;
-        width: 100%;
-        max-width: 220px;
         height: 5rem;
         font-size: 1.7rem;
-        font-weight: 500;
+        font-weight: 900;
         border-radius: 75px;
         margin: 0 auto;
         background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
-        & svg {
-            margin-left: 5px;
-            pointer-events: none;
-        }
         &_disabled {
             display: none;
         }
@@ -88,6 +80,7 @@
         }
     }
     &__footer {
+        @include flex(row, center, center);
         position: relative;
         padding: 20px 40px;
         &_state {

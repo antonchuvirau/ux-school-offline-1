@@ -5,12 +5,13 @@
     &__header {
         @include flex(column);
         margin-bottom: 125px;
+        &-btn {
+            font-family: $font, sans-serif;
+            margin-top: 40px;
+        }
     }
     &__wrapper {
         padding-top: 140px;
-    }
-    &__btn {
-        margin-top: 40px;
     }
     &__course-options {
         margin-top: 15px;
@@ -92,6 +93,9 @@
         }
         &__header {
             margin-bottom: 290px;
+            &-btn {
+                margin-top: 30px;
+            }
         }
     }
     .about-video {

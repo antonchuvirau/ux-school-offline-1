@@ -1,14 +1,15 @@
 .btn {
-    text-decoration: none;
-    cursor: pointer;
+    display: inline-block;
     border-radius: 5px;
     height: 50px;
     padding: 0 20px;
+    background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
     font-size: 1.7rem;
     font-weight: 500;
     color: $white;
     line-height: 1.41;
-    background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+    text-decoration: none;
+    cursor: pointer;
     &:disabled {
         cursor: not-allowed;
         pointer-events: none;
@@ -27,7 +28,7 @@
             border-radius: 30px;
             line-height: 1.5;
             letter-spacing: -.3px;
-            @include font-weight('medium');
+            @include font-weight('bold');
             padding: 0 30px;
             font-size: 2rem;
         }
@@ -36,19 +37,12 @@
 
 .ajax-btn {
     position: relative;
-    @include flex(row, center, center);
-    width: 100%;
-    font-size: 1.7rem;
-    font-weight: 500;
-    line-height: 1;
-    color: $white;
     & svg {
-        margin-left: 5px;
-        flex-shrink: 0;
+        margin-left: 15px;
         pointer-events: none;
-    }
-    &:active {
-        color: $primary-100;
+        vertical-align: middle;
+        position: relative;
+        top: -2px;
     }
     &::before {
         content: '';

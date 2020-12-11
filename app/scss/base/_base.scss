@@ -28,14 +28,13 @@ b, strong {
     @include font-weight('bold');
 }
 body {
-    @include font();
+    font-family: $secondary-font, sans-serif;
     @include font-weight('normal');
     color: $dark;
     font-size: 1.6rem;
     background: $white;
 }
 button {
-    @include font();
     appearance: none;
     border: none;
     background: transparent;
@@ -51,9 +50,6 @@ button {
 select {
     @extend button;
     font-size: 1.7rem;
-    // &:active {
-    //     color: $white;
-    // }
 }
 input {
     @extend button;

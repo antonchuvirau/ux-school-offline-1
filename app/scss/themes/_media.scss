@@ -1373,6 +1373,16 @@
 }
 
 @media screen and (max-width: 767px) {
+    .btn {
+        &_theme {
+            &-pink {
+                height: 45px;
+                font-weight: 500;
+                line-height: 44px;
+                font-size: 1.5rem;
+            }
+        }
+    }
     .breadcrumbs {
         & span {
             &[typeof="ListItem"] {
@@ -1643,14 +1653,6 @@
                     margin-bottom: 0;
                 }
             }
-        }
-    }
-
-    .home-template {
-        &__btn {
-            margin-top: 30px;
-            height: 4.5rem;
-            font-size: 1.5rem;
         }
     }
 
