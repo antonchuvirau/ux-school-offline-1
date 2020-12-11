@@ -213,10 +213,8 @@ function wpcf7SentHandler(event) {
 
     switch (id) {
         case 131:
-            //VK Conversion
-            // VK.Goal('lead');
             //Google conversion
-            // sendGoogleConversion(uri);
+            sendGoogleConversion(uri);
             gtag('event', 'click', {
                 'send_to': 'analytics',
                 'event_category': 'button'
@@ -261,8 +259,6 @@ function wpcf7SentHandler(event) {
             jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
                 const respObject = JSON.parse(data);
                 if (respObject.result) {
-                    //VK Conversion
-                    // VK.Goal('conversion');
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'freelessons');
                     //Google conversion
@@ -309,8 +305,6 @@ function wpcf7SentHandler(event) {
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then((resp) => {
                 const respObject = JSON.parse(resp);
                 if (respObject.result) {
-                    //VK Conversion
-                    // VK.Goal('subscribe');
                     //Google conversion
                     gtag('event', 'click', {
                         'send_to': 'analytics',
@@ -327,8 +321,6 @@ function wpcf7SentHandler(event) {
             }, error => console.log(new Error(error)));
             break;
         case 779:
-            //VK conversion
-            // VK.Goal('contact');
             crmObject = new amoCRMInsance(779, inputs, 'call');
             requestData = crmObject.getRequestObject();
             jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
@@ -976,8 +968,6 @@ document.addEventListener('click', (evt) => {
                     target.textContent = 'Обрабатываем данные...';
                 },
                 success: function (response) {
-                    //VK conversion
-                    // VK.Goal('purchase');
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'payment');
                     //Google conversion
