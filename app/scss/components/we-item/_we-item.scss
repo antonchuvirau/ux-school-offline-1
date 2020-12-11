@@ -2,6 +2,8 @@
     @include flex(column, center);
     padding: 20px 0;
     &__title {
+        font-family: $font, sans-serif;
+        font-weight: 800;
         margin: 15px 0;
         font-size: 2rem;
         line-height: 1.5;

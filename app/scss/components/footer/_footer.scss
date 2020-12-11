@@ -1,5 +1,5 @@
 .footer {
-    background: image("ums-footer-img.svg") no-repeat 50% / cover;
+    background: image("footer.svg") no-repeat left center / auto 100%;
     &__top {
         padding: 65px 0;
         padding-bottom: 60px;
@@ -10,7 +10,7 @@
         border-top: 1px solid rgba($white, .1);
     }
     &__social {
-        margin-top: 30px;
+        margin-top: 20px;
     }
     &__text {
         margin: 0;
@@ -71,10 +71,10 @@
         }
     }
     &__testimonials {
-        margin-top: 40px;
+        margin-top: 30px;
     }
     &-menu {
-        @include flex(row, flex-start, center);
+        @include flex(row);
         &__col {
             @include flex(column);
             margin-right: 35px;
@@ -94,12 +94,18 @@
             }
         }
         &__link {
-            display: inline;
+            display: inline-block;
             border-bottom: 1px solid rgba($white, .2);
             text-decoration: none;
             font-size: 1.5rem;
             line-height: 1.55;
             color: $white;
         }
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1229px) {
+    .footer-menu {
+        justify-content: center;
     }
 }

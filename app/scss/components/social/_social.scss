@@ -2,29 +2,28 @@
     @include flex(row, center);
     &__link {
         @include flex(row, center, center);
-        width: 20px;
-        height: 20px;
-        margin-right: 15px;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
         position: relative;
-        background-repeat: no-repeat;
-        background-position: 50%;
+        border-radius: 50%;
         &:last-child {
             margin-right: 0;
         }
         &[data-icon="vk"] {
-            background-image: icon('vk-icon.svg');
+            background: rgba($white, .15) icon('vk-icon.svg') no-repeat 50% / 15px auto;
         }
         &[data-icon="behance"] {
-            background-image: icon('behance-icon.svg');
+            background: rgba($white, .15) icon('behance-icon.svg') no-repeat 50% / 15px auto;
         }
         &[data-icon="dribbble"] {
-            background-image: icon('dribbble-icon.svg');
+            background: rgba($white, .15) icon('dribbble-icon.svg') no-repeat 50% / 15px auto;
         }
         &[data-icon="instagram"] {
-            background-image: icon('instagram-icon.svg');
+            background: rgba($white, .15) icon('instagram-icon.svg') no-repeat 50% / 15px auto;
         }
         &[data-icon="youtube"] {
-            background-image: icon('youtube-icon.svg');
+            background: rgba($white, .15) icon('youtube-icon.svg') no-repeat 50% / 15px auto;
         }
         &_style {
             &-background {

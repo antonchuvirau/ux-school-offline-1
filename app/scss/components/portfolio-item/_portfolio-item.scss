@@ -23,6 +23,7 @@
         line-height: 1.6;
     }
     &__name {
+        font-family: $font, sans-serif;
         margin: 0;
         text-decoration: none;
         letter-spacing: -.03rem;
