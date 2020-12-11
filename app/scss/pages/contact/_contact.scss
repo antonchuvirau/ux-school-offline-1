@@ -12,6 +12,7 @@
     &__info {
         @include flex(column);
         &-item {
+            font-family: $font, sans-serif;
             @include flex(column);
             margin: 0;
             margin-bottom: 35px;
@@ -20,6 +21,7 @@
             letter-spacing: -.05rem;
             cursor: pointer;
             & span {
+                font-family: $secondary-font, sans-serif;
                 display: block;
                 font-size: 1.7rem;
                 color: $gray-500;

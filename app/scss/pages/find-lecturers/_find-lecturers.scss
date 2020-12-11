@@ -4,10 +4,10 @@
         & p {
             margin: 0;
             letter-spacing: -.3px;
-            font-size: 2rem;
-            line-height: 1.5;
+            font-size: 1.8rem;
+            line-height: 1.45;
             color: $dark-100;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             &:last-child {
                 margin-bottom: 0;
             }
@@ -29,6 +29,7 @@
         line-height: 1.3;
         margin-bottom: 10px;
         & a {
+            font-family: $font, sans-serif;
             display: inline;
             color: $dark;
             text-decoration: none;
@@ -45,7 +46,7 @@
     &__grid {
         margin-top: 30px;
         &-item {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: $dark-100;
             letter-spacing: -.3px;
             line-height: 1.5;

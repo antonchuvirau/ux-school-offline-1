@@ -28,10 +28,11 @@
         }
     }
     &__title {
+        font-family: $font, sans-serif;
         margin: 0;
         font-size: 4rem;
         letter-spacing: -.03em;
-        font-weight: bold;
+        font-weight: 800;
         line-height: 1.25;
         margin-bottom: 20px;
     }

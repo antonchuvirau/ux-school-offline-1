@@ -6,6 +6,7 @@
         font-size: 2rem;
         line-height: 1.5;
         margin-bottom: 50px;
+        max-width: 800px;
     }
     &__video {
         width: 100%;
@@ -41,6 +42,7 @@
             padding-bottom: 5px;
             width: 25%;
             &-value {
+                font-family: $font, sans-serif;
                 @include flex(row, center, center);
                 width: 120px;
                 height: 120px;
@@ -49,7 +51,7 @@
                 letter-spacing: -.03em;
                 font-size: 4rem;
                 color: $dark-200;
-                @include font-weight('bold');
+                font-weight: 800;
             }
             &-name {
                 margin: 0;
