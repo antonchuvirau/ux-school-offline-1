@@ -295,6 +295,22 @@
             right: 25%;
         }
     }
+    .m-options {
+        &__menu {
+            &-btn {
+                position: fixed;
+            }
+        }
+        &__phone {
+            &-link {
+                &_m {
+                    &-right {
+                        margin-right: 50px;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 991px) {
@@ -1274,23 +1290,6 @@
         }
     }
 
-    .m-options {
-        &__menu {
-            &-btn {
-                position: fixed;
-            }
-        }
-        &__phone {
-            &-link {
-                &_m {
-                    &-right {
-                        margin-right: 50px;
-                    }
-                }
-            }
-        }
-    }
-
     .f-lecturers-page__grid {
         padding-top: 30px;
     }
@@ -1367,6 +1366,14 @@
         &__section {
             &-title {
                 font-size: 2.3rem;
+            }
+        }
+    }
+    .tabs {
+        &__btn {
+            margin-right: 5px;
+            &:last-child {
+                margin-right: 0;
             }
         }
     }
@@ -2294,6 +2301,22 @@
                     margin-right: 5px;
                 }
             }
+        }
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .m-menu {
+        &__grid {
+            margin-top: 10px;
+        }
+        &__footer {
+            margin-top: 20px;
+        }
+    }
+    .about-video {
+        &__link {
+            max-width: 300px;
         }
     }
 }

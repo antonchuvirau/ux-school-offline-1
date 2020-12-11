@@ -32,10 +32,10 @@
         opacity: .5;
     }
     &__grid {
-        padding-top: 20px;
+        margin-top: 20px;
     }
     &__footer {
-        padding: 30px 0;
+        margin-top: 30px;
     }
     &__options {
         @include flex(row, center, flex-end);
@@ -64,7 +64,7 @@
 }
 
 //Media
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1229px) {
     .m-menu {
         &__footer {
             @include flex(column, center);
