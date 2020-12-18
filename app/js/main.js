@@ -36,38 +36,7 @@ function changeLayout() {
         isCompleted = false;
     }
 }
-function sendGoogleConversion(baseURI) {
-    if (baseURI.indexOf('motion')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/jzVICKfr8tMBEPT2vvsC'
-        });
-    }
-    if (baseURI.indexOf('mobile')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/7JsCCNPR0tMBEPT2vvsC'
-        });
-    }
-    if (baseURI.indexOf('web')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/k3eACIr30tMBEPT2vvsC'
-        });
-    }
-    if (baseURI.indexOf('start')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/nx6iCJry0tMBEPT2vvsC'
-        });
-    }
-    if (baseURI.indexOf('interior')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/sJ7ECMrM5NMBEPT2vvsC'
-        });
-    }
-    if (baseURI.indexOf('oplatit-kurs')) {
-        gtag('event', 'conversion', {
-            'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
-        });
-    }
-}
+
 function getCookie(name) {
     const matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -213,13 +182,7 @@ function wpcf7SentHandler(event) {
 
     switch (id) {
         case 131:
-            //Google conversion
-            sendGoogleConversion(uri);
-            gtag('event', 'click', {
-                'send_to': 'analytics',
-                'event_category': 'button'
-            });
-            //Yandex conversion
+            // Yandex conversion
             ym(49171171, 'reachGoal', 'lead_form');
             //Send to CRM
             crmObject = new amoCRMInsance(131, inputs, 'lead');
@@ -261,11 +224,6 @@ function wpcf7SentHandler(event) {
                 if (respObject.result) {
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'freelessons');
-                    //Google conversion
-                    gtag('event', 'click', {
-                        'send_to': 'analytics',
-                        'event_category': 'freelessons'
-                    });
                     target.querySelector('.form__input').classList.remove('form__input_filled');
                     target.querySelector('.form__label').classList.remove('form__label_active');
                     button.textContent = defaultSubmitButtonText;
@@ -305,11 +263,6 @@ function wpcf7SentHandler(event) {
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then((resp) => {
                 const respObject = JSON.parse(resp);
                 if (respObject.result) {
-                    //Google conversion
-                    gtag('event', 'click', {
-                        'send_to': 'analytics',
-                        'event_category': 'emailbutton'
-                    });
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'emailsub');
                     target.querySelector('.form__input').classList.remove('form__input_filled');
@@ -968,17 +921,8 @@ document.addEventListener('click', (evt) => {
                     target.textContent = 'Обрабатываем данные...';
                 },
                 success: function (response) {
-                    //Yandex conversion
+                    // Yandex conversion
                     ym(49171171, 'reachGoal', 'payment');
-                    //Google conversion
-                    gtag('event', 'conversion', {
-                        'send_to': 'AW-795851636/iE7ACKPm0tMBEPT2vvsC'
-                    });
-                    gtag('event', 'success', {
-                        'send_to': 'analytics',
-                        'event_category': 'payment'
-                    });
-
                     target.textContent = 'Перенаправляем на оплату...';
                     if (paymentMethodInstance.getMethodIndex() === 3) {
                         setTimeout(function () {

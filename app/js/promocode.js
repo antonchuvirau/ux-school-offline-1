@@ -53,7 +53,8 @@
                             target.textContent = defaultButtonText;
                             this._el.querySelector('.promocode-input').classList.remove(this._promocodeClasses.progress);
                             if (data.length) {
-                                const result = data.find((item) => item.name.toUpperCase() === inputValue.toUpperCase());
+                                const modifiedData = inputValue.replace(/\s+/gi, '').toUpperCase();
+                                const result = data.find((item) => item.name === modifiedData.toUpperCase());
                                 if (result) {
                                     paymentInstance.changeInputPrice(paymentMethod.getMethodIndex(), false, true);
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'success');
