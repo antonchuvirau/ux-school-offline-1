@@ -24,6 +24,7 @@ gulp.task('styles', function(){
 
 gulp.task('scripts', function(){
     return gulp.src([
+        'app/js/init.js',
         'app/js/plugins.js',
         'app/js/utils.js',
         'app/js/privacy-checkbox.js',
@@ -36,9 +37,7 @@ gulp.task('scripts', function(){
         'app/js/main.js',
         'app/js/certificate.js'
     ])
-    .pipe(babel({
-        presets: ['@babel/preset-env']
-    }))
+    .pipe(babel())
     .on('error', function(e) {
         console.log('>>> ERROR', e);
         // emit here

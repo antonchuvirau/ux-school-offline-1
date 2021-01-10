@@ -36,7 +36,6 @@ function changeLayout() {
         isCompleted = false;
     }
 }
-
 function getCookie(name) {
     const matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
@@ -318,7 +317,7 @@ function paymentInputsHandler(event) {
             saleInput.checked = false;
         }
         paymentInstance.setTotalPrice(target.value);
-        paymentInstance.changeCurenciesPrice(paymentMethodInstance.getMethodIndex());
+        paymentInstance.changeCurenciesPrice(paymentMethodInstance.getPaymentMethodIndex());
     }
 }
 function initItiPlugin() {
@@ -437,7 +436,7 @@ function onPaymentPageClickHandler(evt) {
     const target = evt.target;
 
     if (target.matches(`input[name="sale"]`)) {
-        const paymentMethodIndex = paymentMethodInstance.getMethodIndex();
+        const paymentMethodIndex = paymentMethodInstance.getPaymentMethodIndex();
         if (target.checked) {
             paymentInstance.changeInputPrice(paymentMethodIndex, true);
             return;
@@ -547,7 +546,7 @@ const paymentInstance = window.payment.instance;
 const globalUtils = window.utils;
 const itiInstance = window.iti.instance;
 
-//Variables
+// Variables
 let defaultSubmitButtonText;
 let requiredInputsCollection;
 let certificatePaymentObject;
@@ -749,6 +748,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 //Events
 document.addEventListener('click', (evt) => {
     const target = evt.target;
+
     if (target.dataset.modal) {
         const modalId = target.dataset.modal;
 
@@ -781,8 +781,7 @@ document.addEventListener('click', (evt) => {
         defaultSubmitButtonText = target.textContent;
         target.classList.add(`btn_is-loading`);
         target.textContent = `Отправляем...`;
-    }
-    
+    } 
     if (target.matches('.dropdown-course-info__lecturer')) {
         const postId = target.dataset.postId;
         const text = target.textContent;
@@ -907,7 +906,7 @@ document.addEventListener('click', (evt) => {
                 item.classList.remove('wpcf7-not-valid');
                 label.classList.remove('form__error-label_active');
             });
-            if (paymentMethodInstance.getMethodIndex() !== 3) {
+            if (paymentMethodInstance.getPaymentMethodIndex() !== 3) {
                 ajaxData.customerSaleType = paymentInstance.getSaleType();
                 ajaxData.customerSaleValue = paymentInstance.getSaleValue();
             }
@@ -924,7 +923,7 @@ document.addEventListener('click', (evt) => {
                     // Yandex conversion
                     ym(49171171, 'reachGoal', 'payment');
                     target.textContent = 'Перенаправляем на оплату...';
-                    if (paymentMethodInstance.getMethodIndex() === 3) {
+                    if (paymentMethodInstance.getPaymentMethodIndex() === 3) {
                         setTimeout(function () {
                             document.location.replace(response.checkout.redirect_url);
                         }, 200);
@@ -938,6 +937,7 @@ document.addEventListener('click', (evt) => {
         }
     }
 });
+
 jQuery('.modal').on('modal:open', onModalOpenHandler);
 jQuery('.modal').on('modal:close', onModalCloseHandler);
 jQuery('.video-modal').on('modal:after-close', videoModalCloseHandler);
