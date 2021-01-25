@@ -62,10 +62,10 @@
         }
         updatePrices(index) {
             const data = window.paymentSelect.instance.getCourseData();
-            if (index === 3) {
-                this.setTotalPrice(data.fullPrice);
-                return;
-            }
+            // if (index === 3) {
+            //     this.setTotalPrice(data.fullPrice);
+            //     return;
+            // }
             this.setTotalPrice(data.salePrice);
         }
         changeInputPrice(index, isSale = false, promocode = false) {
@@ -109,7 +109,7 @@
                     }
                     break;
                 case 3:
-                    this.setTotalPrice(this.getPrice());
+                    this.setTotalPrice(this.getSalePrice());
                     break;
             }
             this.changeCurenciesPrice(index);
