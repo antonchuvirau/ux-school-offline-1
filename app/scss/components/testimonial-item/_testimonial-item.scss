@@ -1,4 +1,7 @@
 .testimonial-item {
+    &__col {
+        width: 50%;
+    }
     &__link {
         display: inline-block;
         text-decoration: none;

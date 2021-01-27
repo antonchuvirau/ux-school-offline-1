@@ -646,7 +646,9 @@
             max-width: 450px;
             margin: 0 auto;
         }
-        
+        &__col {
+            width: 100%;
+        }
     }
 
     .play-button {
@@ -682,9 +684,11 @@
             width: 100%;
             left: 0;
             bottom: auto;
-            position: relative;
-            margin-top: 30px;
+            top: 480px;
             z-index: 0;
+        }
+        &__item {
+            flex-direction: column;
         }
         &__pagination {
             margin: 0;
@@ -694,6 +698,9 @@
         }
         &__quote-icon {
             display: none;
+        }
+        &__social-links {
+            max-width: calc(100% - 30px);
         }
     }
 
@@ -1856,17 +1863,14 @@
     .testimonials {
         &__btn {
             top: 140px;
-            &-prev {
-                left: -10px;
-            }
-            &-next {
-                right: -10px;
-            }
         }
         &-item {
             &__img {
                 max-width: 280px;
             }
+        }
+        &__option {
+            top: 485px;
         }
     }
 
