@@ -769,6 +769,7 @@ document.addEventListener('click', (evt) => {
         });
     }
     if (target.dataset.videoId) {
+        console.log('I work');
         const videoId = target.dataset.videoId;
         const videoLink = 'https://www.youtube.com/embed/' + videoId;
         const videoModalElement = document.querySelector('.video-modal');

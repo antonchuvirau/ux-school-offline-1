@@ -504,6 +504,9 @@
 
     .portfolio {
         padding-top: 40px;
+        &__item {
+            height: 40vw;
+        }
     }
 
     .portfolio-item {
@@ -1819,6 +1822,11 @@
             height: 5rem;
         }
     }
+    .portfolio {
+        &__item {
+            height: 69.44vw;
+        }
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -1842,7 +1850,6 @@
             }
         }
     }
-
     .m-menu {
         &__header {
             padding: 13px 0;
@@ -1853,13 +1860,11 @@
             }
         }
     }
-
     .tabs {
         &__btn {
             padding: 0 1.5rem;
         }
     }
-
     .testimonials {
         &__btn {
             top: 140px;
@@ -1870,10 +1875,9 @@
             }
         }
         &__option {
-            top: 485px;
+            top: 310px;
         }
     }
-
     .contact-page {
         &__map {
             width: calc(100% + 30px);
@@ -1885,7 +1889,6 @@
             margin-bottom: 25px;
         }
     }
-
     .privacy-checkbox {
         & .checkbox {
             &__name {
@@ -1912,7 +1915,6 @@
             }
         }
     }
-    
     .webpay-form {
         &__sale {
             &-checkbox {
@@ -1950,26 +1952,22 @@
             width: 100%;
         }
     }
-
     .pages-template {
         padding-top: 0;
         &__navigation {
             margin-bottom: 15px;
         }
     }
-
     .category-template {
         &__wrapper {
             padding-top: 65px;
         }
     }
-
     .course-template {
         &__wrapper {
             padding-top: 60px;
         }
     }
-
     .course-info {
         &__item {
             &-name {
@@ -1988,7 +1986,6 @@
             }
         }
     }
-
     .about-course {
         &__info {
             & p {
@@ -1997,11 +1994,9 @@
             }
         }
     }
-
     .blocker {
         padding: 40px 20px;
     }
-
     .form {
         &__textarea {
             &-btn {
@@ -2009,7 +2004,6 @@
             }
         }
     }
-
     .personal-data-modal {
         & p {
             font-size: 1.5rem;
@@ -2027,7 +2021,6 @@
             }
         }
     }
-
     .content-modal {
         & p {
             font-size: 1.5rem;
@@ -2045,7 +2038,6 @@
             }
         }
     }
-
     .order-process {
         &__grid {
             flex-wrap: wrap;
@@ -2065,13 +2057,11 @@
             }
         }
     }
-
     .breadcrumbs {
         & a {
             font-size: 1.1rem;
         }
     }
-
     .course-gallery {
         &__btn {
             &-next {
@@ -2082,7 +2072,6 @@
             }
         }
     }
-
     .dropdown-course-info {
         width: 100%;
         margin-left: -50%;
@@ -2095,7 +2084,6 @@
             text-align: left;
         }
     }
-
     .social {
         &__link {
             margin-right: 25px;
@@ -2104,7 +2092,6 @@
             }
         }
     }
-
     .course-btn {
         padding: 0 15px;
         &_style {
@@ -2113,13 +2100,11 @@
             }
         }
     }
-
     .payment-form {
         &__select {
             height: auto;
         }
     }
-
     .ums-select {
         &__list {
             &-item {
@@ -2132,7 +2117,6 @@
             height: 50px;
         }
     }
-
     .about-page {
         &__numbers {
             &-item {
@@ -2140,7 +2124,6 @@
             }
         }
     }
-
     .page-navigation {
         overflow-y: auto;
         padding-bottom: 15px;
@@ -2148,7 +2131,6 @@
             white-space: nowrap;
         }
     }
-
     .team {
         &__item {
             &-img {
@@ -2162,30 +2144,25 @@
             }
         }
     }
-
     .email-help {
         padding: 35px 30px;
     }
-
     .sort-navigation {
         &__button {
             font-size: 1.5rem;
         }
     }
-
     .template {
         &__test {
             padding-bottom: 120px;
         }
     }
-
     .event-modal {
         &__icon {
             max-width: 80px;
             top: 50px;
         }
     }
-
     .modal {
         & a {
             &.close-modal {
@@ -2193,26 +2170,22 @@
             }
         }
     }
-
     .we {
         &__title {
             margin-bottom: 20px;
         }
     }
-
     .section {
         &__text {
             text-align: left;
             margin-bottom: 45px;
         }
     }
-
     .testimonial-item {
         &__img {
             max-width: 280px;
         }
     }
-
     .lecturers-page {
         &__item {
             &-img {
@@ -2225,10 +2198,14 @@
             }
         }
     }
-    
     .content-list {
         &__title {
             font-size: 1.6rem;
+        }
+    }
+    .portfolio-item {
+        &__meta {
+            padding-right: 30px;
         }
     }
 }
