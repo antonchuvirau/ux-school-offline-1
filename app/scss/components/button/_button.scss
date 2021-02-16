@@ -40,7 +40,7 @@
             border-radius: 30px;
             line-height: 1.5;
             letter-spacing: -.3px;
-            @include font-weight('bold');
+            font-weight: 800;
             padding: 0 30px;
             font-size: 2rem;
         }
@@ -50,11 +50,11 @@
 .ajax-btn {
     position: relative;
     & svg {
-        margin-left: 15px;
+        margin-left: 5px;
         pointer-events: none;
         vertical-align: middle;
         position: relative;
-        top: -2px;
+        top: -1px;
     }
     &::before {
         content: '';

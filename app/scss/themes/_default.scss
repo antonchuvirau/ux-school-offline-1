@@ -12,10 +12,10 @@
         content: '';
         position: absolute;
         width: 100%;
-        height: 630px;
+        height: 760px;
         top: 0;
         left: 0;
-        background: image("ums-wrapper.svg") no-repeat center 97% / cover;
+        background: image("wrapper-bg.svg") no-repeat center bottom / cover;
     }
 }
 
@@ -43,9 +43,20 @@
         overflow-x: auto;
     }
     &__grid {
+        position: relative;
         background: $white;
         border-radius: 5px;
-        box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+        box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 20px 20px 0 rgba($shadow, .1);
+        &::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: icon('swipe.svg') no-repeat 50% / 25px auto;
+            bottom: calc(100% + 65px);
+            right: 0;
+            opacity: 0;
+        }
         &_state {
             &-is-loading {
                 opacity: .5;
@@ -60,12 +71,13 @@
         }
     }
     &__more-btn {
-        height: 5rem;
-        font-size: 1.7rem;
-        font-weight: 900;
+        height: 4rem;
+        font-size: 1.5rem;
+        font-weight: bold;
         border-radius: 75px;
         margin: 0 auto;
         background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+        padding: 0 25px;
         &_disabled {
             display: none;
         }
@@ -97,7 +109,7 @@
 .advantages {
     &__item {
         @include flex(row, center);
-        padding-left: 30px;
+        padding-left: 40px;
         &:first-child {
             & .advantages {
                 &__name {
@@ -273,16 +285,16 @@
         line-height: 1.3;
         margin-left: auto;
         &::before {
-            background: $primary-200;
+            background: $gray-50;
         }
         &:hover {
             &::before {
-                background: $gray-200;
+                background: darken($gray-50, 5%)
             }
         }
         &:active {
             &::before {
-                background: $dark;
+                background: darken($gray-50, 8%)
             }
         }
     }
@@ -318,7 +330,7 @@
     }
     &__img {
         position: absolute;
-        right: 0;
+        right: 115px;
         top: calc(100% + 10px);
         max-width: 140px;
         margin-top: 10px;

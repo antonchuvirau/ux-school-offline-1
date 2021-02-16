@@ -78,7 +78,7 @@
                 }
             }
             &-price {
-                @include font-weight('medium');
+                @include font-weight('bold');
                 & sup {
                     font-size: 1.5rem;
                     line-height: 1.33;
@@ -314,6 +314,28 @@
 }
 
 @media screen and (max-width: 991px) {
+    @keyframes swipe {
+        from {
+            transform: translate3d(10px, 0, 0);
+            opacity: 0;
+        }
+        to {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+    }
+
+    .course-list {
+        &__grid {
+            &::before {
+                animation-name: swipe;
+                animation-timing-function: ease;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;
+            }
+        }
+    }
+
     .section {
         &__title {
             margin-bottom: 20px;

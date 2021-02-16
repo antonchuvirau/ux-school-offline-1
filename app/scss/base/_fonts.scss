@@ -3,60 +3,25 @@
 // -----------------------------------------------------------------------------
 
 @font-face {
-    font-family: 'Montserrat';
-    src: font("subset-Montserrat-ExtraBold.woff2") format("woff2"), font("subset-Montserrat-ExtraBold.woff") format("woff");
+    font-family: 'Manrope';
+    src: font('Manrope-Light.woff2') format('woff2'), font('Manrope-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: font('Manrope-Regular.woff2') format('woff2'), font('Manrope-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: font('Manrope-ExtraBold.woff2') format('woff2'), font('Manrope-ExtraBold.woff') format('woff');
     font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: font("subset-Montserrat-Medium.woff2") format("woff2"), font("subset-Montserrat-Medium.woff") format("woff");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: font("subset-Montserrat-Bold.woff2") format("woff2"), font("subset-Montserrat-Bold.woff") format("woff");
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: font("subset-Montserrat-Regular.woff2") format("woff2"), font("subset-Montserrat-Regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Lato';
-    src: font('Lato-Medium.woff2') format('woff2'),
-        font('Lato-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Lato';
-    src: font('Lato-Regular.woff2') format('woff2'),
-        font('Lato-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Lato';
-    src: font('Lato-Heavy.woff2') format('woff2'),
-        font('Lato-Heavy.woff') format('woff');
-    font-weight: 900;
     font-style: normal;
     font-display: swap;
 }

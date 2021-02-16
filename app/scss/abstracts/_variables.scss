@@ -1,20 +1,23 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
-$font: 'Montserrat';
-$secondary-font: 'Lato';
+$font: 'Manrope';
+$secondary-font: 'Arial';
 $base-font-size: 16px;
 $base-path: '../';
 //Colors
 $white: #fff;
 $dark: #211130;
-$dark-100: #4D4357;
+$dark-100: #434E57;
 $dark-200: #3C2E49;
+$gray-900: #112230;
 $gray-500: #665D5D;
+$gray-300: #5D6266;
 $gray-200: #9D98A3;
 $gray-100: #CCC6D1;
-$primary-100: #FCF0FF;
-$primary-150: #F5F2F7;
+$gray-50: #E0E6EB;
+$primary-100: #F8F0FF;
+$primary-150: #F2F5F7;
 $primary-200: #E6E0EB;
 $secondary: #CC30CF;
 $secondary-100: #B7B3F2;
@@ -25,10 +28,18 @@ $attention: #F10D0C;
 $brown: #743B03;
 $green: #056D30;
 $green-100: #13C42B;
+$shadow: rgb(55, 61, 67);
 $type: (
-    0: #FCF0FF,
-    1: #DEFDD1,
-    2: #FEF5CE
+    'default': #F2F5F7,
+    0: #F0FBFF,
+    1: #E4FBDB,
+    2: #FFFBD4
+);
+$type-text: (
+    'default': #434E57,
+    0: #1D76D8,
+    1: #125930,
+    2: #7A6615
 );
 $social: (
     'vk': #45668E,

@@ -338,7 +338,7 @@ function initSwiperInstance(swiperInstance, swiperInstanceOptionsData) {
                 const swiperInstanceContainer = swiperInstanceItem.closest('.inner-carousel');
 
                 swiperInstanceContainer.classList.add(`inner-carousel-instance-${index}`);
-                new Swiper(swiperInstanceContainer, swiperInstanceOptionsData);
+                new Swiper(`.inner-carousel-instance-${index}`, swiperInstanceOptionsData);
             });
 
         return;
@@ -541,8 +541,8 @@ function onModalCloseHandler(evt) {
 
 // Подгружаем необходимые модули
 const amoCRMInsance = window.amoCRM.init;
-const paymentMethodInstance = window.paymentMethod.instance;
-const paymentInstance = window.payment.instance;
+// const paymentMethodInstance = window.paymentMethod.instance;
+// const paymentInstance = window.payment.instance;
 const globalUtils = window.utils;
 const itiInstance = window.iti.instance;
 
@@ -769,7 +769,6 @@ document.addEventListener('click', (evt) => {
         });
     }
     if (target.dataset.videoId) {
-        console.log('I work');
         const videoId = target.dataset.videoId;
         const videoLink = 'https://www.youtube.com/embed/' + videoId;
         const videoModalElement = document.querySelector('.video-modal');

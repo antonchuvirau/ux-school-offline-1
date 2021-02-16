@@ -89,12 +89,12 @@
             @include font-weight('normal');
             color: $gray-200;
             text-decoration: line-through;
-            margin-right: 4px;
         }
         &-price {
             color: $dark-200;
+            font-weight: 800;
             & sup {
-                @include font-weight('medium');
+                font-weight: normal;
             }
         }
         &-info {
@@ -144,29 +144,30 @@
         margin-top: 10px;
         &-value {
             font-size: 1rem;
-            @include font-weight('medium');
-            padding: 3px 10px;
+            font-weight: normal;
+            line-height: 1.5;
+            padding: 2px 10px;
             border-radius: 10px;
-            margin-right: 10px;
+            margin-right: 2px;
             &:last-child {
                 margin-right: 0;
             }
             &_theme {
                 &-default {
-                    background: $primary-150;
-                    color: $dark-100;
+                    background: map-get($type, 'default');
+                    color: map-get($type-text, 'default');
                 }
                 &-offline {
                     background: map-get($type, 0);
-                    color: $secondary-700;
+                    color: map-get($type-text, 0);
                 }
                 &-online {
-                    background:map-get($type, 1);
-                    color: $green;
+                    background: map-get($type, 1);
+                    color: map-get($type-text, 1);
                 }
                 &-remote {
                     background: map-get($type, 2);
-                    color: $brown;
+                    color: map-get($type-text, 2);
                 }
             }
         }

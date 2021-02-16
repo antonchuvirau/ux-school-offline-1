@@ -75,6 +75,12 @@
         &-currency-price {
             color: $secondary-100;
         }
+        &-note {
+            display: block;
+            font-size: 1.2rem;
+            line-height: 1.3;
+            color: $white;
+        }
     }
     &__select {
         position: relative;

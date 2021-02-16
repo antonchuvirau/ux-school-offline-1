@@ -60,6 +60,7 @@
                 font-size: 1.4rem;
                 margin-left: 5px;
                 color: $gray-200;
+                pointer-events: none;
             }
         }
         &_visibility {
