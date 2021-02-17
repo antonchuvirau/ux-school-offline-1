@@ -11,7 +11,7 @@
         margin: 0;
         position: absolute;
         top: 30%;
-        right: 30px;
+        right: -10px;
         &::before {
             content: '';
             position: absolute;
@@ -23,19 +23,17 @@
         }
     }
     &__name {
-        font-family: $font, sans-serif;
         margin: 0;
         @include flex(column);
-        font-size: 28px;
-        color: white;
-        line-height: 1.1;
-        letter-spacing: -.05rem;
+        font-size: 2.8rem;
+        color: $white;
+        line-height: 1.25;
+        letter-spacing: -.03em;
         & span {
-            font-family: $secondary-font, sans-serif;
             font-size: 1.5rem;
             line-height: 1.3;
             color: rgba($white, .5);
-            margin-top: 6px;
+            margin-top: 5px;
             max-width: 90px;
         }
     }

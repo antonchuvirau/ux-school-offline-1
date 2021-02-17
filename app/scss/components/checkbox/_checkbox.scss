@@ -13,7 +13,7 @@
             & .checkbox {
                 &__name {
                     &::before {
-                        background: linear-gradient(206.3deg, #CC30CF -20.82%, #33AAFF 105.72%);
+                        background: linear-gradient(180deg, #3D9FF5 0%, #4C2AD5 127.5%);
                         border: none;
                     }
                     &::after {
@@ -44,14 +44,14 @@
         &::after {
             content: '';
             position: absolute;
-            width: 12px;
-            height: 9px;
+            width: 20px;
+            height: 20px;
             top: 50%;
-            margin-top: -4.5px;
-            left: 4px;
-            background: icon("ums-icon-check.svg") no-repeat 50% / cover;
+            margin-top: -10px;
+            left: 0;
+            background: icon("check.svg") no-repeat 50% / 12px auto;
             opacity: 0;
-            transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.25s ease;
         }
         &_size {
             &-s {

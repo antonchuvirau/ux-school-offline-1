@@ -1,7 +1,7 @@
 .course-template {
     &__wrapper {
         padding-bottom: 150px;
-        background: image("ums-course.svg") no-repeat center bottom / cover;
+        background: image("course-bg.svg") no-repeat center bottom / cover;
         overflow: hidden;
         &::before {
             content: none;
@@ -23,22 +23,25 @@
     @include flex(row, center, center);
     text-decoration: none;
     font-size: 2rem;
-    letter-spacing: -.03rem;
+    letter-spacing: -.01em;
     line-height: 1.5;
     padding: 0 30px;
     height: 60px;
+    font-weight: 800;
     background: $white;
-    border-radius: 5px;
+    color: $white;
+    border-radius: 30px;
     margin-right: 10px;
+    background: linear-gradient(179.9deg, #FF8AF1 0.06%, #F149F8 46.65%, #E100FF 99.9%);
+    box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 20px 20px 0 rgba($shadow, .1);
     &:last-child {
         margin-right: 0;
     }
     &:hover {
-        background: rgba($white, .9);
+        box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 10px 10px 0 rgba($shadow, .1);
     }
     &:active {
-        background: rgba($white, .8);
-        color: $dark;
+        box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 5px 5px 0 rgba($shadow, .1);
     }
     &:disabled {
         opacity: .3;

@@ -56,7 +56,7 @@
         }
         &_filled {
             & input {
-                border-color: $secondary-500;
+                border-color: $primary-600;
                 padding-top: 15px;
                 &[type="tel"] {
                     padding-top: 0;
@@ -71,7 +71,7 @@
         }
         &_focused {
             & input {
-                border-color: $secondary-500;
+                border-color: $primary-600;
                 padding-top: 15px;
                 &.wpcf7-not-valid {
                     border-color: $attention;
@@ -313,6 +313,9 @@ div {
         &:last-child {
             margin-right: 0;
         }
+    }
+    &__btn {
+        font-weight: normal;
     }
 }
 

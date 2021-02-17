@@ -76,7 +76,6 @@
         font-weight: bold;
         border-radius: 75px;
         margin: 0 auto;
-        background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
         padding: 0 25px;
         &_disabled {
             display: none;
@@ -128,6 +127,15 @@
         line-height: 1.3;
         word-break: break-word;
     }
+    &__col {
+        &:nth-child(3) {
+            & .advantages {
+                &__item {
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
 }
 
 .certificate {
@@ -148,9 +156,13 @@
         text-align: left;
     }
     &__img {
-        display: block;
-        width: 100%;
-        margin: 0 auto;
+        padding: 50px;
+        padding-bottom: 0;
+        & img {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+        }
     }
 }
 
@@ -183,11 +195,12 @@
     padding: 70px 0;
     padding-bottom: 0;
     &__btn {
-        height: 5rem;
-        background: linear-gradient(180deg, #3af 0%, #8b24b7 127.5%);
-        border-radius: 75px;
         margin-top: 20px;
-        font-weight: 900;
+        height: 4rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        border-radius: 75px;
+        padding: 0 25px;
         &_disabled {
             display: none;
         }
@@ -258,6 +271,7 @@
 
 .blog-section {
     padding: 100px 0;
+    padding-bottom: 50px;
     background: $primary-100;
     position: relative;
     &::before {
@@ -270,7 +284,7 @@
         background: image("ums-blog-figure.svg") no-repeat center bottom / 100% auto;
     }
     &__header {
-        @include flex(row, center);
+        @include flex(row, baseline);
         margin-bottom: 30px;
     }
     &__col {
