@@ -61,6 +61,17 @@
             top: calc(100% + 3px);
         }
     }
+    &__button-name {
+        position: absolute;
+        top: 49%;
+        right: 17%;
+        color: $white;
+        font-size: 1.5rem;
+        pointer-events: none;
+        &::before {
+            content: attr(data-desktop-title);
+        }
+    }
 }
 
 @media screen and (min-width: 992px) {
@@ -74,6 +85,19 @@
             left: 50%;
             transform: translateX(-50%);
             pointer-events: none;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .about-video {
+        &__button-name {
+            left: auto;
+            right: 57.5%;
+            border-bottom: 1px dashed $white;
+            &::before {
+                content: attr(data-mobile-title);
+            }
         }
     }
 }
