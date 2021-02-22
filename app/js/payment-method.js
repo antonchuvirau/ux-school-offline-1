@@ -25,6 +25,7 @@
                 this.setPaymentMethodIndex(paymentMethodIndex);
                 utilsModule.removeClass(paymentSections, 'payment-section_state-active');
                 paymentSections[this._paymentMethodIndex].classList.add('payment-section_state-active');
+                // Update prices
                 paymentModule.updatePrices(this._paymentMethodIndex);
                 paymentModule.changeInputPrice(this._paymentMethodIndex);
                 jQuery('body, html').animate({

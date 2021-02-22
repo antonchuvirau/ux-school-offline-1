@@ -335,10 +335,21 @@ function initSwiperInstance(swiperInstance, swiperInstanceOptionsData) {
         const swiperInstances = Array.from(swiperInstance);
 
             swiperInstances.forEach((swiperInstanceItem, index) => {
-                const swiperInstanceContainer = swiperInstanceItem.closest('.inner-carousel');
-
-                swiperInstanceContainer.classList.add(`inner-carousel-instance-${index}`);
-                new Swiper(`.inner-carousel-instance-${index}`, swiperInstanceOptionsData);
+                swiperInstanceItem.classList.add(`inner-carousel-instance-${index}`);
+                new Swiper(`.inner-carousel-instance-${index}`, {
+                    pagination: {
+                        el: swiperInstanceItem.nextElementSibling,
+                        type: 'bullets'
+                    },
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+                    navigation: {
+                        prevEl: swiperInstanceItem.parentElement.querySelector(`.inner-carousel__btn-prev`),
+                        nextEl: swiperInstanceItem.parentElement.querySelector(`.inner-carousel__btn-next`)
+                    }
+                });
             });
 
         return;
@@ -541,8 +552,8 @@ function onModalCloseHandler(evt) {
 
 // Подгружаем необходимые модули
 const amoCRMInsance = window.amoCRM.init;
-// const paymentMethodInstance = window.paymentMethod.instance;
-// const paymentInstance = window.payment.instance;
+const paymentMethodInstance = window.paymentMethod.instance;
+const paymentInstance = window.payment.instance;
 const globalUtils = window.utils;
 const itiInstance = window.iti.instance;
 

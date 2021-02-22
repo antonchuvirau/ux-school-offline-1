@@ -33,6 +33,7 @@
             }
             if (target.matches(`li`)) {
                 const paymentLevel = +target.dataset.paymentLevel;
+                const partialPayment = target.dataset.partialPayment;
                 const paymentButton = this._el.querySelector(`.ums-select__btn`);
                 this.fillCourseData(target);
                 utilsModule.removeClass(courseListElements, `ums-select__list-item_state-active`);
@@ -63,6 +64,14 @@
                     }
                 } else {
                     paymentModule.setTotalPrice(this._courseData.fullPrice);
+                }
+
+                if (partialPayment === `no`) {
+                    jQuery(`.payment-item:nth-child(3)`).hide();
+                    jQuery(`.payment-item:nth-child(4)`).hide();
+                }
+                else {
+                    jQuery(`.payment-item:nth-child(n)`).show();
                 }
 
                 paymentButton.dataset.price = this._courseData.fullPrice;

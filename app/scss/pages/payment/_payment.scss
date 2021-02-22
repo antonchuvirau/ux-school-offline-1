@@ -74,6 +74,11 @@
             border-color: $secondary-500;
         }
     }
+    &[style="display: none;"] {
+        & + .payment-item {
+            margin-right: 0;
+        }
+    }
 }
 
 .ux-mind-payment {
