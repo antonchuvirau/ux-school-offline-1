@@ -49,7 +49,7 @@
     &__tag {
         @include flex(row, center, center);
         margin: 0;
-        margin-right: 15px;
+        margin-right: 5px;
         margin-top: 5px;
         height: 30px;
         padding: 0 10px;
@@ -60,6 +60,11 @@
         color: $primary-700;
         &:last-child {
             margin-right: 0;
+        }
+        & + .blog-item {
+            &__date {
+                margin-left: 10px;
+            }
         }
     }
     &__date {

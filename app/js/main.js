@@ -643,7 +643,7 @@ const courseGalleryCarouselOptions = {
     }
 }
 const graduatesCarouselOptions = {
-    slidesPerView: 8,
+    slidesPerView: 5,
     spaceBetween: 25,
     loop: true,
     centeredSlides: true,
@@ -662,12 +662,6 @@ const graduatesCarouselOptions = {
         },
         768: {
             slidesPerView: 5
-        },
-        992: {
-            slidesPerView: 6
-        },
-        1200: {
-            slidesPerView: 8
         }
     }
 }
