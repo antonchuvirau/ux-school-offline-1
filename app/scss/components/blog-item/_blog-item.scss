@@ -1,6 +1,5 @@
 .blog-item {
     @include flex(column, stretch);
-    height: 100%;
     background: $white;
     border-radius: 5px;
     padding: 10px;
