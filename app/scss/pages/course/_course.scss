@@ -17,6 +17,9 @@
         position: relative;
         z-index: 1;
     }
+    &__breadcrumbs {
+        margin-bottom: 65px;
+    }
 }
 
 .course-btn {
@@ -93,8 +96,8 @@
         width: 100%;
         max-width: 630px;
         height: 450px;
-        border-radius: 5px;
-        background: image("ums-about-course-img.svg") no-repeat;
+        border-radius: map-get($border-radius, 'video');
+        background: image("about-course-video-bg.svg") no-repeat left bottom;
         background-size: cover;
         &-img {
             width: 100%;
@@ -108,7 +111,7 @@
     &__play-btn {
         position: absolute;
         top: 30px;
-        left: 30px;
+        left: 35px;
         z-index: 1;
     }
     &__author {
@@ -148,6 +151,7 @@
         letter-spacing: -.03rem;
         font-size: 2rem;
         line-height: 1.5;
+        margin: 0;
         margin-top: 15px;
         color: $dark-200;
         text-align: center;

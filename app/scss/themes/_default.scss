@@ -30,7 +30,11 @@
         margin-bottom: 45px;
     }
     &__advantages {
+        // position: relative;
+        // background: $primary-100;
+        // padding-top: 25px;
         margin-top: 35px;
+        // z-index: 1;
     }
     &__pagination {
         margin-top: 80px;
@@ -45,7 +49,7 @@
     &__grid {
         position: relative;
         background: $white;
-        border-radius: 5px;
+        border-radius: map-get($border-radius, 'default');
         box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 20px 20px 0 rgba($shadow, .1);
         &::before {
             content: '';

@@ -5,6 +5,12 @@ $font: 'Manrope';
 $secondary-font: 'Arial';
 $base-font-size: 16px;
 $base-path: '../';
+// Border radius
+$border-radius: (
+    'default': 10px,
+    'video': 80px,
+    'middle': 25px
+);
 //Colors
 $white: #fff;
 $dark: #211130;

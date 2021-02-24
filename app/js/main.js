@@ -643,10 +643,9 @@ const courseGalleryCarouselOptions = {
     }
 }
 const graduatesCarouselOptions = {
-    slidesPerView: 5,
+    slidesPerView: `auto`,
     spaceBetween: 25,
     loop: true,
-    centeredSlides: true,
     autoplay: {
         delay: 3000
     },
@@ -661,7 +660,7 @@ const graduatesCarouselOptions = {
             slidesPerView: 4
         },
         768: {
-            slidesPerView: 5
+            slidesPerView: `auto`
         }
     }
 }
