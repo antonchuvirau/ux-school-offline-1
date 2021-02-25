@@ -1,16 +1,19 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
+
 $font: 'Manrope';
 $secondary-font: 'Arial';
 $base-font-size: 16px;
 $base-path: '../';
+
 // Border radius
 $border-radius: (
     'default': 10px,
     'video': 80px,
     'middle': 25px
 );
+
 //Colors
 $white: #fff;
 $dark: #211130;
@@ -58,6 +61,7 @@ $social: (
     'tg': #0088CC,
     'tw': #1DA1F2
 );
+
 //Font weight
 $font-weight: (
     'normal': normal,
