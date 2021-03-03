@@ -15,6 +15,17 @@
         pointer-events: none;
         opacity: .3;
     }
+    &_size {
+        &-large {
+            height: map-get($button-height, 'large');
+            padding: 0 30px;
+        }
+    }
+    &_style {
+        &-rounded {
+            border-radius: map-get($button-radius, 'default');;
+        }
+    }
     &_is {
         &-loading {
             position: relative;

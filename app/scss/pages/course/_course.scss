@@ -1,7 +1,10 @@
+// Variables
+$course-hero-cover-image: 'course.svg';
+
 .course-template {
     &__wrapper {
         padding-bottom: 150px;
-        background: image("course-bg.svg") no-repeat center bottom / cover;
+        background: image(#{$course-hero-cover-image}) no-repeat center bottom / cover;
         overflow: hidden;
         &::before {
             content: none;

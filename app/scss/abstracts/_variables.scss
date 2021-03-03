@@ -14,6 +14,16 @@ $border-radius: (
     'middle': 25px
 );
 
+// Buttons variables
+$button-height: (
+    'small': 30px,
+    'medium': 50px,
+    'large': 60px
+);
+$button-radius: (
+    'default': 35px
+);
+
 //Colors
 $white: #fff;
 $dark: #211130;

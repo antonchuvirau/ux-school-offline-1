@@ -1,6 +1,11 @@
+// Variables
+$modal-width: (
+    'default': 767px,
+    'free-start': 540px
+);
 .modal {
     width: 100%;
-    max-width: 767px;
+    max-width: map-get($modal-width, 'default');
     border-radius: 5px;
     background: $white;
     box-shadow: none;
@@ -279,20 +284,22 @@
 }
 
 .free-start-modal {
-    max-width: 540px;
+    max-width: map-get($modal-width, 'free-start');
     &__row {
         margin-bottom: 10px;
     }
     &__privacy-checkbox {
-        margin-top: 20px;
+        margin-top: 15px;
     }
     &__title {
         font-size: 2rem;
         @include font-weight('normal');
+        line-height: 1.5;
         text-align: center;
         max-width: 375px;
         margin: 0 auto;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+        letter-spacing: -.01em;
     }
     &__img {
         width: 100%;

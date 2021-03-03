@@ -5,8 +5,8 @@
     &__wrapper {
         padding-bottom: 210px;
         &::before {
-            height: 440px;
-            background: image("courses-bg.svg") no-repeat center bottom;
+            height: 430px;
+            background: image("courses-layer.svg") no-repeat center bottom;
         }
         &::after {
             content: none;
