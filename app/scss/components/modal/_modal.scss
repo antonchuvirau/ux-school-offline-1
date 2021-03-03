@@ -180,6 +180,19 @@ $modal-width: (
     }
 }
 
+.success-modal-free-start {
+    &__title {
+        font-family: $secondary-font, sans-serif;
+        font-size: 2rem;
+        line-height: 1.5;
+        color: $gray-900;
+        letter-spacing: -0.01em;
+        font-weight: 400;
+        margin: 0;
+        margin-top: 20px;
+    }
+}
+
 .content-modal {
     max-width: 1000px;
     & p, ul li, ol li {
@@ -289,6 +302,7 @@ $modal-width: (
         margin-bottom: 10px;
     }
     &__privacy-checkbox {
+        width: 100%;
         margin-top: 15px;
     }
     &__title {
