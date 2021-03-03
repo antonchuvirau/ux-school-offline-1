@@ -1421,6 +1421,13 @@
                 font-size: 1.5rem;
             }
         }
+        &_size {
+            &-large {
+                height: 45px;
+                padding: 0 15px;
+                font-weight: 500;
+            }
+        }
     }
     .breadcrumbs {
         & span {
@@ -1526,7 +1533,11 @@
             }
         }
     }
-
+    .free-start-form {
+        &__btn {
+            font-size: 1.5rem;
+        }
+    }
     .no-template {
         &__text {
             font-size: 1.7rem;
