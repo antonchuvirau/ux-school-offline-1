@@ -77,12 +77,12 @@
                         this.setSaleValue(10);
                     } else if (promocode) {
                         if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-                            this.setTotalPrice(+this.getSalePrice() - 100);
-                            this.setSaleType(`Промокод: ПОДАРОК2021`);
+                            this.setTotalPrice(+this.getSalePrice() - 50);
+                            this.setSaleType(`Промокод: MirParfuma`);
                             this.setSaleValue(`100 BYN`);
                         } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-                            this.setTotalPrice(+this.getPrice() - 100);
-                            this.setSaleType(`Промокод: ПОДАРОК2021`);
+                            this.setTotalPrice(+this.getPrice() - 50);
+                            this.setSaleType(`Промокод: MirParfuma`);
                             this.setSaleValue(`100 BYN`);
                         }
                     } else {

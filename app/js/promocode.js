@@ -54,7 +54,8 @@
                             this._el.querySelector('.promocode-input').classList.remove(this._promocodeClasses.progress);
                             if (data.length) {
                                 const modifiedData = inputValue.replace(/\s+/gi, '').toUpperCase();
-                                const result = data.find((item) => item.name === modifiedData.toUpperCase());
+                                const result = data.find((item) => item.name.toUpperCase() === modifiedData);
+                                console.log(result);
                                 if (result) {
                                     paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, true);
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'success');
