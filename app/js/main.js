@@ -549,6 +549,25 @@ function onModalCloseHandler(evt) {
         textareaElement.removeEventListener(`click`, onTextareaElementClickHandler);
     }
 }
+function onTestBtnClickHandler() {
+    const testData = {
+        user_data: {
+            'rule_1': 'ok',
+            'rule_2': 'not_ok',
+            'attr': 'ok',
+            'other': 'data'
+        },
+        action: 'lt'
+    };
+    jQuery.when(globalUtils.ajaxRequest(testData).then(
+        resp => {
+            console.log(resp);
+        },
+        error => {
+            console.log(new Error(error));
+        }
+    ));
+}
 
 // Подгружаем необходимые модули
 const amoCRMInsance = window.amoCRM.init;
@@ -581,6 +600,7 @@ const contactPageItems = document.querySelectorAll('.contact-page__info-item');
 const navigationLinksCollection = document.querySelectorAll('.page-navigation__link');
 const inputs = document.querySelectorAll('input');
 const selects = document.querySelectorAll('select');
+const testBtn = document.querySelector(`.test-btn`)
 const weCarouselOptions = {
     slidesPerView: 4,
     spaceBetween: 30,
@@ -746,6 +766,9 @@ document.addEventListener(`DOMContentLoaded`, () => {
     }
     if (sortNavigationContainer) {
         sortNavigationContainer.addEventListener(`click`, onSortNavigationContainerClickHandler);
+    }
+    if (testBtn) {
+        testBtn.addEventListener(`click`, onTestBtnClickHandler);
     }
 });
 

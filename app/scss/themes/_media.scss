@@ -429,6 +429,8 @@
             &__video {
                 height: 210px;
                 max-width: none;
+                border-radius: 45px;
+                background-position: 50%;
                 &-img {
                     max-width: 235px;
                     margin-left: -117.5px;
@@ -443,7 +445,7 @@
                 margin-top: 25px;
             }
             &__play-btn {
-                top: 10px;
+                top: 15px;
                 left: 15px;
             }
         }
@@ -1098,30 +1100,30 @@
             &_position {
                 &-1 {
                     & img {
-                        max-width: 50px;
-                        max-height: 30px;
+                        max-width: 60px;
+                        // max-height: 30px;
                     }
                 }
                 &-2 {
                     & img {
-                        max-width: 35px;
-                        max-height: 39px;
+                        max-width: 60px;
+                        // max-height: 39px;
                     }
                 }
                 &-3 {
                     & img {
-                        max-width: 48px;
-                        max-height: 36px;
-                        position: relative;
-                        top: -3px;
-                        right: -3px;
+                        max-width: 60px;
+                        // max-height: 36px;
+                        // position: relative;
+                        // top: -3px;
+                        // right: -3px;
                     }
                 }
                 &-4 {
                     & img {
-                        position: relative;
-                        top: 5px;
-                        max-width: 54px;
+                        // position: relative;
+                        // top: 5px;
+                        max-width: 60px;
                     }
                 }
             }
@@ -1943,13 +1945,13 @@
     .webpay-form {
         &__sale {
             &-checkbox {
+                margin-left: 0;
                 & .checkbox {
                     &__name {
                         font-size: 1.2rem;
                         line-height: 1.25;
                         &::before {
                             top: -2px;
-                            margin: 0;
                         }
                         &::after {
                             top: 3px;

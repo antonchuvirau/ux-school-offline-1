@@ -638,7 +638,7 @@ document.addEventListener('click', (evt) => {
             closeExisting: false
         });
     }
-    if (target.dataset.videoId) {
+    if (target.dataset.videoId || target.closest('[data-video-id]')) {
         const videoId = target.dataset.videoId;
         const videoLink = 'https://www.youtube.com/embed/' + videoId;
         const videoModalElement = document.querySelector('.video-modal');

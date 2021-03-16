@@ -37,6 +37,12 @@
             left: 0;
             pointer-events: none;
         }
+        &-picture {
+            pointer-events: none;
+            & * {
+                pointer-events: none;
+            }
+        }
     }
     &__shape {
         position: absolute;
