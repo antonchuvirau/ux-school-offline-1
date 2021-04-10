@@ -1,17 +1,21 @@
 @charset 'UTF-8';
-// 1. Configuration and helpers
+
+// 1. CONFIG AND HELPERS
 @import 'abstracts/variables',
 'abstracts/functions',
 'abstracts/mixins';
-// 2. Vendors
+
+// 2. VENDORS
 @import 'vendor/normalize',
 'vendor/jquerymodal';
-// 3. Base stuff
+
+// 3. BASE
 @import 'base/typography',
 'base/fonts',
 'base/base',
 'base/helpers';
-// 4. Blocks
+
+// 4. COMPONENTS
 @import 'components/header/header',
 'components/title/title',
 'components/button/button',
@@ -21,11 +25,13 @@
 'components/tabs/tabs',
 'components/course-list-item/course-list-item',
 'components/checkbox/checkbox';
-// 2. Vendors
+
+// 2. VENDORS
 @import 'vendor/fancybox',
 'vendor/swiper',
 'vendor/iti';
-// 4. Blocks
+
+// 3. COMPONENTS
 @import 'components/figure/figure',
 'components/form/form',
 'components/breadcrumbs/breadcrumbs',
@@ -59,10 +65,13 @@
 'components/toggle-checkbox/toggle-checkbox',
 'components/promocode-input/promocode-input',
 'components/pagination/pagination',
-'components/card-payment-info';
-// 5. Themes
+'components/card-payment-info',
+'components/payment-message';
+
+// 5. THEMES
 @import 'themes/default';
-// 6. Pages
+
+// 6. PAGES
 @import 'pages/home/home',
 'pages/category/category',
 'pages/course/course',
@@ -77,5 +86,6 @@
 'pages/blog/blog',
 'pages/lecturers/lecturers',
 'pages/certificates/certificates';
-// 7. Themes
+
+// 7. THEMES
 @import 'themes/media';

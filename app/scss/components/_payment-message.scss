@@ -1,0 +1,16 @@
+.payment-message {
+    margin: 0;
+    padding: 1em 1.67em;
+    background: $primary-50;
+    border: 1px solid $primary-250;
+    border-radius: $br-payment-message;
+    font-size: 1.5rem;
+    color: $gray-900;
+    line-height: 1.45;
+    & a {
+        color: $primary-600;
+        &:hover {
+            opacity: .8;
+        }
+    }
+}

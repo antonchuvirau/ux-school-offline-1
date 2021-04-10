@@ -1,0 +1,57 @@
+.erip-payment {
+    &__wrapper {
+        padding: 50px;
+        padding-top: 25px;
+        border: 1px solid $gray-50;
+        border-radius: $br-erip-payment;
+    }
+    &__content {
+        @include flex();
+        margin-top: 50px;
+        &-wrapper {
+            & p {
+                font-family: $se;
+                margin: 0;
+                letter-spacing: -.01em;
+                color: $gray-900;
+                font-size: 2rem;
+                line-height: 1.5;
+                font-weight: 800;
+                margin-bottom: 15px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            & ul, ol {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                margin-bottom: 15px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                & li {
+                    font-size: 1.7rem;
+                    line-height: 1.45;
+                    color: $gray-900;
+                }
+            }
+        }
+    }
+    &__qr-code {
+        text-align: center;
+        margin: 0;
+        margin-left: auto;
+        &-img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+        &-note {
+            display: inline-block;
+            font-size: 1.7rem;
+            color: $gray-900;
+            margin-top: .71em;
+            line-height: 1.45;
+        }
+    }
+}
