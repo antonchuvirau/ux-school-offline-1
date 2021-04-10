@@ -70,6 +70,7 @@
         }
         changeInputPrice(index, isSale = false, promocode = false) {
             switch (index) {
+                case 4:
                 case 0:
                     if (isSale) {
                         this.setTotalPrice(this.getSalePrice() - (this.getSalePrice() * .1));
@@ -97,18 +98,19 @@
                         }
                     }
                     break;
-                case 2:
-                    if (isSale) {
-                        this.setTotalPrice(Math.round(this.getSalePrice() / 2 - this.getSalePrice() / 2 * .1));
-                        this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
-                        this.setSaleValue(10);
-                    } else {
-                        this.setTotalPrice(this.getSalePrice() / 2);
-                        this.setSaleType(`Нет скидки`);
-                        this.setSaleValue(0);
-                    }
-                    break;
+                // case 1:
+                //     if (isSale) {
+                //         this.setTotalPrice(Math.round(this.getSalePrice() / 2 - this.getSalePrice() / 2 * .1));
+                //         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
+                //         this.setSaleValue(10);
+                //     } else {
+                //         this.setTotalPrice(this.getSalePrice() / 2);
+                //         this.setSaleType(`Нет скидки`);
+                //         this.setSaleValue(0);
+                //     }
+                //     break;
                 case 3:
+                case 1:
                     this.setTotalPrice(this.getSalePrice());
                     break;
             }

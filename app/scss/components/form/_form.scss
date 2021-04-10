@@ -326,6 +326,9 @@ div {
         &:nth-child(3n) {
             margin-right: 0;
         }
+        &:last-child {
+            margin-right: 0;
+        }
     }
     &__section {
         margin-bottom: 55px;
@@ -333,6 +336,7 @@ div {
             margin-bottom: 25px;
         }
         &-name {
+            display: block;
             font-family: $font, sans-serif;
             margin: 0;
             margin-bottom: 25px;

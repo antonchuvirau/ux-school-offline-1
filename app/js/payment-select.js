@@ -39,22 +39,22 @@
                 utilsModule.removeClass(courseListElements, `ums-select__list-item_state-active`);
                 target.classList.add(`ums-select__list-item_state-active`);
 
-                if (paymentLevel === 2) {
-                    const paymentSections = document.querySelectorAll(`.payment-section`);
-                    paymentMethodModule.setPaymentMethodIndex(0);
-                    utilsModule.removeClass(paymentSections, `payment-section_state-active`);
-                    paymentSections[0].classList.add(`payment-section_state-active`);
-                    paymentMethodModule.changePaymentMethod(0);
-                    // Переписать JQuery
-                    jQuery(`.payment-item:not(:nth-child(1))`).hide();
-                    jQuery(`.webpay-form__sale-checkbox`).hide();
-                    jQuery(`.toggle-checkbox`).hide();
-                } else {
-                    // Переписать JQuery
-                    jQuery(`.payment-item:not(:nth-child(1))`).show();
-                    jQuery(`.webpay-form__sale-checkbox`).show();
-                    jQuery(`.toggle-checkbox`).show();
-                }
+                // if (paymentLevel === 2) {
+                //     const paymentSections = document.querySelectorAll(`.payment-section`);
+                //     paymentMethodModule.setPaymentMethodIndex(0);
+                //     utilsModule.removeClass(paymentSections, `payment-section_state-active`);
+                //     paymentSections[0].classList.add(`payment-section_state-active`);
+                //     paymentMethodModule.changePaymentMethod(0);
+                //     // Переписать JQuery
+                //     jQuery(`.payment-item:not(:nth-child(1))`).hide();
+                //     jQuery(`.webpay-form__sale-checkbox`).hide();
+                //     jQuery(`.toggle-checkbox`).hide();
+                // } else {
+                //     // Переписать JQuery
+                //     jQuery(`.payment-item:not(:nth-child(1))`).show();
+                //     jQuery(`.webpay-form__sale-checkbox`).show();
+                //     jQuery(`.toggle-checkbox`).show();
+                // }
 
                 if (this._paymentType === `payment`) {
                     paymentModule.setTotalPrice(this._courseData.salePrice);
@@ -67,8 +67,7 @@
                 }
 
                 if (partialPayment === `no`) {
-                    jQuery(`.payment-item:nth-child(3)`).hide();
-                    jQuery(`.payment-item:nth-child(4)`).hide();
+                    jQuery(`.payment-item:nth-child(2)`).hide();
                 }
                 else {
                     jQuery(`.payment-item:nth-child(n)`).show();

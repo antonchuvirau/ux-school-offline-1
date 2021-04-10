@@ -171,6 +171,7 @@ function wpcf7InvalidHandler(event) {
     button.classList.remove('btn_is-loading');
 }
 function wpcf7SentHandler(event) {
+    const wpcf7MailStatus = event.detail.status;
     const target = event.target;
     const id = +event.detail.contactFormId;
     const uri = event.target.baseURI;
@@ -181,6 +182,12 @@ function wpcf7SentHandler(event) {
 
     switch (id) {
         case 131:
+            if (wpcf7MailStatus === `mail_sent`) {
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+            }
             // Yandex conversion
             ym(49171171, 'reachGoal', 'lead_form');
             //Send to CRM
@@ -188,10 +195,6 @@ function wpcf7SentHandler(event) {
             requestData = crmObject.getRequestObject();
             jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
                 //Close modal
-                button.textContent = defaultSubmitButtonText;
-                button.classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-first').modal();
             }, error => console.log(new Error(error)));
             break;
         case 837:
@@ -211,6 +214,14 @@ function wpcf7SentHandler(event) {
             }, error => console.log(new Error(error)));
             break;
         case 1447:
+            if (wpcf7MailStatus === `mail_sent`) {
+                target.querySelector('.form__input').classList.remove('form__input_filled');
+                target.querySelector('.form__label').classList.remove('form__label_active');
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-free-start').modal();
+            }
             crmObject = new amoCRMInsance(1447, inputs, 'free');
             requestData = crmObject.getRequestObject();
             sendPulseData = {
@@ -221,12 +232,6 @@ function wpcf7SentHandler(event) {
             jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
                 //Yandex conversion
                 ym(49171171, 'reachGoal', 'freelessons');
-                target.querySelector('.form__input').classList.remove('form__input_filled');
-                target.querySelector('.form__label').classList.remove('form__label_active');
-                button.textContent = defaultSubmitButtonText;
-                button.classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-free-start').modal();
             }, error => console.log(new Error(error)));
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then(resp => {
                 console.log(resp);
@@ -676,7 +681,7 @@ document.addEventListener('click', (evt) => {
         const id = document.querySelector(`.tabs__btn_active`).dataset.id;
         const data = {
             action: `courses`,
-            id: +id,
+            id: id,
             current_page: dataCurrentPageValue
         }
         const beforeSendHandler = function () {

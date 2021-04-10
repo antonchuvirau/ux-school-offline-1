@@ -171,6 +171,7 @@ function wpcf7InvalidHandler(event) {
     button.classList.remove('btn_is-loading');
 }
 function wpcf7SentHandler(event) {
+    const wpcf7MailStatus = event.detail.status;
     const target = event.target;
     const id = +event.detail.contactFormId;
     const uri = event.target.baseURI;
@@ -181,18 +182,18 @@ function wpcf7SentHandler(event) {
 
     switch (id) {
         case 131:
+            if (wpcf7MailStatus === `mail_sent`) {
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-first').modal();
+            }
             // Yandex conversion
             ym(49171171, 'reachGoal', 'lead_form');
             //Send to CRM
             crmObject = new amoCRMInsance(131, inputs, 'lead');
             requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
-                //Close modal
-                button.textContent = defaultSubmitButtonText;
-                button.classList.remove('btn_is-loading');
-                jQuery.modal.close();
-                jQuery('#success-modal-first').modal();
-            }, error => console.log(new Error(error)));
+            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {}, error => console.log(new Error(error)));
             break;
         case 837:
             button.textContent = defaultSubmitButtonText;
@@ -211,6 +212,14 @@ function wpcf7SentHandler(event) {
             }, error => console.log(new Error(error)));
             break;
         case 1447:
+            if (wpcf7MailStatus === `mail_sent`) {
+                target.querySelector('.form__input').classList.remove('form__input_filled');
+                target.querySelector('.form__label').classList.remove('form__label_active');
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+                jQuery.modal.close();
+                jQuery('#success-modal-free-start').modal();
+            }
             crmObject = new amoCRMInsance(1447, inputs, 'free');
             requestData = crmObject.getRequestObject();
             sendPulseData = {
@@ -218,19 +227,15 @@ function wpcf7SentHandler(event) {
                 id: 89064264,
                 email: inputs[3].value
             }
+            // SENDING DATA TO AMOCRM
             jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
                 const respObject = JSON.parse(data);
                 if (respObject.result) {
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'freelessons');
-                    target.querySelector('.form__input').classList.remove('form__input_filled');
-                    target.querySelector('.form__label').classList.remove('form__label_active');
-                    button.textContent = defaultSubmitButtonText;
-                    button.classList.remove('btn_is-loading');
-                    jQuery.modal.close();
-                    jQuery('#success-modal-free-start').modal();
                 }
             }, error => console.log(new Error(error)));
+            // SENDING DATA TO SENDPULSE
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then(resp => {
                 console.log(resp);
             }, error => console.log(new Error(error)));
@@ -551,20 +556,16 @@ function onModalCloseHandler(evt) {
 }
 function onTestBtnClickHandler() {
     const testData = {
-        user_data: {
-            'rule_1': 'ok',
-            'rule_2': 'not_ok',
-            'attr': 'ok',
-            'other': 'data'
-        },
         action: 'lt'
     };
     jQuery.when(globalUtils.ajaxRequest(testData).then(
         resp => {
             console.log(resp);
+            alert(resp);
         },
         error => {
-            console.log(new Error(error));
+            console.log(error);
+            alert(error);
         }
     ));
 }
@@ -729,6 +730,7 @@ const sortNavigationContainer = document.querySelector(`.sort-navigation`);
 const sortNavigationButtons = document.querySelectorAll(`.sort-navigation__button`);
 const sortListContainer = document.querySelector(`.sort-list`);
 const innerCarouselElements = document.querySelectorAll(`.inner-carousel__grid`);
+const selectCourseBox = document.querySelector(`.ums-select`);
 
 document.addEventListener(`DOMContentLoaded`, () => {
     initInputListener();
@@ -950,7 +952,7 @@ document.addEventListener('click', (evt) => {
                     // Yandex conversion
                     ym(49171171, 'reachGoal', 'payment');
                     target.textContent = 'Перенаправляем на оплату...';
-                    if (paymentMethodInstance.getPaymentMethodIndex() === 3) {
+                    if (paymentMethodInstance.getPaymentMethodIndex() === 1) {
                         setTimeout(function () {
                             document.location.replace(response.checkout.redirect_url);
                         }, 200);
@@ -962,6 +964,11 @@ document.addEventListener('click', (evt) => {
                 }
             });
         }
+    }
+    if (selectCourseBox.querySelector(`.ums-select__btn`).classList.contains(`ums-select__btn_state-active`) && !target.closest(`.ums-select`)) {
+        selectCourseBox.querySelector(`.ums-select__btn`).classList.remove(`ums-select__btn_state-active`);
+        selectCourseBox.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);
+        selectCourseBox.closest(`.form__select`).classList.remove(`form__select_state-active`);
     }
 });
 

@@ -2,8 +2,8 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-$font: 'Manrope';
-$secondary-font: 'Arial';
+$font: 'Manrope', sans-serif;
+$secondary-font: 'Arial', sans-serif;
 $base-font-size: 16px;
 $base-path: '../';
 
@@ -13,6 +13,7 @@ $border-radius: (
     'video': 80px,
     'middle': 25px
 );
+$br-payment-method: 20px;
 
 // Buttons variables
 $button-height: (
@@ -23,6 +24,10 @@ $button-height: (
 $button-radius: (
     'default': 35px
 );
+
+// GRADIENTS
+$lg-primary: #3D9FF5;
+$lg-secondary: #4C2AD5;
 
 //Colors
 $white: #fff;
@@ -37,6 +42,7 @@ $gray-300: #5D6266;
 $gray-200: #9D98A3;
 $gray-100: #CCC6D1;
 $gray-50: #E0E6EB;
+$primary-50: #F0FBFF;
 $primary-100: #F8F0FF;
 $primary-150: #F2F5F7;
 $primary-200: #E6E0EB;

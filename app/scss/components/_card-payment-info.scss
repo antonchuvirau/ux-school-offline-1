@@ -1,0 +1,46 @@
+$card-payment-info-radius: 5px;
+
+.card-payment-info {
+    @include flex(column, center, center);
+    padding: 25px 35px;
+    padding-bottom: 25px;
+    border-radius: $card-payment-info-radius;
+    background: $primary-50;
+    &__link {
+        font-family: $font;
+        text-decoration: none;
+        letter-spacing: -.01em;
+        color: $dark;
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+        text-align: center;
+        &[href*="mailto"] {
+            margin-top: 10px;
+            border-bottom: 1px solid $gray-50;
+            line-height: 1.6;
+        }
+        &:hover {
+            opacity: .8;
+        }
+    }
+    &__social-name {
+        font-family: $secondary-font;
+        font-size: 1.2rem;
+        line-height: 1.15;
+        color: $gray-300;
+        font-weight: 400;
+        margin-right: 5px;
+        border-bottom: 1px solid $gray-300;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.webpay-form {
+    &__info {
+        max-width: 270px;
+        margin-top: 20px;
+    }
+}

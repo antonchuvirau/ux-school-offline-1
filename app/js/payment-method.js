@@ -11,7 +11,7 @@
         constructor(paymentMethodsContainer) {
             this._el = document.querySelector(paymentMethodsContainer);
             if (this._el) {
-                this.renderPaymentMethods(this._el, PAYMENY_METHODS_DATA);
+                this.renderPaymentMethods(this._el, PAYMENT_METHODS_DATA);
                 this._el.addEventListener(`click`, this.onPaymentMethodsClickHandler.bind(this));
             }
         }
