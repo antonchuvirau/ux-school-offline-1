@@ -488,6 +488,20 @@
         }
     }
 }
+.payment-options {
+    @include flex();
+    &_d {
+        &-vertical {
+            flex-direction: column;
+        }
+    }
+    &__item {
+        margin-bottom: 15px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
 //Media
 @media screen and (max-width: 991px) {
     .course-list {

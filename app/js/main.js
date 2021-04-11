@@ -970,6 +970,13 @@ document.addEventListener('click', (evt) => {
         selectCourseBox.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);
         selectCourseBox.closest(`.form__select`).classList.remove(`form__select_state-active`);
     }
+    // ERIP
+    if (target.matches(`input[name="installment-school"]`)) {
+        target.checked ? paymentInstance.updateEripPrice(false, false, true) : paymentInstance.updateEripPrice(false, false, false);
+    }
+    if (target.matches(`input[name="sale-school"]`)) {
+        target.checked ? paymentInstance.updateEripPrice(false, true, false) : paymentInstance.updateEripPrice(false, false, false);
+    }
 });
 
 jQuery('.modal').on('modal:open', onModalOpenHandler);

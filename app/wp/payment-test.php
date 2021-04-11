@@ -83,7 +83,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div class="erip-payment__wrapper">
 												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">0 BYN</span></div>
 												<div class="erip-payment__grid">
-													<div class="promocode">
+													<div class="promocode erip-payment__promocode">
 														<label class="toggle-checkbox">
 															<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
 															<div class="toggle-checkbox__element"></div>
@@ -96,7 +96,7 @@ $is_promocode = get_field('promocode_bool', 2);
 															<button type="button" class="promocode-input__btn">Применить</button>
 														</div>
 													</div>
-													<div class="payment-options erip-payment__options">
+													<div class="payment-options payment-options_d-vertical erip-payment__options">
 														<label class="checkbox payment-options__item">
 															<input type="checkbox" name="installment-school" class="checkbox__input">
 															<p class="checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>

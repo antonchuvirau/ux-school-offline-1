@@ -1,5 +1,10 @@
 'use strict';
 
+// Скидка 10%
+const SCHOOL_SALE_VALUE = .1;
+// Промокод
+const PROMOCODE_SALE_VALUE = 50;
+
 (function () {
     class Payment {
         _totalPrice;
@@ -73,7 +78,7 @@
                 case 4:
                 case 0:
                     if (isSale) {
-                        this.setTotalPrice(this.getSalePrice() - (this.getSalePrice() * .1));
+                        this.setTotalPrice(this.getSalePrice() - (this.getSalePrice() * SCHOOL_SALE_VALUE));
                         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
                         this.setSaleValue(10);
                     } else if (promocode) {
@@ -149,9 +154,19 @@
                 }
             }
         }
-        updateEripPrice(isSale = false, isInstallment = false) {
+        updateEripPrice(isPromocode = false, isSale = false, isInstallment = false) {
             const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
-            eripPaymentPriceElement.textContent = `${this.getSalePrice()} BYN`;
+            let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
+            if (isInstallment) {
+                eripPaymentPriceValue = `${this.getSalePrice() / 2} BYN x 2 месяца<span class="erip-payment__price-note">Второй платёж производится через месяц после осуществления первого платежа.</span>`;
+            }
+            if (isSale) {
+                eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE)} BYN`;
+            }
+            if (isPromocode) {
+                eripPaymentPriceValue = `${this.getSalePrice() - PROMOCODE_SALE_VALUE} BYN`;
+            }
+            eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
         }
     }
 

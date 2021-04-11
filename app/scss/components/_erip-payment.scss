@@ -65,6 +65,7 @@
         font-size: 1.7rem;
         line-height: 1.45;
         &-value {
+            position: relative;
             font-family: $font;
             font-size: 4rem;
             line-height: 1.25;
@@ -72,9 +73,44 @@
             font-weight: 800;
             color: $gray-900;
             margin-top: .075em;
+            &-old {
+                color: $gray-100;
+                text-decoration: line-through;
+            }
+        }
+        &-note {
+            font-family: $secondary-font;
+            position: absolute;
+            left: calc(100% + 20px);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            line-height: 1.25;
+            color: $gray-900;
+            padding: .625em 1.04em;
+            background: $primary-150;
+            border-radius: $br-erip-installment;
+            width: 261px;
+            letter-spacing: normal;
+            font-weight: 400;
+            &::before {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border: 5px solid transparent;
+                border-right-color: $primary-150;
+                right: 100%;
+                top: 50%;
+                margin-top: -5px;
+            }
         }
     }
     &__grid {
         margin-top: 25px;
+    }
+    &__promocode {
+        margin-bottom: 40px;
+        max-width: 370px;
     }
 }
