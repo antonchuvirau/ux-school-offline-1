@@ -10,7 +10,6 @@
         margin-top: 50px;
         &-wrapper {
             & p {
-                font-family: $se;
                 margin: 0;
                 letter-spacing: -.01em;
                 color: $gray-900;
@@ -31,6 +30,7 @@
                     margin-bottom: 0;
                 }
                 & li {
+                    font-family: $secondary-font;
                     font-size: 1.7rem;
                     line-height: 1.45;
                     color: $gray-900;
@@ -47,11 +47,34 @@
             max-height: 200px;
         }
         &-note {
+            font-family: $secondary-font;
             display: inline-block;
             font-size: 1.7rem;
             color: $gray-900;
             margin-top: .71em;
             line-height: 1.45;
         }
+    }
+    &__message {
+        margin-top: 30px;
+    }
+    &__price {
+        font-family: $secondary-font;
+        @include flex(column);
+        color: $gray-300;
+        font-size: 1.7rem;
+        line-height: 1.45;
+        &-value {
+            font-family: $font;
+            font-size: 4rem;
+            line-height: 1.25;
+            letter-spacing: -.03em;
+            font-weight: 800;
+            color: $gray-900;
+            margin-top: .075em;
+        }
+    }
+    &__grid {
+        margin-top: 25px;
     }
 }

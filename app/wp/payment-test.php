@@ -81,9 +81,31 @@ $is_promocode = get_field('promocode_bool', 2);
 										<div class="erip-payment payment-form__section-item">
 											<span class="payment-form__section-name">3. Как оплатить через ЕРИП</span>
 											<div class="erip-payment__wrapper">
-												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">790 BYN</span></div>
+												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">0 BYN</span></div>
 												<div class="erip-payment__grid">
-
+													<div class="promocode">
+														<label class="toggle-checkbox">
+															<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+															<div class="toggle-checkbox__element"></div>
+															<p class="toggle-checkbox__name">У меня есть промокод</p>
+														</label>
+														<div class="form__input promocode-input payment-form__input">
+															<input type="text" inputmode="text" name="promocode">
+															<span class="form__label">Промокод</span>
+															<span role="alert" class="form__error-label">Промокод не найден</span>
+															<button type="button" class="promocode-input__btn">Применить</button>
+														</div>
+													</div>
+													<div class="payment-options erip-payment__options">
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="installment-school" class="checkbox__input">
+															<p class="checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>
+														</label>
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="sale-school" class="checkbox__input">
+															<p class="checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
+														</label>
+													</div>
 												</div>
 												<p class="payment-message erip-payment__message">*Скидки не суммируются.<br/>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
 												<div class="erip-payment__content">

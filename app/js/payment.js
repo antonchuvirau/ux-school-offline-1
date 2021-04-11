@@ -149,6 +149,10 @@
                 }
             }
         }
+        updateEripPrice(isSale = false, isInstallment = false) {
+            const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
+            eripPaymentPriceElement.textContent = `${this.getSalePrice()} BYN`;
+        }
     }
 
     const paymentInstance = new Payment();

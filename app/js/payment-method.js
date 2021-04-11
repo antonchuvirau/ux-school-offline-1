@@ -22,9 +22,18 @@
 
             if (target.matches(`input`)) {
                 const paymentMethodIndex = +target.value;
+                const paymentMethodName = target.dataset.payment;
                 this.setPaymentMethodIndex(paymentMethodIndex);
                 utilsModule.removeClass(paymentSections, 'payment-section_state-active');
                 paymentSections[this._paymentMethodIndex].classList.add('payment-section_state-active');
+                // ERIP
+                if (paymentMethodName === `erip`) {
+                    paymentModule.updateEripPrice();
+                    jQuery('body, html').animate({
+                        scrollTop: jQuery('#payment-anchor').offset().top
+                    }, 800);
+                    return;
+                }
                 // Update prices
                 paymentModule.updatePrices(this._paymentMethodIndex);
                 paymentModule.changeInputPrice(this._paymentMethodIndex);
@@ -57,6 +66,7 @@
             const duplicatedPaymentMethodElement = paymentMethodTemplate.cloneNode(true);
 
             duplicatedPaymentMethodElement.querySelector(`input`).value = data.id;
+            duplicatedPaymentMethodElement.querySelector(`input`).setAttribute(`data-payment`, data.name);
             duplicatedPaymentMethodElement.querySelector(`.payment-item__name`).textContent = data.title;
             data.checked ? duplicatedPaymentMethodElement.querySelector(`input`).checked = true : null;
 
