@@ -33,11 +33,14 @@
             }
             if (target.matches(`li`)) {
                 const paymentSections = document.querySelectorAll(`.payment-section`);
+                // RESET PAYMENT'S OPTIONS
                 const paymentMethodInputCollection = document.querySelectorAll(`.payment-item__input`);
-                for (const paymentMethodInput of paymentMethodInputCollection) {
-                    paymentMethodInput.checked = false;
+                if (paymentMethodInputCollection.length) {
+                    for (const paymentMethodInput of paymentMethodInputCollection) {
+                        paymentMethodInput.checked = false;
+                    }
+                    utilsModule.removeClass(paymentSections, `payment-section_state-active`);
                 }
-                utilsModule.removeClass(paymentSections, `payment-section_state-active`);
                 // const paymentLevel = +target.dataset.paymentLevel;
                 const partialPayment = target.dataset.partialPayment;
                 const paymentButton = this._el.querySelector(`.ums-select__btn`);

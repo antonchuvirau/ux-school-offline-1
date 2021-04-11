@@ -114,3 +114,52 @@
         max-width: 370px;
     }
 }
+
+// MEDIA
+@media screen and (max-width: 767px) {
+    .erip-payment {
+        &__wrapper {
+            padding: 15px;
+            padding-bottom: 30px;
+        }
+        &__content {
+            flex-direction: column;
+            align-items: stretch;
+            &-wrapper {
+                & p {
+                    font-size: 1.7rem;
+                    line-height: 1.45;
+                }
+                & ul, ol {
+                    & li {
+                        font-size: 1.5rem;
+                        line-height: 1.35;
+                    }
+                }
+            }
+        }
+        &__qr-code {
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+        &__price {
+            &-value {
+                width: 100%;
+                font-size: 2.8rem;
+                line-height: 1.25;
+            }
+            &-note {
+                display: block;
+                position: relative;
+                width: 100%;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-top: 15px;
+                &::before {
+                    content: none;
+                }
+            }
+        }
+    }
+}

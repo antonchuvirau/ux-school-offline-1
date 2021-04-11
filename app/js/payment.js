@@ -156,17 +156,19 @@ const PROMOCODE_SALE_VALUE = 50;
         }
         updateEripPrice(isPromocode = false, isSale = false, isInstallment = false) {
             const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
-            let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
-            if (isInstallment) {
-                eripPaymentPriceValue = `${this.getSalePrice() / 2} BYN x 2 месяца<span class="erip-payment__price-note">Второй платёж производится через месяц после осуществления первого платежа.</span>`;
+            if (eripPaymentPriceElement) {
+                let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
+                if (isInstallment) {
+                    eripPaymentPriceValue = `${this.getSalePrice() / 2} BYN x 2 месяца<span class="erip-payment__price-note">Второй платёж производится через месяц после&nbsp;осуществления&nbsp;первого&nbsp;платежа.</span>`;
+                }
+                if (isSale) {
+                    eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE)} BYN`;
+                }
+                if (isPromocode) {
+                    eripPaymentPriceValue = `${this.getSalePrice() - PROMOCODE_SALE_VALUE} BYN`;
+                }
+                eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
             }
-            if (isSale) {
-                eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE)} BYN`;
-            }
-            if (isPromocode) {
-                eripPaymentPriceValue = `${this.getSalePrice() - PROMOCODE_SALE_VALUE} BYN`;
-            }
-            eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
         }
     }
 

@@ -502,10 +502,21 @@
         }
     }
 }
-//Media
+// MEDIA
 @media screen and (max-width: 991px) {
     .course-list {
         position: relative;
         z-index: 2;
+    }
+}
+@media screen and (max-width: 767px) {
+    .payment-options {
+        &__item {
+            .checkbox {
+                &__name {
+                    text-align: left;
+                }
+            }
+        }
     }
 }
