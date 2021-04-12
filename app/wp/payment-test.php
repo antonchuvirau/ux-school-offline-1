@@ -29,6 +29,7 @@ $is_promocode = get_field('promocode_bool', 2);
 				</div>
 				<div class="pages-template__grid">
 					<h1 class="title title_style-dark template__title payment-page__title">Оплатить курс</h1>
+					<?php if ( is_user_logged_in() ): ?>
 					<div class="row">
 						<div class="col-12 col-lg-9">
 							<div class="form payment-form">
@@ -103,11 +104,11 @@ $is_promocode = get_field('promocode_bool', 2);
 														</label>
 														<label class="checkbox payment-options__item">
 															<input type="checkbox" name="sale-school" class="checkbox__input">
-															<p class="checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
+															<p class="checkbox__name">Скидка 10%: студентам-очник ВУЗов и выпускникам UX Mind School</p>
 														</label>
 													</div>
 												</div>
-												<p class="payment-message erip-payment__message">*Скидки не суммируются.<br/>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
+												<p class="payment-message erip-payment__message">*Скидки по акциям и промокодам не суммируются.<br/>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
 												<div class="erip-payment__content">
 													<div class="erip-payment__content-wrapper">
 														<p>Как найти нас в ЕРИП:</p>
@@ -176,7 +177,7 @@ $is_promocode = get_field('promocode_bool', 2);
 									<!-- BEGIN ONLINE PAYMENT -->
 									<section class="payment-form__section payment-section">
 										<div class="form webpay-form payment-form__section-item">
-											<p class="payment-form__section-name">3. Введите ваши данные</p>
+											<p class="payment-form__section-name">3. Свяжитесь с нами</p>
 											<div class="payment-form__section-grid">
 												<p class="webpay-form__note">Свяжитесь с нами и мы предложим вам удобный вариант оплаты картой</p>
 												<div class="card-payment-info webpay-form__info">
@@ -191,6 +192,7 @@ $is_promocode = get_field('promocode_bool', 2);
 							</div>
 						</div>
 					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

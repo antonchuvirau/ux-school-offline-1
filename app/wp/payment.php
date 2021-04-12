@@ -135,7 +135,7 @@ $is_promocode = get_field('promocode_bool', 2);
 								</section>
 								<section class="payment-form__section payment-section">
 									<div class="form webpay-form payment-form__section-item">
-										<p class="payment-form__section-name">3. Введите ваши данные</p>
+										<p class="payment-form__section-name">3. Свяжитесь с нами</p>
 										<div class="payment-form__section-grid">
 											<p class="webpay-form__note">Свяжитесь с нами и мы предложим вам удобный вариант оплаты картой</p>
 											<div class="card-payment-info webpay-form__info">

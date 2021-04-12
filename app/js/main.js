@@ -1000,6 +1000,7 @@ document.addEventListener('click', (evt) => {
     if (target.matches(`input[name="sale-school"]`)) {
         const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
         document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
+        document.querySelector(`.erip-payment__message`).classList.toggle(`payment-message_active`);
         if (target.checked) {
             if (eripPaymentInstallmentField.checked) {
                 paymentInstance.updateEripPrice(false, true, true);
