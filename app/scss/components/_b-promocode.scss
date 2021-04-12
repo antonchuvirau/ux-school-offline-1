@@ -1,0 +1,44 @@
+.b-promocode {
+    &__button {
+        position: absolute;
+        left: calc(100% + 5px);
+        height: 100%;
+        top: 0;
+        right: auto;
+        color: $white;
+        font-weight: 600;
+        &:hover {
+            color: $white;
+            opacity: .8;
+        }
+    }
+    &__input {
+        max-width: 220px;
+        &-field {
+            max-width: 220px;
+        }
+    }
+    &_disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .b-promocode {
+        &__input {
+            max-width: 100%;
+            margin-bottom: 105px;
+            &-field {
+                max-width: 100%;
+            }
+        }
+        &__button {
+            height: 50px;
+            width: 100%;
+            top: calc(100% + 15px);
+            left: 0;
+            right: auto;
+        }
+    }
+}

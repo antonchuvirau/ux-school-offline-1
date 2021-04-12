@@ -24,10 +24,11 @@
             if (this._el) {
                 this._el.addEventListener('click', evt => {
                     const target = evt.target;
+                    const paymentType = target.closest(`.promocode`).querySelector(`input[name="promocode"]`).dataset.payment;
 
                     if (target.matches('input[name="promocode-toggle"]')) {
                         const promocodeInputElement = this._el.querySelector('.promocode-input');
-                        target.value = '';
+                        target.closest(`.promocode`).querySelector(`input[name="promocode"]`).value = '';
                         promocodeInputElement.classList.remove(this._promocodeClasses.success);
                         promocodeInputElement.classList.remove(this._promocodeClasses.error);
                         promocodeInputElement.classList.toggle(this._promocodeClasses.active);
@@ -43,6 +44,17 @@
                             }
                             paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
                         }
+                        if (paymentType && paymentType === `erip`) {
+                            const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`).parentElement;
+                            const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
+                            eripPaymentSaleField.classList.toggle(`checkbox_disabled`);
+                            if (eripPaymentInstallmentField.checked) {
+                                paymentInstance.updateEripPrice(false, false, true);
+                            }
+                            else {
+                                paymentInstance.updateEripPrice();
+                            }
+                        }
                     }
                     if (target.matches('button')) {
                         const defaultButtonText = target.textContent;
@@ -57,16 +69,38 @@
                             if (data.length) {
                                 const modifiedData = inputValue.replace(/\s+/gi, '').toUpperCase();
                                 const result = data.find((item) => item.name.toUpperCase() === modifiedData);
-                                console.log(result);
                                 if (result) {
-                                    paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, true);
+                                    if (paymentType && paymentType === `erip`) {
+                                        const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
+                                        if (eripPaymentInstallmentField.checked) {
+                                            paymentInstance.updateEripPrice(true, false, true);
+                                        }
+                                        else {
+                                            paymentInstance.updateEripPrice(true);
+                                        }
+                                    }
+                                    else {
+                                        paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, true);
+                                    }
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'success');
                                 } else {
                                     this.showMessage(this._el.querySelector('.promocode-input'), 'error');
+                                    // if (paymentType && paymentType === `erip`) {
+                                    //     paymentInstance.updateEripPrice();
+                                    // }
+                                    // else {
+                                    //     paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
+                                    // }
                                     paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
                                 }
                             } else {
                                 this.showMessage(this._el.querySelector('.promocode-input'), 'error');
+                                // if (paymentType && paymentType === `erip`) {
+                                //     paymentInstance.updateEripPrice();
+                                // }
+                                // else {
+                                //     paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
+                                // }
                                 paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
                             }
                         });

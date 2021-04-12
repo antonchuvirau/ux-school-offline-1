@@ -2,6 +2,10 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
+    &_disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
     &__input {
         position: absolute;
         width: 0;

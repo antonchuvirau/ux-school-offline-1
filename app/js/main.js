@@ -972,10 +972,50 @@ document.addEventListener('click', (evt) => {
     }
     // ERIP
     if (target.matches(`input[name="installment-school"]`)) {
-        target.checked ? paymentInstance.updateEripPrice(false, false, true) : paymentInstance.updateEripPrice(false, false, false);
+        const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`);
+        const eripPaymentPromocodeField = document.querySelector(`input[name="promocode-toggle"]`);
+        if (target.checked) {
+            if (eripPaymentSaleField.checked) {
+                paymentInstance.updateEripPrice(false, true, true);
+            }
+            else if (eripPaymentPromocodeField.checked) {
+                paymentInstance.updateEripPrice(true, false, true);
+            }
+            else {
+                paymentInstance.updateEripPrice(false, false, true)
+            }
+        }
+        else {
+            if (eripPaymentSaleField.checked) {
+                paymentInstance.updateEripPrice(false, true, false);
+            }
+            else if (eripPaymentPromocodeField.checked) {
+                paymentInstance.updateEripPrice(true, false, false);
+            }
+            else {
+                paymentInstance.updateEripPrice(false, false, false);
+            }
+        }
     }
     if (target.matches(`input[name="sale-school"]`)) {
-        target.checked ? paymentInstance.updateEripPrice(false, true, false) : paymentInstance.updateEripPrice(false, false, false);
+        const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
+        document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
+        if (target.checked) {
+            if (eripPaymentInstallmentField.checked) {
+                paymentInstance.updateEripPrice(false, true, true);
+            }
+            else {
+                paymentInstance.updateEripPrice(false, true, false)
+            }
+        }
+        else {
+            if (eripPaymentInstallmentField.checked) {
+                paymentInstance.updateEripPrice(false, false, true);
+            }
+            else {
+                paymentInstance.updateEripPrice(false, false, false);
+            }
+        }
     }
 });
 

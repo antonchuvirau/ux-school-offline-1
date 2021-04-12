@@ -83,17 +83,17 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div class="erip-payment__wrapper">
 												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">0 BYN</span></div>
 												<div class="erip-payment__grid">
-													<div class="promocode erip-payment__promocode">
-														<label class="toggle-checkbox">
+													<div class="promocode b-promocode erip-payment__promocode">
+														<label class="toggle-checkbox b-promocode__toggle-button">
 															<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
 															<div class="toggle-checkbox__element"></div>
 															<p class="toggle-checkbox__name">У меня есть промокод</p>
 														</label>
-														<div class="form__input promocode-input payment-form__input">
-															<input type="text" inputmode="text" name="promocode">
+														<div class="form__input promocode-input payment-form__input b-promocode__input">
+															<input data-payment="erip" type="text" class="b-promocode__input-field" inputmode="text" name="promocode">
 															<span class="form__label">Промокод</span>
 															<span role="alert" class="form__error-label">Промокод не найден</span>
-															<button type="button" class="promocode-input__btn">Применить</button>
+															<button type="button" class="btn promocode-input__btn b-promocode__button">Применить</button>
 														</div>
 													</div>
 													<div class="payment-options payment-options_d-vertical erip-payment__options">
