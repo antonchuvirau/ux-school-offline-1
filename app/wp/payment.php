@@ -75,79 +75,119 @@ $is_promocode = get_field('promocode_bool', 2);
 									<div class="payment-form__section-grid payment-form__section-options payment-methods"></div>
 								</section>
 								<div id="payment-anchor"></div>
-								<section class="webpay-form payment-section payment-form__section">
-									<p class="payment-form__section-name">3. Как оплатить через ЕРИП</p>
-									<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a>
-									</p>
-									<div class="erip__grid">
-										<div class="erip__info">
-											<p>Как найти нас в ЕРИП:</p>
-											<ul>
-												<li>Пункт Система «Расчет» (ЕРИП)</li>
-												<li>Образование и развитие</li>
-												<li>Дополнительное образование&nbsp;и&nbsp;развитие</li>
-												<li>Тренинги, семинары, консультации</li>
-												<li>Минск</li>
-												<li>ИП Колесень И.Г.</li>
-												<li>Посещение занятий</li>
-												<li>Ввести ФИО ученика и&nbsp;сумму&nbsp;для&nbsp;оплаты</li>
-											</ul>
-										</div>
-									</div>
-								</section>
-								<section class="payment-form__section payment-section">
-									<div class="form webpay-form payment-form__section-item">
-										<p class="payment-form__section-name">3. Введите ваши данные</p>
-										<div class="payment-form__section-grid">
-											<div class="webpay-form__item">
-												<p class="halva-payment__text">Халва MIX рассрочка 2 мес.<br>Халва MAX рассрочка 2 мес. + 2 мес. от Банка = 4 мес. (с возможностью продления до 9 мес.)<br>Подробности на сайте <a class="link" href="https://www.mtbank.by/private/cards/mixmax-cards" rel="noopener noreferrer" target="_blank">МТБанка</a></p>
-											</div>
-											<div class="webpay-form__item">
-												<div class="form__input payment-form__input">
-													<input type="text" required name="wsb_customer_name">
-													<span class="form__label">Имя и фамилия ученика</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+								<div class="payment-form__content payment-form-list">
+									<!-- BEGIN ERIP -->
+									<section class="payment-section payment-form__section">
+										<div class="erip-payment payment-form__section-item">
+											<span class="payment-form__section-name">3. Как оплатить через ЕРИП</span>
+											<div class="erip-payment__wrapper">
+												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">0 BYN</span></div>
+												<div class="erip-payment__grid">
+													<div class="promocode b-promocode erip-payment__promocode">
+														<label class="toggle-checkbox b-promocode__toggle-button">
+															<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+															<div class="toggle-checkbox__element"></div>
+															<p class="toggle-checkbox__name">У меня есть промокод</p>
+														</label>
+														<div class="form__input promocode-input payment-form__input b-promocode__input">
+															<input data-payment="erip" type="text" class="b-promocode__input-field" inputmode="text" name="promocode">
+															<span class="form__label">Промокод</span>
+															<span role="alert" class="form__error-label">Промокод не найден</span>
+															<button type="button" class="btn promocode-input__btn b-promocode__button">Применить</button>
+														</div>
+													</div>
+													<div class="payment-options payment-options_d-vertical erip-payment__options">
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="installment-school" class="checkbox__input">
+															<p class="checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>
+														</label>
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="sale-school" class="checkbox__input">
+															<p class="checkbox__name">Скидка 10%: студентам-очник ВУЗов и выпускникам UX Mind School</p>
+														</label>
+													</div>
+												</div>
+												<p class="payment-message erip-payment__message"><span class="erip-payment__message-note">*Скидки по акциям и промокодам не суммируются.</span>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
+												<div class="erip-payment__content">
+													<div class="erip-payment__content-wrapper">
+														<p>Как найти нас в ЕРИП:</p>
+														<ul>
+															<li>1. Пункт "Система "Расчет" (ЕРИП)</li>
+															<li>2. Образование и развитие</li>
+															<li>3. Дополнительное образование и развитие</li>
+															<li>4. Тренинги, семинары, консультации</li>
+															<li>5. Минск</li>
+															<li>6. ИП Колесень И.Г.</li>
+															<li>7. Посещение занятий</li>
+															<li>8. Ввести ФИО ученика и сумму для оплаты</li>
+														</ul>
+													</div>
+													<figure class="erip-payment__qr-code">
+														<img class="erip-payment__qr-code-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/qr-code.svg" alt="UX Mind School - оплата курсов с помощью ЕРИП">
+														<figcaption class="erip-payment__qr-code-note">Код услуги: 4725501</figcaption>
+													</figure>
 												</div>
 											</div>
-											<div class="webpay-form__item">
-												<div class="form__input payment-form__input currency-input-wrapper">
-													<input type="text" readonly required name="wsb_total" value="">
-													<span class="form__label">Сумма для оплаты</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
-													<div class="ums-currency form__ums-currency"></div>
+										</div>
+									</section>
+									<!-- END ERIP -->
+									<!-- BEGIN HALVA -->
+									<section class="payment-form__section payment-section">
+										<div class="form webpay-form payment-form__section-item">
+											<p class="payment-form__section-name">3. Введите ваши данные</p>
+											<div class="payment-form__section-grid">
+												<div class="webpay-form__item">
+													<p class="halva-payment__text">Халва MIX рассрочка 2 мес.<br>Халва MAX рассрочка 2 мес. + 2 мес. от Банка = 4 мес. (с возможностью продления до 9 мес.)<br>Подробности на сайте <a class="link" href="https://www.mtbank.by/private/cards/mixmax-cards" rel="noopener noreferrer" target="_blank">МТБанка</a></p>
+												</div>
+												<div class="webpay-form__item">
+													<div class="form__input payment-form__input">
+														<input type="text" required name="wsb_customer_name">
+														<span class="form__label">Имя и фамилия ученика</span>
+														<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+													</div>
+												</div>
+												<div class="webpay-form__item">
+													<div class="form__input payment-form__input currency-input-wrapper">
+														<input type="text" readonly required name="wsb_total" value="">
+														<span class="form__label">Сумма для оплаты</span>
+														<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+														<div class="ums-currency form__ums-currency"></div>
+													</div>
+												</div>
+												<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a></p>
+												<button data-payment-method="bepaid" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
+											</div>
+										</div>
+									</section>
+									<!-- END HALVA -->
+									<!-- BEGIN BANK PAYMENT -->
+									<section class="payment-form__section payment-section bank-payment">
+										<p class="payment-form__section-name">3. Как оплатить в отделении банка</p>
+										<ul class="bank-payment__desc">
+											<li>Передайте операционисту в банке реквизиты нашей компании (ниже)</li>
+											<li>Укажите наименование услуги «Оплата за обучающие курсы»</li>
+											<li>Назовите сумму оплаты и ваше ФИО</li>
+											<li>После оплаты, отправьте пожалуйста копию квитанции на ящик <a class="link" href="mailto:hello@ux-school.by">hello@ux-school.by</a></li>
+										</ul>
+										<p class="payment-form__section-name">Реквизиты для оплаты:</p>
+										<p class="bank-payment__content">Индивидуальный предприниматель Колесень Игорь Геннадьевич</br>УНП 190602238</br>Р/С BY03ALFA30132172600080270000</br>в ЗАО «АЛЬФА-БАНК» БИК ALFABY2X г. Минск, пр-т Независимости 177</p>
+									</section>
+									<!-- END BANK PAYMENT -->
+									<!-- BEGIN ONLINE PAYMENT -->
+									<section class="payment-form__section payment-section">
+										<div class="form webpay-form payment-form__section-item">
+											<p class="payment-form__section-name">3. Свяжитесь с нами</p>
+											<div class="payment-form__section-grid">
+												<p class="webpay-form__note">Свяжитесь с нами и мы предложим вам удобный вариант оплаты картой</p>
+												<div class="card-payment-info webpay-form__info">
+													<a href="tel:+375298630657" class="card-payment-info__link">+375 (29) 863-06-57<br/><span class="card-payment-info__social-name">Telegram,</span><span class="card-payment-info__social-name">WhatsApp,</span><span class="card-payment-info__social-name">Viber</spam></a>
+													<a class="card-payment-info__link" href="mailto:hello@ux-school.by">hello@ux-school.by</a>
 												</div>
 											</div>
-											<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a></p>
-											<button data-payment-method="bepaid" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
 										</div>
-									</div>
-								</section>
-								<section class="payment-form__section payment-section bank-payment">
-									<p class="payment-form__section-name">3. Как оплатить в отделении банка</p>
-									<ul class="bank-payment__desc">
-										<li>Передайте операционисту в банке реквизиты нашей компании (ниже)</li>
-										<li>Укажите наименование услуги «Оплата за обучающие курсы»</li>
-										<li>Назовите сумму оплаты и ваше ФИО</li>
-										<li>После оплаты, отправьте пожалуйста копию квитанции на ящик <a class="link" href="mailto:hello@ux-school.by">hello@ux-school.by</a></li>
-									</ul>
-									<p class="payment-form__section-name">Реквизиты для оплаты:</p>
-									<p class="bank-payment__content">Индивидуальный предприниматель Колесень Игорь Геннадьевич</br>УНП 190602238</br>Р/С BY03ALFA30132172600080270000</br>в ЗАО «АЛЬФА-БАНК» БИК ALFABY2X г. Минск, пр-т Независимости 177</p>
-								</section>
-								<section class="payment-form__section payment-section">
-									<div class="form webpay-form payment-form__section-item">
-										<p class="payment-form__section-name">3. Свяжитесь с нами</p>
-										<div class="payment-form__section-grid">
-											<p class="webpay-form__note">Свяжитесь с нами и мы предложим вам удобный вариант оплаты картой</p>
-											<div class="card-payment-info webpay-form__info">
-												<a href="tel:+375298630657" class="card-payment-info__link">
-													+375 (29) 863-06-57<br/>
-													<span class="card-payment-info__social-name">Telegram,</span><span class="card-payment-info__social-name">WhatsApp,</span><span class="card-payment-info__social-name">Viber</spam>
-												</a>
-												<a class="card-payment-info__link" href="mailto:hello@ux-school.by">hello@ux-school.by</a>
-											</div>
-										</div>
-									</div>
-								</section>
+									</section>
+									<!-- END ONLINE PAYMENT -->
+								</div>
 							</div>
 						</div>
 					</div>

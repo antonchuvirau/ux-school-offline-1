@@ -29,7 +29,6 @@ $is_promocode = get_field('promocode_bool', 2);
 				</div>
 				<div class="pages-template__grid">
 					<h1 class="title title_style-dark template__title payment-page__title">Оплатить курс</h1>
-					<?php if ( is_user_logged_in() ): ?>
 					<div class="row">
 						<div class="col-12 col-lg-9">
 							<div class="form payment-form">
@@ -108,7 +107,7 @@ $is_promocode = get_field('promocode_bool', 2);
 														</label>
 													</div>
 												</div>
-												<p class="payment-message erip-payment__message">*Скидки по акциям и промокодам не суммируются.<br/>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
+												<p class="payment-message erip-payment__message"><span class="erip-payment__message-note">*Скидки по акциям и промокодам не суммируются.</span>После внесения платежа, отправьте копию квитанции на <a href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
 												<div class="erip-payment__content">
 													<div class="erip-payment__content-wrapper">
 														<p>Как найти нас в ЕРИП:</p>
@@ -192,7 +191,6 @@ $is_promocode = get_field('promocode_bool', 2);
 							</div>
 						</div>
 					</div>
-					<?php endif; ?>
 				</div>
 			</div>
 		</div>

@@ -56,9 +56,9 @@
         }
     }
     &__message {
-        display: none;
         margin-top: 30px;
-        &.payment-message {
+        &-note {
+            display: none;
             &_active {
                 display: block;
             }

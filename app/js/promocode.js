@@ -47,7 +47,7 @@
                         if (paymentType && paymentType === `erip`) {
                             const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`).parentElement;
                             const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
-                            document.querySelector(`.erip-payment__message`).classList.toggle(`payment-message_active`);
+                            document.querySelector(`.erip-payment__message-note`).classList.toggle(`erip-payment__message-note_active`);
                             eripPaymentSaleField.classList.toggle(`checkbox_disabled`);
                             if (eripPaymentInstallmentField.checked) {
                                 paymentInstance.updateEripPrice(false, false, true);

@@ -174,7 +174,9 @@ const PROMOCODE_SALE_VALUE = 50;
                 else if (isPromocode) {
                     eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() - PROMOCODE_SALE_VALUE} BYN`;
                 }
-                eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
+                if (this.getSalePrice()) {
+                    eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
+                }
             }
         }
     }
