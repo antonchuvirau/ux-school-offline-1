@@ -500,6 +500,15 @@
         &:last-child {
             margin-bottom: 0;
         }
+        & .checkbox {
+            &__name {
+                padding-left: 30px;
+                &::before {
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
     }
 }
 // MEDIA
