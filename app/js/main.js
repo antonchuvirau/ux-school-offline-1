@@ -1018,6 +1018,24 @@ document.addEventListener('click', (evt) => {
             }
         }
     }
+    if (target.matches(`.installment-button`)) {
+        // const requestData = new FormData();
+        // requestData.set(`action`, `installment`);
+        // const request = fetch(ajax.url, {
+        //     method: `POST`,
+        //     credentials: `same-origin`,
+        //     body: requestData
+        // });
+        // request.then(resp => resp.text()).then(data => {
+        //     console.log(data);
+        // }).catch(error => alert(error));
+        const requestData = {
+            action: 'installment'
+        };
+        jQuery.when(utils.ajaxRequest(requestData)).then(data => {
+            console.log(data);
+        }, error => console.log(new Error(error)))
+    }
 });
 
 jQuery('.modal').on('modal:open', onModalOpenHandler);

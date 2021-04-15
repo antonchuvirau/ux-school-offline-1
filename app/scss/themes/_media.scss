@@ -324,7 +324,6 @@
             opacity: 1;
         }
     }
-
     .course-list {
         &__grid {
             &::before {
@@ -335,7 +334,6 @@
             }
         }
     }
-
     .section {
         &__title {
             margin-bottom: 20px;
@@ -358,7 +356,6 @@
             }
         }
     }
-
     .certificates-page {
         &__calculation {
             margin-top: 45px;
@@ -372,7 +369,6 @@
             margin-top: 20px;
         }
     }
-
     .event-modal {
         &__title {
             font-size: 3rem;
@@ -392,7 +388,6 @@
             }
         }
     }
-
     .home-template {
         &__wrapper {
             padding-top: 90px;
@@ -411,11 +406,9 @@
             padding-bottom: 60px;
         }
     }
-
     .title {
         font-size: 3.5rem;
     }
-
     .about {
         overflow: hidden;
         &-course {
@@ -465,7 +458,6 @@
             }
         }
     }
-
     .header {
         &__select {
             display: none;
@@ -484,7 +476,6 @@
             }
         }
     }
-
     .template {
         &__advantages {
             margin-top: 65px;
@@ -493,7 +484,6 @@
             margin-bottom: 15px;
         }
     }
-
     .advantages {
         &__col {
             margin-bottom: 20px;
@@ -510,7 +500,6 @@
             padding-left: 0;
         }
     }
-
     .certificate {
         &__text {
             position: relative;
@@ -525,14 +514,12 @@
             text-align: center;
         }
     }
-
     .portfolio {
         padding-top: 40px;
         &__item {
             height: 40vw;
         }
     }
-
     .portfolio-item {
         &__meta {
             padding: 30px 15px;
@@ -541,11 +528,9 @@
             font-size: 2rem;
         }
     }
-
     .we {
         padding-top: 100px;
     }
-
     .footer {
         background: image('ums-footer.svg') no-repeat 50% / cover;
         &__top {
@@ -634,18 +619,15 @@
             }
         }
     }
-
     .company-info {
         max-width: 330px;
         margin: 0 auto;
         margin-bottom: 20px;
     }
-
     .google-testimonials {
         max-width: none;
         width: 100%;
     }
-
     .testimonial-item {
         &__text {
             & p {
@@ -677,7 +659,6 @@
             width: 100%;
         }
     }
-
     .play-button {
         &__icon {
             width: 60px;
@@ -691,7 +672,6 @@
             margin-top: 5px;
         }
     }
-
     .testimonials {
         &__btn {
             top: 215px;
@@ -730,7 +710,6 @@
             max-width: calc(100% - 30px);
         }
     }
-
     .social-testimonials {
         @include flex(column, center);
         padding: 30px;
@@ -762,13 +741,11 @@
             margin-left: -7.5px;
         }
     }
-
     .we {
         &__btn {
             display: none;
         }
     }
-
     .menu {
         &__link {
             color: $white;
@@ -782,14 +759,12 @@
             }
         }
     }
-
     .pages-template {
         padding-bottom: 100px;
         &__grid {
             padding-top: 15px;
         }
     }
-
     .contact-page {
         padding-bottom: 0;
         &__map {
@@ -826,7 +801,6 @@
             margin-top: 35px;
         }
     }
-
     .form {
         &__group {
             flex-direction: column;
@@ -855,7 +829,6 @@
             margin-top: 25px;
         }
     }
-
     .modal {
         padding: 20px;
         padding-bottom: 30px;
@@ -881,7 +854,6 @@
             margin-top: 50px;
         }
     }
-    
     .category-template {
         &__wrapper {
             padding-top: 80px;
@@ -889,7 +861,6 @@
             overflow: hidden;
         }
     }
-
     .help-section {
         padding: 100px 0;
         padding-top: 60px;
@@ -900,7 +871,6 @@
             margin-top: 20px;
         }
     }
-
     .help-form {
         flex-direction: column;
         align-items: stretch;
@@ -910,7 +880,6 @@
             max-width: none;
         }
     }
-
     .payment-form {
         &__section {
             margin-bottom: 45px;
@@ -924,8 +893,13 @@
                 margin-bottom: 0;
             }
         }
+        &__select {
+            &::after {
+                height: 20px;
+                top: 20px;
+            }
+        }
     }
-
     .payment-item {
         width: 100%;
         &:nth-child(n) {
@@ -940,7 +914,6 @@
             padding: 0 50px;
         }
     }
-
     .erip {
         &__code {
             display: none;
@@ -949,7 +922,6 @@
             margin-left: 0;
         }
     }
-
     .webpay-form {
         &__sale-checkbox {
             & .checkbox {
@@ -982,11 +954,9 @@
             }
         }
     }
-
     .payment-section {
         margin: 0;
     }
-
     .course-template {
         &__wrapper {
             @include flex(column, stretch);
@@ -1000,7 +970,6 @@
             padding-bottom: 100px;
         }
     }
-
     .course-info {
         &__item {
             flex-direction: column;
@@ -1035,7 +1004,6 @@
             flex-direction: column;
         }
     }
-
     .course-btn {
         width: 100%;
         margin: 0;
@@ -1044,7 +1012,6 @@
             margin-bottom: 0;
         }
     }
-
     .student-info {
         position: relative;
         top: auto;
@@ -1078,7 +1045,6 @@
             }
         }
     }
-
     .for-whom {
         margin-top: 65px;
         padding-top: 50px;
@@ -1138,7 +1104,6 @@
             margin-bottom: 25px;
         }
     }
-
     .program {
         padding: 100px 0;
         padding-bottom: 50px;
@@ -1149,7 +1114,6 @@
             height: 480px;
         }
     }
-
     .content-list {
         border-radius: 0;
         background: transparent;
@@ -1184,7 +1148,6 @@
             }
         }
     }
-
     .process {
         padding-bottom: 50px;
         &__name {
@@ -1209,7 +1172,6 @@
             margin-bottom: 20px;
         }
     }
-
     .results {
         padding: 100px 0;
         &__title {
@@ -1223,7 +1185,6 @@
             }
         }
     }
-
     .faq {
         padding: 100px 0;
         &__title {
@@ -1237,7 +1198,6 @@
             margin-top: 5px;
         }
     }
-
     .lecturer-modal {
         &__img {
             @include flex(row, center, flex-start, wrap);
@@ -1267,32 +1227,27 @@
             margin-top: 15px;
         }
     }
-
     .free-start-modal {
         padding-top: 40px;
         &__title {
             font-weight: normal;
         }
     }
-
     .order-process {
         &__title {
             margin-bottom: 15px;
         }
     }
-
     .map-modal {
         padding: 0;
         height: 100vw;
         max-height: calc(100% - 100px);
     }
-
     .video-modal {
         padding: 0;
         height: 100vw;
         max-height: calc(100% - 100px);
     }
-
     .course-gallery {
         &__btn {
             &-next {
@@ -1303,7 +1258,6 @@
             }
         }
     }
-
     .dropdown-course-info {
         &__item {
             margin-bottom: 20px;
@@ -1317,11 +1271,9 @@
             height: 4rem;
         }
     }
-
     .f-lecturers-page__grid {
         padding-top: 30px;
     }
-
     .success-payment-page {
         padding-bottom: 0;
         &__info-title {
@@ -1330,16 +1282,13 @@
             bottom: auto;
         }
     }
-
     .blog-section__title {
         margin-bottom: 0;
     }
-
     .blog-item__title {
         font-size: 1.7rem;
         line-height: 1.47;
     }
-
     .single-template {
         &__content {
             & p {
@@ -1371,7 +1320,6 @@
             }
         }
     }
-
     .post-item {
         &__img {
             max-width: 350px;
@@ -1380,7 +1328,6 @@
             font-size: 2.3rem;
         }
     }
-
     .ajax-lecturer-modal {
         & .lecturer-modal {
             &__grid {
@@ -1389,7 +1336,6 @@
             }
         }
     }
-
     .test-form {
         &__section {
             &-title {
@@ -1440,7 +1386,6 @@
             }
         }
     }
-
     .we {
         &__btn {
             &-prev {
@@ -1470,23 +1415,19 @@
             }
         }
     }
-
     .home-template {
         &__title {
             max-width: 380px;
         }
     }
-
     .title {
         font-size: 2.8rem;
     }
-
     .course-list {
         &__row {
             width: 100%;
         }
     }
-
     .course-list-item {
         &__meta {
             &-item {
@@ -1499,13 +1440,11 @@
             }
         }
     }
-
     .contact-page {
         &__map {
             height: 420px;
         }
     }
-
     .course-gallery {
         &__btn {
             &-next {
@@ -1516,7 +1455,6 @@
             }
         }
     }
-
     .form {
         &__list {
             @include flex(column, flex-start);
@@ -1544,7 +1482,6 @@
             }
         }
     }
-
     .ums-select {
         &__list {
             position: relative;
@@ -1557,16 +1494,24 @@
                     display: block;
                 }
             }
-        }
-        &__btn {
-            &_state {
-                &-active {
-                    height: 50px;
+            &-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 0 15px;
+                height: 55px;
+                font-size: 1.5rem;
+                & span {
+                    display: block;
+                    margin-left: 0;
                 }
             }
         }
+        &__btn {
+            font-size: 1.5rem;
+            height: 55px;
+        }
     }
-
     .about-page {
         &__excerpt {
             font-size: 1.6rem;
@@ -1605,19 +1550,16 @@
             }
         }
     }
-
     .page-navigation {
         &__link {
             font-size: 1.5rem;
         }
     }
-
     .inner-carousel {
         &__btn {
             display: none;
         }
     }
-
     .team {
         &__item {
             width: 50%;
@@ -1639,7 +1581,6 @@
             }
         }
     }
-
     .f-lecturers-page {
         &__content {
             & p {
@@ -1650,7 +1591,6 @@
             }
         }
     }
-
     .email-help {
         &__grid {
             &-item {
@@ -1663,7 +1603,6 @@
             }
         }
     }
-
     .success-payment-page {
         &__info {
             padding-bottom: 150px;
@@ -1701,7 +1640,6 @@
             }
         }
     }
-
     .lecturers-page {
         &__item {
             &-img {
@@ -1716,7 +1654,6 @@
             }
         }
     }
-
     .single-template {
         &__content {
             & p {
@@ -1760,7 +1697,6 @@
             padding-bottom: 150px;
         }
     }
-
     .share {
         flex-direction: column;
         align-items: stretch;
@@ -1773,17 +1709,14 @@
             }
         }
     }
-
     .about-video {
         top: 250px;
     }
-
     .sort-navigation {
         &__button {
             font-size: 1.5rem;
         }
     }
-
     .post-item {
         flex-direction: column;
         padding: 10px;
@@ -1810,7 +1743,6 @@
             }
         }
     }
-
     .blog-template {
         &__sort {
             margin-bottom: 15px;
@@ -1819,13 +1751,11 @@
             padding-bottom: 150px;
         }
     }
-
     .template {
         &__test {
             padding-bottom: 140px;
         }
     }
-
     .test-form {
         &__section {
             margin-bottom: 45px;
@@ -1844,7 +1774,6 @@
             }
         }
     }
-
     .modal {
         &__btn {
             font-size: 1.6rem;
@@ -2130,18 +2059,6 @@
     .payment-form {
         &__select {
             height: auto;
-        }
-    }
-    .ums-select {
-        &__list {
-            &-item {
-                padding: 12px 15px;
-                font-size: 1.6rem;
-            }
-        }
-        &__btn {
-            font-size: 1.6rem;
-            height: 50px;
         }
     }
     .about-page {

@@ -29,6 +29,8 @@ $is_promocode = get_field('promocode_bool', 2);
 				</div>
 				<div class="pages-template__grid">
 					<h1 class="title title_style-dark template__title payment-page__title">Оплатить курс</h1>
+					<?php if ( is_user_logged_in() ): ?>
+					<button class="btn installment-button" type="button">Test INSTALLMENT</button>
 					<div class="row">
 						<div class="col-12 col-lg-9">
 							<div class="form payment-form">
@@ -191,6 +193,7 @@ $is_promocode = get_field('promocode_bool', 2);
 							</div>
 						</div>
 					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

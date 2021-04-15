@@ -257,6 +257,9 @@ add_action('wp_ajax_nopriv_ip_info', 'ip_info_callback');
 add_action('wp_ajax_lt', 'lt_callback');
 add_action('wp_ajax_nopriv_lt', 'lt_callback');
 
+add_action('wp_ajax_installment', 'installment_callback');
+add_action('wp_ajax_nopriv_installment', 'installment_callback');
+
 add_action('wpcf7_init', 'wpcf7_add_form_tag_dates');
 /**
  * Custom template tags for this theme.
@@ -1555,3 +1558,41 @@ function ip_info_callback() {
 // Custom image sizes
 add_image_size( 'blog-image-size', 360, 240 );
 add_image_size( 'portfolio-image-size', 840, 630 );
+
+define('SHOP_CODE', '1376');
+
+// INSTALLMENT
+function installment_callback() {
+	$installment_data = array(
+		'applicationNumber' => '1m2n211376',
+		'shopName' => SHOP_CODE,
+		'productCode' => '1376',
+		'term' => 6,
+		'firstName' => 'Test',
+		'middleName' => 'Test',
+		'lastName' => 'Test',
+		'phoneNumber' => '+375291111111',
+		'products' => array(
+			array(
+				'name' => 'Test',
+				'model' => 'Курс',
+				'quantity' => 1,
+				'price' => 690
+			)
+		),
+		'totalPrice' => 690
+	);
+	$installment_curl = curl_init();
+	$installment_curl_options = array(
+		CURLOPT_URL => 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save',
+		CURLOPT_POST => true,
+		CURLOPT_RETURNTRANSFER => true,
+		// CURLOPT_POSTFIELDS => http_build_query( $installment_data )
+		CURLOPT_POSTFIELDS => json_encode( $installment_data )
+	);
+	curl_setopt_array( $installment_curl, $installment_curl_options );
+	$installment_response = curl_exec( $installment_curl );
+	echo json_encode( $installment_response );
+	// echo $installment_response;
+	wp_die();
+}
