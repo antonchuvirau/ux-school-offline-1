@@ -973,12 +973,12 @@ document.addEventListener('click', (evt) => {
     // ERIP
     if (target.matches(`input[name="installment-school"]`)) {
         const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`);
-        const eripPaymentPromocodeField = document.querySelector(`input[name="promocode-toggle"]`);
+        const eripPaymentPromocodeField = document.querySelector(`.promocode-input`);
         if (target.checked) {
             if (eripPaymentSaleField.checked) {
                 paymentInstance.updateEripPrice(false, true, true);
             }
-            else if (eripPaymentPromocodeField.checked) {
+            else if (eripPaymentPromocodeField.classList.contains(`promocode-input_state-success`)) {
                 paymentInstance.updateEripPrice(true, false, true);
             }
             else {
@@ -989,7 +989,7 @@ document.addEventListener('click', (evt) => {
             if (eripPaymentSaleField.checked) {
                 paymentInstance.updateEripPrice(false, true, false);
             }
-            else if (eripPaymentPromocodeField.checked) {
+            else if (eripPaymentPromocodeField.classList.contains(`promocode-input_state-success`)) {
                 paymentInstance.updateEripPrice(true, false, false);
             }
             else {

@@ -28,6 +28,20 @@
 
                     if (target.matches('input[name="promocode-toggle"]')) {
                         const promocodeInputElement = this._el.querySelector('.promocode-input');
+                        if (paymentType && paymentType === `erip`) {
+                            if (promocodeInputElement.classList.contains(`promocode-input_state-success`)) {
+                                const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`).parentElement;
+                                const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
+                                document.querySelector(`.erip-payment__message-note`).classList.remove(`erip-payment__message-note_active`);
+                                eripPaymentSaleField.classList.remove(`checkbox_disabled`);
+                                if (eripPaymentInstallmentField.checked) {
+                                    paymentInstance.updateEripPrice(false, false, true);
+                                }
+                                else {
+                                    paymentInstance.updateEripPrice();
+                                }
+                            }
+                        }
                         target.closest(`.promocode`).querySelector(`input[name="promocode"]`).value = '';
                         promocodeInputElement.classList.remove(this._promocodeClasses.success);
                         promocodeInputElement.classList.remove(this._promocodeClasses.error);
@@ -43,18 +57,6 @@
                                 promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
                             }
                             paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
-                        }
-                        if (paymentType && paymentType === `erip`) {
-                            const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`).parentElement;
-                            const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
-                            document.querySelector(`.erip-payment__message-note`).classList.toggle(`erip-payment__message-note_active`);
-                            eripPaymentSaleField.classList.toggle(`checkbox_disabled`);
-                            if (eripPaymentInstallmentField.checked) {
-                                paymentInstance.updateEripPrice(false, false, true);
-                            }
-                            else {
-                                paymentInstance.updateEripPrice();
-                            }
                         }
                     }
                     if (target.matches('button')) {
@@ -72,7 +74,10 @@
                                 const result = data.find((item) => item.name.toUpperCase() === modifiedData);
                                 if (result) {
                                     if (paymentType && paymentType === `erip`) {
+                                        const eripPaymentSaleField = document.querySelector(`input[name="sale-school"]`).parentElement;
                                         const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
+                                        document.querySelector(`.erip-payment__message-note`).classList.add(`erip-payment__message-note_active`);
+                                        eripPaymentSaleField.classList.add(`checkbox_disabled`);
                                         if (eripPaymentInstallmentField.checked) {
                                             paymentInstance.updateEripPrice(true, false, true);
                                         }

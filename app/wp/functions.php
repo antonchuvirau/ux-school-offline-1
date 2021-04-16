@@ -1559,14 +1559,14 @@ function ip_info_callback() {
 add_image_size( 'blog-image-size', 360, 240 );
 add_image_size( 'portfolio-image-size', 840, 630 );
 
-define('SHOP_CODE', '1376');
+define('SHOP_CODE', '1403');
 
 // INSTALLMENT
 function installment_callback() {
 	$installment_data = array(
-		'applicationNumber' => '1m2n211376',
-		'shopName' => SHOP_CODE,
-		'productCode' => '1376',
+		'applicationNumber' => 'm1n2b31403',
+		'shopName' => '1403',
+		'productCode' => 'PSL',
 		'term' => 6,
 		'firstName' => 'Test',
 		'middleName' => 'Test',
@@ -1580,19 +1580,27 @@ function installment_callback() {
 				'price' => 690
 			)
 		),
-		'totalPrice' => 690
+		'totalPrice' => 690,
+		'loanSum' => 690
 	);
 	$installment_curl = curl_init();
 	$installment_curl_options = array(
 		CURLOPT_URL => 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save',
 		CURLOPT_POST => true,
 		CURLOPT_RETURNTRANSFER => true,
-		// CURLOPT_POSTFIELDS => http_build_query( $installment_data )
+		CURLOPT_HEADER => false,
+		CURLOPT_SSL_VERIFYHOST => 0,
+		CURLOPT_PROXY_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_HTTPHEADER => array(
+			'Content-Type:application/json',
+			'Connection:keep-alive',
+			'Accept:application/json'
+		),
 		CURLOPT_POSTFIELDS => json_encode( $installment_data )
 	);
 	curl_setopt_array( $installment_curl, $installment_curl_options );
 	$installment_response = curl_exec( $installment_curl );
 	echo json_encode( $installment_response );
-	// echo $installment_response;
 	wp_die();
 }
