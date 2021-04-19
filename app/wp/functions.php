@@ -1563,41 +1563,39 @@ define('SHOP_CODE', '1403');
 
 // INSTALLMENT
 function installment_callback() {
+	$application_data = $_POST['data'];
 	$installment_data = array(
-		'applicationNumber' => 'm1n2b31403',
-		'shopName' => '1403',
+		'applicationNumber' => $application_data['applicationNumber'],
+		'shopName' => '1374',
 		'productCode' => 'PSL',
-		'term' => 6,
-		'firstName' => 'Test',
-		'middleName' => 'Test',
-		'lastName' => 'Test',
-		'phoneNumber' => '+375291111111',
+		'term' => (int)$application_data['term'],
+		'firstName' => $application_data['firstName'],
+		'middleName' => $application_data['middleName'],
+		'lastName' => $application_data['lastName'],
+		'phoneNumber' => '+375' . preg_replace('/[^0-9]/', '', $application_data['phoneNumber']),
 		'products' => array(
 			array(
-				'name' => 'Test',
+				'name' => $application_data['name'],
 				'model' => 'Курс',
 				'quantity' => 1,
-				'price' => 690
+				'price' => (int)$application_data['price']
 			)
 		),
-		'totalPrice' => 690,
-		'loanSum' => 690
+		'totalPrice' => (int)$application_data['price'],
+		'loanSum' => (int)$application_data['price']
 	);
 	$installment_curl = curl_init();
 	$installment_curl_options = array(
 		CURLOPT_URL => 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save',
-		CURLOPT_POST => true,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_HEADER => false,
-		CURLOPT_SSL_VERIFYHOST => 0,
-		CURLOPT_PROXY_SSL_VERIFYPEER => false,
-		CURLOPT_SSL_VERIFYPEER => false,
-		CURLOPT_HTTPHEADER => array(
-			'Content-Type:application/json',
-			'Connection:keep-alive',
-			'Accept:application/json'
-		),
-		CURLOPT_POSTFIELDS => json_encode( $installment_data )
+  		CURLOPT_ENCODING => '',
+  		CURLOPT_MAXREDIRS => 10,
+  		CURLOPT_TIMEOUT => 0,
+  		CURLOPT_FOLLOWLOCATION => true,
+  		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => json_encode( $installment_data ),
+		CURLOPT_HTTPHEADER => array('Content-Type: application/json')
 	);
 	curl_setopt_array( $installment_curl, $installment_curl_options );
 	$installment_response = curl_exec( $installment_curl );

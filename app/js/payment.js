@@ -6,6 +6,8 @@ const SCHOOL_SALE_VALUE = .1;
 const PROMOCODE_SALE_VALUE = 50;
 
 (function () {
+    const utilsModule = window.utils;
+
     class Payment {
         _totalPrice;
         _price;
@@ -178,6 +180,25 @@ const PROMOCODE_SALE_VALUE = 50;
                     eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
                 }
             }
+        }
+        // INSTALLMENT
+        updateInstallmentPrice() {
+            const courseData = window.paymentSelect.instance.getCourseData();
+            const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
+            const installmentPaymentIdInput = document.querySelector(`input[name="installment-id"]`);
+            const installmentPaymentPriceInput = document.querySelector(`input[name="installment-price"]`);
+            const installmentPaymentCourseName = document.querySelector(`input[name="installment-course-name"]`);
+            const installmentPaymentTermInput = document.querySelector(`input[name="installment-term"]`);
+            const installmentPaymentTermRadioInput = document.querySelector(`input[name="installment-length"]:checked`);
+            installmentPaymentTermInput.value = installmentPaymentTermRadioInput.value;
+            installmentPaymentIdInput.value = utilsModule.getRandId() + INSTALLMENT_SHOP_ID;
+            installmentPaymentPriceInput.value = this.getSalePrice();
+            installmentPaymentCourseName.value = courseData.title;
+            installmentPaymentPriceElement.textContent = `${(this.getSalePrice() / +installmentPaymentTermRadioInput.value).toFixed(1)} BYN x ${installmentPaymentTermRadioInput.value} месяцев`;
+        }
+        recalculateInstallmentPrice(installmentTerm) {
+            const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
+            installmentPaymentPriceElement.textContent = `${(this.getSalePrice() / installmentTerm).toFixed(1)} BYN x ${installmentTerm} месяцев`;
         }
     }
 

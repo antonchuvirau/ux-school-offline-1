@@ -181,6 +181,26 @@ function wpcf7SentHandler(event) {
     let sendPulseData;
 
     switch (id) {
+        case 6494:
+            const requestData = {
+                action: 'installment',
+                data: {
+                    applicationNumber: inputs[1].value,
+                    term: inputs[2].value,
+                    firstName: inputs[6].value,
+                    middleName: inputs[7].value,
+                    lastName: inputs[8].value,
+                    phoneNumber: inputs[9].value,
+                    price: inputs[0].value,
+                    name: inputs[3].value
+                }
+            };
+            jQuery.when(utils.ajaxRequest(requestData)).then(data => {
+                console.log(JSON.parse(data));
+                button.textContent = defaultSubmitButtonText;
+                button.classList.remove('btn_is-loading');
+            }, error => console.log(new Error(error)));
+            break;
         case 131:
             if (wpcf7MailStatus === `mail_sent`) {
                 button.textContent = defaultSubmitButtonText;
@@ -965,7 +985,7 @@ document.addEventListener('click', (evt) => {
             });
         }
     }
-    if (selectCourseBox.querySelector(`.ums-select__btn`).classList.contains(`ums-select__btn_state-active`) && !target.closest(`.ums-select`)) {
+    if (selectCourseBox && selectCourseBox.querySelector(`.ums-select__btn`).classList.contains(`ums-select__btn_state-active`) && !target.closest(`.ums-select`)) {
         selectCourseBox.querySelector(`.ums-select__btn`).classList.remove(`ums-select__btn_state-active`);
         selectCourseBox.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);
         selectCourseBox.closest(`.form__select`).classList.remove(`form__select_state-active`);
@@ -1018,23 +1038,10 @@ document.addEventListener('click', (evt) => {
             }
         }
     }
-    if (target.matches(`.installment-button`)) {
-        // const requestData = new FormData();
-        // requestData.set(`action`, `installment`);
-        // const request = fetch(ajax.url, {
-        //     method: `POST`,
-        //     credentials: `same-origin`,
-        //     body: requestData
-        // });
-        // request.then(resp => resp.text()).then(data => {
-        //     console.log(data);
-        // }).catch(error => alert(error));
-        const requestData = {
-            action: 'installment'
-        };
-        jQuery.when(utils.ajaxRequest(requestData)).then(data => {
-            console.log(data);
-        }, error => console.log(new Error(error)))
+    if (target.matches(`input[name="installment-length"]`)) {
+        const installmentPaymentTermInput = document.querySelector(`input[name="installment-term"]`);
+        installmentPaymentTermInput.value = target.value;
+        paymentInstance.recalculateInstallmentPrice(+target.value);
     }
 });
 

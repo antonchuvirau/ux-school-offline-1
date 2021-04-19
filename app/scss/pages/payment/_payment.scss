@@ -43,7 +43,7 @@
         border-radius: $br-payment-method;
         text-align: center;
         border: 1px solid $gray-50;
-        padding: 0 45px;
+        padding: 0 55px;
         color: $gray-900;
         &::before {
             content: '';
@@ -227,5 +227,36 @@
     display: none;
     &_state-active {
         display: block;
+    }
+    &__price {
+        margin: 0;
+        font-family: $secondary-font;
+        @include flex(column);
+        color: $gray-300;
+        font-size: 1.7rem;
+        line-height: 1.45;
+        margin-bottom: 30px;
+        &-value {
+            position: relative;
+            font-family: $font;
+            font-size: 4rem;
+            line-height: 1.25;
+            letter-spacing: -.03em;
+            font-weight: 800;
+            color: $gray-900;
+            margin-top: .075em;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .payment-section {
+        &__price {
+            &-value {
+                width: 100%;
+                font-size: 2.8rem;
+                line-height: 1.25;
+            }
+        }
     }
 }

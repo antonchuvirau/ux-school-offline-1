@@ -8,6 +8,13 @@ const PAYMENT_METHODS_DATA = [{
     checked: false
 },
 {
+    id: 4,
+    hidden: true,
+    name: `installment`,
+    title: `Рассрочка от&nbsp;Альфа-банка`,
+    checked: false
+},
+{
     id: 1,
     name: `halva`,
     title: `Рассрочка от 2 до 9 месяцев по карте Халва`,
@@ -25,3 +32,7 @@ const PAYMENT_METHODS_DATA = [{
     title: `Оплатить картой`,
     checked: false
 }];
+const INSTALLMENT_SHOP_ID = 1374;
+const RAND_BASE = 36;
+const START_RAND_SUBSTR_INDEX = 2;
+const END_RAND_SUBSTR_INDEX = 5;

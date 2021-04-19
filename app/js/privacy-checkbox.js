@@ -11,7 +11,7 @@
 
     function privacyInputHandler(evt) {
         const target = evt.target;
-        const button = target.closest('.checkbox').previousElementSibling.querySelector('button');
+        const button = target.closest('.checkbox').previousElementSibling.querySelector('.btn');
         if (target.checked) {
             button.disabled = false;
             return;

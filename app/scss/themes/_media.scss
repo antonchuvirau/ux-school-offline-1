@@ -17,17 +17,14 @@
             padding-bottom: 160px;
         }
     }
-
     .about-video {
         right: calc((100% - 960px)/2 - 60px);
     }
-
     .home-template {
         &__wrapper {
             overflow: hidden;
         }
     }
-
     .course-list-item {
         @include flex(column, flex-start);
         padding: 0;
@@ -100,7 +97,6 @@
             max-width: none;
         }
     }
-
     .course-list {
         &__row {
             padding: 20px;
@@ -126,20 +122,17 @@
             padding-bottom: 13px;
         }
     }
-
     .tabs {
         overflow-x: auto;
         &__btn {
             width: auto;
         }
     }
-
     .certificate {
         &__text {
             font-size: 2.3rem;
         }
     }
-
     .advantages {
         &__item {
             flex-direction: column;
@@ -152,7 +145,6 @@
             text-align: center;
         }
     }
-
     .portfolio-item {
         &__name {
             &::before {
@@ -160,13 +152,11 @@
             }
         }
     }
-
     .contact-page {
         &__info-item {
             font-size: 2rem;
         }
     }
-
     .course-gallery {
         &__btn-next {
             left: auto;
@@ -177,7 +167,6 @@
             left: calc((100% - 960px)/2);
         }
     }
-
     .dropdown-course-info {
         &__name {
             font-size: 1.2rem;
@@ -190,7 +179,6 @@
             line-height: 1.25;
         }
     }
-
     .info {
         width: auto;
         height: auto;
@@ -219,7 +207,6 @@
             }
         }
     }
-
     .icon {
         &-ruble {
             &_color {
@@ -240,7 +227,6 @@
             }
         }
     }
-
     .page-navigation {
         flex-direction: row;
         &__link {
@@ -251,19 +237,16 @@
             }
         }
     }
-
     .pages-template {
         &__navigation {
             margin-bottom: 30px;
         }
     }
-
     .blog-template {
         &__sort-navigation {
             margin-bottom: 30px;
         }
     }
-
     .sort-navigation {
         padding-bottom: 15px;
         overflow-x: auto;
@@ -289,7 +272,6 @@
             }
         }
     }
-
     .test {
         &__img {
             right: 25%;
@@ -309,6 +291,11 @@
                     }
                 }
             }
+        }
+    }
+    .payment-item {
+        &__name {
+            padding: 0 40px;
         }
     }
 }
@@ -911,7 +898,6 @@
         }
         &__name {
             height: 100px;
-            padding: 0 50px;
         }
     }
     .erip {

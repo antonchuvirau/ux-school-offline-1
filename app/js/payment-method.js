@@ -34,6 +34,14 @@
                     }, 800);
                     return;
                 }
+                // INSTALLMENT
+                if (paymentMethodName === `installment`) {
+                    paymentModule.updateInstallmentPrice();
+                    jQuery('body, html').animate({
+                        scrollTop: jQuery('#payment-anchor').offset().top
+                    }, 800);
+                    return;
+                }
                 // Update prices
                 paymentModule.updatePrices(this._paymentMethodIndex);
                 paymentModule.changeInputPrice(this._paymentMethodIndex);
@@ -67,8 +75,11 @@
 
             duplicatedPaymentMethodElement.querySelector(`input`).value = data.id;
             duplicatedPaymentMethodElement.querySelector(`input`).setAttribute(`data-payment`, data.name);
-            duplicatedPaymentMethodElement.querySelector(`.payment-item__name`).textContent = data.title;
+            duplicatedPaymentMethodElement.querySelector(`.payment-item__name`).insertAdjacentHTML('afterbegin', data.title);
             data.checked ? duplicatedPaymentMethodElement.querySelector(`input`).checked = true : null;
+            if (!document.querySelector('body').classList.contains(`logged-in`) && data.hidden) {
+                duplicatedPaymentMethodElement.querySelector(`.payment-item`).style.display = `none`;
+            }
 
             return duplicatedPaymentMethodElement;
         }

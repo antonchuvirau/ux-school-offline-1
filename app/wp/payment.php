@@ -187,6 +187,19 @@ $is_promocode = get_field('promocode_bool', 2);
 										</div>
 									</section>
 									<!-- END ONLINE PAYMENT -->
+									<!-- BEGIN INSTALLMENT -->
+									<section class="payment-form__section payment-section installment-payment">
+										<div class="payment-form__section-item">
+											<p class="payment-form__section-name">Введите Ваши данные</p>
+											<div class="payment-form__section-grid">
+												<p class="payment-section__price installment-payment__price">Сумма для оплаты:<span class="payment-section__price-value installment-payment__price-value">0 BYN</span></p>
+												<div class="installment-payment__form">
+													<?php echo do_shortcode('[contact-form-7 id="6494" html_class="form intallment-form" title="Рассрочка от Альфа-банка"]'); ?>
+												</div>
+											</div>
+										</div>
+									</section>
+									<!-- END INSTALLMENT -->
 								</div>
 							</div>
 						</div>

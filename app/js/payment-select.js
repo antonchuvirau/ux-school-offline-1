@@ -76,10 +76,10 @@
                 }
 
                 if (partialPayment === `no`) {
-                    jQuery(`.payment-item:nth-child(2)`).hide();
+                    jQuery(`.payment-item:nth-child(3)`).hide();
                 }
                 else {
-                    jQuery(`.payment-item:nth-child(n)`).show();
+                    jQuery(`.payment-item:nth-child(n):not(:nth-child(2))`).show();
                 }
 
                 paymentButton.dataset.price = this._courseData.fullPrice;

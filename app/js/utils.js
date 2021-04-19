@@ -39,9 +39,14 @@
         }
     }
 
+    function getRandId() {
+        return Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX) + Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX);
+    }
+
     window.utils = {
         createDOMElement: createDOMElement,
         ajaxRequest: ajaxRequest,
-        removeClass: removeClass
+        removeClass: removeClass,
+        getRandId: getRandId
     }
 })();
