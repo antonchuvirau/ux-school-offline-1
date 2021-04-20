@@ -1559,46 +1559,51 @@ function ip_info_callback() {
 add_image_size( 'blog-image-size', 360, 240 );
 add_image_size( 'portfolio-image-size', 840, 630 );
 
-define('SHOP_CODE', '1403');
+define('SHOP_CODE_ONLINE', '1403');
+define('SHOP_CODE_OFFLINE', '1374');
+define('INSTALLMENT_TYPE', 'PSL');
 
 // INSTALLMENT
 function installment_callback() {
-	$application_data = $_POST['data'];
 	$installment_data = array(
-		'applicationNumber' => $application_data['applicationNumber'],
-		'shopName' => '1374',
-		'productCode' => 'PSL',
-		'term' => (int)$application_data['term'],
-		'firstName' => $application_data['firstName'],
-		'middleName' => $application_data['middleName'],
-		'lastName' => $application_data['lastName'],
-		'phoneNumber' => '+375' . preg_replace('/[^0-9]/', '', $application_data['phoneNumber']),
+		'applicationNumber' => $_POST['installment-id'],
+		'shopName' => SHOP_CODE_OFFLINE,
+		'productCode' => INSTALLMENT_TYPE,
+		'term' => (int)$_POST['installment-length'],
+		'firstName' => $_POST['installment-first-name'],
+		'middleName' => $_POST['installment-middle-name'],
+		'lastName' => $_POST['installment-last-name'],
+		'phoneNumber' => '+375' . preg_replace('/[^0-9]/', '', $_POST['installment-phone-number']),
 		'products' => array(
 			array(
-				'name' => $application_data['name'],
+				'name' => $_POST['name'],
 				'model' => 'Курс',
 				'quantity' => 1,
-				'price' => (int)$application_data['price']
+				'price' => (int)$_POST['installment-price']
 			)
 		),
-		'totalPrice' => (int)$application_data['price'],
-		'loanSum' => (int)$application_data['price']
+		'totalPrice' => (int)$_POST['installment-price']
 	);
-	$installment_curl = curl_init();
-	$installment_curl_options = array(
+	$curl = curl_init();
+	
+	curl_setopt_array($curl, array(
 		CURLOPT_URL => 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save',
 		CURLOPT_RETURNTRANSFER => true,
-  		CURLOPT_ENCODING => '',
-  		CURLOPT_MAXREDIRS => 10,
-  		CURLOPT_TIMEOUT => 0,
-  		CURLOPT_FOLLOWLOCATION => true,
-  		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_SSL_VERIFYHOST => 0,
+		CURLOPT_SSL_VERIFYPEER => 0,
+		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS => json_encode( $installment_data ),
-		CURLOPT_HTTPHEADER => array('Content-Type: application/json')
-	);
-	curl_setopt_array( $installment_curl, $installment_curl_options );
-	$installment_response = curl_exec( $installment_curl );
-	echo json_encode( $installment_response );
+		CURLOPT_HTTPHEADER => array(
+			'Content-Type: application/json'
+		),
+	));
+	$response = curl_exec($curl);
+	curl_close($curl);
+	echo $response;
 	wp_die();
 }

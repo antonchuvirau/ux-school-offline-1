@@ -181,25 +181,39 @@ function wpcf7SentHandler(event) {
     let sendPulseData;
 
     switch (id) {
+        // INSTALLMENT PAYMENT SUCCESS MODAL
         case 6494:
-            const requestData = {
-                action: 'installment',
-                data: {
-                    applicationNumber: inputs[1].value,
-                    term: inputs[2].value,
-                    firstName: inputs[6].value,
-                    middleName: inputs[7].value,
-                    lastName: inputs[8].value,
-                    phoneNumber: inputs[9].value,
-                    price: inputs[0].value,
-                    name: inputs[3].value
+            const installmentForm = document.querySelector(`.installment-form`);
+            const installmentFormData = new FormData(installmentForm);
+            installmentFormData.set(`action`, `installment`);
+            const installmentRequest = fetch(ajax.url, {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: installmentFormData
+            });
+            installmentRequest.then(resp => resp.json()).then(data => {
+                if (data.status) {
+                    const installmentPaymentForm = document.querySelector(`.installment-form`);
+                    const paymentSectionCollection = document.querySelectorAll(`.payment-section`);
+                    const paymentMethodCollection = document.querySelectorAll(`.payment-item__input`);
+                    // SHOW SUCCESS MODAL
+                    jQuery(`#modal-success-installment-payment`).modal();
+                    // RESET PAYMENT MODULE
+                    globalUtils.resetForm(installmentPaymentForm);
+                    globalUtils.removeClass(paymentSectionCollection, `payment-section_state-active`);
+                    for (const paymentMethod of paymentMethodCollection) {
+                        paymentMethod.checked = false;
+                    }
+                    button.textContent = defaultSubmitButtonText;
+                    button.classList.remove('btn_is-loading');
+                    jQuery('body, html').animate({
+                        scrollTop: 0
+                    }, 800);
                 }
-            };
-            jQuery.when(utils.ajaxRequest(requestData)).then(data => {
-                console.log(JSON.parse(data));
-                button.textContent = defaultSubmitButtonText;
-                button.classList.remove('btn_is-loading');
-            }, error => console.log(new Error(error)));
+                else {
+                    alert('Ошибка регистрации заявки. Пожалуйста свяжитесь с менеджером школы.');
+                }
+            }).catch(error => console.log(error));
             break;
         case 131:
             if (wpcf7MailStatus === `mail_sent`) {

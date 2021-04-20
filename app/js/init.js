@@ -32,6 +32,7 @@ const PAYMENT_METHODS_DATA = [{
     title: `Оплатить картой`,
     checked: false
 }];
+const INSTALLMENT_TERM = 6;
 const INSTALLMENT_SHOP_ID = 1374;
 const RAND_BASE = 36;
 const START_RAND_SUBSTR_INDEX = 2;

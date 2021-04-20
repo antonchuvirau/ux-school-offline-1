@@ -43,10 +43,26 @@
         return Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX) + Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX);
     }
 
+    function resetForm(formElement) {
+        const formInputCollection = formElement.querySelectorAll(`input:not(input[type="radio"])`);
+        for (const formInput of formInputCollection) {
+            const formInputWrapper = formInput.closest(`.form__input`);
+            formInput.value = ``;
+            if (formInputWrapper) {
+                const formInputLabel = formInputWrapper.querySelector(`.form__label`);
+                formInputWrapper.classList.remove(`form__input_filled`);
+                if (formInputLabel) {
+                    formInputLabel.classList.remove(`form__label_active`);
+                }
+            }
+        }
+    }
+
     window.utils = {
         createDOMElement: createDOMElement,
         ajaxRequest: ajaxRequest,
         removeClass: removeClass,
-        getRandId: getRandId
+        getRandId: getRandId,
+        resetForm: resetForm
     }
 })();

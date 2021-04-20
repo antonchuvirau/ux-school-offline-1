@@ -194,7 +194,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div class="payment-form__section-grid">
 												<p class="payment-section__price installment-payment__price">Сумма для оплаты:<span class="payment-section__price-value installment-payment__price-value">0 BYN</span></p>
 												<div class="installment-payment__form">
-													<?php echo do_shortcode('[contact-form-7 id="6494" html_class="form intallment-form" title="Рассрочка от Альфа-банка"]'); ?>
+													<?php echo do_shortcode('[contact-form-7 id="6494" html_class="form installment-form" title="Рассрочка от Альфа-банка"]'); ?>
 												</div>
 											</div>
 										</div>
