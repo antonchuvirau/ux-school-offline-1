@@ -1561,13 +1561,15 @@ add_image_size( 'portfolio-image-size', 840, 630 );
 
 define('SHOP_CODE_ONLINE', '1403');
 define('SHOP_CODE_OFFLINE', '1374');
+define('API_ONLINE_URL', 'https://insync2.alfa-bank.by/mBank256/ExtRbc');
+define('API_OFFLINE_URL', 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save');
 define('INSTALLMENT_TYPE', 'PSL');
 
 // INSTALLMENT
 function installment_callback() {
 	$installment_data = array(
 		'applicationNumber' => $_POST['installment-id'],
-		'shopName' => SHOP_CODE_OFFLINE,
+		'shopName' => SHOP_CODE_ONLINE,
 		'productCode' => INSTALLMENT_TYPE,
 		'term' => (int)$_POST['installment-length'],
 		'firstName' => $_POST['installment-first-name'],
@@ -1587,7 +1589,7 @@ function installment_callback() {
 	$curl = curl_init();
 	
 	curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save',
+		CURLOPT_URL => API_ONLINE_URL,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
