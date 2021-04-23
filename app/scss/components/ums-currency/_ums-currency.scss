@@ -11,6 +11,11 @@
                 color: $gray-200;
             }
         }
+        &_bigger {
+            font-size: 2rem;
+            line-height: 1.35;
+            letter-spacing: -.01em;
+        }
     }
     &__symbol {
         color: $dark;

@@ -40,7 +40,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											$courses_array = array(
 												'post_type'=>'post',
 												'post_status'=>'publish',
-												'cat'=>'15,1,2,4,5,99',
+												'cat'=>'15,1,2,4,5,99,121',
 												'posts_per_page'=>-1,
 												'meta_key'=>'ums_course_info_start',
 												'orderby'=>'meta_value',
@@ -62,7 +62,7 @@ $is_promocode = get_field('promocode_bool', 2);
 															$course_type = get_field( 'ums_course_info_type' );
 															$is_partial_payment = get_field( 'is_partial_payment' );
 													?>
-													<li data-price="<?php echo $course_full_price; ?>" data-partial-payment="<?php if ( $is_partial_payment ): ?>yes<?php else: ?>no<?php endif; ?>" data-sale-price="<?php if($course_sale_price): echo $course_sale_price; else: echo $course_full_price; endif; ?>" class="ums-select__list-item"><?php echo date_i18n('j F', $course_date_string); ?> – <?php esc_html( the_title() ); ?><span> (<?php echo mb_strtolower( $course_type ); ?>)</span></li>
+													<li data-course-name="<?php echo esc_attr( the_title() . ', ' . date_i18n('j F', $course_date_string) . ', ' . mb_strtolower( $course_type ) ); ?>" data-price="<?php echo $course_full_price; ?>" data-partial-payment="<?php if ( $is_partial_payment ): ?>yes<?php else: ?>no<?php endif; ?>" data-sale-price="<?php if($course_sale_price): echo $course_sale_price; else: echo $course_full_price; endif; ?>" class="ums-select__list-item"><?php echo date_i18n('j F', $course_date_string); ?> – <?php echo the_title(); ?><span>(<?php echo mb_strtolower( $course_type ); ?>)</span></li>
 														<?php endwhile; ?>
 												</ul>	
 											</div>

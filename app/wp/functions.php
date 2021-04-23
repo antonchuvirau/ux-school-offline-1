@@ -1562,7 +1562,7 @@ add_image_size( 'portfolio-image-size', 840, 630 );
 define('SHOP_CODE_ONLINE', '1403');
 define('SHOP_CODE_OFFLINE', '1374');
 define('API_ONLINE_URL', 'https://insync2.alfa-bank.by/mBank256/ExtRbc');
-define('API_OFFLINE_URL', 'https://93.84.121.106/mBank2/ExtRbc/PointOfSale/Order/Save');
+define('API_OFFLINE_URL', 'https://93.84.121.106/mBank2/ExtRbc');
 define('INSTALLMENT_TYPE', 'PSL');
 
 // INSTALLMENT
@@ -1578,7 +1578,7 @@ function installment_callback() {
 		'phoneNumber' => '+375' . preg_replace('/[^0-9]/', '', $_POST['installment-phone-number']),
 		'products' => array(
 			array(
-				'name' => $_POST['name'],
+				'name' => $_POST['installment-course-name'],
 				'model' => 'Курс',
 				'quantity' => 1,
 				'price' => (int)$_POST['installment-price']
@@ -1589,7 +1589,7 @@ function installment_callback() {
 	$curl = curl_init();
 	
 	curl_setopt_array($curl, array(
-		CURLOPT_URL => API_ONLINE_URL,
+		CURLOPT_URL => API_ONLINE_URL . '/PointOfSale/Order/Save',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,

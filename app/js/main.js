@@ -192,7 +192,7 @@ function wpcf7SentHandler(event) {
                 body: installmentFormData
             });
             installmentRequest.then(resp => resp.json()).then(data => {
-                if (data.status) {
+                if (data.status === `OK`) {
                     const installmentPaymentForm = document.querySelector(`.installment-form`);
                     const paymentSectionCollection = document.querySelectorAll(`.payment-section`);
                     const paymentMethodCollection = document.querySelectorAll(`.payment-item__input`);

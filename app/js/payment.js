@@ -190,7 +190,7 @@ const PROMOCODE_SALE_VALUE = 50;
             const installmentPaymentCourseName = document.querySelector(`input[name="installment-course-name"]`);
             installmentPaymentIdInput.value = utilsModule.getRandId() + INSTALLMENT_SHOP_ID;
             installmentPaymentPriceInput.value = this.getSalePrice();
-            installmentPaymentCourseName.value = courseData.title;
+            installmentPaymentCourseName.value = courseData.installmentProductName;
             installmentPaymentPriceElement.textContent = `${(this.getSalePrice() / INSTALLMENT_TERM).toFixed(1)} BYN x ${INSTALLMENT_TERM} месяцев`;
         }
         recalculateInstallmentPrice(installmentTerm) {

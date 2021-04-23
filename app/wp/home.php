@@ -21,12 +21,12 @@ get_header();
             <button type="button" data-video-id="<?php echo get_field('ums_video_link', 2); ?>" class="modal-video-button about-video__link">
                 <img class="d-none d-lg-block about-video__link-shape" src="<?php echo get_template_directory_uri(); ?>/img/about-video-shape.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
                 <picture class="about-video__link-picture">
-                    <source media="(max-width: 991px)" srcset="<?php echo get_template_directory_uri(); ?>/img/video-m.png 1x, <?php echo get_template_directory_uri(); ?>/img/video-m@2x.png 2x">
+                    <source media="(max-width: 991px)" srcset="<?php echo get_template_directory_uri(); ?>/img/img-student@1.5x.png 1x, <?php echo get_template_directory_uri(); ?>/img/img-student@1.5x.png 2x">
                     <source media="(min-width: 992px)" srcset="<?php echo get_template_directory_uri(); ?>/img/video.png 1x, <?php echo get_template_directory_uri(); ?>/img/video@2x.png 2x">
-                    <img class="about-video__img" srcset="<?php echo get_template_directory_uri(); ?>/img/video-m.png 1x, <?php echo get_template_directory_uri(); ?>/img/video-m@2x.png 2x" src="<?php echo get_template_directory_uri(); ?>/img/video@2x.png" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
+                    <img class="about-video__img" srcset="<?php echo get_template_directory_uri(); ?>/img/img-student@1.5x.png 1x, <?php echo get_template_directory_uri(); ?>/img/img-student@1.5x.png 2x" src="<?php echo get_template_directory_uri(); ?>/img/video@2x.png" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
                 </picture>
             </button>
-            <span data-desktop-title="Видео о" data-mobile-title="О" class="about-video__button-name"> школе</span>
+            <span data-desktop-title="О" data-mobile-title="О" class="about-video__button-name"> школе</span>
         </aside>
         <div class="container">
             <div class="row">
@@ -43,11 +43,11 @@ get_header();
                 <div class="row">
                     <div class="col-12">
                         <header class="course-list__header tabs">
-                            <button type="button" data-id="1,15,2,4,99,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
+                            <button type="button" data-id="1,15,2,4,99,121,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
                             <?php
                                 $courses_array = array(
                                     'taxonomy'=>'category',
-                                    'include'=>'1,15,2,4,99,3',
+                                    'include'=>'1,15,2,4,99,121,3',
                                     'orderby'=>'include',
                                     'hide_empty'=>true
                                 );

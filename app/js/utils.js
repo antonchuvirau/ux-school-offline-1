@@ -40,7 +40,8 @@
     }
 
     function getRandId() {
-        return Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX) + Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX);
+        // return Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX) + Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX);
+        return Math.floor(100000 + Math.random() * 900000);
     }
 
     function resetForm(formElement) {

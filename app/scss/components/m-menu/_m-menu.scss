@@ -29,7 +29,7 @@
     }
     &__logo {
         display: block;
-        opacity: .5;
+        opacity: .7;
     }
     &__grid {
         margin-top: 20px;
@@ -53,7 +53,7 @@
             }
         }
         &-close-btn {
-            background: icon('menu-close-icon.svg') no-repeat 50% / 22px auto;
+            background: icon('icon-menu-close.svg') no-repeat right center / 30px auto;
         }
     }
     &__instagram-badge {
@@ -63,11 +63,24 @@
     }
 }
 
-//Media
+.admin-bar {
+    & .m-menu {
+        top: 32px;
+    }
+}
+
+// MEDIA
 @media screen and (max-width: 1229px) {
     .m-menu {
         &__footer {
             @include flex(column, center);
+        }
+    }
+}
+@media screen and (max-width: 991px) {
+    .m-menu {
+        &__header {
+            padding: 15px 0;
         }
     }
 }

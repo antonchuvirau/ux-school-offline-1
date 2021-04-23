@@ -1,0 +1,46 @@
+.price-box {
+    padding: 10px 30px;
+    padding-bottom: 20px;
+    background: rgba($white, .15);
+    border-radius: 10px;
+    &__value {
+        @include flex(row, center);
+    }
+    &__item {
+        margin-bottom: 15px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &-value {
+            @include flex(row);
+            font-family: $font;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.35;
+            letter-spacing: -.01em;
+            color: $white;
+            &-note {
+                font-size: 2rem;
+                font-weight: 400;
+                color: rgba($white, .5);
+            }
+            &-icon {
+                font-size: 1.5rem;
+                margin: 0 3px;
+                margin-left: 6px;
+            }
+        }
+        &-name {
+            font-size: 1.2rem;
+            line-height: 1.25;
+            color: $white;
+        }
+    }
+}
+
+// MEDIA
+@media screen and (max-width: 575px) {
+    .price-box {
+        padding: 15px;
+    }
+}

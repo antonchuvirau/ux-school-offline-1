@@ -119,7 +119,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						<header class="m-menu__header">
 							<div class="row align-items-center">
 								<div class="col-8">
-									<a href="<?php echo esc_url( get_home_url() ); ?>" class="m-menu__logo"><img src="<?php echo get_template_directory_uri(); ?>/img/ums-logo-white.svg" alt="<?php echo get_bloginfo('name'); ?>"></a>
+									<a href="<?php echo esc_url( get_home_url() ); ?>" class="m-menu__logo"><img src="<?php echo get_template_directory_uri(); ?>/img/ux-mind-school.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"></a>
 								</div>
 								<div class="col-4">
 									<div class="m-menu__options">

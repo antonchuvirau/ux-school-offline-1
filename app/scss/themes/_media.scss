@@ -17,9 +17,6 @@
             padding-bottom: 160px;
         }
     }
-    .about-video {
-        right: calc((100% - 960px)/2 - 60px);
-    }
     .home-template {
         &__wrapper {
             overflow: hidden;
@@ -375,27 +372,6 @@
             }
         }
     }
-    .home-template {
-        &__wrapper {
-            padding-top: 90px;
-        }
-        &__header {
-            margin-bottom: 290px;
-        }
-        &__title {
-            max-width: 500px;
-        }
-        &__certificate {
-            padding-bottom: 105px;
-        }
-        &__testimonials {
-            padding: 110px 0;
-            padding-bottom: 60px;
-        }
-    }
-    .title {
-        font-size: 3.5rem;
-    }
     .about {
         overflow: hidden;
         &-course {
@@ -427,16 +403,6 @@
             &__play-btn {
                 top: 15px;
                 left: 15px;
-            }
-        }
-        &-video {
-            top: 275px;
-            text-align: center;
-            &__link {
-                display: inline-block;
-                position: relative;
-                width: 100%;
-                max-width: 320px;
             }
         }
         &-page {
@@ -731,19 +697,6 @@
     .we {
         &__btn {
             display: none;
-        }
-    }
-    .menu {
-        &__link {
-            color: $white;
-            &[aria-current="page"] {
-                color: rgba($white, .3);
-                cursor: default;
-                pointer-events: none;
-                &::before {
-                    content: none;
-                }
-            }
         }
     }
     .pages-template {
@@ -1341,14 +1294,6 @@
 
 @media screen and (max-width: 767px) {
     .btn {
-        &_theme {
-            &-pink {
-                height: 45px;
-                font-weight: 500;
-                line-height: 44px;
-                font-size: 1.5rem;
-            }
-        }
         &_size {
             &-large {
                 height: 45px;
@@ -2152,7 +2097,6 @@
             max-width: 450px;
         }
     }
-
     .testimonials__btn {
         &-next {
             left: calc(100% - 20px);
@@ -2167,25 +2111,6 @@
     .we {
         &__pagination {
             display: none;
-        }
-    }
-}
-
-@media screen and (min-width: 992px) and (max-width: 1229px) {
-    .menu {
-        &__item {
-            margin-right: 25px;
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
-    .header {
-        &__phone {
-            &-number {
-                font-size: 1.8rem;
-                margin-left: 30px;
-            }
         }
     }
 }
@@ -2226,11 +2151,6 @@
         }
         &__footer {
             margin-top: 20px;
-        }
-    }
-    .about-video {
-        &__link {
-            max-width: 300px;
         }
     }
 }

@@ -49,7 +49,7 @@
 }
 
 //Media
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1229px) {
     .menu {
         &__wrapper {
             @include flex(column, stretch);
@@ -64,6 +64,15 @@
             letter-spacing: .01em;
             line-height: 1.47;
             padding: 12px 15px;
+            color: $white;
+            &[aria-current="page"] {
+                color: rgba($white, .3);
+                cursor: default;
+                pointer-events: none;
+                &::before {
+                    content: none;
+                }
+            }
             &::before {
                 content: none;
             }

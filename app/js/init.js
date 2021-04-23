@@ -9,6 +9,7 @@ const PAYMENT_METHODS_DATA = [{
 },
 {
     id: 4,
+    hidden: false,
     name: `installment`,
     title: `Рассрочка от&nbsp;Альфа-банка`,
     checked: false
@@ -32,8 +33,8 @@ const PAYMENT_METHODS_DATA = [{
     checked: false
 }];
 const INSTALLMENT_TERM = 6;
-const INSTALLMENT_TEST_SHOP_ID = 1374;
-const INSTALLMENT_SHOP_ID = 1403;
+const INSTALLMENT_TEST_SHOP_ID = `1374`;
+const INSTALLMENT_SHOP_ID = `1403`;
 const RAND_BASE = 36;
 const START_RAND_SUBSTR_INDEX = 2;
 const END_RAND_SUBSTR_INDEX = 5;

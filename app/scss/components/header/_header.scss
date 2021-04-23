@@ -69,7 +69,7 @@
 }
 
 //Media
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1229px) {
     .header {
         padding: 20px 0;
         &__select {
@@ -80,5 +80,14 @@
             margin: 0;
             text-align: center;
         }
+        &__logo {
+            opacity: .7;
+        }
+    }
+}
+@media screen and (max-width: 991px) {
+    .header {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba($white, .15);
     }
 }
