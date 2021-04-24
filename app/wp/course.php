@@ -140,7 +140,6 @@ endif;
 								<a href="<?php echo esc_url(get_page_link(1641)); ?>" class="link course-info__item-value course-info__item-link">Наши преподаватели</a>
 							<?php endif; ?>
 						</div>
-						<?php if ( is_user_logged_in() ): ?>
 						<div class="price-box course-info__price-box">
 							<div class="price-box__item">
 								<div class="price-box__item-value">
@@ -159,10 +158,9 @@ endif;
 							</div>
 							<div class="price-box__item">
 								<div class="price-box__item-value"><?php echo round( $course_price / 12, 1 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев</span></div>
-								<span class="price-box__item-name">Полная стоимость курса</span>
+								<span class="price-box__item-name">Беспроцентная рассрочка от Альфа-банка</span>
 							</div>
 						</div>
-						<?php endif; ?>
 						<div class="course-info__options">
 							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Записаться на курс<?php endif; ?></button>
 							<?php if ( !$is_course_full ): ?><a href="<?php echo esc_url( get_page_link(53) ); ?>" class="link course-info__options-link">Оплатить курс</a><?php endif; ?>

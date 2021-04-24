@@ -317,3 +317,12 @@ $course-hero-cover-image: 'course.svg';
         }
     }
 }
+
+// MEDIA
+@media screen and (max-width: 575px) {
+    .course-template {
+        &__wrapper {
+            padding-top: 70px;
+        }
+    }
+}
