@@ -47,7 +47,7 @@
     &_theme {
         &-pink {
             height: auto;
-            background: linear-gradient(179.9deg, #FF57EB .06%, #F842FF 46.65%, #B400E6 99.9%);
+            background: linear-gradient(179.9deg, #FF8AF1 0.06%, #F149F8 46.65%, #E100FF 99.9%);
             box-shadow: 0 1px 1px 0 rgba(55, 61, 67, .1), 0 20px 20px 0 rgba(55, 61, 67, .1);
             border-radius: 30px;
             line-height: 1.5;
@@ -55,6 +55,12 @@
             font-weight: 800;
             padding: .75em 1.5em;
             font-size: 2rem;
+            &:hover {
+                box-shadow: 0 1px 1px 0 rgba(55, 61, 67, .1), 0 10px 10px 0 rgba(55, 61, 67, .1);
+            }
+            &:active {
+                box-shadow: 0 1px 1px 0 rgba(55, 61, 67, .1), 0 5px 5px 0 rgba(55, 61, 67, .1);
+            }
         }
     }
 }

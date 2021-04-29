@@ -25,11 +25,21 @@
     .title {
         font-size: 3.5rem;
     }
+    .course-template {
+        &__title {
+            font-size: 4rem;
+        }
+    }
 }
 @media screen and (max-width: 767px) {
     .title {
         font-size: 2.8rem;
         letter-spacing: -.07rem;
         line-height: 1.25;
+    }
+    .course-template {
+        &__title {
+            font-size: 4rem;
+        }
     }
 }

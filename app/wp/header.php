@@ -35,8 +35,12 @@ $phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-8 col-sm-6 col-xl-2">
-					<a href="<?php echo esc_url(get_home_url()); ?>" class="logo header__logo">
-						<img src="<?php echo get_template_directory_uri(); ?>/img/ux-mind-school.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+					<a href="<?php echo esc_url( get_home_url() ); ?>" class="logo header__logo">
+						<?php if (is_page_template('home.php') || is_page(12) ||  is_page_template(array('course.php', 'event.php'))): ?>
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/ux-mind-school.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php else: ?>
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/ux-mind-school-colour.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php endif; ?>
 					</a>
 				</div>
 				<div class="col-4 col-sm-6 d-xl-none">

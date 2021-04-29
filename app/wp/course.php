@@ -98,47 +98,50 @@ endif;
 					<div class="breadcrumbs template__breadcrumbs course-template__breadcrumbs">
 						<?php bcn_display($return = false, $linked = true, $reverse = false, $force = false) ?>
 					</div>
-					<div class="template__header">
-						<h1 class="title template__title"><?php echo get_the_title($course_post_id); ?></h1>
+					<div class="template__header course-template__header">
+						<h1 class="title template__title course-template__title"><?php echo get_the_title( $course_post_id ); ?></h1>
 					</div>
 					<div class="course-info">
-						<?php if ($course_places): ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Количество мест</p>
-							<p class="course-info__item-value"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></p>
-						</div>
-						<?php endif; ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Группы</p>
-							<div class="course-info__item-value link course-info__select">
-								<select name="timetable"><?php echo $options_html; ?></select>
+						<div class="course-info__wrapper">
+							<?php if ($course_places): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Мест</p>
+								<p class="course-info__item-value"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></p>
 							</div>
-						</div>
-						<?php if ($course_length): ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Обучение</p>
-							<p class="course-info__item-value"><?php echo $course_length; ?></p>
-						</div>
-						<?php endif; ?>
-						<?php if ($course_office): ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Адрес</p>
-							<p class="course-info__item-value course-info__item-address-value">
-							<?php echo $course_office['label']; ?>
-							<?php if ( $course_office['value'] == 3 ): ?>
-							<span class="course-info__item-note"><?php echo ONLINE_COURSE_NOTE; ?></span>
 							<?php endif; ?>
-							<?php if ( $course_office['value'] != 3 ): ?></br>
-							<button data-map-index="<?php echo $course_office['value']; ?>" class="office-route-button link course-info__item-link course-info__item-btn" type="button">Карта</button> <?php endif; ?></p>
-						</div>
-						<?php endif; ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Преподаватель</p>
-							<?php if ($course_lecturer): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Группы</p>
+								<div class="course-info__item-value link course-info__select">
+									<select name="timetable"><?php echo $options_html; ?></select>
+								</div>
+							</div>
+							<?php if ($course_length): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Обучение</p>
+								<p class="course-info__item-value"><?php echo $course_length; ?></p>
+							</div>
+							<?php endif; ?>
+							<?php if ($course_office): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Кабинет</p>
+								<p class="course-info__item-value course-info__item-address-value">
+								<?php if ( $course_office['value'] == 3 ): ?>
+								<?php echo $course_office['label']; ?>
+								<span class="course-info__item-note"><?php echo ONLINE_COURSE_NOTE; ?></span>
+								<?php endif; ?>
+								<?php if ( $course_office['value'] != 3 ): ?>
+								<button data-map-index="<?php echo $course_office['value']; ?>" class="office-route-button link course-info__item-link" type="button"><?php echo $course_office['label']; ?></button>
+								<?php endif; ?></p>
+							</div>
+							<?php endif; ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Кто ведёт</p>
+								<?php if ($course_lecturer): ?>
 								<button type="button" data-modal="#lecturer-modal" class="link course-info__item-value course-info__item-link"><?php echo $course_lecturer->post_title; ?></button>
-							<?php else: ?>
+								<?php else: ?>
 								<a href="<?php echo esc_url(get_page_link(1641)); ?>" class="link course-info__item-value course-info__item-link">Наши преподаватели</a>
-							<?php endif; ?>
+								<?php endif; ?>
+							</div>
 						</div>
 						<div class="price-box course-info__price-box">
 							<div class="price-box__item">
@@ -154,15 +157,15 @@ endif;
 										<?php endif; ?>
 									</div>
 								</div>
-								<span class="price-box__item-name">Полная стоимость курса</span>
+								<span class="price-box__item-name">Полная стоимость курса (оплата в 2 этапа)</span>
 							</div>
 							<div class="price-box__item">
 								<div class="price-box__item-value"><?php echo round( $course_price / 12, 1 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев</span></div>
-								<span class="price-box__item-name">Беспроцентная рассрочка от Альфа-банка</span>
+								<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 							</div>
 						</div>
 						<div class="course-info__options">
-							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Записаться на курс<?php endif; ?></button>
+							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="btn btn_theme-pink course-info__btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Оставить заявку<?php endif; ?></button>
 							<?php if ( !$is_course_full ): ?><a href="<?php echo esc_url( get_page_link(53) ); ?>" class="link course-info__options-link">Оплатить курс</a><?php endif; ?>
 							<?php if (!$is_course_test): ?>
 							<button type="button" data-modal="#test-course-modal" class="course-btn course-btn_style-1">Бесплатное пробное занятие</button>

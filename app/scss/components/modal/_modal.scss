@@ -44,6 +44,8 @@ $modal-width: (
     &__social {
         @include flex(row, center);
         &-link {
+            width: 40px;
+            height: 40px;
             margin-right: 10px;
             &:last-child {
                 margin-right: 0;

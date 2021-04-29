@@ -137,6 +137,8 @@
     &__img {
         flex-shrink: 0;
         margin-right: 15px;
+        border-radius: $br-adavantages-img;
+        box-shadow: 0 1px 1px 0 rgba(55, 61, 67, .1), 0 20px 20px 0 rgba(55, 61, 67, .1);
     }
     &__name {
         margin: 0;
@@ -529,6 +531,11 @@
     .course-list {
         position: relative;
         z-index: 2;
+    }
+    .course-template {
+        &__header {
+            margin-bottom: 20px;
+        }
     }
 }
 @media screen and (max-width: 767px) {

@@ -1,8 +1,6 @@
 .price-box {
-    padding: 10px 30px;
+    padding: 12px 30px;
     padding-bottom: 20px;
-    background: rgba($white, .15);
-    border-radius: 10px;
     &__value {
         @include flex(row, center);
     }

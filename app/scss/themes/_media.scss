@@ -938,10 +938,6 @@
                 font-size: 1.7rem;
             }
         }
-        &__options {
-            margin-top: 35px;
-            flex-direction: column;
-        }
     }
     .course-btn {
         width: 100%;
@@ -1309,7 +1305,7 @@
                     &.current-item {
                         white-space: nowrap;
                         overflow: hidden;
-                        display: inline-block;
+                        display: block;
                         max-width: 120px;
                         text-overflow: ellipsis;
                     }

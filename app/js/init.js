@@ -4,12 +4,12 @@
 const PAYMENT_METHODS_DATA = [{
     id: 0,
     name: `erip`,
-    title: `ЕРИП`,
+    title: `ЕРИП оплата&nbsp;в&nbsp;2&nbsp;этапа`,
     checked: false
 },
 {
     id: 4,
-    hidden: false,
+    hidden: true,
     name: `installment`,
     title: `Рассрочка от&nbsp;Альфа-банка`,
     checked: false
