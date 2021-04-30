@@ -61,7 +61,7 @@
                     jQuery(`.toggle-checkbox`).hide();
                 } else {
                     // Переписать JQuery
-                    jQuery(`.payment-item:not(:nth-child(1))`).show();
+                    jQuery(`.payment-item:not(:nth-child(1)), .payment-item:not(:nth-child(2))`).show();
                     jQuery(`.webpay-form__sale-checkbox`).show();
                     jQuery(`.toggle-checkbox`).show();
                 }
@@ -80,7 +80,7 @@
                     jQuery(`.payment-item:nth-child(3)`).hide();
                 }
                 else {
-                    jQuery(`.payment-item:nth-child(n):not(:nth-child(2))`).show();
+                    jQuery(`.payment-item:not(:nth-child(2))`).show();
                 }
 
                 paymentButton.dataset.price = this._courseData.fullPrice;

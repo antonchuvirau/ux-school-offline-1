@@ -73,15 +73,14 @@
             const paymentMethodTemplate = document.querySelector(`#payment-method`).content;
             const duplicatedPaymentMethodElement = paymentMethodTemplate.cloneNode(true);
 
-            duplicatedPaymentMethodElement.querySelector(`input`).value = data.id;
-            duplicatedPaymentMethodElement.querySelector(`input`).setAttribute(`data-payment`, data.name);
-            duplicatedPaymentMethodElement.querySelector(`.payment-item__name`).insertAdjacentHTML('afterbegin', data.title);
-            data.checked ? duplicatedPaymentMethodElement.querySelector(`input`).checked = true : null;
-            if (!document.querySelector('body').classList.contains(`logged-in`) && data.hidden) {
-                duplicatedPaymentMethodElement.querySelector(`.payment-item`).style.display = `none`;
-            }
+            if (!data.hidden) {
+                duplicatedPaymentMethodElement.querySelector(`input`).value = data.id;
+                duplicatedPaymentMethodElement.querySelector(`input`).setAttribute(`data-payment`, data.name);
+                duplicatedPaymentMethodElement.querySelector(`.payment-item__name`).insertAdjacentHTML('afterbegin', data.title);
+                data.checked ? duplicatedPaymentMethodElement.querySelector(`input`).checked = true : null;
 
-            return duplicatedPaymentMethodElement;
+                return duplicatedPaymentMethodElement;
+            }
         }
 
         changePaymentMethod(paymentMethodIndex) {

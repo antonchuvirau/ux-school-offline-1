@@ -249,6 +249,16 @@
     }
 }
 
+// MEDIA
+@media screen and (max-width: 991px) {
+    .payment-item {
+        &[style="display: none;"] {
+            & + .payment-item {
+                margin-right: 0;
+            }
+        }
+    }
+}
 @media screen and (max-width: 767px) {
     .payment-section {
         &__price {
