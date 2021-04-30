@@ -11,7 +11,7 @@ const PAYMENT_METHODS_DATA = [{
 //     id: 4,
 //     hidden: true,
 //     name: `installment`,
-//     title: `Рассрочка от&nbsp;Альфа-банка`,
+//     title: `Кредит от&nbsp;Альфа-банка до&nbsp;12&nbsp;месяцев`,
 //     checked: false
 // },
 {

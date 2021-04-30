@@ -145,6 +145,7 @@
 @media screen and (max-width: 991px) {
     .course-info {
         &__wrapper {
+            position: relative;
             padding: 15px;
             padding-bottom: 25px;
             background: rgba($gray-900, .1);
@@ -170,6 +171,19 @@
             font-size: 2rem;
             line-height: 1.5;
             padding: .5em 0;
+        }
+        &__item {
+            margin-bottom: 15px;
+            &_sticky {
+                position: absolute;
+                top: 15px;
+                left: 165px;
+                padding-left: 15px;
+                border-left: 1px solid rgba($white, .15);
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 }

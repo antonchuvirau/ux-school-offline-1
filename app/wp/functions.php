@@ -1609,3 +1609,16 @@ function installment_callback() {
 	echo $response;
 	wp_die();
 }
+function get_installment_payment_value( $price ) {
+	define('INSTALLMENT_RATE', 13);
+	$installment_length = 12;
+	$installment_payment = $price / $installment_length;
+	$installment_month_debt = INSTALLMENT_RATE / $installment_length;
+	$installment_debt = $price * ($installment_month_debt / 100);
+	while ( $installment_length ) {
+		$installment_debt += ( $price - $installment_payment ) * ( $installment_month_debt / 100 );
+		$installment_length--;
+		$price = $price - $installment_payment;
+	}
+	return $installment_debt;
+}

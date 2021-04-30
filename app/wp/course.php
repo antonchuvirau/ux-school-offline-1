@@ -116,7 +116,7 @@ endif;
 								</div>
 							</div>
 							<?php if ($course_length): ?>
-							<div class="course-info__item">
+							<div class="course-info__item course-info__item_sticky">
 								<p class="course-info__item-name">Обучение</p>
 								<p class="course-info__item-value"><?php echo $course_length; ?></p>
 							</div>
@@ -160,7 +160,8 @@ endif;
 								<span class="price-box__item-name">Полная стоимость курса (оплата в 2 этапа)</span>
 							</div>
 							<div class="price-box__item">
-								<div class="price-box__item-value"><?php echo round( $course_price / 12, 1 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев</span></div>
+								<?php $installment_payment_value = get_installment_payment_value( $course_price ); ?>
+								<div class="price-box__item-value"><?php echo round( ($course_price + $installment_payment_value) / 12, 1 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев ≈ <?php echo round( $course_price + $installment_payment_value, 1 ) . ' BYN'; ?></span></div>
 								<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 							</div>
 						</div>
@@ -201,7 +202,7 @@ endif;
 									<path d="M28 16L0 32L1.41326e-06 0L28 16Z" fill="white" />
 								</svg>
 							</div>
-							<p class="play-button__name play-button__name-js"><?php if (wp_is_mobile()): ?>О курсе<?php else: ?>Видео о курсе<?php endif; ?></p>
+							<p class="play-button__name play-button__name-js">О курсе</p>
 						</button>
 						<?php endif; ?>
 						<img src="<?php echo get_field('ums_course_about_img', $template_id); ?>" class="about-course__video-img" alt="<?php echo get_field('ums_course_about_video_note', $template_id); ?>">
