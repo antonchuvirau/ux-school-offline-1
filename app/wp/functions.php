@@ -260,6 +260,9 @@ add_action('wp_ajax_nopriv_lt', 'lt_callback');
 add_action('wp_ajax_installment', 'installment_callback');
 add_action('wp_ajax_nopriv_installment', 'installment_callback');
 
+add_action('wp_ajax_installment_debt', 'installment_debt_callback');
+add_action('wp_ajax_nopriv_installment_debt', 'installment_debt_callback');
+
 add_action('wpcf7_init', 'wpcf7_add_form_tag_dates');
 /**
  * Custom template tags for this theme.
@@ -1564,6 +1567,7 @@ define('SHOP_CODE_OFFLINE', '1374');
 define('API_ONLINE_URL', 'https://insync2.alfa-bank.by/mBank256/ExtRbc');
 define('API_OFFLINE_URL', 'https://93.84.121.106/mBank2/ExtRbc');
 define('INSTALLMENT_TYPE', 'PSL');
+define('INSTALLMENT_RATE', 13);
 
 // INSTALLMENT
 function installment_callback() {
@@ -1609,16 +1613,15 @@ function installment_callback() {
 	echo $response;
 	wp_die();
 }
-function get_installment_payment_value( $price ) {
-	define('INSTALLMENT_RATE', 13);
-	$installment_length = 12;
-	$installment_payment = $price / $installment_length;
-	$installment_month_debt = INSTALLMENT_RATE / $installment_length;
-	$installment_debt = $price * ($installment_month_debt / 100);
-	while ( $installment_length ) {
-		$installment_debt += ( $price - $installment_payment ) * ( $installment_month_debt / 100 );
-		$installment_length--;
-		$price = $price - $installment_payment;
+function get_installment_payment_value( $course_price, $installment_term = 12 ) {
+	$installment_month_payment = $course_price / $installment_term;
+	$installment_month_percentage_debt = INSTALLMENT_RATE / $installment_term;
+	// Only for the first payment
+	$installment_debt_payment = $course_price * ($installment_month_percentage_debt / 100);
+	while ( $installment_term ) {
+		$installment_debt_payment += ( $course_price - $installment_month_payment ) * ( $installment_month_percentage_debt / 100 );
+		$installment_term--;
+		$course_price = $course_price - $installment_month_payment;
 	}
-	return $installment_debt;
+	return $installment_debt_payment;
 }

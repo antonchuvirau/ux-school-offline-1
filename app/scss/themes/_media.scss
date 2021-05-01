@@ -761,9 +761,6 @@
             & select {
                 padding-right: 35px;
             }
-            &::after {
-                right: 5px;
-            }
         }
         &__textarea-btn {
             margin-top: 25px;
@@ -836,7 +833,7 @@
         &__select {
             &::after {
                 height: 20px;
-                top: 20px;
+                // top: 20px;
             }
         }
     }
@@ -1407,36 +1404,6 @@
                 font-size: 1.7rem;
                 line-height: 1.25;
             }
-        }
-    }
-    .ums-select {
-        &__list {
-            position: relative;
-            display: none;
-            opacity: 1;
-            transform: none;
-            box-shadow: none;
-            &_visibility {
-                &-open {
-                    display: block;
-                }
-            }
-            &-item {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 0 15px;
-                height: 55px;
-                font-size: 1.5rem;
-                & span {
-                    display: block;
-                    margin-left: 0;
-                }
-            }
-        }
-        &__btn {
-            font-size: 1.5rem;
-            height: 55px;
         }
     }
     .about-page {

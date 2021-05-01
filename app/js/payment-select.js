@@ -85,7 +85,17 @@
 
                 paymentButton.dataset.price = this._courseData.fullPrice;
                 paymentButton.dataset.salePrice = this._courseData.salePrice;
-                paymentButton.textContent = this._courseData.title;
+                paymentButton.innerHTML = ``;
+                const targetChildNodes = target.childNodes;
+                for (const targetChildNode of Array.from(targetChildNodes)) {
+                    console.log(targetChildNode);
+                    if (targetChildNode.nodeType === 3) {
+                        paymentButton.textContent = targetChildNode.textContent;
+                    }
+                    else {
+                        paymentButton.appendChild(targetChildNode.cloneNode(true));
+                    }
+                }
                 paymentButton.classList.remove(`ums-select__btn_state-active`);
                 this._el.closest(`.form__select`).classList.toggle(`form__select_state-active`)
                 this._el.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);

@@ -86,7 +86,7 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background: icon("ums-icon-down-black.svg") no-repeat 50%;
+            background: icon("ums-icon-down-black.svg") no-repeat 50% / 15px auto;
             top: 15px;
             right: 20px;
             z-index: -1;
@@ -436,7 +436,31 @@ div {
         }
     }
 }
-
+// MEDIA
+@media screen and (max-width: 991px) {
+    .form {
+        &__select {
+            &::after {
+                top: 16px;
+                right: 10px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .form {
+        &__select {
+            &::after {
+                top: 18px;
+            }
+        }
+    }
+    .payment-form {
+        &__select {
+            height: auto;
+        }
+    }
+}
 @media screen and (max-width: 575px) {
     .installment-form {
         &__btn {

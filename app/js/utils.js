@@ -39,6 +39,14 @@
         }
     }
 
+    function pureJSRequest(data) {
+        return fetch(ajax.url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(data)
+        });
+    }
+
     function getRandId() {
         // return Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX) + Math.random().toString(RAND_BASE).substring(START_RAND_SUBSTR_INDEX, END_RAND_SUBSTR_INDEX);
         return Math.floor(100000 + Math.random() * 900000);
@@ -64,6 +72,7 @@
         ajaxRequest: ajaxRequest,
         removeClass: removeClass,
         getRandId: getRandId,
-        resetForm: resetForm
+        resetForm: resetForm,
+        pureJSRequest: pureJSRequest
     }
 })();

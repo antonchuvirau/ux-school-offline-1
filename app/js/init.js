@@ -7,13 +7,12 @@ const PAYMENT_METHODS_DATA = [{
     title: `ЕРИП оплата&nbsp;в&nbsp;2&nbsp;этапа`,
     checked: false
 },
-// {
-//     id: 4,
-//     hidden: true,
-//     name: `installment`,
-//     title: `Кредит от&nbsp;Альфа-банка до&nbsp;12&nbsp;месяцев`,
-//     checked: false
-// },
+{
+    id: 4,
+    name: `installment`,
+    title: `Кредит от&nbsp;Альфа&nbsp;банка до&nbsp;12&nbsp;месяцев`,
+    checked: false
+},
 {
     id: 1,
     name: `halva`,
@@ -32,7 +31,8 @@ const PAYMENT_METHODS_DATA = [{
     title: `Оплатить картой`,
     checked: false
 }];
-const INSTALLMENT_TERM = 6;
+const INSTALLMENT_TERM = 12;
+const INSTALLMENT_RATE = 13;
 const INSTALLMENT_TEST_SHOP_ID = `1374`;
 const INSTALLMENT_SHOP_ID = `1403`;
 const RAND_BASE = 36;

@@ -191,11 +191,25 @@ const PROMOCODE_SALE_VALUE = 50;
             installmentPaymentIdInput.value = utilsModule.getRandId() + INSTALLMENT_SHOP_ID;
             installmentPaymentPriceInput.value = this.getSalePrice();
             installmentPaymentCourseName.value = courseData.installmentProductName;
-            installmentPaymentPriceElement.textContent = `${(this.getSalePrice() / INSTALLMENT_TERM).toFixed(1)} BYN x ${INSTALLMENT_TERM} месяцев`;
+            const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), INSTALLMENT_TERM);
+            installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) / INSTALLMENT_TERM).toFixed(2)} BYN x ${INSTALLMENT_TERM} месяцев ≈ ${(this.getSalePrice() + installmentDebtPayment).toFixed(2)} BYN`;
         }
         recalculateInstallmentPrice(installmentTerm) {
             const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
-            installmentPaymentPriceElement.textContent = `${(this.getSalePrice() / installmentTerm).toFixed(1)} BYN x ${installmentTerm} месяцев`;
+            const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), installmentTerm);
+            installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) / installmentTerm).toFixed(2)} BYN x ${installmentTerm} месяцев ≈ ${(this.getSalePrice() + installmentDebtPayment).toFixed(2)} BYN`;
+        }
+        getInstallmentDebt(coursePrice, installmentTerm = 12 ) {
+            const installmentMonthPayment = coursePrice / installmentTerm;
+            const installmentMonthPercentageDebt = INSTALLMENT_RATE / installmentTerm;
+            // Only for the first payment
+            let installmentDebtPayment = coursePrice * (installmentMonthPercentageDebt / 100);
+            while ( installmentTerm ) {
+                installmentDebtPayment += ( coursePrice - installmentMonthPayment ) * ( installmentMonthPercentageDebt / 100 );
+                installmentTerm--;
+                coursePrice = coursePrice - installmentMonthPayment;
+            }
+            return installmentDebtPayment;
         }
     }
 

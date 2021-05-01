@@ -143,25 +143,21 @@ endif;
 								<?php endif; ?>
 							</div>
 						</div>
+						<?php $course_full_price = $course_sale_price ? $course_sale_price : $course_price; ?>
 						<div class="price-box course-info__price-box">
 							<div class="price-box__item">
 								<div class="price-box__item-value">
-									<?php echo $course_price . ' BYN'; ?>
+									<?php echo $course_full_price . ' BYN'; ?>
 									<div class="price-box__item-value-note ums-currency course-info__currency">
-										<?php if ($course_sale_price): ?>
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_sale_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p>
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_sale_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
-										<?php else: ?>
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p>
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
-										<?php endif; ?>
+										<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p>
+										<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
 									</div>
 								</div>
 								<span class="price-box__item-name">Полная стоимость курса (оплата в 2 этапа)</span>
 							</div>
 							<div class="price-box__item">
-								<?php $installment_payment_value = get_installment_payment_value( $course_price ); ?>
-								<div class="price-box__item-value"><?php echo round( ($course_price + $installment_payment_value) / 12, 1 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев ≈ <?php echo round( $course_price + $installment_payment_value, 1 ) . ' BYN'; ?></span></div>
+								<?php $installment_payment_value = get_installment_payment_value( $course_full_price ); ?>
+								<div class="price-box__item-value"><?php echo round( ($course_full_price + $installment_payment_value) / 12, 2 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев ≈ <?php echo round( $course_full_price + $installment_payment_value, 2 ) . ' BYN'; ?></span></div>
 								<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 							</div>
 						</div>

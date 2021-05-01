@@ -2,3 +2,14 @@
     &__form {
     }
 }
+
+// MEDIA
+@media screen and (max-width: 767px) {
+    .installment-payment {
+        &__price {
+            &-value {
+                font-size: 2rem;
+            }
+        }
+    }
+}
