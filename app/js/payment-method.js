@@ -84,7 +84,9 @@
         }
 
         changePaymentMethod(paymentMethodIndex) {
-            this._el.querySelector(`input[name="payment"][value="${paymentMethodIndex}"]`).checked = true;
+            if (this._el) {
+                this._el.querySelector(`input[name="payment"][value="${paymentMethodIndex}"]`).checked = true;
+            }
         }
     }
 

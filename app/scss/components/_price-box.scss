@@ -40,5 +40,13 @@
 @media screen and (max-width: 575px) {
     .price-box {
         padding: 15px;
+        &__item {
+            &-value {
+                font-size: 1.8rem;
+                &-note {
+                    font-size: 1.8rem;
+                }
+            }
+        }
     }
 }

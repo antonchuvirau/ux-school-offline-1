@@ -50,7 +50,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div data-type="payment" class="ums-select">
 												<button data-price="0" data-sale-price="0" type="button" class="ums-select__btn">Нажмите, чтобы выбрать курс</button>
 												<ul class="ums-select__list">
-													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата второго этапа действующего курса</li>
+													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата следующего этапа действующего курса</li>
 													<?php
 														$counter = 0;
 														while ( $courses_query->have_posts() ): $courses_query->the_post();
@@ -106,7 +106,7 @@ $is_promocode = get_field('promocode_bool', 2);
 													<div class="ums-currency form__ums-currency"></div>
 												</div>
 											</div>
-											<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a><br><br>✴ Второй этап оплаты через 1 месяц, после первого платежа</p>
+											<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a><br><br>✴ Следующий этап оплаты через 1 месяц, после предыдущего платежа</p>
 											<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
 										</div>
 									</div>

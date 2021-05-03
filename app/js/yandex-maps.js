@@ -3,7 +3,8 @@
     let defaultIndex = 0;
 
     const maps = [
-        'https://yandex.by/map-widget/v1/-/CCQ3FSqPXD',
+        // 'https://yandex.by/map-widget/v1/-/CCQ3FSqPXD',
+        'https://yandex.by/map-widget/v1/-/CCU4MXgLtD',
         'https://yandex.by/map-widget/v1/-/CCQ3FSBghC',
         'https://yandex.by/map-widget/v1/-/CCQpQFGY9B',
         '',

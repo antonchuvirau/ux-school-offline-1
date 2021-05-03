@@ -153,7 +153,7 @@ endif;
 										<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
 									</div>
 								</div>
-								<span class="price-box__item-name">Полная стоимость курса (оплата в 2 этапа)</span>
+								<span class="price-box__item-name">Полная стоимость курса (оплата в 3 этапа)</span>
 							</div>
 							<div class="price-box__item">
 								<?php $installment_payment_value = get_installment_payment_value( $course_full_price ); ?>
