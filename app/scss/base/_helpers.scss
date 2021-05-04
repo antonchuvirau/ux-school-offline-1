@@ -101,6 +101,18 @@
             }
         }
     }
+    &-external-link {
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -7.5px;
+            width: 15px;
+            height: 15px;
+            background: icon('icon-external-link.svg') no-repeat 50% / 15px auto;
+        }
+    }
 }
 
 @media screen and (max-width: 575px) {

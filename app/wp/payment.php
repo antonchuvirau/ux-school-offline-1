@@ -103,7 +103,7 @@ $is_promocode = get_field('promocode_bool', 2);
 														</label>
 														<label class="checkbox payment-options__item">
 															<input type="checkbox" name="sale-school" class="checkbox__input">
-															<p class="checkbox__name">Скидка 10%: студентам-очник ВУЗов и выпускникам UX Mind School</p>
+															<p class="checkbox__name">Скидка 10% выпускникам UX Mind School</p>
 														</label>
 													</div>
 												</div>

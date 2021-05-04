@@ -162,13 +162,13 @@ const PROMOCODE_SALE_VALUE = 50;
             if (eripPaymentPriceElement) {
                 let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
                 if (isPromocode && isInstallment) {
-                    eripPaymentPriceValue = `${(this.getSalePrice() - PROMOCODE_SALE_VALUE) / 3} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+                    eripPaymentPriceValue = `${((this.getSalePrice() - PROMOCODE_SALE_VALUE) / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
                 }
                 else if (isSale && isInstallment) {
-                    eripPaymentPriceValue = `${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+                    eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
                 }
                 else if (isInstallment) {
-                    eripPaymentPriceValue = `${this.getSalePrice() / 3} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+                    eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
                 }
                 else if (isSale) {
                     eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE)} BYN`;
