@@ -158,29 +158,38 @@
 }
 
 .certificate {
+    position: relative;
     &__text {
-        font-family: $font, sans-serif;
+        font-family: $font;
         margin: 0;
         position: absolute;
-        top: 0;
-        left: 0;
         font-size: 2.8rem;
         line-height: 1.42;
-        letter-spacing: -.05rem;
-        max-width: 330px;
+        letter-spacing: -.03em;
+        max-width: 350px;
+        left: 50%;
         top: 50%;
         transform: translateY(-50%);
-        left: 50%;
-        margin-left: -165px;
+        margin-left: -175px;
         text-align: left;
     }
     &__img {
-        padding: 50px;
-        padding-bottom: 0;
-        & img {
-            display: block;
+        @include flex(row, flex-end, flex-end);
+        position: relative;
+        &-media {
+            position: relative;
             width: 100%;
-            margin: 0 auto;
+            max-width: 588px;
+            box-shadow: 0 1px 1px 0 rgba($shadow, .1), 0 20px 20px 0 rgba($shadow, .1);
+            z-index: 2;
+        }
+        &-gradient {
+            position: absolute;
+            bottom: 0;
+            right: -30%;
+            width: calc(100% * 1.5);
+            max-width: none;
+            z-index: 1;
         }
     }
 }
@@ -554,6 +563,35 @@
     .course-template {
         &__header {
             margin-bottom: 20px;
+        }
+    }
+    .certificate {
+        overflow: visible;
+        &__img {
+            display: block;
+            &-media {
+                max-width: 290px;
+                margin: 0 auto;
+            }
+            &-gradient {
+                display: none;
+                width: 530px;
+                right: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        &__text {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            max-width: 290px;
+            margin: 0 auto;
+            margin-top: 20px;
+            letter-spacing: .01em;
+            font-size: 1.7rem;
+            line-height: 1.47;
+            text-align: center;
         }
     }
 }

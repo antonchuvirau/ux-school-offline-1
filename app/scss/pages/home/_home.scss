@@ -1,6 +1,7 @@
 .home-template {
     &__certificate {
-        margin-top: 55px;
+        margin-top: 125px;
+        overflow: hidden;
     }
     &__header {
         @include flex(column);
@@ -153,7 +154,8 @@
             text-align: center;
         }
         &__certificate {
-            padding-bottom: 105px;
+            padding-bottom: 75px;
+            margin-top: 50px;
         }
         &__testimonials {
             padding: 110px 0;

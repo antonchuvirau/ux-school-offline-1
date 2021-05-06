@@ -13,7 +13,7 @@ $home_page_id = 2;
 $phone_number_field = get_field( 'ums_phone_number', $home_page_id );
 $phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 $google_link = 'https://www.google.com/maps/place/UX+Mind+School/@53.9165638,27.584838,17z/data=!4m7!3m6!1s0x46dbcfc1ae2d4963:0x3fdc01c741408b64!8m2!3d53.9165638!4d27.5870267!9m1!1b1';
-$doc_link = 'https://ux-school.by/wp-content/uploads/2020/10/public_offer.pdf';
+$doc_link = 'https://ux-school.by/wp-content/uploads/2021/05/public_offer.pdf';
 $developer_link = 'http://ux-mind.pro';
 $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 ?>

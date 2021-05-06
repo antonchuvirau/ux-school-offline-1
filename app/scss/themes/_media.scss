@@ -125,11 +125,6 @@
             width: auto;
         }
     }
-    .certificate {
-        &__text {
-            font-size: 2.3rem;
-        }
-    }
     .advantages {
         &__item {
             flex-direction: column;
@@ -451,20 +446,6 @@
         }
         &__item {
             padding-left: 0;
-        }
-    }
-    .certificate {
-        &__text {
-            position: relative;
-            top: auto;
-            left: auto;
-            transform: none;
-            margin: 0 auto;
-            margin-top: 15px;
-            letter-spacing: .01em;
-            font-size: 1.7rem;
-            line-height: 1.47;
-            text-align: center;
         }
     }
     .portfolio {
