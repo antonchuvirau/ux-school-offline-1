@@ -1,14 +1,61 @@
 .installment-payment {
+    &__grid {
+        padding: 30px 50px;
+        border-radius: $br-installment-payment;
+        border: 1px solid $gray-50;
+    }
     &__form {
+        position: relative;
+        text-align: center;
+        &-info {
+            @include flex(column);
+            width: 100%;
+            max-width: 235px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        &-wrapper {
+            max-width: 400px;
+        }
     }
 }
 
 // MEDIA
+@media screen and (max-width: 1229px) {
+    .installment-payment {
+        &__form {
+            &-wrapper {
+                max-width: 320px;
+            }
+        }
+        &__price {
+            &-value {
+                font-size: 3.5rem;
+            }
+        }
+    }
+}
 @media screen and (max-width: 767px) {
     .installment-payment {
         &__price {
             &-value {
                 font-size: 2rem;
+            }
+        }
+        &__grid {
+            padding: 15px;
+            padding-bottom: 30px;
+        }
+        &__form {
+            &-wrapper {
+                max-width: 100%;
+            }
+            &-info {
+                top: 75px;
+                right: auto;
+                left: 0;
+                max-width: 100%;
             }
         }
     }

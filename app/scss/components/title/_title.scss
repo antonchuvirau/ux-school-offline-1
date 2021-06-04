@@ -12,6 +12,12 @@
             letter-spacing: -.03em;
             line-height: 1.25;
         }
+        &-s {
+            font-size: 2.8rem;
+            letter-spacing: -.03em;
+            font-weight: 800;
+            color: $gray-900;
+        }
     }
     &_style {
         &-dark {
@@ -24,6 +30,11 @@
 @media screen and (max-width: 991px) {
     .title {
         font-size: 3.5rem;
+        &_size {
+            &-s {
+                font-size: 2.5rem;
+            }
+        }
     }
     .course-template {
         &__title {
@@ -36,6 +47,11 @@
         font-size: 2.8rem;
         letter-spacing: -.07rem;
         line-height: 1.25;
+        &_size {
+            &-s {
+                font-size: 1.7rem;
+            }
+        }
     }
     .course-template {
         &__title {

@@ -1,7 +1,8 @@
 // Variables
 $modal-width: (
     'default': 767px,
-    'free-start': 540px
+    'free-start': 540px,
+    'installment': 540px
 );
 .modal {
     width: 100%;
@@ -73,7 +74,6 @@ $modal-width: (
         margin-top: 10px;
     }
 }
-
 .video-modal {
     padding: 0;
     height: 530px;
@@ -92,11 +92,9 @@ $modal-width: (
         }
     }
 }
-
 .testimonials-modal {
     height: 100%;
 }
-
 .lecturer-modal {
     padding-bottom: 70px;
     &__grid {
@@ -161,13 +159,11 @@ $modal-width: (
         }
     }
 }
-
 .order-modal {
     &__btn {
         height: 60px;
     }
 }
-
 .success-modal {
     text-align: center;
     &__title {
@@ -181,7 +177,6 @@ $modal-width: (
         color: $gray-500;
     }
 }
-
 .success-modal-free-start {
     &__title {
         font-family: $secondary-font, sans-serif;
@@ -194,7 +189,6 @@ $modal-width: (
         margin-top: 20px;
     }
 }
-
 .content-modal {
     max-width: 1000px;
     & p, ul li, ol li {
@@ -235,7 +229,6 @@ $modal-width: (
         }
     }
 }
-
 .personal-data-modal {
     max-width: 1000px;
     & p, ul li, ol li {
@@ -264,7 +257,6 @@ $modal-width: (
         }
     }
 }
-
 .image-modal {
     max-width: 85%;
     &__img {
@@ -276,7 +268,6 @@ $modal-width: (
         margin: 0 auto;
     }
 }
-
 .map-modal {
     padding: 0;
     border-radius: 0;
@@ -297,7 +288,6 @@ $modal-width: (
         height: 100%;
     }
 }
-
 .free-start-modal {
     max-width: map-get($modal-width, 'free-start');
     &__row {
@@ -322,7 +312,6 @@ $modal-width: (
         margin-bottom: 30px;
     }
 }
-
 .event-modal {
     max-width: 540px;
     padding: 40px 70px;
@@ -384,7 +373,29 @@ $modal-width: (
         margin-top: 40px;
     }
 }
-
+.installment-modal {
+    padding: 30px 70px;
+    max-width: map-get($modal-width, 'installment');
+    &__title {
+        display: block;
+        text-align: center;
+        color: $gray-900;
+        margin-bottom: 25px;
+    }
+    &__content {
+        & ul {
+            margin: 0;
+            & li {
+                font-size: 1.7rem;
+                color: $gray-700;
+                line-height: 1.45;
+                &:not(:last-child) {
+                    margin-bottom: 3px;
+                }
+            }
+        }
+    }
+}
 .blocker {
     z-index: 15;
 }
@@ -395,6 +406,21 @@ $modal-width: (
         &__img {
             & img {
                 margin: 0 auto;
+            }
+        }
+    }
+}
+@media screen and (max-width: 767px) {
+    .installment-modal {
+        padding: 30px 20px;
+        &__title {
+            font-size: 1.7rem;
+        }
+        &__content {
+            & ul {
+                & li {
+                    font-size: 1.5rem;
+                }
             }
         }
     }

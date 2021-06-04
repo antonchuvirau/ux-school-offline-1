@@ -1327,6 +1327,11 @@
     }
     .title {
         font-size: 2.8rem;
+        &_size {
+            &-s {
+                font-size: 1.7rem;
+            }
+        }
     }
     .course-list {
         &__row {

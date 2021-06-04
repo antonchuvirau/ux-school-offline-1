@@ -64,7 +64,7 @@
             }
             & .form {
                 &__ums-currency {
-                    padding-top: 15px;
+                    padding-top: 13px;
                     opacity: 1;
                 }
             }
@@ -435,6 +435,26 @@ div {
             margin-bottom: 0;
         }
     }
+    &__btn {
+        width: 100%;
+        height: 60px;
+        padding: 1em .85em;
+        margin-top: 10px;
+    }
+    &__row {
+        margin-bottom: 15px;
+        text-align: left;
+        & span.wpcf7-not-valid-tip {
+            top: calc(100% + 1px);
+            left: 1px;
+        }
+        &_mb30 {
+            margin-bottom: 30px;
+        }
+    }
+    &__privacy-checkbox {
+        margin-top: 10px;
+    }
 }
 // MEDIA
 @media screen and (max-width: 991px) {
@@ -460,15 +480,27 @@ div {
             height: auto;
         }
     }
+    .installment-form {
+        &__row {
+            &_mb30 {
+                margin-bottom: 220px;
+            }
+        }
+    }
 }
 @media screen and (max-width: 575px) {
     .installment-form {
-        &__btn {
-            height: 6rem;
-            font-size: 2rem;
-            letter-spacing: -.03rem;
-            font-weight: 400;
-            width: 100%;
-        }
+        // &__btn {
+        //     height: 6rem;
+        //     font-size: 2rem;
+        //     letter-spacing: -.03rem;
+        //     font-weight: 400;
+        //     width: 100%;
+        // }
+        // &__row {
+        //     &_mb30 {
+        //         margin-bottom: 205px;
+        //     }
+        // }
     }
 }

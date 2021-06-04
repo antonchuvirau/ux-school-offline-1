@@ -8,10 +8,6 @@
  *
  * @package UX_Mind_School
  */
-
-$home_page_id = 2;
-$phone_number_field = get_field( 'ums_phone_number', $home_page_id );
-$phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -26,6 +22,13 @@ $phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 	<link rel="preload" href="<?php echo esc_url( get_template_directory_uri() ); ?>/fonts/Manrope-Light.woff2" as="font" type="font/woff2" crossorigin>
 	<!-- Preload fonts -->
 	<?php wp_head(); ?>
+	<?php
+	// BEGIN OPTIONS
+	$telephone_number = get_field( 'telephone_number', 'option' );
+	$logo_light = get_field( 'logo_light', 'option' );
+	$logo_dark = get_field( 'logo_dark', 'option' );
+	// END OPTIONS
+	?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -37,19 +40,19 @@ $phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 				<div class="col-8 col-sm-6 col-xl-2">
 					<a href="<?php echo esc_url( get_home_url() ); ?>" class="logo header__logo">
 						<?php if (is_page_template('home.php') || is_page(12) ||  is_page_template(array('course.php', 'event.php'))): ?>
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/ux-mind-school.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<img src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>">
 						<?php else: ?>
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/ux-mind-school-colour.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<img src="<?php echo esc_url( $logo_dark['url'] ); ?>" alt="<?php echo esc_attr( $logo_dark['alt'] ); ?>">
 						<?php endif; ?>
 					</a>
 				</div>
 				<div class="col-4 col-sm-6 d-xl-none">
 					<div class="m-options">
 						<?php if (is_page_template('home.php') || is_page(12) ||  is_page_template(array('course.php', 'event.php'))): ?>
-							<a href="tel:+37529<?php echo $phone_number; ?>" class="m-options__btn m-options__phone-link m-options__phone-link_m-right"></a>
+							<a href="tel:+375<?php echo preg_replace('/[^0-9]/', '', $telephone_number); ?>" class="m-options__btn m-options__phone-link m-options__phone-link_m-right"></a>
 							<button type="button" class="m-options__btn m-options__menu-btn"></button>
 						<?php else: ?>
-							<a href="tel:+37529<?php echo $phone_number; ?>" class="m-options__btn m-options__phone-link m-options__phone-link_style-gradient m-options__phone-link_m-right"></a>
+							<a href="tel:+375<?php echo preg_replace('/[^0-9]/', '', $telephone_number); ?>" class="m-options__btn m-options__phone-link m-options__phone-link_style-gradient m-options__phone-link_m-right"></a>
 							<button type="button" class="m-options__btn m-options__menu-btn m-options__menu-btn_style-gradient"></button>
 						<?php endif; ?>
 					</div>
@@ -72,7 +75,7 @@ $phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 								?>
 							</ul>
 						</nav>
-						<a href="tel:+37529<?php echo $phone_number; ?>" class="<?php if (is_home() ||  is_front_page() || is_page(12) || is_page_template(array('course.php', 'event.php'))): ?>header__phone-number<?php else: ?>header__phone-number header__phone-number_style-dark<?php endif; ?>">+375 (29) <?php echo $phone_number_field; ?><span>Viber&nbsp;&nbsp;Telegram&nbsp;&nbsp;WhatsApp</span></a>
+						<a href="tel:+375<?php echo preg_replace('/[^0-9]/', '', $telephone_number); ?>" class="<?php if (is_home() ||  is_front_page() || is_page(12) || is_page_template(array('course.php', 'event.php'))): ?>header__phone-number<?php else: ?>header__phone-number header__phone-number_style-dark<?php endif; ?>">+375 <?php echo $telephone_number; ?><span>Viber&nbsp;&nbsp;Telegram&nbsp;&nbsp;WhatsApp</span></a>
 					</div>
 				</div>
 			</div>

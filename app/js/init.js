@@ -30,6 +30,12 @@ const PAYMENT_METHODS_DATA = [{
     name: `online`,
     title: `Оплатить картой`,
     checked: false
+},
+{
+    id: 5,
+    name: `online`,
+    title: `Рассрочка на&nbsp;8&nbsp;месяцев по&nbsp;карте&nbsp;Черепаха`,
+    checked: false
 }];
 const INSTALLMENT_TERM = 12;
 const INSTALLMENT_RATE = 13;

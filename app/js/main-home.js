@@ -68,7 +68,7 @@ function showPopup() {
                 modal.modal({
                     fadeDuration: 300
                 });
-            }, 25000);
+            }, 5000);
         }
     }
 }

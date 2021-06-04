@@ -8,10 +8,11 @@
  *
  * @package UX_Mind_School
  */
-
+// BEGIN OPTIONS
+$telephone_number = get_field( 'telephone_number', 'option' );
+$logo_light = get_field( 'logo_light', 'option' );
+// END OPTIONS
 $home_page_id = 2;
-$phone_number_field = get_field( 'ums_phone_number', $home_page_id );
-$phone_number = preg_replace('/[^0-9]/', '', $phone_number_field);
 $google_link = 'https://www.google.com/maps/place/UX+Mind+School/@53.9165638,27.584838,17z/data=!4m7!3m6!1s0x46dbcfc1ae2d4963:0x3fdc01c741408b64!8m2!3d53.9165638!4d27.5870267!9m1!1b1';
 $doc_link = 'https://ux-school.by/wp-content/uploads/2021/05/public_offer.pdf';
 $developer_link = 'http://ux-mind.pro';
@@ -24,9 +25,9 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 			<div class="row">
 				<div class="col-12 col-lg-3">
 					<?php if (!is_page_template('home.php')): ?>
-					<a class="footer__logo" href="<?php echo esc_url(get_home_url()); ?>"><img src="<?php echo esc_url(get_template_directory_uri()); ?>/img/footer-logo.svg" alt="<?php echo esc_attr(get_bloginfo('name')); ?>"></a>
+					<a class="footer__logo" href="<?php echo esc_url(get_home_url()); ?>"><img src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>"></a>
 					<?php else: ?>
-					<img class="footer__logo" src="<?php echo esc_url(get_template_directory_uri()); ?>/img/footer-logo.svg" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+					<img class="footer__logo" src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>">
 					<?php endif; ?>
 					<div class="social footer__social">
 						<?php if (get_field('ums_vk_link', 2)): ?>
@@ -119,7 +120,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						<header class="m-menu__header">
 							<div class="row align-items-center">
 								<div class="col-8">
-									<a href="<?php echo esc_url( get_home_url() ); ?>" class="m-menu__logo"><img src="<?php echo get_template_directory_uri(); ?>/img/ux-mind-school.svg" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"></a>
+									<a href="<?php echo esc_url( get_home_url() ); ?>" class="m-menu__logo"><img src="<?php echo $logo_light['url']; ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>"></a>
 								</div>
 								<div class="col-4">
 									<div class="m-menu__options">
@@ -153,8 +154,8 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 							</nav>
 						</div>
 						<footer class="m-menu__footer">
-							<a href="tel:+37529<?php echo $phone_number; ?>" class="header__phone-number">
-								+375 (29) <?php echo $phone_number_field; ?>
+							<a href="tel:+375<?php echo preg_replace('/[^0-9]/', '', $telephone_number); ?>" class="header__phone-number">
+								+375 <?php echo $telephone_number; ?>
 								<span>Viber&nbsp;&nbsp;Telegram&nbsp;&nbsp;WhatsApp</span>
 							</a>
 							<div class="social m-menu__social">
@@ -229,6 +230,9 @@ endif;
 if (is_category() || is_single()):
 	get_template_part('template-parts/modal/success', 'third');
 endif;
+if (is_page_template('payment.php')) {
+	get_template_part('template-parts/modal/installment', 'conditions');
+}
 ?>
 <!-- End modal -->
 <?php wp_footer(); ?>

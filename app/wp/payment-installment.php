@@ -40,14 +40,14 @@ $is_promocode = get_field('promocode_bool', 2);
 											$courses_array = array(
 												'post_type'=>'post',
 												'post_status'=>'publish',
-												'cat'=>'15,1,2,4,5,99',
+												'cat'=>'15,1,2,4,5,99,121,124',
 												'posts_per_page'=>-1,
 												'meta_key'=>'ums_course_info_start',
 												'orderby'=>'meta_value',
 												'order'=>'ASC',
 											);
 											$courses_query = new WP_Query($courses_array); if ($courses_query->have_posts()): ?>
-											<div data-type="payment" class="ums-select">
+											<div data-type="payment" data-installment="true" class="ums-select">
 												<button data-price="0" data-sale-price="0" type="button" class="ums-select__btn">Нажмите, чтобы выбрать курс</button>
 												<ul class="ums-select__list">
 													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата следующего этапа действующего курса</li>

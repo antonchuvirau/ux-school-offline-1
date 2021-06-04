@@ -286,6 +286,32 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+// BEGIN ACF SETTINGS
+if( function_exists( 'acf_add_options_page' ) ) {
+	acf_add_options_page( array(
+		'page_title' 	=> 'Настройки сайта',
+		'menu_title'	=> 'Настройки',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'icon_url' 		=> 'dashicons-welcome-widgets-menus',
+		'position'      => 2,
+		'redirect'		=> false
+	) );
+	
+	acf_add_options_sub_page( array(
+		'page_title' 	=> 'Настройки Header',
+		'menu_title'	=> 'Настройки Header',
+		'parent_slug'	=> 'theme-general-settings',
+	) );
+	
+	acf_add_options_sub_page( array(
+		'page_title' 	=> 'Настройки Footer',
+		'menu_title'	=> 'Настройки Footer',
+		'parent_slug'	=> 'theme-general-settings',
+	) );
+}
+// END ACF SETTINGS
+
 // Добавляем кастомный тег для contact form 7
 add_filter( 'shortcode_atts_wpcf7', 'custom_shortcode_atts_wpcf7_filter', 10, 3 );
 // Отключаем стандартные стили формы
@@ -1376,7 +1402,7 @@ function my_gallery_output( $output, $attr ){
 
 function get_promocode() {
 	$promocodes_list = array_filter(get_field('ums_promocodes', 2), "check_date");
-	$response = json_encode($promocodes_list, true);
+	$response = json_encode($promocodes_list);
 	echo $response;
 	wp_die();
 }

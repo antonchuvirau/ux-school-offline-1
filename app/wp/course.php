@@ -231,7 +231,9 @@ endif;
 			4=>'motion',
 			15=>'start',
 			5=>'picture',
-			99=>'design-smm'
+			99=>'design-smm',
+			121=>'tilda',
+			124=>'interior'
 		];
 		$course_portfolio_settings = array(
 			'cat'=>7,

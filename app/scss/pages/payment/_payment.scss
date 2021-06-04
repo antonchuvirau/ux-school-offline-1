@@ -250,6 +250,21 @@
 }
 
 // MEDIA
+@media screen and (max-width: 1229px) {
+    .payment-section {
+        &__price {
+            &-value {
+                &.installment-payment {
+                    &__price {
+                        &-value {
+                            font-size: 3.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 @media screen and (max-width: 991px) {
     .payment-item {
         &[style="display: none;"] {

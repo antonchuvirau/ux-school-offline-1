@@ -15,6 +15,7 @@ $card-payment-info-radius: 5px;
         font-weight: 800;
         line-height: 1;
         text-align: center;
+        text-decoration: none;
         &[href*="mailto"] {
             margin-top: 10px;
             border-bottom: 1px solid $gray-50;
@@ -32,9 +33,13 @@ $card-payment-info-radius: 5px;
         font-weight: 400;
         margin-right: 5px;
         border-bottom: 1px solid $gray-300;
+        text-decoration: none;
         &:last-child {
             margin-right: 0;
         }
+    }
+    &__wrapper {
+        text-align: center;
     }
 }
 

@@ -1,0 +1,67 @@
+.info-message {
+    &__item {
+        @include flex(column);
+        padding: 20px;
+        padding-bottom: 15px;
+        background: $primary-50;
+        border-radius: $br-info-message;
+        margin-bottom: 10px;
+        text-align: left;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &-icon {
+            margin-bottom: 20px;
+        }
+        &-title {
+            font-size: 1.2rem;
+            color: $gray-600;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+        &-links {
+            padding: 0;
+            margin: 0;
+            & li {
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+            & a, button {
+                display: inline;
+                border-bottom: 1px dashed $primary-500;
+                text-decoration: none;
+                font-size: 1.5rem;
+                line-height: 1.3;
+                color: $primary-500;
+                &:hover {
+                    opacity: .8;
+                }
+                &:visited {
+                    color: $primary-700;
+                }
+            }
+        }
+    }
+}
+
+// MEDIA
+@media screen and (max-width: 767px) {
+    .info-message {
+        &__item {
+            position: relative;
+            width: 100%;
+            padding: 15px;
+            padding-left: 45px;
+            &-icon {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                margin: 0;
+            }
+            &-title {
+                padding-top: 3px;
+            }
+        }
+    }
+}

@@ -4,11 +4,12 @@
 
     const maps = [
         // 'https://yandex.by/map-widget/v1/-/CCQ3FSqPXD',
-        'https://yandex.by/map-widget/v1/-/CCU4MXgLtD',
+        'https://yandex.by/map-widget/v1/-/CCUaFLuO2A',
         'https://yandex.by/map-widget/v1/-/CCQ3FSBghC',
         'https://yandex.by/map-widget/v1/-/CCQpQFGY9B',
         '',
-        'https://yandex.by/map-widget/v1/-/CCQ3FSFCTD'
+        'https://yandex.by/map-widget/v1/-/CCUaFLCmPA',
+        'https://yandex.by/map-widget/v1/-/CCU4MXgLtD'
     ];
 
     function initMapIframe(showModal=false) {

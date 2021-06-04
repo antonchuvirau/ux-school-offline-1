@@ -209,6 +209,7 @@
     }
     &__text {
         margin-bottom: 55px;
+        padding: 0 65px;
         text-align: center;
         & p {
             margin: 0;
@@ -603,6 +604,11 @@
                     text-align: left;
                 }
             }
+        }
+    }
+    .section {
+        &__text {
+            padding: 0;
         }
     }
 }

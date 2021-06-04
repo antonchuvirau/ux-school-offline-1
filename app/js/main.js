@@ -68,7 +68,7 @@ function showPopup() {
                 modal.modal({
                     fadeDuration: 300
                 });
-            }, 25000);
+            }, 5000);
         }
     }
 }
@@ -224,6 +224,7 @@ function wpcf7SentHandler(event) {
             }
             // Yandex conversion
             ym(49171171, 'reachGoal', 'lead_form');
+            ga('send', { hitType: 'event', eventCategory: 'button', eventAction: 'click' });
             //Send to CRM
             crmObject = new amoCRMInsance(131, inputs, 'lead');
             requestData = crmObject.getRequestObject();
@@ -303,6 +304,7 @@ function wpcf7SentHandler(event) {
                 if (respObject.result) {
                     //Yandex conversion
                     ym(49171171, 'reachGoal', 'emailsub');
+                    ga('send', { hitType: 'event', eventCategory: 'freelessons', eventAction: 'click' });
                     target.querySelector('.form__input').classList.remove('form__input_filled');
                     target.querySelector('.form__label').classList.remove('form__label_active');
                     button.textContent = defaultSubmitButtonText;
@@ -325,6 +327,7 @@ function wpcf7SentHandler(event) {
             crmObject = new amoCRMInsance(1839, inputs, 'intensive');
             requestData = crmObject.getRequestObject();
             jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
+                ga('send', { hitType: 'event', eventCategory: 'emailbutton', eventAction: 'click' });
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
@@ -491,7 +494,7 @@ function onPaymentPageClickHandler(evt) {
             paymentInstance.changeInputPrice(paymentMethodIndex, true);
             return;
         }
-        paymentInstance.updatePrices(paymentMethodIndex);
+        paymentInstance.updatePrices(paymentMethodIndex, true);
         paymentInstance.changeInputPrice(paymentMethodIndex);
     }
 }
@@ -1010,24 +1013,24 @@ document.addEventListener('click', (evt) => {
         const eripPaymentPromocodeField = document.querySelector(`.promocode-input`);
         if (target.checked) {
             if (eripPaymentSaleField.checked) {
-                paymentInstance.updateEripPrice(false, true, true);
+                paymentInstance.updateEripPrice({}, true, true);
             }
             else if (eripPaymentPromocodeField.classList.contains(`promocode-input_state-success`)) {
-                paymentInstance.updateEripPrice(true, false, true);
+                paymentInstance.updateEripPrice(window.promocodeData.value, false, true);
             }
             else {
-                paymentInstance.updateEripPrice(false, false, true)
+                paymentInstance.updateEripPrice({}, false, true);
             }
         }
         else {
             if (eripPaymentSaleField.checked) {
-                paymentInstance.updateEripPrice(false, true, false);
+                paymentInstance.updateEripPrice({}, true, false);
             }
             else if (eripPaymentPromocodeField.classList.contains(`promocode-input_state-success`)) {
-                paymentInstance.updateEripPrice(true, false, false);
+                paymentInstance.updateEripPrice(window.promocodeData.value, false, false);
             }
             else {
-                paymentInstance.updateEripPrice(false, false, false);
+                paymentInstance.updateEripPrice({}, false, false);
             }
         }
     }
@@ -1037,18 +1040,18 @@ document.addEventListener('click', (evt) => {
         document.querySelector(`.erip-payment__message-note`).classList.toggle(`erip-payment__message-note_active`);
         if (target.checked) {
             if (eripPaymentInstallmentField.checked) {
-                paymentInstance.updateEripPrice(false, true, true);
+                paymentInstance.updateEripPrice({}, true, true);
             }
             else {
-                paymentInstance.updateEripPrice(false, true, false)
+                paymentInstance.updateEripPrice({}, true, false)
             }
         }
         else {
             if (eripPaymentInstallmentField.checked) {
-                paymentInstance.updateEripPrice(false, false, true);
+                paymentInstance.updateEripPrice({}, false, true);
             }
             else {
-                paymentInstance.updateEripPrice(false, false, false);
+                paymentInstance.updateEripPrice({}, false, false);
             }
         }
     }
@@ -1092,3 +1095,10 @@ document.body.addEventListener('mouseout', (evt) => {
         target.closest('svg').nextElementSibling.classList.remove('info__content_opened');
     }
 });
+
+// FANCY APP SETTINGS
+jQuery('[data-fancybox][data-type="iframe"]').fancybox({
+    iframe : {
+        preload : true
+    }
+})

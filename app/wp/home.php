@@ -43,11 +43,11 @@ get_header();
                 <div class="row">
                     <div class="col-12">
                         <header class="course-list__header tabs">
-                            <button type="button" data-id="1,15,2,4,99,121,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
+                            <button type="button" data-id="1,15,2,4,99,121,124,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
                             <?php
                                 $courses_array = array(
                                     'taxonomy'=>'category',
-                                    'include'=>'1,15,2,4,99,121,3',
+                                    'include'=>'1,15,2,4,99,121,124,3',
                                     'orderby'=>'include',
                                     'hide_empty'=>true
                                 );
@@ -68,7 +68,7 @@ get_header();
                                     $courses_array = array(
                                         'post_type'=>'post',
                                         'post_status'=>'publish',
-                                        'cat'=>'1,15,2,4,99,3',
+                                        'cat'=>'1,15,2,4,99,121,124,3',
                                         'posts_per_page'=>'3',
                                         'meta_key'=>'ums_course_info_start',
                                         'orderby'=>'meta_value',

@@ -62,12 +62,12 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 					<div class="course-info">
 						<?php if ($course_places): ?>
 						<div class="course-info__item">
-							<p class="course-info__item-name">Количество мест</p>
+							<p class="course-info__item-name">Мест</p>
 							<p class="course-info__item-value"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></p>
 						</div>
 						<?php endif; ?>
 						<div class="course-info__item">
-							<p class="course-info__item-name">Дата события</p>
+							<p class="course-info__item-name">Дата</p>
 							<p class="course-info__item-value"><?php echo get_schedule_template($course_post_id); ?></p>
 						</div>
 						<div class="course-info__item">
@@ -76,7 +76,7 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 						</div>
 						<?php if ($course_office): ?>
 						<div class="course-info__item">
-							<p class="course-info__item-name">Где пройдёт</p>
+							<p class="course-info__item-name">Кабинет</p>
 							<p class="course-info__item-value"><?php echo $course_office['label']; ?>
 						</div>
 						<?php endif; ?>

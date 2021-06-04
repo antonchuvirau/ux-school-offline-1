@@ -40,7 +40,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											$courses_array = array(
 												'post_type'=>'post',
 												'post_status'=>'publish',
-												'cat'=>'15,1,2,4,5,99,121',
+												'cat'=>'15,1,2,4,5,99,121,124',
 												'posts_per_page'=>-1,
 												'meta_key'=>'ums_course_info_start',
 												'orderby'=>'meta_value',
@@ -50,7 +50,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div data-type="payment" class="ums-select">
 												<button data-price="0" data-sale-price="0" type="button" class="ums-select__btn">Нажмите, чтобы выбрать курс</button>
 												<ul class="ums-select__list">
-													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата слудующего этапа действующего курса</li>
+													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата следующего этапа действующего курса</li>
 													<?php
 														$counter = 0;
 														while ( $courses_query->have_posts() ): $courses_query->the_post();
@@ -180,7 +180,12 @@ $is_promocode = get_field('promocode_bool', 2);
 											<div class="payment-form__section-grid">
 												<p class="webpay-form__note">Свяжитесь с нами и мы предложим вам удобный вариант оплаты картой</p>
 												<div class="card-payment-info webpay-form__info">
-													<a href="tel:+375298630657" class="card-payment-info__link">+375 (29) 863-06-57<br/><span class="card-payment-info__social-name">Telegram,</span><span class="card-payment-info__social-name">WhatsApp,</span><span class="card-payment-info__social-name">Viber</spam></a>
+													<div class="card-payment-info__wrapper">
+														<a class="card-payment-info__link" href="tel:+375298630657">+375 (29) 863-06-57</a><br/>
+														<a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ux_mind_school" class="card-payment-info__social-name">Telegram,</a>
+														<a target="_blank" rel="noopener noreferrer" href="https://web.whatsapp.com/send?phone=375298630657" class="card-payment-info__social-name">WhatsApp,</a>
+														<a target="_blank" rel="noopener noreferrer" href="viber://chat?number=+375298630657" class="card-payment-info__social-name">Viber</a>
+													</div>
 													<a class="card-payment-info__link" href="mailto:hello@ux-school.by">hello@ux-school.by</a>
 												</div>
 											</div>
@@ -191,15 +196,84 @@ $is_promocode = get_field('promocode_bool', 2);
 									<section class="payment-form__section payment-section installment-payment">
 										<div class="payment-form__section-item">
 											<p class="payment-form__section-name">Введите Ваши данные</p>
-											<div class="payment-form__section-grid">
+											<div class="payment-form__section-grid installment-payment__grid">
 												<p class="payment-section__price installment-payment__price">Платежи по кредиту:<span class="payment-section__price-value installment-payment__price-value">0 BYN</span></p>
 												<div class="installment-payment__form">
-													<?php echo do_shortcode('[contact-form-7 id="6494" html_class="form installment-form" title="Рассрочка от Альфа-банка"]'); ?>
+													<div class="installment-payment__form-wrapper">
+														<?php echo do_shortcode('[contact-form-7 id="6494" html_class="form installment-form installment-payment__form-box" title="Рассрочка от Альфа-банка"]'); ?>
+														<label class="checkbox privacy-checkbox installment-form__privacy-checkbox">
+															<input type="checkbox" checked class="checkbox__input privacy-checkbox__input">
+															<p class="checkbox__name checkbox__name_size-s">Я согласен с условиями обработки <button type="button" data-modal="#personal-data-modal" class="link checkbox__link checkbox__link_size-s">персональных данных</button></p>
+														</label>
+													</div>
+													<aside class="info-message installment-payment__form-info">
+														<div class="info-message__item">
+															<svg class="info-message__item-icon" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm1 12H9V9h2v5zm0-6H9V6h2v2z" fill="#2698FC"/></svg>
+															<span class="info-message__item-title">Как оформить кредит<br/>от Альфа-Банка?</span>
+															<ul class="list info-message__item-links">
+																<li><a target="_blank" href="/wp-content/uploads/2021/05/alfabank_new.pdf">Для новых клиентов</a></li>
+																<li><a target="_blank" href="/wp-content/uploads/2021/05/alfabank_current.pdf">Для действующих клиентов</a></li>
+															</ul>
+														</div>
+														<div class="info-message__item">
+															<svg class="info-message__item-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path d="M6.25 5.41699C6.25 7.48449 7.9325 9.16699 10 9.16699C12.0675 9.16699 13.75 7.48449 13.75 5.41699C13.75 3.34949 12.0675 1.66699 10 1.66699C7.9325 1.66699 6.25 3.34949 6.25 5.41699ZM16.6667 17.5003H17.5V16.667C17.5 13.4512 14.8825 10.8337 11.6667 10.8337H8.33333C5.11667 10.8337 2.5 13.4512 2.5 16.667V17.5003H16.6667Z" fill="#2698FC"/>
+															</svg>
+															<ul class="list info-message__item-links">
+																<li><button type="button" data-modal="#installment-modal">Условия получения кредита</button></li>
+															</ul>
+														</div>
+													</aside>
 												</div>
 											</div>
 										</div>
 									</section>
 									<!-- END INSTALLMENT -->
+									<!-- BEGIN CHEREPAHA -->
+									<section class="payment-form__section payment-section">
+										<div class="form webpay-form payment-form__section-item">
+											<p class="payment-form__section-name">2. Введите ваши данные</p>
+											<div class="payment-form__section-grid">
+												<div class="webpay-form__item">
+													<div class="form__input payment-form__input">
+														<input type="text" inputmode="text" required name="name">
+														<span class="form__label">Имя и фамилия ученика</span>
+														<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+													</div>
+													<label class="checkbox webpay-form__sale-checkbox">
+														<input type="checkbox" name="sale" class="checkbox__input">
+														<p class="checkbox__name">Я учился у вас (скидка 10%)</p>
+													</label>
+												</div>
+												<div class="webpay-form__item">
+													<div class="form__input payment-form__input currency-input-wrapper">
+														<input type="text" required name="total" value="">
+														<span class="form__label">Сумма для оплаты</span>
+														<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+														<div class="ums-currency form__ums-currency"></div>
+													</div>
+												</div>
+												<?php if ($is_promocode): ?>
+												<div class="webpay-form__item promocode">
+													<label class="toggle-checkbox">
+														<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+														<div class="toggle-checkbox__element"></div>
+														<p class="toggle-checkbox__name">У меня есть промо-код</p>
+													</label>
+													<div class="form__input promocode-input payment-form__input">
+														<input type="text" inputmode="text" name="promocode">
+														<span class="form__label">Промо-код</span>
+														<span role="alert" class="form__error-label">Недействительный промокод</span>
+														<button type="button" class="promocode-input__btn">Применить</button>
+													</div>
+												</div>
+												<?php endif; ?>
+												<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a></p>
+												<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
+											</div>
+										</div>
+									</section>
+									<!-- END CHEREPAHA -->
 								</div>
 							</div>
 						</div>

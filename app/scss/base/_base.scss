@@ -28,7 +28,7 @@ b, strong {
     @include font-weight('bold');
 }
 body {
-    font-family: $secondary-font, sans-serif;
+    font-family: $secondary-font;
     @include font-weight('normal');
     color: $dark;
     font-size: 1.6rem;
