@@ -10,7 +10,7 @@
             color: rgba($white, .5);
             font-size: 1.5rem;
             line-height: 1.35;
-            width: 100px;
+            width: 110px;
         }
         &-value {
             @include flex(row, center);
@@ -79,7 +79,7 @@
         }
         &-wrapper {
             @include flex(row, center, flex-start, wrap);
-            margin-left: 10px;
+            // margin-left: 10px;
         }
         &-currency-price {
             color: $secondary-100;

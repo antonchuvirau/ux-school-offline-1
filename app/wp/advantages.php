@@ -19,7 +19,7 @@
 			<div class="col-6 col-lg-3 advantages__col">
 				<div class="advantages__item">
 					<img class="advantages__img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/feature-2.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
-					<p class="advantages__name">Рассрочка</br>до&nbsp;6&nbsp;месяцев</p>
+					<p class="advantages__name">Рассрочка</br>до&nbsp;12&nbsp;месяцев</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">
@@ -31,7 +31,7 @@
 			<div class="col-6 col-lg-3 advantages__col">
 				<div class="advantages__item">
 					<img class="advantages__img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/feature-4.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
-					<p class="advantages__name">Скидка 10% ученикам&nbsp;школы</p>
+					<p class="advantages__name">Скидка 10% выпускникам&nbsp;школы</p>
 				</div>
 			</div>
 		</div>

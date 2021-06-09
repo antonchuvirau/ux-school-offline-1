@@ -41,6 +41,7 @@ endif;
 $course_places = get_field('ums_course_info_places', $course_post_id);
 $course_length = get_field('ums_course_info_length', $course_post_id);
 $course_office = get_field('ums_course_info_office', $course_post_id);
+$course_lecturer = get_field('ums_course_info_lecturer', $course_post_id);
 $is_course_full = get_field('ums_course_full', $course_post_id);
 $is_course_free = get_field('ums_course_free', $course_post_id);
 $course_price = get_field('ums_course_info_price', $course_post_id);
@@ -80,6 +81,14 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 							<p class="course-info__item-value"><?php echo $course_office['label']; ?>
 						</div>
 						<?php endif; ?>
+						<div class="course-info__item">
+							<p class="course-info__item-name">Кто ведёт</p>
+							<?php if ($course_lecturer): ?>
+							<button type="button" data-modal="#lecturer-modal" class="link course-info__item-value course-info__item-link"><?php echo $course_lecturer->post_title; ?></button>
+							<?php else: ?>
+							<a href="<?php echo esc_url(get_page_link(1641)); ?>" class="link course-info__item-value course-info__item-link">Наши преподаватели</a>
+							<?php endif; ?>
+						</div>
 						<div class="course-info__item">
 							<p class="course-info__item-name">Стоимость</p>
 							<div class="course-info__item-wrapper">
