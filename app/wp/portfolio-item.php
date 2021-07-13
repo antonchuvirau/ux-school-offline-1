@@ -20,7 +20,8 @@ $project_type = [
 	'start' => 'Дизайн старт',
 	'interior' => 'Дизайн интерьеров',
 	'photoshop' => 'Фотошоп для SMM',
-	'tilda' => 'Дизайн на Tilda'
+	'tilda' => 'Дизайн на Tilda',
+	'3d' => '3-d дизайн'
 ];
 ?>
 <div class="col-12 col-md-6 col-lg-4 portfolio__col">

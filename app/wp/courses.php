@@ -33,11 +33,11 @@ $page_id = $page_queried_object->ID;
 				<div class="col-12">
 					<div class="course-list template__course-list">
 						<header class="course-list__header tabs">
-							<button type="button" data-show-full="true" data-id="15,1,2,4,99,121,124,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
+							<button type="button" data-show-full="true" data-id="15,1,2,4,99,121,124,127,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
 							<?php
                             $courses_array = array(
 								'taxonomy'=>'category',
-								'include'=>'15,1,2,4,99,121,124,3',
+								'include'=>'15,1,2,4,99,121,124,127,3',
 								'orderby'=>'include',
 								'hide_empty'=>true
 							);
@@ -57,7 +57,7 @@ $page_id = $page_queried_object->ID;
 							<?php
                                 $courses_array = array(
                                     'post_type'=>'post',
-									'cat'=>'15,1,2,4,99,121,124,3',
+									'cat'=>'15,1,2,4,99,121,124,127,3',
 									'post_status'=>'publish',
                                     'posts_per_page'=>-1,
                                     'meta_key'=>'ums_course_info_start',

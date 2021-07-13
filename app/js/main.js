@@ -221,14 +221,14 @@ function wpcf7SentHandler(event) {
                 button.classList.remove('btn_is-loading');
                 jQuery.modal.close();
                 jQuery('#success-modal-first').modal();
+                //Send to CRM
+                crmObject = new amoCRMInsance(131, inputs, 'lead');
+                requestData = crmObject.getRequestObject();
+                jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
+                    // Yandex conversion
+                    ym(49171171, 'reachGoal', 'lead_form');
+                }, error => console.log(new Error(error)));
             }
-            // Yandex conversion
-            ym(49171171, 'reachGoal', 'lead_form');
-            ga('send', { hitType: 'event', eventCategory: 'button', eventAction: 'click' });
-            //Send to CRM
-            crmObject = new amoCRMInsance(131, inputs, 'lead');
-            requestData = crmObject.getRequestObject();
-            jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {}, error => console.log(new Error(error)));
             break;
         case 837:
             button.textContent = defaultSubmitButtonText;
@@ -303,8 +303,10 @@ function wpcf7SentHandler(event) {
                 const respObject = JSON.parse(resp);
                 if (respObject.result) {
                     //Yandex conversion
-                    ym(49171171, 'reachGoal', 'emailsub');
-                    ga('send', { hitType: 'event', eventCategory: 'freelessons', eventAction: 'click' });
+                    // ym(49171171, 'reachGoal', 'emailsub');
+                    // ga('send', 'event', { eventCategory: 'emailbutton', eventAction: 'click'});
+                    // gtag('event', 'success', {'send_to': 'analytics','event_category': 'emailbutton'});
+                    // gtag('event', 'conversion', {'event_category' : 'emailbutton', eventAction: 'click'});
                     target.querySelector('.form__input').classList.remove('form__input_filled');
                     target.querySelector('.form__label').classList.remove('form__label_active');
                     button.textContent = defaultSubmitButtonText;
@@ -809,6 +811,8 @@ document.addEventListener(`DOMContentLoaded`, () => {
     if (testBtn) {
         testBtn.addEventListener(`click`, onTestBtnClickHandler);
     }
+    addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
+    addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
 });
 
 //Events
@@ -1066,8 +1070,6 @@ jQuery('.modal').on('modal:open', onModalOpenHandler);
 jQuery('.modal').on('modal:close', onModalCloseHandler);
 jQuery('.video-modal').on('modal:after-close', videoModalCloseHandler);
 addCustomEventHandler('click', lecturersCollection, lecturerHandlerFunction);
-addCustomEventHandler('wpcf7invalid', wpcf7Collection, wpcf7InvalidHandler);
-addCustomEventHandler('wpcf7mailsent', wpcf7Collection, wpcf7SentHandler);
 addCustomEventHandler('click', navigationLinksCollection, pageNavigationLinkHandler);
 addCustomEventHandler('input', inputs, paymentInputsHandler);
 addCustomEventHandler('change', selects, handleSelect);
