@@ -231,7 +231,7 @@ function wpcf7SentHandler(event) {
             }
             jQuery.when(window.utils.ajaxRequest(requestData)).then(data => {
                 //Yandex conversion
-                ym(49171171, 'reachGoal', 'freelessons');
+                // ym(49171171, 'reachGoal', 'freelessons');
             }, error => console.log(new Error(error)));
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then(resp => {
                 console.log(resp);
@@ -260,7 +260,7 @@ function wpcf7SentHandler(event) {
             }
             jQuery.when(window.utils.ajaxRequest(sendPulseData)).then((resp) => {
                 //Yandex conversion
-                ym(49171171, 'reachGoal', 'emailsub');
+                // ym(49171171, 'reachGoal', 'emailsub');
                 target.querySelector('.form__input').classList.remove('form__input_filled');
                 target.querySelector('.form__label').classList.remove('form__label_active');
                 button.textContent = defaultSubmitButtonText;

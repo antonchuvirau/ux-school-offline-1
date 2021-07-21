@@ -267,7 +267,7 @@ function wpcf7SentHandler(event) {
                 const respObject = JSON.parse(data);
                 if (respObject.result) {
                     //Yandex conversion
-                    ym(49171171, 'reachGoal', 'freelessons');
+                    // ym(49171171, 'reachGoal', 'freelessons');
                 }
             }, error => console.log(new Error(error)));
             // SENDING DATA TO SENDPULSE

@@ -29,13 +29,13 @@ gulp.task('scripts', function(){
         'app/js/utils.js',
         'app/js/privacy-checkbox.js',
         'app/js/amocrm.js',
-        'app/js/payment.js',
-        'app/js/payment-method.js',
-        'app/js/payment-select.js',
-        'app/js/promocode.js',
+        // 'app/js/payment.js',
+        // 'app/js/payment-method.js',
+        // 'app/js/payment-select.js',
+        // 'app/js/promocode.js',
         'app/js/ip-info.js',
-        'app/js/main.js',
-        'app/js/certificate.js'
+        'app/js/main-home.js',
+        // 'app/js/certificate.js'
     ])
     .pipe(babel())
     .on('error', function(e) {
@@ -43,7 +43,7 @@ gulp.task('scripts', function(){
         // emit here
         this.emit('end');
     })
-    .pipe(concat('application.js'))
+    .pipe(concat('application-home.js'))
     .pipe(terser())
     .pipe(gulp.dest('public/js/'))
 });
