@@ -81,6 +81,7 @@
         }
     }
     &__wrapper {
+        padding-top: 10px;
         &_state {
             &-is-loading {
                 opacity: .5;
@@ -94,6 +95,10 @@
         border-radius: 75px;
         margin: 0 auto;
         padding: 0 25px;
+        &:hover, 
+        &:focus {
+            opacity: .85;
+        }
         &_disabled {
             display: none;
         }
@@ -110,7 +115,7 @@
     &__footer {
         @include flex(row, center, center);
         position: relative;
-        padding: 20px 40px;
+        padding: 25px 40px;
         &_state {
             &-disabled {
                 padding: 0;
@@ -230,6 +235,10 @@
         font-weight: 800;
         border-radius: 75px;
         padding: 0 25px;
+        &:hover,
+        &:focus {
+            opacity: .85;
+        }
         &_disabled {
             display: none;
         }
@@ -376,15 +385,16 @@
     &__link {
         display: inline;
         font-size: 1.5rem;
-        color: $dark-100;
+        color: $primary-500;
         text-decoration: none;
         line-height: 1.3;
-        border-bottom: 1px solid $primary-200;
+        border-bottom: 1px solid $primary-500;
         &::before {
             content: none;
         }
         &:hover {
-            border-color: $gray-200;
+            color: rgba($primary-500, .75);
+            border-color: rgba($primary-500, .75);
             &::before {
                 background: $gray-200;
             }

@@ -2,13 +2,14 @@
     @include flex(column, center);
     padding: 20px 0;
     &__title {
+        text-align: center;
         font-family: $font, sans-serif;
-        font-size: 2rem;
-        line-height: 1.5;
-        letter-spacing: -.03rem;
+        font-size: 2.8rem;
+        line-height: 1.25;
+        letter-spacing: -.03em;
         font-weight: 800;
-        margin-top: 25px;
-        margin-bottom: 7px;
+        margin-top: 22px;
+        margin-bottom: 8px;
         color: $gray-900;
     }
     &__desc {

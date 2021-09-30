@@ -651,9 +651,9 @@ const weCarouselOptions = {
     autoplay: {
         delay: 5000
     },
-    navigation: {
-        nextEl: '.we__btn-next',
-        prevEl: '.we__btn-prev',
+    pagination: {
+        el: '.we__pagination',
+        type: 'bullets'
     },
     breakpoints: {
         320: {
