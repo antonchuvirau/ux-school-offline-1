@@ -174,7 +174,7 @@ function wpcf7SentHandler(event) {
     const wpcf7MailStatus = event.detail.status;
     const target = event.target;
     const id = +event.detail.contactFormId;
-    const uri = event.target.baseURI;
+    // const uri = event.target.baseURI;
     const inputs = event.detail.inputs;
     const button = target.querySelector('button[type="submit"]');
     let requestData, crmObject;
@@ -216,6 +216,7 @@ function wpcf7SentHandler(event) {
             }).catch(error => console.log(error));
             break;
         case 131:
+            console.log(wpcf7MailStatus);
             if (wpcf7MailStatus === `mail_sent`) {
                 button.textContent = defaultSubmitButtonText;
                 button.classList.remove('btn_is-loading');
@@ -224,7 +225,9 @@ function wpcf7SentHandler(event) {
                 //Send to CRM
                 crmObject = new amoCRMInsance(131, inputs, 'lead');
                 requestData = crmObject.getRequestObject();
-                jQuery.when(window.utils.ajaxRequest(requestData)).then(() => {
+                console.log(requestData);
+                jQuery.when(window.utils.ajaxRequest(requestData)).then((resp) => {
+                    console.log(resp);
                     // Yandex conversion
                     ym(49171171, 'reachGoal', 'lead_form');
                 }, error => console.log(new Error(error)));

@@ -7,7 +7,7 @@
  * @package UX_Mind_School
  */
 
-define( 'BEHANCE_LINK', 'https://www.behance.net/collection/181601277/raboty-nashih-vypusknikov' );
+define( 'BEHANCE_LINK', 'https://www.behance.net/ux_mind_school/moodboards' );
 
 $settings = array(
 	'cat' => 7,

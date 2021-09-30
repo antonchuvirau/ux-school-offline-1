@@ -15,6 +15,7 @@ $course-hero-cover-image: 'course.svg';
     }
     &__certificate {
         background: $primary-100;
+        overflow: hidden;
     }
     &__container {
         position: relative;

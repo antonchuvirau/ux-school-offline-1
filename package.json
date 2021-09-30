@@ -44,7 +44,7 @@
     "uglify-js": "^3.6.0"
   },
   "dependencies": {
-    "caniuse-lite": "^1.0.30001204"
+    "caniuse-lite": "^1.0.30001259"
   },
   "browserslist": [
     "last 5 versions"
