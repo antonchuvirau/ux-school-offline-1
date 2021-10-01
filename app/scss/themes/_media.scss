@@ -1836,6 +1836,10 @@
             }
         }
     }
+    .wrapper::before {
+        background: image('m-home-wrapper.png') no-repeat center;
+        background-size: 100% 100%;
+    }
     .blocker {
         padding: 40px 20px;
     }
