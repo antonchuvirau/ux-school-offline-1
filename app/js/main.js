@@ -518,8 +518,8 @@ function onMobileOptionsMenuCloseButtonClickHandler() {
 }
 function onPageTemplateContainerClickHandler(evt) {
     const target = evt.target;
-
     if (target.matches(`.content-list__title`)) {
+        
         target.classList.toggle('content-list__title_active');
         target.nextElementSibling.classList.toggle('content-list__text_state-actived');
     }
