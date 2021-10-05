@@ -24,7 +24,7 @@
     }
     &__name {
         margin: 0;
-        @include flex(column);
+        @include flex(column, center);
         font-size: 2.8rem;
         color: $white;
         line-height: 1.25;

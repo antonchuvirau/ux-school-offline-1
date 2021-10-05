@@ -518,8 +518,8 @@ function onMobileOptionsMenuCloseButtonClickHandler() {
 }
 function onPageTemplateContainerClickHandler(evt) {
     const target = evt.target;
-
     if (target.matches(`.content-list__title`)) {
+        
         target.classList.toggle('content-list__title_active');
         target.nextElementSibling.classList.toggle('content-list__text_state-actived');
     }
@@ -651,9 +651,9 @@ const weCarouselOptions = {
     autoplay: {
         delay: 5000
     },
-    navigation: {
-        nextEl: '.we__btn-next',
-        prevEl: '.we__btn-prev',
+    pagination: {
+        el: '.we__pagination',
+        type: 'bullets'
     },
     breakpoints: {
         320: {

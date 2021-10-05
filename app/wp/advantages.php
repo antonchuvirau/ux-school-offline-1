@@ -13,7 +13,7 @@
 			<div class="col-6 col-lg-3 advantages__col">
 				<div class="advantages__item">
 					<img class="advantages__img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/feature-1.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
-					<p class="advantages__name">Ёмкие курсы<br/>без "воды"</p>
+					<p class="advantages__name">Ёмкие курсы<br/>без «воды»</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">
@@ -25,7 +25,7 @@
 			<div class="col-6 col-lg-3 advantages__col">
 				<div class="advantages__item">
 					<img class="advantages__img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/feature-3.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
-					<p class="advantages__name">Занятие 2-3 часа с&nbsp;перерывом на кофе</p>
+					<p class="advantages__name">Занятие 2–3 часа с&nbsp;перерывом на кофе</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">

@@ -4,9 +4,9 @@
         @include flex(row, center, center);
         width: 30px;
         height: 30px;
-        margin-right: 5px;
+        margin-right: 3px;
         position: relative;
-        border-radius: 50%;
+        border-radius: 7px;
         &:last-child {
             margin-right: 0;
         }

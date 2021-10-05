@@ -249,7 +249,10 @@
         pointer-events: none;
     }
     &__row {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        &:nth-child(5) {
+            margin-bottom: 20px;
+        }
     }
     &__group {
         @include flex(row, center);

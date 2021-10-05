@@ -66,8 +66,12 @@
             &-value {
                 position: relative;
                 color: $dark;
+                padding-left: 54px;
                 @include font-weight('normal');
                 &::before {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
                     content: attr(data-title);
                 }
             }
@@ -111,7 +115,8 @@
         &__wrapper {
             @include flex(row, flex-start, flex-start, wrap);
             background: $white;
-            border-radius: 5px;
+            border-radius: 10px;
+            padding-top: 0;
             box-shadow: 0 20px 20px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
         }
         &__header {
@@ -1319,6 +1324,12 @@
                 line-height: 1.47;
             }
         }
+        &__carousel-main {
+            padding-bottom: 20px;
+            margin: 0 5px;
+            box-shadow: 0px 1px 1px rgba(65, 1, 121, 0.1), 0px 15px 40px 10px rgba(65, 1, 121, 0.1);
+            border-radius: 10px;
+        }
     }
     .home-template {
         &__title {
@@ -1342,11 +1353,6 @@
         &__meta {
             &-item {
                 font-size: 0;
-            }
-        }
-        &__title {
-            &-value {
-                border-color: $primary-200;
             }
         }
     }
@@ -1698,6 +1704,11 @@
             }
         }
     }
+    .course-list {
+        &__wrapper {
+            border-radius: 10px;
+        }
+    }
     .tabs {
         &__btn {
             padding: 0 1.5rem;
@@ -1824,6 +1835,10 @@
                 line-height: 1.45;
             }
         }
+    }
+    .wrapper::before {
+        background: image('m-home-wrapper.png') no-repeat center;
+        background-size: 100% 100%;
     }
     .blocker {
         padding: 40px 20px;

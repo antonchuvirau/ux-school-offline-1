@@ -11,7 +11,7 @@
         & img {
             max-width: 160px;
             max-height: 90px;
-            border-radius: 5px;
+            border-radius: 10px;
         }
     }
     &__info {
@@ -34,7 +34,6 @@
             font-family: $font, sans-serif;
             font-weight: 800;
             display: inline;
-            border-bottom: 1px solid transparent;
             line-height: 1.45;
             &:hover {
                 opacity: .8;
