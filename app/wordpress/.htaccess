@@ -1,0 +1,62 @@
+# BEGIN WordPress
+# Директивы (строки) между `BEGIN WordPress` и `END WordPress`
+# созданы автоматически и подлежат изменению только через фильтры WordPress.
+# Сделанные вручную изменения между этими маркерами будут перезаписаны.
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	RewriteBase /
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+Redirect 301 /interior-design/ https://ux-school.by/courses/dizajn-intererov/
+Redirect 301 /free-courses/ https://ux-school.by/courses/free/
+Redirect 301 /web-design-courses/ https://ux-school.by/courses/web-design/
+Redirect 301 /design-start-courses/ https://ux-school.by/courses/dizajn-start/
+Redirect 301 /mobile-applications-courses/ https://ux-school.by/courses/mobile-applications/
+Redirect 301 /motion-courses/ https://ux-school.by/courses/motion/
+Redirect 301 /drawing-courses/ https://ux-school.by/courses/drawing/
+Redirect 301 /course/ux-ui-dizajner-mobilnyh-prilozhenij/ https://ux-school.by/courses/mobile-applications
+Redirect 301 /course/design-start/ https://ux-school.by/courses/dizajn-start/
+Redirect 301 /course/kurs-veb-dizajner-ux-ui/ https://ux-school.by/courses/web-design/
+# BEGIN WP-Optimize Browser Cache
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType text/css "access 1 day"
+	ExpiresByType text/html "access 1 day"
+	ExpiresByType image/gif "access 1 day"
+	ExpiresByType image/png "access 1 day"
+	ExpiresByType image/jpg "access 1 day"
+	ExpiresByType image/jpeg "access 1 day"
+	ExpiresByType image/webp "access 1 day"
+	ExpiresByType image/x-icon "access 1 day"
+	ExpiresByType application/pdf "access 1 day"
+	ExpiresByType application/javascript "access 1 day"
+	ExpiresByType text/x-javascript "access 1 day"
+	ExpiresByType application/x-shockwave-flash "access 1 day"
+	ExpiresDefault "access 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+	<filesMatch "\.(ico|jpe?g|png|gif|webp|swf)$">
+		Header set Cache-Control "public"
+	</filesMatch>
+	<filesMatch "\.(css)$">
+		Header set Cache-Control "public"
+	</filesMatch>
+	<filesMatch "\.(js)$">
+		Header set Cache-Control "private"
+	</filesMatch>
+	<filesMatch "\.(x?html?|php)$">
+		Header set Cache-Control "private, must-revalidate"
+	</filesMatch>
+</IfModule>
+
+#Disable ETag
+FileETag None
+# END WP-Optimize Browser Cache

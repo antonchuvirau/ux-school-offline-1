@@ -3,9 +3,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const concat = require('gulp-concat');
-const clean = require('gulp-clean-css');
-const terser = require('gulp-terser');
-const babel = require('gulp-babel');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const browserSync = require('browser-sync').create();
@@ -14,13 +11,31 @@ const del = require('del');
 sass.compiler = require('node-sass');
 
 gulp.task('styles', function(){
-    return gulp.src('app/scss/*.scss')
+    return gulp.src('app/scss/style.scss')
     .pipe(sass())
     .pipe(concat('application.css'))
     .pipe(postcss([autoprefixer()]))
-    .pipe(clean())
     .pipe(gulp.dest('public/css/'))
 });
+
+// gulp.task('scripts', function(){
+//     return gulp.src([
+//         'app/js/init.js',
+//         'app/js/plugins.js',
+//         'app/js/utils.js',
+//         'app/js/privacy-checkbox.js',
+//         'app/js/amocrm.js',
+//         'app/js/payment.js',
+//         'app/js/payment-method.js',
+//         'app/js/payment-select.js',
+//         'app/js/promocode.js',
+//         'app/js/ip-info.js',
+//         'app/js/main.js',
+//         'app/js/certificate.js'
+//     ])
+//     .pipe(concat('application.js'))
+//     .pipe(gulp.dest('public/js/'))
+// });
 
 gulp.task('scripts', function(){
     return gulp.src([
@@ -29,22 +44,15 @@ gulp.task('scripts', function(){
         'app/js/utils.js',
         'app/js/privacy-checkbox.js',
         'app/js/amocrm.js',
-        'app/js/payment.js',
-        'app/js/payment-method.js',
-        'app/js/payment-select.js',
-        'app/js/promocode.js',
+        // 'app/js/payment.js',
+        // 'app/js/payment-method.js',
+        // 'app/js/payment-select.js',
+        // 'app/js/promocode.js',
         'app/js/ip-info.js',
-        'app/js/main.js',
-        'app/js/certificate.js'
+        'app/js/main-home.js',
+        // 'app/js/certificate.js'
     ])
-    .pipe(babel())
-    .on('error', function(e) {
-        console.log('>>> ERROR', e);
-        // emit here
-        this.emit('end');
-    })
-    .pipe(concat('application.js'))
-    .pipe(terser())
+    .pipe(concat('application-home.js'))
     .pipe(gulp.dest('public/js/'))
 });
 
