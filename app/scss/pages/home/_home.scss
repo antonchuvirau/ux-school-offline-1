@@ -5,19 +5,32 @@
     }
     &__header {
         @include flex(column);
-        margin-bottom: 125px;
+        margin-bottom: 150px;
         &-btn {
             font-family: $font, sans-serif;
             margin-top: 30px;
-        }
+						border-radius: 15px;
+						background: linear-gradient(179.9deg, #FF57EB 0.06%, #F842FF 46.65%, #D200E6 99.9%);
+				}
     }
     &__wrapper {
-        padding-top: 140px;
+        padding-top: 181px;
     }
     &__course-options {
         margin-top: 15px;
         margin-bottom: 35px;
     }
+		&__title {
+			&-secondary {
+				font-size: 2.8rem;
+				color: rgba($white, .8);
+				line-height: 1.429;
+				letter-spacing: -.01em;
+				font-weight: 400;
+				margin-top: 9px;
+				font-size: $secondary-font;
+			}
+		}
 }
 
 .about-video {
@@ -25,7 +38,7 @@
     width: 100%;
     max-width: 645px;
     height: 600px;
-    top: 0;
+    top: 50px;
     right: calc((100% - 1170px)/2);
     &__link {
         width: 100%;

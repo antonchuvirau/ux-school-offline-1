@@ -2,15 +2,70 @@
     background: image("footer-bg.svg") no-repeat center bottom / cover;
     &__top {
         padding: 65px 0;
-        padding-bottom: 60px;
+        padding-bottom: 105px;
+				border-bottom: 1px solid rgba($white, .15);
     }
     &__bottom {
-        text-align: right;
-        opacity: .5;
-        padding: 20px 0;
+        padding: 45px 0;
+				padding-bottom: 35px;
+				&-imges {
+					margin-top: 47px;
+					@include flex();
+					& img {
+						max-height: 24px;
+						margin-right: 13px;
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+				}
     }
-    &__social {
-        margin-top: 20px;
+		&__course {
+				&-type {
+					margin-top: 18px;
+				}
+				&-select {
+						color: $white;
+						padding: .67em 1em;
+						padding-right: 6.5em;
+						background: rgba($white, .15);
+						border-radius: 10px;
+						font-size: 1.5rem;
+						line-height: 1.33;
+						&-wrapper {
+								position: relative;
+								display: inline-block;
+								width: auto;
+								&:after {
+									position: absolute;
+									content: "";
+									width: 20px;
+									height: 20px;
+									top: 10px;
+									right: 10px;
+									background: icon('drop.svg') no-repeat 50%;
+								}
+						}
+				}	
+		}
+		&__company {
+			margin-top: 46px;
+			& p:last-child {
+				margin-top: 20px;
+			}
+			& span {
+				opacity: .5;
+			}
+		}
+		&__social {
+				flex-wrap: wrap;
+		}
+    &__social-title {
+				margin: 0;
+        opacity: .5;
+				margin-bottom: 15px;
+				width: 100%;
+				color: $white;
     }
     &__text {
         margin: 0;
@@ -23,23 +78,20 @@
         display: inline-block;
         vertical-align: middle;
         text-decoration: none;
-        font-size: 1.4rem;
-        line-height: 1.3;
+        font-size: 1.5rem;
+        line-height: 1.33;
         color: $white;
-        margin-right: 15px;
-        &::before {
-            top: calc(100% + 4px);
-        }
+        margin-bottom: 20px;
         &:last-child {
-            margin-right: 0;
+            margin-bottom: 0;
         }
     }
     &__info {
         &-text {
             margin: 0;
-            font-size: 1.2rem;
-            line-height: 1.25;
-            color: rgba($white, .7);
+            font-size: 1.5rem;
+            line-height: 1.33;
+            color: rgba($white, .5);
             margin-bottom: 15px;
             &:last-child {
                 margin-bottom: 0;
@@ -51,16 +103,13 @@
                 margin-bottom: 0;
             }
         }
-        &-links {
-            margin-bottom: 30px;
-        }
         &-link {
             text-decoration: none;
             display: inline-block;
             vertical-align: baseline;
-            font-size: 1.2rem;
-            line-height: 1.25;
-            color: rgba($white, .7);
+            font-size: 1.5rem;
+            line-height: 1.33;
+            color: rgba($white, .5);
             margin-right: 15px;
             &::before {
                 top: calc(100% + 4px);
@@ -71,13 +120,29 @@
         }
     }
     &__testimonials {
-        margin-top: 30px;
+        &-wrapper {
+						margin-top: 30px;
+				}
+				&-title {
+						margin: 0;
+						opacity: .5;
+						margin-bottom: 15px;
+						width: 100%;
+						color: $white;
+				}
     }
     &-menu {
         @include flex(row);
         &__col {
             @include flex(column);
             margin-right: 35px;
+						&-title {
+								margin: 0;
+								opacity: .5;
+								margin-bottom: 20px;
+								width: 100%;
+								color: $white;
+						}
             &:last-child {
                 margin-right: 0;
             }

@@ -44,7 +44,8 @@ get_header();
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="template__header home-template__header">
-                        <h1 class="title template__title home-template__title">UX Mind School —<br>школа дизайна</h1>
+                        <h1 class="title template__title home-template__title">Школа дизайна в&nbsp;Минске</h1>
+						<h2 class="title home-template__title-secondary">Учим дизайну и&nbsp;меняем жизни</h2>
                         <button type="button" data-modal="#free-start-modal" class="btn btn_theme-pink home-template__header-btn">Начни учиться бесплатно!</button>
                     </div>
                 </div>
