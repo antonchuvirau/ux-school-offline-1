@@ -2,29 +2,34 @@
     @include flex(row, center);
     &__link {
         @include flex(row, center, center);
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         margin-right: 3px;
         position: relative;
-        border-radius: 7px;
+        border-radius: 10px;
+				border: 1px solid rgba($white, .15);
         &:last-child {
             margin-right: 0;
         }
         &[data-icon="vk"] {
-            background: rgba($white, .15) icon('vk-icon.svg') no-repeat 50% / 15px auto;
+            background: icon('vk-icon.svg') no-repeat 50% / 20px auto;
         }
         &[data-icon="behance"] {
-            background: rgba($white, .15) icon('behance-icon.svg') no-repeat 50% / 15px auto;
+            background: icon('behance-icon.svg') no-repeat 50% / 20px auto;
         }
         &[data-icon="dribbble"] {
-            background: rgba($white, .15) icon('dribbble-icon.svg') no-repeat 50% / 15px auto;
+            background: icon('dribbble-icon.svg') no-repeat 50% / 20px auto;
         }
         &[data-icon="instagram"] {
-            background: rgba($white, .15) icon('instagram-icon.svg') no-repeat 50% / 15px auto;
+            background: icon('instagram-icon.svg') no-repeat 50% / 20px auto;
         }
         &[data-icon="youtube"] {
-            background: rgba($white, .15) icon('youtube-icon.svg') no-repeat 50% / 15px auto;
+            background: icon('youtube-icon.svg') no-repeat 50% / 20px auto;
         }
+				&:hover,
+				&:focus {
+						background-color: rgba($white, .15);
+				}
         &_style {
             &-background {
                 width: 30px;

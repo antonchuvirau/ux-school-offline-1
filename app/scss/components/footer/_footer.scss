@@ -82,6 +82,9 @@
         line-height: 1.33;
         color: $white;
         margin-bottom: 20px;
+				&:first-child {
+					margin-top: 10px;
+				}
         &:last-child {
             margin-bottom: 0;
         }

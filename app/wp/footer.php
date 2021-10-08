@@ -23,7 +23,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 	<div class="footer__top">
 		<div class="container">
 			<div class="row">
-				<div class="order-lg-1 col-12 col-lg-3 col-xl-4">
+				<div class="col-12 col-lg-3 col-xl-4">
 					<?php if (!is_page_template('home.php')): ?>
 					<a class="footer__logo" href="<?php echo esc_url(get_home_url()); ?>"><img src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>"></a>
 					<?php else: ?>
@@ -38,12 +38,11 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 							</select>
 						</div>
 					</div>
-					<div class="d-none footer__company">
+					<div class="d-none d-lg-block footer__company">
 						<p class="footer__text company-info">ИП Колесень И.Г., <br>УНП 190602238. Выдано 15.10.2020 <br>Мингорисполкомом.</p>
 						<p class="footer__text company-info"><span>Режим работы:</span><br>Пн-Сб с 10:00 до 20.00</p>
 					</div>
 					<div class="d-lg-none social footer__social">
-						<p class="d-none d-lg-none -title">Наши социальные сети</p>
 						<?php if (get_field('ums_vk_link', 2)): ?>
 							<a href="<?php echo esc_url(get_field('ums_vk_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="vk" class="social__link"></a>
 						<?php endif; ?>
@@ -61,7 +60,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						<?php endif; ?>
 					</div>
 				</div>
-				<div class="order-lg-2 col-12 col-lg-6 col-xl-5">
+				<div class="col-12 col-lg-6 col-xl-5">
 					<nav class="footer-menu">
 						<ul class="list footer-menu__col">
 							<p class="d-none d-lg-block footer-menu__col-title">Школа</p>
@@ -89,9 +88,9 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						</ul>
 					</nav>
 				</div>
-				<div class="order-lg-3 col-12 col-lg-3 col-xl-3">
-					<div class="d-none d-lg-block social footer__social">
-						<p class="d-none d-lg-none -title">Наши социальные сети</p>
+				<div class="col-12 col-lg-3 col-xl-3">
+					<div class="d-none d-lg-flex social footer__social">
+						<p class="d-none d-lg-block footer__testimonials-title">Наши социальные сети</p>
 						<?php if (get_field('ums_vk_link', 2)): ?>
 							<a href="<?php echo esc_url(get_field('ums_vk_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="vk" class="social__link"></a>
 						<?php endif; ?>
@@ -109,7 +108,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						<?php endif; ?>
 					</div>
 					<div class="footer__testimonials-wrapper">
-						<p class="d-none d-lg-none footer__testimonials-title">Отзывы</p>
+						<p class="d-none d-lg-block footer__testimonials-title">Отзывы</p>
 						<a target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($google_link); ?>" class="google-testimonials footer__testimonials">
 							<header class="google-testimonials__header">
 								<p class="google-testimonials__rate">4.9</p>
@@ -135,6 +134,10 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						</div>
 					</div>
 				</div>
+				<div class="d-none d-lg-block col-12 col-lg-4 col-xl-3">
+					<button type="button" data-modal="#personal-data-modal" class="link footer__link">Политика конфиденциальности</button>
+					<a href="<?php echo esc_url($developer_link); ?>" target="_blank" class="link footer__link">Разработка UX MIND</a>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-12 footer__bottom-imges">
@@ -143,7 +146,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 				</div>
 			</div>
 			<div class="d-lg-none footer__company">
-				<p class="footer__text company-info">ИП Колесень И.Г., УНП 190602238. Выдано 15.10.2020 Мингорисполкомом.</p>
+				<p class="footer__text company-info">ИП&nbsp;Колесень&nbsp;И.Г., УНП 190602238. Свидетельство о&nbsp;госрегистрации выдано Мингорисполкомом</p>
 			</div>
 			<div class="d-lg-none col-12 col-lg-4 col-xl-3">
 				<button type="button" data-modal="#personal-data-modal" class="link footer__link">Политика конфиденциальности</button>
