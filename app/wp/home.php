@@ -14,6 +14,18 @@
  */
 get_header();
 ?>
+<!-- Begin all-courses -->
+<div class="all-courses d-none">
+    <div class="all-courses__wrapper">
+        <div class="container">
+            <div class="all-courses__row">
+                <p class="all-courses__note">Показаны только <b>дистанционные</b> курсы</p>
+                <button class="all-courses__btn">Смотреть все</button>
+            </div>
+        </div>
+    </div> 
+</div>
+<!-- End all-courses -->
 <!-- Begin main -->
 <main class="main template home-template">
     <div class="wrapper home-template__wrapper">

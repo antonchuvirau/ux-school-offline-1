@@ -1,0 +1,38 @@
+.all-courses {
+  &__wrapper {
+    background: $secondary-600;
+  }
+  &__row {
+    padding: 13px 0;
+		@include flex(row, center);
+  }
+  &__note {
+    margin: 0;
+		margin-right: 20px;
+    position: relative;
+    color: rgba($white, .8);
+    font-size: 1.5rem;
+    line-height: 1.33;
+    padding-left: 25px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: icon('info.svg') no-repeat 50%;
+    }
+  }
+  &__btn {
+		color: $white;
+		background: $secondary-800;
+		border-radius: 7px;
+		font-size: 1.2rem;
+		line-height: 1.25;
+		padding: .42em .83em;
+		&:hover {
+			opacity: .85;
+		}
+  }
+}
