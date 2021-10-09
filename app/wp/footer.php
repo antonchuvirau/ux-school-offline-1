@@ -176,7 +176,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 							</div>
 						</header>
 						<!-- Begin all-courses -->
-						<div class="all-courses">
+						<div class="all-courses d-none">
 							<div class="all-courses__wrapper">
 								<div class="container">
 									<div class="all-courses__row">

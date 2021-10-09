@@ -15,7 +15,7 @@
 get_header();
 ?>
 <!-- Begin all-courses -->
-<div class="all-courses">
+<div class="all-courses d-none">
 	<div class="all-courses__wrapper">
 		<div class="container">
 			<div class="all-courses__row">

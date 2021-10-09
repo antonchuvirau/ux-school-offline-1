@@ -647,7 +647,6 @@ sup {
     margin-top: -8.2px; } }
 
 .header {
-  margin-top: 50px;
   position: absolute;
   top: 0;
   width: 100%;
@@ -6534,7 +6533,7 @@ div.wpcf7-response-output {
     display: block;
     opacity: .7; }
   .m-menu__grid {
-    margin-top: 40px; }
+    margin-top: 20px; }
   .m-menu__footer {
     margin-top: 30px; }
   .m-menu__options {
