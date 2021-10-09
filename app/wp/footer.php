@@ -175,6 +175,18 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 								</div>
 							</div>
 						</header>
+						<!-- Begin all-courses -->
+						<div class="all-courses">
+							<div class="all-courses__wrapper">
+								<div class="container">
+									<div class="all-courses__row">
+										<p class="all-courses__note">Показаны <span class="d-none d-sm-inline">только</span> <span class="all-courses__bold">дистанционные</span> курсы</p>
+										<button class="all-courses__btn">Смотреть все</button>
+									</div>
+								</div>
+							</div> 
+						</div>
+						<!-- End all-courses -->
 						<div class="m-menu__grid">
 							<nav class="menu header__menu">
 								<ul class="list menu__wrapper">

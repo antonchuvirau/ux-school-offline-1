@@ -152,13 +152,14 @@
 @media screen and (max-width: 991px) {
     .home-template {
         &__wrapper {
-            padding-top: 80px;
+            padding-top: 140px;
         }
         &__header {
             margin-bottom: 310px;
             align-items: center;
             &-btn {
                 margin-top: 20px;
+								border-radius: 10px;
             }
         }
         &__title {
@@ -178,7 +179,7 @@
     .about-video {
         left: 50%;
         transform: translateX(-50%);
-        top: 275px;
+        top: 300px;
         width: 100%;
         max-width: 350px;
         height: auto;

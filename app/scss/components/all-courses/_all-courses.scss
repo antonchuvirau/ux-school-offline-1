@@ -2,6 +2,13 @@
   &__wrapper {
     background: $secondary-600;
   }
+	&__bold {
+		font-weight: 700;
+	}
+	&__title {
+		text-align: center;
+		color: $gray-900;
+	}
   &__row {
     padding: 13px 0;
 		@include flex(row, center);
@@ -28,33 +35,42 @@
     }
   }
   &__btn {
-		color: $white;
-		background: $secondary-800;
-		border-radius: 7px;
-		font-size: 1.2rem;
-		line-height: 1.25;
-		padding: .42em .83em;
-		&:hover {
-			opacity: .85;
-		}
+			color: $white;
+			background: $secondary-800;
+			border-radius: 7px;
+			font-size: 1.2rem;
+			line-height: 1.25;
+			padding: .42em .83em;
+			&:hover {
+					opacity: .85;
+			}
   }
-	&__block {
-		padding: 30px 70px;
-		padding-bottom: 50px;
-	}
 	&-modal {
-		max-width: 580px;
+			z-index: 20;
+			max-width: 540px;
+			position: fixed;
+			top: 40px;
+			padding: 30px 70px;
+			padding-bottom: 50px;
+			left: calc(50% - 270px);
+			box-sizing: border-box;
 	}
 	&__item {
 		@include flex();
+		margin-bottom: 32px;
+		&:last-child {
+			margin-bottom: 0;
+		}
 		&-header {
 			margin: 0;
 			font-size: 1.7rem;
 			line-height: 1.471;
 			font-weight: 700;
 			margin-bottom: 3px;
+			color: $dark-300;
 		}
 		&-text {
+			margin: 0;
 			font-size: 1.5rem;
 			line-height: 1.33;
 			color: $gray-300;
@@ -76,14 +92,19 @@
 			width: 110px;
 			height: 110px;
 			border-radius: 10px;
+			background-color: $secondary-50;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			flex-shrink: 0;
+			margin-right: 15px;
 			&[data-icon="remote"] {
-				background: $secondary-50, icon('webcam.svg') no-repeat 50%;
+				background-image: icon('webcam.svg');
 			}
-			&[data-icon="meeting"] {
-				background: $secondary-50, icon('meeting.svg') no-repeat 50%;
+			&[data-icon="class"] {
+				background-image: icon('meeting.svg');
 			}
-			&[data-icon="video"] {
-				background: $secondary-50, icon('video.svg') no-repeat 50%;
+			&[data-icon="online"] {
+				background-image: icon('video.svg');
 			}
 		}
 	}

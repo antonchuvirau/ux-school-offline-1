@@ -412,6 +412,7 @@
 				}
 		}
 		.header {
+				margin-top: 0;
 				&__select {
 						display: none;
 				}
@@ -670,6 +671,18 @@
 				}
 				&__social-links {
 						max-width: calc(100% - 30px);
+				}
+		}
+		.all-courses {
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				margin-top: 62px;
+				&__wrapper {
+						background: rgba($white, .15);
+				}
+				&__row {
+						padding: 7px 0;
 				}
 		}
 		.social-testimonials {
@@ -1626,12 +1639,57 @@
 				}
 		}
 		.about-video {
-				top: 270px;
+				top: 290px;
 		}
 		.sort-navigation {
 				&__button {
 						font-size: 1.5rem;
 				}
+		}
+		@media screen and (max-width: 768px) {
+			.all-courses {
+				&-modal {
+					padding-bottom: 30px;
+					max-width: 330px;
+					left: calc(50% - 165px);
+				}
+				&__title {
+					text-align: left;
+				}
+				&__block {
+					margin-top: 24px;
+				}
+				&__note {
+					font-size: 1.2rem;
+					line-height: 1.25;
+					padding-left: 20px;
+					&::before { 
+						width: 12px;
+						height: 12px;
+						background: icon('info.svg') no-repeat 50%/cover;
+					}
+				}
+				&__btn {
+					font-size: 1.2rem;
+					line-height: 1.25;
+				}
+				&__item {
+					margin-bottom: 30px;
+					&:last-child {
+						margin-bottom: 0;
+					}
+					&-icon {
+						border-radius: 10px;
+						width: 70px;
+						height: 70px;
+						background-size: 30px 30px;
+					}
+					&-header {
+						font-size: 1.5rem;
+						line-height: 1.33;
+					}
+				}
+			}
 		}
 		.post-item {
 				flex-direction: column;
@@ -1830,11 +1888,10 @@
 				}
 		}
 		.footer {
-			background: radial-gradient(168.75% 39.4% at 168.75% 66.17%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%),
-			radial-gradient(197.19% 36.94% at 197.19% 33.89%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%),
-			radial-gradient(436.31% 96.23% at -230.78% 0%, #1AC4E6 8.22%, #1AA1E6 35.96%, rgba(188, 54, 199, 0) 100%),
-			linear-gradient(0deg, #B333CC, #B333CC);
-			
+				background: gukradial-gradient(168.75% 39.4% at 168.75% 66.17%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%),
+				radial-gradient(197.19% 36.94% at 197.19% 33.89%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%),
+				radial-gradient(436.31% 96.23% at -230.78% 0%, #1AC4E6 8.22%, #1AA1E6 35.96%, rgba(188, 54, 199, 0) 100%),
+				linear-gradient(0deg, #B333CC, #B333CC);
 				&__info {
 					 	&-text,
 					 	&-link {
@@ -1893,6 +1950,19 @@
 								line-height: 1.45;
 						}
 				}
+		}
+		.all-courses {
+			margin-top: 58px;
+			&__row {
+				justify-content: space-between;
+			}
+			&__bold {
+				font-weight: 400;
+			}
+			&__note {
+				margin-right: 5px;
+				padding-left: 18px;
+			}
 		}
 		.wrapper::before {
 				background: image('m-home-wrapper.png') no-repeat center;
@@ -1990,7 +2060,8 @@
 		}
 		.social {
 				&__link {
-						margin-right: 25px;
+						width: auto;
+						min-width: 50px;
 						&:last-child {
 								margin-right: 0;
 						}
@@ -2163,9 +2234,9 @@
 
 @media screen and (max-width: 375px) {
 		.m-menu {
-				&__grid {
-						margin-top: 10px;
-				}
+				// &__grid {
+				// 		margin-top: 10px;
+				// }
 				&__footer {
 						margin-top: 20px;
 				}

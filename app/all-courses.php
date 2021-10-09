@@ -1,4 +1,5 @@
 <div id="all-courses" class="modal all-courses-modal">
+	<a href="#close-modal" rel="modal:close" class="close-modal">Close</a>
 	<h2 class="title title_size-s all-courses__title">Форма обучения</h2>
 	<div class="all-courses__block">
 		<div class="all-courses__item">
