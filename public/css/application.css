@@ -5535,6 +5535,13 @@ div.wpcf7-response-output {
 
 .footer {
   background: url("../img/footer-bg.svg") no-repeat center bottom/cover; }
+  .footer .social__link {
+    width: 50px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 5px; }
+    .footer .social__link:hover {
+      background-color: rgba(255, 255, 255, 0.15); }
   .footer__top {
     padding: 65px 0;
     padding-bottom: 105px;
@@ -5644,7 +5651,7 @@ div.wpcf7-response-output {
     .footer__info-link:last-child {
       margin-right: 0; }
   .footer__testimonials-wrapper {
-    margin-top: 30px; }
+    margin-top: 25px; }
   .footer__testimonials-title {
     margin: 0;
     opacity: .5;

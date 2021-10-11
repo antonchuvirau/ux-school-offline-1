@@ -29,7 +29,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 					<?php else: ?>
 					<img class="footer__logo" src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>">
 					<?php endif; ?>
-					<div class="d-none d-lg-block footer__course-type">
+					<!-- <div class="d-none d-lg-block footer__course-type">
 						<div class="footer__course-select-wrapper">
 							<select name="course-type" class="footer__course-select">
 								<option value="remote" selected>Дистанционные курсы</option>
@@ -37,7 +37,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 								<option value="online">Онлайн курсы</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 					<div class="d-none d-lg-block footer__company">
 						<p class="footer__text company-info">ИП Колесень И.Г., <br>УНП 190602238. Выдано 15.10.2020 <br>Мингорисполкомом.</p>
 						<p class="footer__text company-info"><span>Режим работы:</span><br>Пн-Сб с 10:00 до 20.00</p>
