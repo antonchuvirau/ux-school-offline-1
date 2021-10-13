@@ -5791,7 +5791,7 @@ div.wpcf7-response-output {
     border: none; }
   .currency-input-wrapper.form__input_filled input {
     padding-right: 0;
-    max-width: 73px; }
+    max-width: 50px; }
   .currency-input-wrapper_size-s.form__input_filled input {
     max-width: 35px; }
 
@@ -7155,9 +7155,11 @@ div.wpcf7-response-output {
     display: block;
     max-width: 470px;
     -ms-flex-negative: 0;
-        flex-shrink: 0; }
+        flex-shrink: 0;
+    width: 40.909%; }
     .post-item__img img {
-      border-radius: 5px; }
+      border-radius: 5px;
+      width: 100%; }
   .post-item__info {
     padding-left: 30px; }
   .post-item__title {
