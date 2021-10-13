@@ -778,12 +778,10 @@ sup {
 
 .btn {
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 50px;
   padding: 0 20px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#3D9FF5), color-stop(127.5%, #4C2AD5));
-  background: -o-linear-gradient(top, #3D9FF5 0%, #4C2AD5 127.5%);
-  background: linear-gradient(180deg, #3D9FF5 0%, #4C2AD5 127.5%);
+  background: #2698FC;
   font-size: 1.7rem;
   font-weight: 800;
   color: #fff;
@@ -7994,8 +7992,8 @@ div.wpcf7-response-output {
   position: relative;
   background: #fff;
   border-radius: 10px;
-  -webkit-box-shadow: 0 1px 1px 0 rgba(55, 61, 67, 0.1), 0 20px 20px 0 rgba(55, 61, 67, 0.1);
-          box-shadow: 0 1px 1px 0 rgba(55, 61, 67, 0.1), 0 20px 20px 0 rgba(55, 61, 67, 0.1); }
+  -webkit-box-shadow: 0px 1px 1px rgba(65, 1, 121, 0.1), 0px 5px 40px rgba(65, 1, 121, 0.05);
+          box-shadow: 0px 1px 1px rgba(65, 1, 121, 0.1), 0px 5px 40px rgba(65, 1, 121, 0.05); }
   .course-list__grid::before {
     content: '';
     position: absolute;
@@ -8023,7 +8021,7 @@ div.wpcf7-response-output {
   height: 4rem;
   font-size: 1.5rem;
   font-weight: bold;
-  border-radius: 75px;
+  border-radius: 10px;
   margin: 0 auto;
   padding: 0 25px; }
   .course-list__more-btn:hover, .course-list__more-btn:focus {
@@ -8175,7 +8173,6 @@ div.wpcf7-response-output {
     height: 4rem;
     font-size: 1.5rem;
     font-weight: 800;
-    border-radius: 75px;
     padding: 0 25px; }
     .portfolio__btn:hover, .portfolio__btn:focus {
       opacity: .85; }
@@ -8314,8 +8311,13 @@ div.wpcf7-response-output {
     margin-bottom: 30px; }
   .blog-section__col {
     margin-bottom: 30px; }
+  .blog-section__btn {
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    max-height: 40px; }
   .blog-section__title {
-    margin: 0; }
+    margin: 0 auto; }
   .blog-section__all-link {
     text-decoration: none;
     font-size: 1.5rem;
@@ -10682,7 +10684,8 @@ div.wpcf7-response-output {
     color: rgba(255, 255, 255, 0.5); }
   .google-testimonials {
     max-width: none;
-    width: 100%; }
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15); }
   .testimonial-item__text p {
     letter-spacing: .01em;
     font-size: 1.7rem;
