@@ -5851,6 +5851,16 @@ div.wpcf7-response-output {
       line-height: 1.25;
       color: #fff; }
 
+@media screen and (max-width: 991px) {
+  .price-box__item-value {
+    color: #112230; }
+    .price-box__item-value-note {
+      color: rgba(17, 34, 48, 0.5); }
+      .price-box__item-value-note .ums-currency__value {
+        color: rgba(17, 34, 48, 0.5); }
+  .price-box__item-name {
+    color: #5D6266; } }
+
 @media screen and (max-width: 575px) {
   .price-box {
     padding: 15px; }
@@ -5880,7 +5890,7 @@ div.wpcf7-response-output {
     margin-bottom: 0; }
   .course-info__item-name {
     margin: 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.3);
     font-size: 1.5rem;
     line-height: 1.35;
     width: 110px; }
@@ -5913,7 +5923,7 @@ div.wpcf7-response-output {
     .course-info__item-link::before {
       height: 1px;
       background: transparent;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.5); }
+      border-bottom: 1px dashed #fff; }
     .course-info__item-link:hover {
       opacity: .8; }
       .course-info__item-link:hover::before {
@@ -6036,15 +6046,32 @@ div.wpcf7-response-output {
     position: relative;
     padding: 15px;
     padding-bottom: 25px;
-    background: rgba(17, 34, 48, 0.1);
+    background: #fff;
     border-radius: 15px; }
   .course-info__price-box {
     margin-top: 10px;
     padding: 15px;
     padding-bottom: 20px;
     border-radius: 15px;
-    background: rgba(17, 34, 48, 0.1);
+    background: #fff;
     max-width: none; }
+  .course-info__select {
+    border: 1px solid #E0E6EB;
+    position: relative; }
+    .course-info__select::after {
+      background: url("../img/icons/blue-drop.svg") no-repeat 50%/cover;
+      right: 12px; }
+    .course-info__select:hover {
+      border: 1px solid #E0E6EB; }
+    .course-info__select select {
+      color: #112230;
+      padding: 20px 40px 8px 10px; }
+    .course-info__select .course-info__item-name {
+      font-size: 1.2rem;
+      line-height: 1.25;
+      position: absolute;
+      top: 5px;
+      left: 10px; }
   .course-info__options {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -6062,6 +6089,15 @@ div.wpcf7-response-output {
     padding: .5em 0; }
   .course-info__item {
     margin-bottom: 15px; }
+    .course-info__item-price-note, .course-info__item-value {
+      color: #112230;
+      display: block; }
+    .course-info__item-link {
+      color: #2698FC; }
+      .course-info__item-link:before {
+        border-bottom: 1px dashed #2698FC; }
+    .course-info__item-name {
+      color: #5D6266; }
     .course-info__item_sticky {
       position: absolute;
       top: 15px;
@@ -10951,7 +10987,10 @@ div.wpcf7-response-output {
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
     padding-bottom: 0;
-    padding-top: 74px; }
+    padding-top: 74px;
+    background: radial-gradient(158.63% 68.54% at 133.89% 101.53%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%), radial-gradient(104.09% 53.36% at 116.67% 6.73%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%), radial-gradient(126.96% 63.8% at -31.81% 69.91%, #1AC4E6 0%, #1AA1E6 38.6%, rgba(188, 54, 199, 0) 100%), -webkit-gradient(linear, left bottom, left top, from(#8F29A3), to(#8F29A3));
+    background: -o-radial-gradient(133.89% 101.53%, 158.63% 68.54%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%), -o-radial-gradient(116.67% 6.73%, 104.09% 53.36%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%), -o-radial-gradient(-31.81% 69.91%, 126.96% 63.8%, #1AC4E6 0%, #1AA1E6 38.6%, rgba(188, 54, 199, 0) 100%), -o-linear-gradient(bottom, #8F29A3, #8F29A3);
+    background: radial-gradient(158.63% 68.54% at 133.89% 101.53%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%), radial-gradient(104.09% 53.36% at 116.67% 6.73%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%), radial-gradient(126.96% 63.8% at -31.81% 69.91%, #1AC4E6 0%, #1AA1E6 38.6%, rgba(188, 54, 199, 0) 100%), linear-gradient(0deg, #8F29A3, #8F29A3); }
     .course-template__wrapper::after {
       bottom: 0; }
   .course-template__certificate {

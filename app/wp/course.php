@@ -110,9 +110,10 @@ endif;
 							</div>
 							<?php endif; ?>
 							<div class="course-info__item">
-								<p class="course-info__item-name">Группы</p>
+								<p class="d-none d-lg-block course-info__item-name">Группы</p>
 								<div class="course-info__item-value link course-info__select">
-									<select name="timetable"><?php echo $options_html; ?></select>
+									<p class="d-lg-none course-info__item-name">Набор</p>
+									<select name="timetable"><?php echo get_course_schedule_layout( $term_id, $course_post_id, $template_id ); ?></select>
 								</div>
 							</div>
 							<?php if ($course_length): ?>

@@ -921,6 +921,8 @@
 						@include flex(column, stretch);
 						padding-bottom: 0;
 						padding-top: 74px;
+						background: radial-gradient(158.63% 68.54% at 133.89% 101.53%, #5E1AE6 0%, rgba(139, 52, 165, 0) 100%),radial-gradient(104.09% 53.36% at 116.67% 6.73%, #FF66E6 0%, rgba(242, 13, 204, 0) 98.1%),radial-gradient(126.96% 63.8% at -31.81% 69.91%, #1AC4E6 0%, #1AA1E6 38.6%, rgba(188, 54, 199, 0) 100%),linear-gradient(
+							0deg, #8F29A3, #8F29A3);
 						&::after {
 								bottom: 0;
 						}
