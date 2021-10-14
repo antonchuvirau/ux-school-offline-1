@@ -15,12 +15,12 @@ if ($course_program):
 ?>
 <section class="section program">
     <div class="program__figure">
-        <div class="figure figure_position-top">
+        <!-- <div class="figure figure_position-top">
             <img src="<?php echo get_template_directory_uri(); ?>/img/ums-course-about-figure.png" alt="<?php echo get_bloginfo('name'); ?>">
         </div>
         <div class="figure figure_position-bottom">
             <img src="<?php echo get_template_directory_uri(); ?>/img/ums-program-figure.png" alt="<?php echo get_bloginfo('name'); ?>">
-        </div>
+        </div> -->
     </div>
     <div class="container program__container">
         <div class="row justify-content-center">

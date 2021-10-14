@@ -1062,7 +1062,7 @@
 				}
 		}
 		.program {
-				padding: 100px 0;
+				padding: 60px 0;
 				padding-bottom: 50px;
 				&__title {
 						margin-bottom: 30px;
@@ -1093,15 +1093,12 @@
 						box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
 				}
 				&__more-btn {
-						width: 100%;
 						color: $white;
-						background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
-						border-radius: 5px;
 						height: 4rem;
-						padding: 0;
 						font-size: 1.7rem;
+						padding-right: 45px;
 						&::after {
-								content: none;
+								content: '';
 						}
 				}
 		}
@@ -1149,7 +1146,7 @@
 						margin-bottom: 30px;
 				}
 				&__video {
-						margin-bottom: 20px;
+						margin-top: 20px;
 				}
 				&__footer {
 						margin-top: 5px;
@@ -1400,6 +1397,102 @@
 						&-item {
 								font-size: 0;
 						}
+				}
+		}
+		.results {
+				&__title {
+						text-align: left;
+						text-transform: uppercase;
+						align-items: flex-start;
+						font-weight: 400;
+						font-size: 1.7rem;
+						line-height: 1.25;
+						letter-spacing: normal;
+				}
+				&__item {
+						@include flex();
+				}
+				&__icon {
+						margin-right: 15px;
+						border-radius: 20px;
+						flex-shrink: 0;
+						width: 80px;
+						height: 80px;
+						& img {
+								width: 60px;
+								height: 60px;
+						}
+				}
+				&__note {
+						margin: 0;
+						font-size: 1.7rem;
+						line-height: 1.47;
+				}
+				&__name {
+						font-size: 2rem;
+						font-weight: 700;
+						line-height: 1.5;
+						margin-top: 0;
+						letter-spacing: -.01em;
+				}
+		}
+		.for-whom {
+				&__title {
+						text-transform: uppercase;
+						align-items: flex-start;
+						font-weight: 400;
+						font-size: 1.7rem;
+						line-height: 1.25;
+						letter-spacing: normal;
+				}
+				&__item {
+						flex-direction: row;
+				}
+				&__icon {
+						margin-right: 15px;
+						border-radius: 20px;
+						flex-shrink: 0;
+				}
+				&__name {
+						font-size: 2rem;
+						font-weight: 700;
+						line-height: 1.5;
+						letter-spacing: -.01em;
+				}
+		}
+		.process {
+				&__item {
+						@include flex();
+				}
+				&__title {
+						text-transform: uppercase;
+						align-items: flex-start;
+						font-weight: 400;
+						font-size: 1.7rem;
+						line-height: 1.25;
+						letter-spacing: normal;
+				}
+				&__name {
+						font-size: 2rem;
+						font-weight: 700;
+						line-height: 1.5;
+						letter-spacing: -.01em;
+						margin-top: 0;
+				}
+				&__icon {
+						width: 80px;
+						height: 80px;
+						margin-right: 15px;
+						border-radius: 20px;
+						flex-shrink: 0;
+						& img {
+								width: 60px;
+								height: 60px;
+						}
+				}
+				&__text {
+						font-size: 1.7rem;
+						line-height: 1.47;
 				}
 		}
 		.contact-page {
@@ -1795,6 +1888,14 @@
 						}
 				}
 		}
+		.about {
+				&__btn {
+						border-radius: 10px;
+				}
+				&__wrapper {
+						border-radius: 20px;
+				}
+		}
 		.course-list {
 				&__wrapper {
 						border-radius: 10px;
@@ -1829,6 +1930,13 @@
 						margin-bottom: 25px;
 				}
 		}
+		.process,
+		.for-whom,
+		.results {
+				&__title {
+						font-size: 1.2rem;
+				}
+		}
 		.privacy-checkbox {
 				& .checkbox {
 						&__name {
@@ -1853,6 +1961,41 @@
 						}
 				}
 		}
+		// .process {
+		// 		&__item {
+		// 				@include flex();
+		// 		}
+		// 		&__title {
+		// 				text-transform: uppercase;
+		// 				align-items: flex-start;
+		// 				font-weight: 400;
+		// 				font-size: 1.2rem;
+		// 				line-height: 1.25;
+		// 				letter-spacing: normal;
+		// 		}
+		// 		&__name {
+		// 				font-size: 2rem;
+		// 				font-weight: 700;
+		// 				line-height: 1.5;
+		// 				letter-spacing: -.01em;
+		// 				margin-top: 0;
+		// 		}
+		// 		&__icon {
+		// 				width: 80px;
+		// 				height: 80px;
+		// 				margin-right: 15px;
+		// 				border-radius: 20px;
+		// 				flex-shrink: 0;
+		// 				& img {
+		// 						width: 60px;
+		// 						height: 60px;
+		// 				}
+		// 		}
+		// 		&__text {
+		// 				font-size: 1.7rem;
+		// 				line-height: 1.47;
+		// 		}
+		// }
 		.webpay-form {
 				&__sale {
 						&-checkbox {
