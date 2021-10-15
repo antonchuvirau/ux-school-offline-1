@@ -19,44 +19,44 @@ gulp.task('styles', function () {
     .pipe(gulp.dest('public/css/'))
 })
 
-// gulp.task('scripts', function(){
-//     return gulp.src([
-//         'app/js/init.js',
-//         'app/js/plugins.js',
-//         'app/js/utils.js',
-//         'app/js/privacy-checkbox.js',
-//         'app/js/amocrm.js',
-//         'app/js/payment.js',
-//         'app/js/payment-method.js',
-//         'app/js/payment-select.js',
-//         'app/js/promocode.js',
-//         'app/js/ip-info.js',
-//         'app/js/main.js',
-//         'app/js/certificate.js'
+gulp.task('scripts', function(){
+    return gulp.src([
+        'app/js/init.js',
+        'app/js/plugins.js',
+        'app/js/utils.js',
+        'app/js/privacy-checkbox.js',
+        'app/js/amocrm.js',
+        'app/js/payment.js',
+        'app/js/payment-method.js',
+        'app/js/payment-select.js',
+        'app/js/promocode.js',
+        'app/js/ip-info.js',
+        'app/js/main.js',
+        'app/js/certificate.js'
+    ])
+    .pipe(concat('application.js'))
+    .pipe(gulp.dest('public/js/'))
+});
+
+// gulp.task('scripts', function () {
+//   return gulp
+//     .src([
+//       'app/js/init.js',
+//       'app/js/plugins.js',
+//       'app/js/utils.js',
+//       'app/js/privacy-checkbox.js',
+//       'app/js/amocrm.js',
+//       // 'app/js/payment.js',
+//       // 'app/js/payment-method.js',
+//       // 'app/js/payment-select.js',
+//       // 'app/js/promocode.js',
+//       'app/js/ip-info.js',
+//       'app/js/main-home.js',
+//       // 'app/js/certificate.js'
 //     ])
-//     .pipe(concat('application.js'))
+//     .pipe(concat('application-home.js'))
 //     .pipe(gulp.dest('public/js/'))
 // });
-
-gulp.task('scripts', function () {
-  return gulp
-    .src([
-      'app/js/init.js',
-      'app/js/plugins.js',
-      'app/js/utils.js',
-      'app/js/privacy-checkbox.js',
-      'app/js/amocrm.js',
-      // 'app/js/payment.js',
-      // 'app/js/payment-method.js',
-      // 'app/js/payment-select.js',
-      // 'app/js/promocode.js',
-      'app/js/ip-info.js',
-      'app/js/main-home.js',
-      // 'app/js/certificate.js'
-    ])
-    .pipe(concat('application-home.js'))
-    .pipe(gulp.dest('public/js/'))
-})
 
 gulp.task('clean', function () {
   return del('public')

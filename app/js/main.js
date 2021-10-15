@@ -1102,8 +1102,8 @@ document.body.addEventListener('mouseout', (evt) => {
 });
 
 // FANCY APP SETTINGS
-jQuery('[data-fancybox][data-type="iframe"]').fancybox({
-    iframe : {
-        preload : true
-    }
-})
+// jQuery('[data-fancybox][data-type="iframe"]').fancybox({
+//     iframe : {
+//         preload : true
+//     }
+// })
