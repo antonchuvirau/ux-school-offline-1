@@ -34,7 +34,7 @@ define('CURRENCY_RATES', array(get_currency_rate('USD'), get_currency_rate('RUB'
 define('COURSE_TYPES', array(
 	'Занятия в классе' => 'offline',
 	'Онлайн' => 'online',
-	'Дистанционное обучение' => 'remote'
+	'Дистанционное обучение через Zoom' => 'remote'
 ));
 	
 //AMO CRM API

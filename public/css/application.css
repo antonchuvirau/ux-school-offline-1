@@ -1802,6 +1802,9 @@ sup {
       .course-list-item__type-value_theme-online {
         background: #E4FBDB;
         color: #26863F; }
+      .course-list-item__type-value_theme-remote {
+        background: #FFF6AB;
+        color: #7A6615; }
 
 .checkbox {
   position: relative;
