@@ -61,53 +61,56 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 						<h1 class="title template__title"><?php echo get_the_title($course_post_id); ?></h1>
 					</div>
 					<div class="course-info">
-						<?php if ($course_places): ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Мест</p>
-							<p class="course-info__item-value"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></p>
-						</div>
-						<?php endif; ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Дата</p>
-							<p class="course-info__item-value"><?php echo get_schedule_template($course_post_id); ?></p>
-						</div>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Длительность</p>
-							<p class="course-info__item-value"><?php echo $course_length; ?></p>
-						</div>
-						<?php if ($course_office): ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Кабинет</p>
-							<p class="course-info__item-value"><?php echo $course_office['label']; ?>
-						</div>
-						<?php endif; ?>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Кто ведёт</p>
-							<?php if ($course_lecturer): ?>
-							<button type="button" data-modal="#lecturer-modal" class="link course-info__item-value course-info__item-link"><?php echo $course_lecturer->post_title; ?></button>
-							<?php else: ?>
-							<a href="<?php echo esc_url(get_page_link(1641)); ?>" class="link course-info__item-value course-info__item-link">Наши преподаватели</a>
+						<div class="course-info__wrapper">
+							<?php if ($course_places): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Мест</p>
+								<p class="course-info__item-value"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></p>
+							</div>
 							<?php endif; ?>
-						</div>
-						<div class="course-info__item">
-							<p class="course-info__item-name">Стоимость</p>
-							<div class="course-info__item-wrapper">
-								<p class="course-info__item-value course-info__item-price"><?php if (!$is_course_free): echo $course_price . $price_currency; else: echo 'Бесплатно'; endif; ?></p>
-								<div class="ums-currency course-info__currency">
-								<?php if (!$is_course_free): ?>
-									<p class="ums-currency__value icon-currency icon-dollar">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'USD', $ums_usd_rate); ?></p>
-									<p class="ums-currency__value icon-currency icon-ruble">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'RUB', $ums_rub_rate); ?></p>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Дата</p>
+								<p class="course-info__item-value"><?php echo get_schedule_template($course_post_id); ?></p>
+							</div>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Длительность</p>
+								<p class="course-info__item-value"><?php echo $course_length; ?></p>
+							</div>
+							<?php if ($course_office): ?>
+							<div class="course-info__item">
+								<p class="course-info__item-name">Кабинет</p>
+								<p class="course-info__item-value"><?php echo $course_office['label']; ?>
+							</div>
+							<?php endif; ?>
+							<!-- <div class="course-info__item">
+								<p class="course-info__item-name">Кто ведёт</p>
+								<?php if ($course_lecturer): ?>
+								<button type="button" data-modal="#lecturer-modal" class="link course-info__item-value course-info__item-link"><?php echo $course_lecturer->post_title; ?></button>
+								<?php else: ?>
+								<a href="<?php echo esc_url(get_page_link(1641)); ?>" class="link course-info__item-value course-info__item-link">Наши преподаватели</a>
 								<?php endif; ?>
+							</div> -->
+							<div class="course-info__item">
+								<p class="course-info__item-name">Стоимость</p>
+								<div class="course-info__item-wrapper">
+									<p class="course-info__item-value course-info__item-price"><?php if (!$is_course_free): echo $course_price . $price_currency; else: echo 'Бесплатно'; endif; ?></p>
+									<div class="ums-currency course-info__currency">
+									<?php if (!$is_course_free): ?>
+										<p class="ums-currency__value icon-currency icon-dollar">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'USD', $ums_usd_rate); ?></p>
+										<p class="ums-currency__value icon-currency icon-ruble">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_price, 'RUB', $ums_rub_rate); ?></p>
+									<?php endif; ?>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="course-info__options">
-							<?php if ($is_course_free): ?>
-								<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Оставить заявку<?php endif; ?></button>
-							<?php else: ?>
-								<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#payment-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Хочу участвовать<?php endif; ?></button>
-							<?php endif; ?>
-						</div>
+						
+					</div>
+					<div class="course-info__options">
+						<?php if ($is_course_free): ?>
+							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Оставить заявку<?php endif; ?></button>
+						<?php else: ?>
+							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#payment-modal" class="course-btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Хочу участвовать<?php endif; ?></button>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
