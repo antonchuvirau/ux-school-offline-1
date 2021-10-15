@@ -153,6 +153,13 @@ else:
 								<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 							</div>
 						</div>
+						<div class="course-info__options">
+							<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="btn btn_theme-pink course-info__btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Оставить заявку<?php endif; ?></button>
+							<?php if ( !$is_course_full ): ?><a href="<?php echo esc_url( get_page_link(53) ); ?>" class="link course-info__options-link">Оплатить курс</a><?php endif; ?>
+							<?php if (!$is_course_test): ?>
+							<button type="button" data-modal="#test-course-modal" class="course-btn course-btn_style-1">Бесплатное пробное занятие</button>
+							<?php endif; ?>
+						</div>
 					</div>
 				</div>
 			</div>
