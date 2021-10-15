@@ -14,6 +14,48 @@
  */
 get_header();
 ?>
+<!-- Begin all-courses -->
+<div class="all-courses d-none">
+	<div class="all-courses__wrapper">
+		<div class="container">
+			<div class="all-courses__row">
+				<p class="all-courses__note">Показаны <span class="d-none d-sm-inline">только</span> <span class="all-courses__bold">дистанционные</span> курсы</p>
+				<button class="all-courses__btn">Смотреть все</button>
+			</div>
+		</div>
+	</div> 
+</div>
+<div id="all-courses" class="modal all-courses-modal">
+	<a href="#close-modal" rel="modal:close" class="close-modal">Close</a>
+	<h2 class="title title_size-s all-courses__title">Форма обучения</h2>
+	<div class="all-courses__block">
+		<div class="all-courses__item">
+			<div class="all-courses__item-icon" data-icon="remote"></div>
+			<div class="all-courses__item-content">
+				<h3 class="title all-courses__item-header">Дистанционная</h3>
+				<p class="all-courses__item-text">Занятия в&nbsp;режиме реального времени через ZOOM</p>
+				<button class="all-courses__item-btn">Выбрать</button>
+			</div>
+		</div>
+		<div class="all-courses__item">
+			<div class="all-courses__item-icon" data-icon="class"></div>
+			<div class="all-courses__item-content">
+				<h3 class="title all-courses__item-header">Занятия в классе</h3>
+				<p class="all-courses__item-text">Живые занятия в Минске</p>
+				<button class="all-courses__item-btn">Выбрать</button>
+			</div>
+		</div>
+		<div class="all-courses__item">
+			<div class="all-courses__item-icon" data-icon="online"></div>
+			<div class="all-courses__item-content">
+				<h3 class="title all-courses__item-header">Онлайн</h3>
+				<p class="all-courses__item-text">Обучение в&nbsp;свободном графике по&nbsp;записанным видеоурокам с&nbsp;проверкой «домашек» преподователем</p>
+				<button class="all-courses__item-btn">Выбрать</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End all-courses -->
 <!-- Begin main -->
 <main class="main template home-template">
     <div class="wrapper home-template__wrapper">
@@ -32,7 +74,8 @@ get_header();
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="template__header home-template__header">
-                        <h1 class="title template__title home-template__title">UX Mind School —<br>школа дизайна</h1>
+                        <h1 class="title template__title home-template__title">Школа дизайна в&nbsp;Минске</h1>
+						<h2 class="title home-template__title-secondary">Учим дизайну и&nbsp;меняем жизни</h2>
                         <button type="button" data-modal="#free-start-modal" class="btn btn_theme-pink home-template__header-btn">Начни учиться бесплатно!</button>
                     </div>
                 </div>

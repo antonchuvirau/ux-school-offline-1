@@ -36,6 +36,25 @@
     }
 }
 
+@media screen and (max-width: 991px) {
+		.price-box {
+				&__item {
+						&-value {
+								color: $gray-900;
+								&-note {
+										color: rgba($gray-900, .5);
+										& .ums-currency__value {
+												color: rgba($gray-900, .5);
+										}
+								}
+						}
+						&-name {
+								color: $gray-300;
+						}
+				}
+		}
+}
+
 // MEDIA
 @media screen and (max-width: 575px) {
     .price-box {

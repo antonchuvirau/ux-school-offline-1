@@ -2,7 +2,8 @@
     position: relative;
     padding: 7px 15px;
     padding-bottom: 12px;
-    background: rgba($white, .15);
+    background: transparent;
+		border: 1px solid rgba($white, .15);
     border-radius: 10px;
     max-width: 210px;
     text-decoration: none;

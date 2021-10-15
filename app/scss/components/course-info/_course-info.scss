@@ -7,7 +7,7 @@
         }
         &-name {
             margin: 0;
-            color: rgba($white, .5);
+            color: rgba($white, .3);
             font-size: 1.5rem;
             line-height: 1.35;
             width: 110px;
@@ -28,7 +28,7 @@
             &::before {
                 height: 1px;
                 background: transparent;
-                border-bottom: 1px dashed rgba($white, .5);
+                border-bottom: 1px dashed $white;
             }
             &:hover {
                 opacity: .8;
@@ -147,7 +147,7 @@
             position: relative;
             padding: 15px;
             padding-bottom: 25px;
-            background: rgba($gray-900, .1);
+            background: $white;
             border-radius: $br-course-info-wrapper;
         }
         &__price-box {
@@ -155,9 +155,31 @@
             padding: 15px;
             padding-bottom: 20px;
             border-radius: $br-course-info-wrapper;
-            background: rgba($gray-900, .1);
+            background: $white;
             max-width: none;
         }
+				&__select {
+						border: 1px solid $gray-50;
+						position: relative;
+						&::after {
+								background: icon('blue-drop.svg') no-repeat 50%	/ cover;
+								right: 12px;
+						}
+						&:hover {
+								border: 1px solid $gray-50;
+						}
+						& select {
+								color: $gray-900;
+								padding: 20px 40px 8px 10px;
+						}
+						& .course-info__item-name {
+								font-size: 1.2rem;
+								line-height: 1.25;
+								position: absolute;
+								top: 5px;
+								left: 10px;
+						}
+				}
         &__options {
             flex-direction: column;
             margin-top: 10px;
@@ -175,7 +197,20 @@
         }
         &__item {
             margin-bottom: 15px;
-
+						&-price-note,
+						&-value {
+								color: $gray-900;
+								display: block;
+						}
+						&-link {
+								color: $primary-500;
+								&:before {
+										border-bottom: 1px dashed $primary-500;
+								}
+						}
+						&-name {
+								color: $gray-300;
+						}
             &_sticky {
                 position: absolute;
                 top: 15px;

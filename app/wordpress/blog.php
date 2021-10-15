@@ -22,7 +22,7 @@ if ( $query->have_posts() ):
             <div class="col-12">
                 <header class="blog-section__header">
                     <h3 class="title title_style-dark title_size-m section__title blog-section__title">Блог</h3>
-                    <a href="<?php echo esc_url( get_category_link(12) ); ?>" class="link blog-section__all-link">Читать все записи</a>
+                    <!-- <a href="<?php echo esc_url( get_category_link(12) ); ?>" class="link blog-section__all-link">Читать все записи</a> -->
                 </header>
                 <div class="section__grid blog-section__grid">
                     <div class="row">
@@ -31,6 +31,7 @@ if ( $query->have_posts() ):
                             <?php get_template_part( 'template-parts/blog', 'item' ); ?>
                         </div>
                         <?php endwhile; wp_reset_postdata(); ?>
+												<a href="<?php echo esc_url( get_category_link(12) ); ?>" class="ajax-btn btn blog-section__btn">Читать блог</a>
                     </div>
                 </div>
             </div>
