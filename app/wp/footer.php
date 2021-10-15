@@ -23,13 +23,26 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 	<div class="footer__top">
 		<div class="container">
 			<div class="row">
-				<div class="col-12 col-lg-3">
+				<div class="col-12 col-lg-3 col-xl-4">
 					<?php if (!is_page_template('home.php')): ?>
 					<a class="footer__logo" href="<?php echo esc_url(get_home_url()); ?>"><img src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>"></a>
 					<?php else: ?>
 					<img class="footer__logo" src="<?php echo esc_url( $logo_light['url'] ); ?>" alt="<?php echo esc_attr( $logo_light['alt'] ); ?>">
 					<?php endif; ?>
-					<div class="social footer__social">
+					<!-- <div class="d-none d-lg-block footer__course-type">
+						<div class="footer__course-select-wrapper">
+							<select name="course-type" class="footer__course-select">
+								<option value="remote" selected>Дистанционные курсы</option>
+								<option value="class">Занятия в классе</option>
+								<option value="online">Онлайн курсы</option>
+							</select>
+						</div>
+					</div> -->
+					<div class="d-none d-lg-block footer__company">
+						<p class="footer__text company-info">ИП Колесень И.Г., <br>УНП 190602238. Выдано 15.10.2020 <br>Мингорисполкомом.</p>
+						<p class="footer__text company-info"><span>Режим работы:</span><br>Пн-Сб с 10:00 до 20.00</p>
+					</div>
+					<div class="d-lg-none social footer__social">
 						<?php if (get_field('ums_vk_link', 2)): ?>
 							<a href="<?php echo esc_url(get_field('ums_vk_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="vk" class="social__link"></a>
 						<?php endif; ?>
@@ -46,17 +59,11 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 							<a href="<?php echo esc_url(get_field('ums_instagram_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="instagram" class="social__link"></a>
 						<?php endif; ?>
 					</div>
-					<a target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($google_link); ?>" class="google-testimonials footer__testimonials">
-						<header class="google-testimonials__header">
-							<p class="google-testimonials__rate">4.9</p>
-							<div class="google-testimonials__stars"></div>
-						</header>
-						<p class="google-testimonials__text">Рейтинг школы на основе отзывов в Google</p>
-					</a>
 				</div>
 				<div class="col-12 col-lg-6 col-xl-5">
 					<nav class="footer-menu">
 						<ul class="list footer-menu__col">
+							<p class="d-none d-lg-block footer-menu__col-title">Школа</p>
 							<?php
 							$footer_first_menu_arg = array(
 								'theme_location'=>'Footer first',
@@ -68,6 +75,7 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 							?>
 						</ul>
 						<ul class="list footer-menu__col">
+							<p class="d-none d-lg-block footer-menu__col-title">Направления</p>
 							<?php
 							$footer_second_menu_arg = array(
 								'theme_location'=>'Footer second',
@@ -80,16 +88,34 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 						</ul>
 					</nav>
 				</div>
-				<div class="col-12 col-lg-3 col-xl-4">
-					<div class="footer__info">
-						<p class="footer__info-text">Торговый реестр: 147946 2018-05-28</p>
-						<p class="footer__info-text">Предоставляемая Вами персональная информация (например: имя, адрес, телефон, e-mail, номер банковской карты и прочее) является конфиденциальной и не подлежит разглашению. Данные карточки передаются только в зашифрованном виде и не сохраняются на данном интернет-ресурсе</p>
-						<div class="footer__info-links">
-							<button type="button" data-modal="#content-modal" class="link footer__info-link">Как оплатить</button>
-							<a href="<?php echo esc_url($doc_link); ?>" target="_blank" rel="noopener noreferrer" class="link footer__info-link">Договор оферты</a>
-						</div>
-						<img src="<?php echo get_template_directory_uri(); ?>/img/ums-payment-icons-top.png" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
-						<img src="<?php echo get_template_directory_uri(); ?>/img/ums-payment-icons-bottom.png" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+				<div class="col-12 col-lg-3 col-xl-3">
+					<div class="d-none d-lg-flex social footer__social">
+						<p class="d-none d-lg-block footer__testimonials-title">Наши социальные сети</p>
+						<?php if (get_field('ums_vk_link', 2)): ?>
+							<a href="<?php echo esc_url(get_field('ums_vk_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="vk" class="social__link"></a>
+						<?php endif; ?>
+						<?php if (get_field('ums_behance_link', 2)): ?>
+							<a href="<?php echo esc_url(get_field('ums_behance_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="behance" class="social__link"></a>
+						<?php endif; ?>
+						<?php if (get_field('ums_dribbble_link', 2)): ?>
+							<a href="<?php echo esc_url(get_field('ums_dribbble_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="dribbble" class="social__link"></a>
+						<?php endif; ?>
+						<?php if (get_field('ums_youtube_link', 2)): ?>
+							<a href="<?php echo esc_url(get_field('ums_youtube_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="youtube" class="social__link"></a>
+						<?php endif; ?>
+						<?php if (get_field('ums_instagram_link', 2)): ?>
+							<a href="<?php echo esc_url(get_field('ums_instagram_link', 2)); ?>" rel="noopener noreferrer" target="_blank" data-icon="instagram" class="social__link"></a>
+						<?php endif; ?>
+					</div>
+					<div class="footer__testimonials-wrapper">
+						<p class="d-none d-lg-block footer__testimonials-title">Отзывы</p>
+						<a target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($google_link); ?>" class="google-testimonials footer__testimonials">
+							<header class="google-testimonials__header">
+								<p class="google-testimonials__rate">4.9</p>
+								<div class="google-testimonials__stars"></div>
+							</header>
+							<p class="google-testimonials__text">Рейтинг школы на основе отзывов в Google</p>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -98,13 +124,33 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 	<div class="footer__bottom">
 		<div class="container">
 			<div class="row">
-				<div class="col-12 col-lg-7 col-xl-8">
-					<p class="footer__text company-info">ИП Колесень И.Г., УНП 190602238. Выдано 15.10.2020 Мингорисполкомом. Режим работы: Пн-Сб с 10:00 до 20.00</p>
+				<div class="col-12 col-lg-8 col-xl-9">
+					<div class="footer__info">
+						<p class="footer__info-text">Торговый реестр: 147946 2018-05-28</p>
+						<p class="footer__info-text">Предоставляемая Вами персональная информация (например: имя, адрес, телефон, e-mail, номер банковской карты и прочее) является конфиденциальной и не подлежит разглашению. Данные карточки передаются только в зашифрованном виде и не сохраняются на данном интернет-ресурсе</p>
+						<div class="footer__info-links">
+							<button type="button" data-modal="#content-modal" class="link footer__info-link">Как оплатить</button>
+							<a href="<?php echo esc_url($doc_link); ?>" target="_blank" rel="noopener noreferrer" class="link footer__info-link">Договор оферты</a>
+						</div>
+					</div>
 				</div>
-				<div class="col-12 col-lg-5 col-xl-4">
+				<div class="d-none d-lg-block col-12 col-lg-4 col-xl-3">
 					<button type="button" data-modal="#personal-data-modal" class="link footer__link">Политика конфиденциальности</button>
-					<a href="<?php echo esc_url($developer_link); ?>" target="_blank" class="link footer__link">ux-mind.pro</a>
+					<a href="<?php echo esc_url($developer_link); ?>" target="_blank" class="link footer__link">Разработка UX MIND</a>
 				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 footer__bottom-imges">
+					<img src="<?php echo get_template_directory_uri(); ?>/img/ums-payment-icons-top.png" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+					<img src="<?php echo get_template_directory_uri(); ?>/img/ums-payment-icons-bottom.png" alt="<?php echo esc_attr(get_bloginfo('name')); ?>">
+				</div>
+			</div>
+			<div class="d-lg-none footer__company">
+				<p class="footer__text company-info">ИП&nbsp;Колесень&nbsp;И.Г., УНП 190602238. Свидетельство о&nbsp;госрегистрации выдано Мингорисполкомом</p>
+			</div>
+			<div class="d-lg-none col-12 col-lg-4 col-xl-3">
+				<button type="button" data-modal="#personal-data-modal" class="link footer__link">Политика конфиденциальности</button>
+				<a href="<?php echo esc_url($developer_link); ?>" target="_blank" class="link footer__link">Разработка UX MIND</a>
 			</div>
 		</div>
 	</div>
@@ -129,6 +175,18 @@ $instagram_link = 'https://www.instagram.com/ux_mind_school/';
 								</div>
 							</div>
 						</header>
+						<!-- Begin all-courses -->
+						<div class="all-courses d-none">
+							<div class="all-courses__wrapper">
+								<div class="container">
+									<div class="all-courses__row">
+										<p class="all-courses__note">Показаны <span class="d-none d-sm-inline">только</span> <span class="all-courses__bold">дистанционные</span> курсы</p>
+										<button class="all-courses__btn">Смотреть все</button>
+									</div>
+								</div>
+							</div> 
+						</div>
+						<!-- End all-courses -->
 						<div class="m-menu__grid">
 							<nav class="menu header__menu">
 								<ul class="list menu__wrapper">
