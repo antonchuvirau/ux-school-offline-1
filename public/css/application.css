@@ -1821,9 +1821,9 @@ sup {
     left: 0;
     opacity: 0; }
     .checkbox__input:checked + .checkbox__name::before {
-      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, -webkit-gradient(linear, left top, left bottom, from(#3D9FF5), color-stop(127.5%, #4C2AD5));
-      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, -o-linear-gradient(top, #3D9FF5 0%, #4C2AD5 127.5%);
-      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, linear-gradient(180deg, #3D9FF5 0%, #4C2AD5 127.5%);
+      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, -webkit-gradient(linear, left top, left bottom, from(#2698FC));
+      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, -o-linear-gradient(#2698FC);
+      background: url("../img/icons/check.svg") no-repeat 50%/12px auto, linear-gradient(#2698FC);
       border: none; }
     .checkbox__input:checked + .checkbox__name::after {
       opacity: 1; }
@@ -6343,6 +6343,7 @@ div.wpcf7-response-output {
     padding: 8px 20px;
     color: #fff;
     font-size: 1.8rem;
+    height: 40px;
     font-weight: 500;
     position: relative; }
     .content-list__more-btn::after {
@@ -10154,7 +10155,8 @@ div.wpcf7-response-output {
 
 .certificates-page__img {
   margin: 0;
-  margin-top: 40px; }
+  margin-top: 40px;
+  border-radius: 20px; }
 
 .certificates-page__calculation {
   margin-top: 90px; }
@@ -11093,10 +11095,8 @@ div.wpcf7-response-output {
     .program__figure {
       height: 480px; }
   .content-list {
-    border-radius: 0;
-    background: transparent;
-    -webkit-box-shadow: none;
-            box-shadow: none; }
+    background: #fff;
+    border-radius: 15px; }
     .content-list__title {
       font-size: 1.8rem;
       line-height: 1.33; }
@@ -11151,14 +11151,17 @@ div.wpcf7-response-output {
       .results__col:last-child {
         margin-bottom: 0; }
   .faq {
-    padding: 100px 0; }
+    padding: 100px 0;
+    background: #F8F0FF; }
     .faq__title {
       text-align: center;
       margin-bottom: 30px; }
     .faq__video {
       margin-top: 20px; }
     .faq__footer {
-      margin-top: 5px; }
+      background: #fff;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px; }
   .lecturer-modal__img {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11688,7 +11691,8 @@ div.wpcf7-response-output {
   .about__btn {
     border-radius: 10px; }
   .about__wrapper {
-    border-radius: 20px; }
+    border-radius: 20px;
+    height: 280px; }
   .course-list__wrapper {
     border-radius: 10px; }
   .tabs__btn {

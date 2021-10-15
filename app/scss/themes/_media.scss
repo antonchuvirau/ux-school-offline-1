@@ -1072,9 +1072,8 @@
 				}
 		}
 		.content-list {
-				border-radius: 0;
-				background: transparent;
-				box-shadow: none;
+				background: $white;
+				border-radius: 15px;
 				&__title {
 						font-size: 1.8rem;
 						line-height: 1.33;
@@ -1141,6 +1140,7 @@
 		}
 		.faq {
 				padding: 100px 0;
+				background: $primary-100;
 				&__title {
 						text-align: center;
 						margin-bottom: 30px;
@@ -1149,7 +1149,9 @@
 						margin-top: 20px;
 				}
 				&__footer {
-						margin-top: 5px;
+						background: $white;
+						border-bottom-left-radius: 15px;
+						border-bottom-right-radius: 15px;
 				}
 		}
 		.lecturer-modal {
@@ -1894,6 +1896,7 @@
 				}
 				&__wrapper {
 						border-radius: 20px;
+						height: 280px;
 				}
 		}
 		.course-list {

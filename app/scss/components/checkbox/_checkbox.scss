@@ -17,7 +17,7 @@
             & .checkbox {
                 &__name {
                     &::before {
-                        background: icon('check.svg') no-repeat 50% / 12px auto, linear-gradient(180deg, #3D9FF5 0%, #4C2AD5 127.5%);
+                        background: icon('check.svg') no-repeat 50% / 12px auto, linear-gradient($primary-500);
                         border: none;
                     }
                     &::after {
