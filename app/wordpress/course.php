@@ -119,7 +119,7 @@ $is_partial_payment = get_field( 'is_partial_payment', $course_post_id );
 									<?php echo $course_full_price . ' BYN'; ?>
 									<div class="price-box__item-value-note ums-currency course-info__currency">
 										<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p>
-										<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
+										<!-- <p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p> -->
 									</div>
 								</div>
 								<span class="price-box__item-name">Полная стоимость курса (оплата в 3 этапа)</span>
