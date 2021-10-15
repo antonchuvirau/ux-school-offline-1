@@ -16,6 +16,7 @@
 get_header();
 $page_queried_object = get_queried_object();
 $page_id = $page_queried_object->ID;
+$term_id = get_field( 'ums_course_parent_term', $page_id );
 ?>
 <!-- Begin main -->
 <main class="main template category-template">
@@ -32,18 +33,16 @@ $page_id = $page_queried_object->ID;
 				</div>
 				<div class="col-12">
 					<div class="course-list template__course-list">
-						<header class="course-list__header tabs">
+						<header style="display: none;" class="course-list__header tabs">
 							<button type="button" data-show-full="true" data-id="15,1,2,4,99,121,124,127,3" class="tabs__btn js-tabs__btn tabs__btn_active">Все курсы</button>
 							<?php
                             $courses_array = array(
-								'taxonomy'=>'category',
-								'include'=>'15,1,2,4,99,121,124,127,3',
-								'orderby'=>'include',
+								'cat' => $term_id,
 								'hide_empty'=>true
 							);
-                            $courses_categories = get_categories($courses_array);
-                            if ($courses_categories):
-								foreach ($courses_categories as $cat):
+                            $courses_categories = get_categories( $courses_array );
+                            if ( $courses_categories ):
+								foreach ( $courses_categories as $cat ):
                             ?>
 							<button type="button" data-show-full="true" data-id="<?php echo $cat->term_id; ?>" class="tabs__btn js-tabs__btn"><?php echo $cat->name; ?></button>
 							<?php endforeach; endif; ?>
@@ -56,19 +55,19 @@ $page_id = $page_queried_object->ID;
 							<div class="course-list__wrapper">
 							<?php
                                 $courses_array = array(
-                                    'post_type'=>'post',
-									'cat'=>'15,1,2,4,99,121,124,127,3',
-									'post_status'=>'publish',
-                                    'posts_per_page'=>-1,
-                                    'meta_key'=>'ums_course_info_start',
-                                    'orderby'=>'meta_value',
-                                    'order'=>'ASC'
+                                    'post_type' => 'post',
+									'cat' => $term_id,
+									'post_status' => 'publish',
+                                    'posts_per_page' => -1,
+                                    'meta_key' => 'ums_course_info_start',
+                                    'orderby' => 'meta_value',
+                                    'order' => 'ASC'
                                 );
                                 $courses_query = new WP_Query($courses_array);
 								$term_max_num_pages = $courses_query->max_num_pages;
 								$counter = 0;
-                                if ($courses_query->have_posts()): while ($courses_query->have_posts()): $courses_query->the_post();
-                                    include(locate_template('template-parts/course-item.php', false, false));
+                                if ( $courses_query->have_posts() ): while ( $courses_query->have_posts() ): $courses_query->the_post();
+                                    include( locate_template( 'template-parts/course-item.php', false, false ) );
                                 endwhile;
                                 wp_reset_postdata();
                                 endif;

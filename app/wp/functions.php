@@ -24,8 +24,8 @@ define('BEPAID_ID', '11820');
 
 //CURRENCIES
 define('CURRENCY_URL', 'https://www.nbrb.by/api/exrates/rates/');
-define('USD_RATE', 2.63);
-define('RUB_RATE', 3.47);
+define('USD_RATE', 2.51);
+define('RUB_RATE', 3.41);
 
 //COMMON DATA
 define('CURRENCY_CODE', 'BYN');
@@ -855,7 +855,7 @@ function make_amocrm_api_call($method, $data, $request, $params) {
 }
 
 function get_amocrm_contacts($customer_telephone) {
-	$api_response = make_amocrm_api_call('contacts', [], 'GET', '?limit=250&order[id]=desc');
+	$api_response = make_amocrm_api_call('contacts', [], 'GET', '?limit=250');
 	$decoded_api_response = json_decode($api_response, true);
 	$contacts = $decoded_api_response['_embedded']['contacts'];
 	$field_id = 149693;
@@ -1251,7 +1251,7 @@ function amocrm_lead_callback() {
 	}
 	
 	//Создаем связку между контактом и сделкой
-	$linked_entities_response = make_amocrm_api_call('leads/' . $lead_id . '/link', $entity_data, 'POST', '');
+	$linked_entities_response = make_amocrm_api_call('leads' . $lead_id . '/link', $entity_data, 'POST', '');
 	echo $linked_entities_response;
 	wp_die();
 }
@@ -1519,7 +1519,7 @@ function custom_item_class( $classes, $item, $args, $depth ){
 	 else if ('Footer first' == $args->theme_location || 'Footer second' == $args->theme_location) {
 		if ($parent_term_id == 3):
 			$term_arg = array('cat'=>$parent_term_id, 'post_status'=>'publish');
-			$posts_obj = get_posts($term_arg);
+			$posts_obj = get_posts( $term_arg );
 			if (!$posts_obj):
 				$classes = ["footer-menu__item", "footer-menu__item_visibility-hidden"];
 			else:
@@ -1568,7 +1568,7 @@ define('SHOP_CODE_OFFLINE', '1374');
 define('API_ONLINE_URL', 'https://insync2.alfa-bank.by/mBank256/ExtRbc');
 define('API_OFFLINE_URL', 'https://93.84.121.106/mBank2/ExtRbc');
 define('INSTALLMENT_TYPE', 'PSL');
-define('INSTALLMENT_RATE', 13);
+define('INSTALLMENT_RATE', 15);
 
 // INSTALLMENT
 function installment_callback() {
@@ -1625,4 +1625,41 @@ function get_installment_payment_value( $course_price, $installment_term = 12 ) 
 		$course_price = $course_price - $installment_month_payment;
 	}
 	return $installment_debt_payment;
+}
+
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+
+// COURSE TEMPLATE SCHEDULE
+function get_course_schedule_layout( $term_id, $course_post_id, $template_id ) {
+	$options_html = '';
+	$timetable_arg = array(
+		'cat' => $term_id,
+		'post_type' => 'post',
+		'post_status' => 'publish',
+		'meta_key' => 'ums_course_info_start',
+		'orderby' => 'meta_value',
+		'order' => 'ASC',
+		'posts_per_page' => -1
+	);
+	$timetable_query = new WP_Query( $timetable_arg );
+	$timetable_posts_count = $timetable_query->post_count;
+	if ( $timetable_posts_count > 1 ):
+		while ( $timetable_query->have_posts() ): $timetable_query->the_post();
+		$post_id = get_the_id( $post );
+		$options_html.='<option ';
+		if ( $course_post_id == $post_id ):
+			$options_html.='selected ';
+		endif;
+		$options_html.='value="' . esc_url( get_page_link( $template_id ) ) . '?id=' . $post_id . '">';
+		$options_html.=get_schedule_template( $post_id );
+		$options_html.='</option>';
+		endwhile;
+		wp_reset_postdata();
+	else:
+		$options_html.='<option selected ';
+		$options_html.='value="' . esc_url( get_page_link( $template_id ) ) . '?id=' . $post_id . '">';
+		$options_html.=get_schedule_template( $course_post_id );
+		$options_html.='</option>';
+	endif;
+	return $options_html;
 }

@@ -56,7 +56,7 @@ gulp.task('scripts', function(){
 //     ])
 //     .pipe(concat('application-home.js'))
 //     .pipe(gulp.dest('public/js/'))
-// })
+// });
 
 gulp.task('clean', function () {
   return del('public')

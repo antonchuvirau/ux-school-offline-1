@@ -1908,7 +1908,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 		elPricePerMonth.innerHTML = `&nbsp;≈&nbsp;${coursePricePerMonth} BYN в месяц`;
 		//
-
+  
     if (portfolioLoadMoreButton) {
         portfolioLoadMoreButton.addEventListener(`click`, onPortfolioLoadMoreButtonClickHandler);
     }
@@ -2224,11 +2224,11 @@ document.body.addEventListener('mouseout', (evt) => {
 });
 
 // FANCY APP SETTINGS
-jQuery('[data-fancybox][data-type="iframe"]').fancybox({
-    iframe : {
-        preload : true
-    }
-})
+// jQuery('[data-fancybox][data-type="iframe"]').fancybox({
+//     iframe : {
+//         preload : true
+//     }
+// })
 (function() {
     const button = document.querySelector('.calculation__btn');
     const form = document.querySelector('#wpcf7-f1805-o1');
