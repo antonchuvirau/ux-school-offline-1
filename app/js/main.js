@@ -787,6 +787,16 @@ document.addEventListener(`DOMContentLoaded`, () => {
     initSwiperInstance(`.graduates__carousel`, graduatesCarouselOptions);
     initSwiperInstance(`.testimonials__carousel`, testimonialsCarouselOptions);
 
+		// Adds price per month
+		const elPricePerMonth = document.querySelector('.price-box__item-value .ums-currency__value');
+		let coursePrice = document.querySelector('.price-box__item-value').innerText;
+		coursePrice = parseInt(coursePrice, 10);
+
+		const coursePricePerMonth = Math.round(coursePrice / 3);
+
+		elPricePerMonth.innerHTML = `&nbsp;≈&nbsp;${coursePricePerMonth} BYN в месяц`;
+		//
+
     if (portfolioLoadMoreButton) {
         portfolioLoadMoreButton.addEventListener(`click`, onPortfolioLoadMoreButtonClickHandler);
     }

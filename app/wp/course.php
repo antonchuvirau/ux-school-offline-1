@@ -132,15 +132,16 @@ else:
 									<?php endif; ?>
 								</div>
 							</div>
-							<?php $course_full_price = $course_sale_price ? $course_sale_price : $course_price; ?>
-							<div class="price-box course-info__price-box">
-								<div class="price-box__item">
-									<div class="price-box__item-value">
-										<?php echo $course_full_price . ' BYN'; ?>
-										<div class="price-box__item-value-note ums-currency course-info__currency">
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p>
-											<p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p>
-										</div>
+						</div>
+						<?php $course_full_price = $course_sale_price ? $course_sale_price : $course_price; ?>
+						<div class="price-box course-info__price-box">
+							<div class="price-box__item">
+								<div class="price-box__item-value">
+									<?php echo $course_full_price . ' BYN'; ?>
+									<div class="price-box__item-value-note ums-currency course-info__currency">
+										<p class="ums-currency__value ums-currency__value_bigger"><!-- Added using js --></p>
+										<!-- <p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'USD', CURRENCY_RATES[0]) . '$'; ?></p> -->
+										<!-- <p class="ums-currency__value ums-currency__value_bigger">&nbsp;≈&nbsp;<?php echo get_price_in_currency($course_full_price, 'RUB', CURRENCY_RATES[1]) . '&#8381'; ?></p> -->
 									</div>
 									<span class="price-box__item-name">Полная стоимость курса (оплата в 3 этапа)</span>
 								</div>
@@ -152,13 +153,13 @@ else:
 									</div>
 									<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 								</div>
+								<span class="price-box__item-name">Рассрочка на 3 месяца от UX Mind School</span>
 							</div>
-							<div class="course-info__options">
-								<button <?php if ($is_course_full): ?>disabled<?php endif; ?> type="button" data-modal="#order-modal" class="btn btn_theme-pink course-info__btn"><?php if ($is_course_full): ?>Группа набрана<?php else: ?>Оставить заявку<?php endif; ?></button>
-								<?php if ( !$is_course_full ): ?><a href="<?php echo esc_url( get_page_link(53) ); ?>" class="link course-info__options-link">Оплатить курс</a><?php endif; ?>
-								<?php if (!$is_course_test): ?>
-								<button type="button" data-modal="#test-course-modal" class="course-btn course-btn_style-1">Бесплатное пробное занятие</button>
-								<?php endif; ?>
+							<div class="price-box__item">
+								<?php $installment_payment_value = get_installment_payment_value( $course_full_price ); ?>
+								<!-- <div class="price-box__item-value"><?php echo round( ($course_full_price + $installment_payment_value) / 12, 2 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев ≈ <?php echo round( $course_full_price + $installment_payment_value, 2 ) . ' BYN'; ?></span></div> -->
+							 	<div class="price-box__item-value"><?php echo round( ($course_full_price + $installment_payment_value) / 12, 2 ) . ' BYN'; ?><span class="price-box__item-value-note"><span class="price-box__item-value-icon">x</span>12 месяцев</span></div>
+								<span class="price-box__item-name">Онлайн-кредит от Альфа-банка</span>
 							</div>
 						</div>
 					</div>
