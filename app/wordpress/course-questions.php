@@ -17,7 +17,7 @@ if ($course_questions):
                     <h3 class="title title_style-dark title_size-m section__title faq__title">Часто задаваемые вопросы</h3>
                 </header>
             </div>
-            <div class="order-3 order-lg-2 col-12 col-md-9 col-lg-8 col-xl-9">
+            <div class="col-12 col-md-9 col-lg-8 col-xl-9">
                 <div class="faq__grid content-list">
                     <div class="content-list__wrapper">
                         <?php foreach ($course_questions as $item): $post = $item; setup_postdata($item); ?>
@@ -28,11 +28,11 @@ if ($course_questions):
                         <?php endforeach; wp_reset_postdata(); ?>
                     </div>
                     <footer class="content-list__footer faq__footer">
-                        <button type="button" class="content-list__more-btn">Показать ещё</button>
+                        <button type="button" class="btn content-list__more-btn">Показать ещё</button>
                     </footer>
                 </div>
             </div>
-            <div class="order-2 order-lg-3 col-12 col-md-9 col-lg-4 col-xl-3">
+            <div class="col-12 col-md-9 col-lg-4 col-xl-3">
                 <button data-video-id="<?php echo get_field('ums_course_portfolio_video_link', $template_id); ?>" class="modal-video-button faq__video" style="background-image: url('<?php echo get_field('ums_course_portfolio_video_img', $template_id); ?>');">
                     <div class="faq__video-btn">
                         <div class="faq__video-btn-icon">

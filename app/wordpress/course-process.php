@@ -11,9 +11,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-lg-4">
-				<h3 class="section__title title title_style-dark title_size-m process__title">
-					Так проходят занятия:
-					<svg width="27" height="40" viewBox="0 0 27 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<h3 class="d-none d-lg-block section__title title title_style-dark title_size-m process__title">
+					Вот так обычно проводятся занятия:
+					<!-- <svg width="27" height="40" viewBox="0 0 27 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path
 							d="M13.247 35.9095L3.43652 26.7179L4.81668 16.9701C4.81668 15.987 5.40078 15.1434 6.23779 14.764L10.8383 15.7579C10.8383 14.7749 11.4224 13.9313 12.2594 13.5519L16.7347 14.5204L16.8599 14.5458V3.63673C16.8599 2.65369 17.444 1.81006 18.2811 1.43066L22.6311 17.9882L22.8816 18.1822C23.992 18.1822 24.9566 20.6064 24.9566 20.6064L24.959 20.6246L13.247 35.9095Z"
 							fill="#EF9645" />
@@ -26,43 +26,54 @@
 						<path
 							d="M16.8603 18.1818H13.2473C12.8234 18.1818 12.4223 18.2691 12.043 18.4048V14.5455C12.043 14.1903 12.1237 13.8558 12.2597 13.5515C12.6367 12.7091 13.4749 12.1212 14.4516 12.1212C15.7812 12.1212 16.8603 13.2073 16.8603 14.5455V18.1818ZM18.0646 18.1818V2.42424C18.0646 2.06909 18.1453 1.73455 18.2814 1.4303C18.6583 0.587879 19.4965 0 20.4733 0C21.8028 0 22.8819 1.08606 22.8819 2.42424V18.1818H18.0646Z"
 							fill="#FFDC5D" />
-					</svg>
+					</svg> -->
+				</h3>
+				<h3 class="d-lg-none section__title title title_style-dark title_size-m process__title">
+					Как проходят занятия
 				</h3>
 			</div>
-			<div class="col-6 col-lg-2">
+			<div class="col-12 col-md-6 col-lg-2">
 				<div class="process__item">
 					<div class="process__icon">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/ums-process-icon-1.svg" alt="<?php echo get_bloginfo('name'); ?>">
 					</div>
-					<p class="process__name">Разбор ДЗ</p>
-					<p class="process__text">На каждом занятии мы&nbsp;разбираем ваши домашки и даем обратную связь</p>
+					<div class="process__content">
+						<p class="process__name">Разбор ДЗ</p>
+						<p class="process__text">В начале занятия разбираем основные моменты из&nbsp;готовых домашних заданий</p>
+					</div>
 				</div>
 			</div>
-			<div class="col-6 col-lg-2">
+			<div class="col-12 col-md-6 col-lg-2">
 				<div class="process__item">
 					<div class="process__icon">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/ums-process-icon-2.svg" alt="<?php echo get_bloginfo('name'); ?>">
 					</div>
-					<p class="process__name">Теория</p>
-					<p class="process__text">Изучаем</br>новый&nbsp;материал и отвечаем на все вопросы по теме</p>
+					<div class="process__content">
+						<p class="process__name">Теория</p>
+						<p class="process__text">Изучаем новый теоретический материал, разбитый на&nbsp;несколько тем</p>
+					</div>
 				</div>
 			</div>
-			<div class="col-6 col-lg-2">
+			<div class="col-12 col-md-6 col-lg-2">
 				<div class="process__item">
 					<div class="process__icon">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/ums-process-icon-3.svg" alt="<?php echo get_bloginfo('name'); ?>">
 					</div>
-					<p class="process__name">Кофе-брейк</p>
-					<p class="process__text">5-7 минут отдыха за&nbsp;чаем&nbsp;или&nbsp;кофе&nbsp;:)</p>
+					<div class="process__content">
+						<p class="process__name">Кофе-брейк</p>
+						<p class="process__text">5-7 минут отдыха за&nbsp;чаем&nbsp;или&nbsp;кофе-) </p>
+					</div>
 				</div>
 			</div>
-			<div class="col-6 col-lg-2">
+			<div class="col-12 col-md-6 col-lg-2">
 				<div class="process__item">
 					<div class="process__icon">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/ums-process-icon-4.svg" alt="<?php echo get_bloginfo('name'); ?>">
 					</div>
-					<p class="process__name">Практика</p>
-					<p class="process__text">Показываем как применять новые&nbsp;знания</p>
+					<div class="process__content">
+						<p class="process__name">Практика</p>
+						<p class="process__text">Показываем «на&nbsp;пальцах», как&nbsp;применять новые знания</p>
+					</div>
 				</div>
 			</div>
 		</div>

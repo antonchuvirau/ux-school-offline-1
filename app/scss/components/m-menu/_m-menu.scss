@@ -32,7 +32,8 @@
         opacity: .7;
     }
     &__grid {
-        margin-top: 20px;
+        // margin-top: 40px;
+				margin-top: 20px;
     }
     &__footer {
         margin-top: 30px;
@@ -75,6 +76,18 @@
         &__footer {
             @include flex(column, center);
         }
+				& .all-courses {
+					margin-top: 0;
+					left: 0;
+					top: 54px;
+					&__wrapper {
+							background: rgba($white, .15);
+					}
+					&__btn {
+						background: transparent;
+						border: 1px solid rgba($white, .15);
+					}
+			}
     }
 }
 @media screen and (max-width: 991px) {
