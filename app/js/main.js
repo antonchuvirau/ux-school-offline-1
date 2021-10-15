@@ -799,22 +799,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
 		}
 		//
 
-		// Костыль пока не знаю как добавить адрес в wp
-		const designTalkCourse = document.querySelector('.template__title');
-		
-		if (designTalkCourse.innerHTML === 'Открытая встреча «DesignTalk»') {
-			const arrValues = Array.from(document.querySelectorAll('.course-info__item-value'));
-			
-			for (value of arrValues) {
-				const adress = value.innerHTML;
-
-				if (adress == 'ул. Чапаева, д. 3') {
-					value.innerHTML = `${adress} + онлайн трансляция`;
-				}
-			}
-		}
-		//
-
     if (portfolioLoadMoreButton) {
         portfolioLoadMoreButton.addEventListener(`click`, onPortfolioLoadMoreButtonClickHandler);
     }

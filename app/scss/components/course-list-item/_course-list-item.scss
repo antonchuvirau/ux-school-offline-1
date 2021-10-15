@@ -164,8 +164,8 @@
                     color: map-get($type-text, 1);
                 }
                 &-remote {
-                    background: map-get($type, 2);
-                    color: map-get($type-text, 2);
+                    background: map-get($type, 3);
+                    color: map-get($type-text, 3);
                 }
             }
         }

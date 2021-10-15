@@ -78,8 +78,8 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 							</div>
 							<?php if ($course_office): ?>
 							<div class="course-info__item">
-								<p class="course-info__item-name">Кабинет</p>
-								<p class="course-info__item-value"><?php echo $course_office['label']; ?>
+								<p class="course-info__item-name">Место</p>
+								<p class="course-info__item-value"><?php echo $course_office['label']; ?> + онлайн трансляция</p>
 							</div>
 							<?php endif; ?>
 							<!-- <div class="course-info__item">
