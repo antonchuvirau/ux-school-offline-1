@@ -73,13 +73,13 @@ $is_promocode = get_field('promocode_bool', 2);
 								<section class="payment-form__section payment-section payment-section_state-active">
 									<div class="form webpay-form payment-form__section-item">
 										<p class="payment-form__section-name">2. Введите ваши данные</p>
-										<div class="payment-form__section-grid">
+										<div class="payment-form__section-grid grid-second">
+											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value">0 BYN</span></div>
 											<?php if ($is_promocode): ?>
 											<div class="webpay-form__item promocode">
 												<label class="toggle-checkbox">
 													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
-													<div class="toggle-checkbox__element"></div>
-													<p class="toggle-checkbox__name">У меня есть промо-код</p>
+													<p class="toggle-checkbox__name toggle-checkbox__promocode">У меня есть промо-код</p>
 												</label>
 												<div class="form__input promocode-input payment-form__input">
 													<input type="text" inputmode="text" name="promocode">
@@ -90,26 +90,51 @@ $is_promocode = get_field('promocode_bool', 2);
 											</div>
 											<?php endif; ?>
 											<div class="webpay-form__item">
+												<label class="toggle-checkbox">
+													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+													<div class="toggle-checkbox__element"></div>
+													<p class="toggle-checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>
+												</label>
+											</div>
+											<div class="webpay-form__item">
+												<label class="toggle-checkbox">
+													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+													<div class="toggle-checkbox__element"></div>
+													<p class="toggle-checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
+												</label>
+											</div>
+											<div class="webpay-form__item">
+												<p class="payment-message erip-payment__message">
+													<span class="erip-payment__message-note erip-payment__message-note_active">*Скидки не суммируются.</span>
+													После внесения платежа, отправьте копию квитанции на&nbsp;
+													<a href="mailto:hello@ux-school.by">hello@ux-school.by</a>
+												</p>
+											</div>
+											<div class="webpay-form__item">
 												<div class="form__input payment-form__input">
 													<input type="text" inputmode="text" required name="name">
 													<span class="form__label">Имя и фамилия ученика</span>
 													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
 												</div>
-												<label class="checkbox webpay-form__sale-checkbox">
-													<input type="checkbox" name="sale" class="checkbox__input">
-													<p class="checkbox__name webpay-form__checkbox">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
-												</label>
 											</div>
-											<div class="webpay-form__item">
+											<div>
+												<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
+											</div>
+											<label class="checkbox privacy-checkbox">
+												<input type="checkbox" checked="" class="checkbox__input privacy-checkbox__input">
+												<p class="checkbox__name">Я согласен с условиями обработки
+													<button type="button" data-modal="#personal-data-modal" class="link checkbox__link">персональных данных</button>
+												</p>
+											</label>
+										</div>	
+											<!-- <div class="webpay-form__item">
 												<div class="form__input payment-form__input currency-input-wrapper">
 													<input type="text" required name="total" value="">
 													<span class="form__label">Сумма для оплаты</span>
 													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
 													<div class="ums-currency form__ums-currency"></div>
 												</div>
-											</div>
-											<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a></p>
-											<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
+											</div> -->
 										</div>
 									</div>
 								</section>

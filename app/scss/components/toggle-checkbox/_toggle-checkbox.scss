@@ -30,6 +30,13 @@
         display: inline-block;
         vertical-align: middle;
     }
+		&__promocode {
+				margin: 0;
+				color: $primary-500;
+				border: none;
+				background-color: $white;
+				border-bottom: 1px dashed $primary-500;
+		}
     &__element {
         display: inline-block;
         vertical-align: middle;
