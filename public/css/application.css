@@ -4535,6 +4535,10 @@ button.swiper-pagination-bullet, select.swiper-pagination-bullet, input.swiper-p
     margin-right: 10px; }
     .form__input_width-m:last-child {
       margin-right: 0; }
+  .form__input_filled.currency-input-wrapper {
+    background: #F2F5F7; }
+    .form__input_filled.currency-input-wrapper input {
+      background: #F2F5F7; }
   .form__input_filled input {
     border-color: #2698FC;
     padding-top: 15px; }
@@ -4842,9 +4846,11 @@ div.wpcf7-response-output {
   font-size: 1.7rem;
   line-height: 1.47; }
   .webpay-form__note-link {
-    text-decoration: none; }
+    text-decoration: none;
+    color: #2698FC; }
     .webpay-form__note-link::before {
-      background: #E6E0EB; }
+      background: #2698FC;
+      top: 100%; }
     .webpay-form__note-link:hover::before {
       background: #9D98A3; }
 
@@ -4867,7 +4873,11 @@ div.wpcf7-response-output {
   padding-left: 15px; }
 
 .webpay-form__btn {
-  margin-top: 40px; }
+  margin-top: 24px;
+  font-size: 2rem;
+  height: 3em;
+  padding: 0 1.75em;
+  font-weight: 400; }
 
 .free-start-form__btn {
   width: 100%;
@@ -7312,11 +7322,9 @@ div.wpcf7-response-output {
     height: 0;
     opacity: 0; }
     .toggle-checkbox__input:checked + .toggle-checkbox__element {
-      background-color: #F2CCFF; }
+      background-color: #A5E4FE; }
       .toggle-checkbox__input:checked + .toggle-checkbox__element::after {
-        background: -webkit-gradient(linear, left top, left bottom, from(#33AAFF), color-stop(127.5%, #8B24B7));
-        background: -o-linear-gradient(top, #33AAFF 0%, #8B24B7 127.5%);
-        background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+        background: #2698FC;
         -webkit-transform: translate3d(15px, 0, 0);
                 transform: translate3d(15px, 0, 0); }
   .toggle-checkbox__name {
@@ -7496,6 +7504,9 @@ div.wpcf7-response-output {
 .webpay-form__info {
   max-width: 270px;
   margin-top: 20px; }
+
+.webpay-form__checkbox:before {
+  border: 3px solid #E6E0EB; }
 
 .payment-message {
   font-family: "Arial", sans-serif;

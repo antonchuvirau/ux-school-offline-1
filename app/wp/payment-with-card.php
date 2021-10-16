@@ -28,12 +28,12 @@ $is_promocode = get_field('promocode_bool', 2);
 					<?php bcn_display($return = false, $linked = true, $reverse = false, $force = false) ?>
 				</div>
 				<div class="pages-template__grid">
-					<h1 class="title title_style-dark template__title payment-page__title">Оплатить курс</h1>
+					<h1 class="title title_style-dark template__title payment-page__title">Оплатить курс картой</h1>
 					<div class="row">
 						<div class="col-12 col-lg-9">
 							<div class="form payment-form">
 								<section class="payment-form__section">
-									<p class="payment-form__section-name">1. Выберите курс</p>
+									<p class="payment-form__section-name">1. Выберите тип курса</p>
 									<div class="payment-form__section-grid">
 										<div class="form__input form__select payment-form__select payment-form__input">
 											<?php
@@ -74,25 +74,6 @@ $is_promocode = get_field('promocode_bool', 2);
 									<div class="form webpay-form payment-form__section-item">
 										<p class="payment-form__section-name">2. Введите ваши данные</p>
 										<div class="payment-form__section-grid">
-											<div class="webpay-form__item">
-												<div class="form__input payment-form__input">
-													<input type="text" inputmode="text" required name="name">
-													<span class="form__label">Имя и фамилия ученика</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
-												</div>
-												<label class="checkbox webpay-form__sale-checkbox">
-													<input type="checkbox" name="sale" class="checkbox__input">
-													<p class="checkbox__name">Я учился у вас (скидка 10%)</p>
-												</label>
-											</div>
-											<div class="webpay-form__item">
-												<div class="form__input payment-form__input currency-input-wrapper">
-													<input type="text" required name="total" value="">
-													<span class="form__label">Сумма для оплаты</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
-													<div class="ums-currency form__ums-currency"></div>
-												</div>
-											</div>
 											<?php if ($is_promocode): ?>
 											<div class="webpay-form__item promocode">
 												<label class="toggle-checkbox">
@@ -108,6 +89,25 @@ $is_promocode = get_field('promocode_bool', 2);
 												</div>
 											</div>
 											<?php endif; ?>
+											<div class="webpay-form__item">
+												<div class="form__input payment-form__input">
+													<input type="text" inputmode="text" required name="name">
+													<span class="form__label">Имя и фамилия ученика</span>
+													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+												</div>
+												<label class="checkbox webpay-form__sale-checkbox">
+													<input type="checkbox" name="sale" class="checkbox__input">
+													<p class="checkbox__name webpay-form__checkbox">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
+												</label>
+											</div>
+											<div class="webpay-form__item">
+												<div class="form__input payment-form__input currency-input-wrapper">
+													<input type="text" required name="total" value="">
+													<span class="form__label">Сумма для оплаты</span>
+													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+													<div class="ums-currency form__ums-currency"></div>
+												</div>
+											</div>
 											<p class="webpay-form__note">После оплаты, отправьте, пожалуйста, копию квитанции на ящик <a href="mailto:hello@ux-school.by" class="link webpay-form__note-link">hello@ux-school.by</a></p>
 											<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
 										</div>

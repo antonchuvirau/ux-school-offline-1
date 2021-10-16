@@ -12,9 +12,9 @@
         &:checked + {
             & .toggle-checkbox {
                 &__element {
-                    background-color: $secondary-200;
+                    background-color: $primary-300;
                     &::after {
-                        background: linear-gradient(180deg, #33AAFF 0%, #8B24B7 127.5%);
+                        background: $primary-500;
                         transform: translate3d(15px, 0, 0);
                     }
                 }
