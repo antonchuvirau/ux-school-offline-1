@@ -4792,6 +4792,15 @@ div.wpcf7-response-output {
 
 .payment-form__price {
   margin-bottom: 15px; }
+  .payment-form__price input {
+    width: 25px;
+    margin-right: 3px;
+    padding: 0;
+    font-size: 4rem;
+    line-height: 1.25;
+    letter-spacing: -.03em;
+    font-family: "Manrope", sans-serif;
+    font-weight: 700; }
 
 .payment-form__section {
   margin-bottom: 55px; }
@@ -11473,6 +11482,22 @@ div.wpcf7-response-output {
     line-height: 1.5;
     margin-top: 0;
     letter-spacing: -.01em; }
+  .toggle-checkbox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap; }
   .for-whom__title {
     text-transform: uppercase;
     -webkit-box-align: start;
@@ -11497,6 +11522,12 @@ div.wpcf7-response-output {
     font-weight: 700;
     line-height: 1.5;
     letter-spacing: -.01em; }
+  .payment-form__price-value,
+  .payment-form__price input {
+    font-size: 2.8rem;
+    line-height: 1.25; }
+  .payment-form__price input {
+    width: 20px; }
   .process__item {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11830,6 +11861,9 @@ div.wpcf7-response-output {
     border-bottom: 1px solid #E6E0EB; }
     .privacy-checkbox .checkbox__link::before {
       content: none; }
+  .payment-form__section-grid.grid-second {
+    padding: 15px;
+    padding-bottom: 30px; }
   .webpay-form__sale-checkbox {
     margin-left: 0; }
     .webpay-form__sale-checkbox .checkbox__name {
@@ -11854,6 +11888,7 @@ div.wpcf7-response-output {
     height: 6rem;
     font-size: 2rem;
     letter-spacing: -.03rem;
+    padding: 0 3rem;
     font-weight: normal;
     width: 100%; }
   .footer {

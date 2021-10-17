@@ -344,6 +344,16 @@ div {
 		}
 		&__price {
 				margin-bottom: 15px;
+				& input {
+						width: 25px;
+						margin-right: 3px;
+						padding: 0;
+						font-size: 4rem;
+						line-height: 1.25;
+						letter-spacing: -.03em;
+						font-family: $font;
+						font-weight: 700;
+				}
 		}
     &__section {
         margin-bottom: 55px;

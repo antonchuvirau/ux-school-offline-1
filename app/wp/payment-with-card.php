@@ -74,7 +74,7 @@ $is_promocode = get_field('promocode_bool', 2);
 									<div class="form webpay-form payment-form__section-item">
 										<p class="payment-form__section-name">2. Введите ваши данные</p>
 										<div class="payment-form__section-grid grid-second">
-											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value">0 BYN</span></div>
+											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value"><input type="text" required="" name="total" value="0"> BYN</span></div>
 											<?php if ($is_promocode): ?>
 											<div class="webpay-form__item promocode">
 												<label class="toggle-checkbox">

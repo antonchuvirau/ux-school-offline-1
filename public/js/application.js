@@ -1909,7 +1909,6 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 			elPricePerMonth.innerHTML = `&nbsp;≈&nbsp;${coursePricePerMonth} BYN в месяц`;	
 		}
-		//
 
     if (portfolioLoadMoreButton) {
         portfolioLoadMoreButton.addEventListener(`click`, onPortfolioLoadMoreButtonClickHandler);
@@ -2186,6 +2185,22 @@ document.addEventListener('click', (evt) => {
             }
         }
     }
+		// Changes size of the input at payment-with-card page
+		if (target.matches(`.payment-form .ums-select__list-item`)) {
+				const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+				const priceInputElement = document.querySelector('.payment-form input[name="total"]');
+
+				if (priceInputElement) {
+						const priceNumberCount = courseTypeButton.dataset.price.length;
+
+						if (window.innerWidth <= 767) {
+								priceInputElement.style.width = `${priceNumberCount * 16}px`;
+						} else {
+								priceInputElement.style.width = `${priceNumberCount * 25}px`;
+						}
+				}
+		}
+		//
     if (target.matches(`input[name="installment-length"]`)) {
         const installmentPaymentTermInput = document.querySelector(`input[name="installment-term"]`);
         installmentPaymentTermInput.value = target.value;

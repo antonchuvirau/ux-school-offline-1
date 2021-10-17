@@ -1438,6 +1438,9 @@
 						letter-spacing: -.01em;
 				}
 		}
+		.toggle-checkbox {
+				@include flex(row, center);
+		}
 		.for-whom {
 				&__title {
 						text-transform: uppercase;
@@ -1460,6 +1463,16 @@
 						font-weight: 700;
 						line-height: 1.5;
 						letter-spacing: -.01em;
+				}
+		}
+		.payment-form {
+				&__price-value,
+				&__price input {
+						font-size: 2.8rem;
+						line-height: 1.25;
+				}
+				&__price input {
+						width: 20px;
 				}
 		}
 		.process {
@@ -1964,6 +1977,10 @@
 						}
 				}
 		}
+		.payment-form__section-grid.grid-second {
+				padding: 15px;
+				padding-bottom: 30px;
+		}
 		// .process {
 		// 		&__item {
 		// 				@include flex();
@@ -2032,6 +2049,7 @@
 						height: 6rem;
 						font-size: 2rem;
 						letter-spacing: -.03rem;
+						padding: 0 3rem;
 						@include font-weight('normal');
 						width: 100%;
 				}
