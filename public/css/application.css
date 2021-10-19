@@ -4698,7 +4698,7 @@ button.swiper-pagination-bullet, select.swiper-pagination-bullet, input.swiper-p
   pointer-events: none; }
 
 .form__row {
-  margin-bottom: 10px; }
+  margin-bottom: 20px; }
   .form__row:nth-child(5) {
     margin-bottom: 20px; }
 
@@ -4925,7 +4925,7 @@ div.wpcf7-response-output {
 
 .webpay-form__sale-checkbox {
   margin-left: 15px;
-  margin-top: 15px; }
+  margin-top: 20px; }
   .webpay-form__sale-checkbox_state-disabled {
     opacity: .5;
     pointer-events: none; }
@@ -4935,7 +4935,8 @@ div.wpcf7-response-output {
   margin-top: 40px;
   letter-spacing: .01em;
   font-size: 1.7rem;
-  line-height: 1.47; }
+  line-height: 1.47;
+  margin-bottom: 24px; }
   .webpay-form__note-link {
     text-decoration: none;
     color: #2698FC; }
@@ -6167,7 +6168,7 @@ div.wpcf7-response-output {
       border: 1px solid #E0E6EB; }
     .course-info__select select {
       color: #112230;
-      padding: 20px 40px 8px 10px; }
+      padding: 8px 40px 8px 10px; }
     .course-info__select .course-info__item-name {
       font-size: 1.2rem;
       line-height: 1.25;
@@ -7643,7 +7644,7 @@ div.wpcf7-response-output {
           align-items: flex-start;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  margin-top: 50px; }
+  margin-top: 37px; }
   .erip-payment__content-wrapper p {
     margin: 0;
     letter-spacing: -.01em;
@@ -11746,7 +11747,8 @@ div.wpcf7-response-output {
       background: url("../img/icons/info.svg") no-repeat 50%/cover; }
   .all-courses__btn {
     font-size: 1.2rem;
-    line-height: 1.25; }
+    line-height: 1.25;
+    background: rgba(255, 255, 255, 0.15); }
   .all-courses__item {
     margin-bottom: 30px; }
     .all-courses__item:last-child {

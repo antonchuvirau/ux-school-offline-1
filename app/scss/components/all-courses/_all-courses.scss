@@ -35,25 +35,25 @@
     }
   }
   &__btn {
-			color: $white;
-			background: $secondary-800;
-			border-radius: 7px;
-			font-size: 1.2rem;
-			line-height: 1.25;
-			padding: .42em .83em;
-			&:hover {
-					opacity: .85;
-			}
-  }
+		color: $white;
+		background: $secondary-800;
+		border-radius: 7px;
+		font-size: 1.2rem;
+		line-height: 1.25;
+		padding: .42em .83em;
+		&:hover {
+			opacity: .85;
+		}
+  	}
 	&-modal {
-			z-index: 20;
-			max-width: 540px;
-			position: fixed;
-			top: 40px;
-			padding: 30px 70px;
-			padding-bottom: 50px;
-			left: calc(50% - 270px);
-			box-sizing: border-box;
+		z-index: 20;
+		max-width: 540px;
+		position: fixed;
+		top: 40px;
+		padding: 30px 70px;
+		padding-bottom: 50px;
+		left: calc(50% - 270px);
+		box-sizing: border-box;
 	}
 	&__item {
 		@include flex();

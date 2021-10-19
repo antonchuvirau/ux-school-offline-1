@@ -158,28 +158,28 @@
             background: $white;
             max-width: none;
         }
-				&__select {
-						border: 1px solid $gray-50;
-						position: relative;
-						&::after {
-								background: icon('blue-drop.svg') no-repeat 50%	/ cover;
-								right: 12px;
-						}
-						&:hover {
-								border: 1px solid $gray-50;
-						}
-						& select {
-								color: $gray-900;
-								padding: 20px 40px 8px 10px;
-						}
-						& .course-info__item-name {
-								font-size: 1.2rem;
-								line-height: 1.25;
-								position: absolute;
-								top: 5px;
-								left: 10px;
-						}
+		&__select {
+				border: 1px solid $gray-50;
+				position: relative;
+				&::after {
+						background: icon('blue-drop.svg') no-repeat 50%	/ cover;
+						right: 12px;
 				}
+				&:hover {
+						border: 1px solid $gray-50;
+				}
+				& select {
+						color: $gray-900;
+						padding: 8px 40px 8px 10px;
+				}
+				& .course-info__item-name {
+						font-size: 1.2rem;
+						line-height: 1.25;
+						position: absolute;
+						top: 5px;
+						left: 10px;
+				}
+		}
         &__options {
             flex-direction: column;
             margin-top: 10px;

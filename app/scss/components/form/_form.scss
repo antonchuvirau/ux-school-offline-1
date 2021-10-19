@@ -255,7 +255,7 @@
         pointer-events: none;
     }
     &__row {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         &:nth-child(5) {
             margin-bottom: 20px;
         }
@@ -466,7 +466,7 @@ div {
     }
     &__sale-checkbox {
         margin-left: 15px;
-        margin-top: 15px;
+        margin-top: 20px;
         &_state {
             &-disabled {
                 opacity: .5;
@@ -480,6 +480,7 @@ div {
         letter-spacing: .01em;
         font-size: 1.7rem;
         line-height: 1.47;
+		margin-bottom: 24px;
         &-link {
             text-decoration: none;
 						color: $primary-500;
