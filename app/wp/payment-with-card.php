@@ -74,7 +74,7 @@ $is_promocode = get_field('promocode_bool', 2);
 									<div class="form webpay-form payment-form__section-item">
 										<p class="payment-form__section-name">2. Введите ваши данные</p>
 										<div class="payment-form__section-grid grid-second">
-											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value"><input type="text" required="" name="total" value="0"> BYN</span></div>
+											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value"><input type="text" required="" name="total" value="0"><span> BYN</span></span></div>
 											<?php if ($is_promocode): ?>
 											<div class="webpay-form__item promocode">
 												<label class="toggle-checkbox">
@@ -91,14 +91,14 @@ $is_promocode = get_field('promocode_bool', 2);
 											<?php endif; ?>
 											<div class="webpay-form__item">
 												<label class="toggle-checkbox">
-													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+													<input type="checkbox" name="card-installment-school" class="toggle-checkbox__input">
 													<div class="toggle-checkbox__element"></div>
 													<p class="toggle-checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>
 												</label>
 											</div>
 											<div class="webpay-form__item">
 												<label class="toggle-checkbox">
-													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
+													<input type="checkbox" name="card-sale-school" class="toggle-checkbox__input">
 													<div class="toggle-checkbox__element"></div>
 													<p class="toggle-checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
 												</label>

@@ -4885,13 +4885,14 @@ div.wpcf7-response-output {
       margin-top: -5px; }
   .payment-form__price-value {
     position: relative;
-    font-family: "Manrope", sans-serif;
-    font-size: 4rem;
-    line-height: 1.25;
-    letter-spacing: -.03em;
-    font-weight: 800;
-    color: #112230;
     margin-top: .075em; }
+    .payment-form__price-value span {
+      font-family: "Manrope", sans-serif;
+      font-size: 4rem;
+      line-height: 1.25;
+      letter-spacing: -.03em;
+      font-weight: 800;
+      color: #112230; }
     .payment-form__price-value-old {
       color: #CCC6D1;
       text-decoration: line-through; }

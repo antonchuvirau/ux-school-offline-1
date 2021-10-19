@@ -339,22 +339,22 @@ div {
             margin-right: 0;
         }
     }
-		& .promocode {
-				margin-bottom: 40px;
-		}
-		&__price {
-				margin-bottom: 15px;
-				& input {
-						width: 25px;
-						margin-right: 3px;
-						padding: 0;
-						font-size: 4rem;
-						line-height: 1.25;
-						letter-spacing: -.03em;
-						font-family: $font;
-						font-weight: 700;
-				}
-		}
+	& .promocode {
+			margin-bottom: 40px;
+	}
+	&__price {
+			margin-bottom: 15px;
+			& input {
+					width: 25px;
+					margin-right: 3px;
+					padding: 0;
+					font-size: 4rem;
+					line-height: 1.25;
+					letter-spacing: -.03em;
+					font-family: $font;
+					font-weight: 700;
+			}
+	}
     &__section {
         margin-bottom: 55px;
         &:nth-child(2) {
@@ -413,27 +413,29 @@ div {
 						}
 				}
 				&-value {
-						position: relative;
+					position: relative;
+					margin-top: .075em;
+					& span {
 						font-family: $font;
 						font-size: 4rem;
 						line-height: 1.25;
 						letter-spacing: -.03em;
 						font-weight: 800;
 						color: $gray-900;
-						margin-top: .075em;
-						&-old {
-								color: $gray-100;
-								text-decoration: line-through;
-								&::before {
-										content: '';
-										position: absolute;
-										top: 52%;
-										left: 0;
-										width: 100%;
-										height: 1px;
-										background: $gray-300;
-								}
+					}
+					&-old {
+						color: $gray-100;
+						text-decoration: line-through;
+						&::before {
+							content: '';
+							position: absolute;
+							top: 52%;
+							left: 0;
+							width: 100%;
+							height: 1px;
+							background: $gray-300;
 						}
+					}
 				}
 		}
 		&__grid {
