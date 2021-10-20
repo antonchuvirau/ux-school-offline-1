@@ -2280,10 +2280,13 @@ document.addEventListener('click', (evt) => {
 		const paymentSaleField = document.querySelector('input[name="card-sale-school');
 
 		if (target.checked) {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+
 			if (priceInputElement.value === '0') {
 				return;
 			} else if (paymentSaleField.checked) {
-				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const costPerMonth = priceInputElement.value / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
 				const costPerMonth = priceInputElement.value / 2;
@@ -2317,7 +2320,7 @@ document.addEventListener('click', (evt) => {
 				return;
 			} else if (paymentInstallmentField.checked) {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				const costPerMonth = priceInputElement.value / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
