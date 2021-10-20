@@ -659,133 +659,132 @@ const PROMOCODE_SALE_VALUE = 50;
 'use strict';
 
 (function() {
-    // Load modules
-    const paymentMethodModule = window.paymentMethod.instance;
-    const paymentModule = window.payment.instance;
-    const utilsModule = window.utils;
-    
-    class PaymentSelect {
-        _courseData = {
-            title: ``,
-            installmentProductName: ``,
-            fullPrice: 0,
-            salePrice: 0
-        }
+	// Load modules
+	const paymentMethodModule = window.paymentMethod.instance;
+	const paymentModule = window.payment.instance;
+	const utilsModule = window.utils;
 
-        constructor(paymentSelectContainer) {
-            this._el = document.querySelector(paymentSelectContainer);
+	class PaymentSelect {
+		_courseData = {
+			title: ``,
+			installmentProductName: ``,
+			fullPrice: 0,
+			salePrice: 0
+		};
 
-            if (this._el) {
-                this._paymentType = this._el.dataset.type;
-                this._el.addEventListener(`click`, this.onPaymentSelectClickHandler.bind(this));
-            }
-        }
+		constructor(paymentSelectContainer) {
+			this._el = document.querySelector(paymentSelectContainer);
 
-        onPaymentSelectClickHandler(evt) {
-            const target = evt.target;
-            const courseListElements = this._el.querySelectorAll(`.ums-select__list-item`);
+			if (this._el) {
+				this._paymentType = this._el.dataset.type;
+				this._el.addEventListener(`click`, this.onPaymentSelectClickHandler.bind(this));
+			}
+		}
 
-            if (target.matches(`button`)) {
-                this._el.querySelector(`.ums-select__btn`).classList.toggle(`ums-select__btn_state-active`);
-                this._el.closest(`.form__select`).classList.toggle(`form__select_state-active`)
-                this._el.querySelector(`.ums-select__list`).classList.toggle(`ums-select__list_visibility-open`);
-            }
-            if (target.matches(`li`)) {
-                const paymentSections = document.querySelectorAll(`.payment-section`);
-                // RESET PAYMENT'S OPTIONS
-                const paymentMethodInputCollection = document.querySelectorAll(`.payment-item__input`);
-                if (paymentMethodInputCollection.length) {
-                    for (const paymentMethodInput of paymentMethodInputCollection) {
-                        paymentMethodInput.checked = false;
-                    }
-                    utilsModule.removeClass(paymentSections, `payment-section_state-active`);
-                }
-                const paymentLevel = +target.dataset.paymentLevel;
-                const partialPayment = target.dataset.partialPayment;
-                const paymentButton = this._el.querySelector(`.ums-select__btn`);
-                this.fillCourseData(target);
-                utilsModule.removeClass(courseListElements, `ums-select__list-item_state-active`);
-                target.classList.add(`ums-select__list-item_state-active`);
+		onPaymentSelectClickHandler(evt) {
+			const target = evt.target;
+			const courseListElements = this._el.querySelectorAll(`.ums-select__list-item`);
 
-                if (paymentLevel === 2) {
-                    const paymentSections = document.querySelectorAll(`.payment-section`);
-                    paymentMethodModule.setPaymentMethodIndex(0);
-                    utilsModule.removeClass(paymentSections, `payment-section_state-active`);
-                    paymentSections[0].classList.add(`payment-section_state-active`);
-                    paymentMethodModule.changePaymentMethod(0);
-                    // Переписать JQuery
-                    jQuery(`.payment-item:not(:nth-child(1))`).hide();
-                    jQuery(`.webpay-form__sale-checkbox`).hide();
-                    jQuery(`.toggle-checkbox`).hide();
-                } else {
-                    // Переписать JQuery
-                    jQuery(`.payment-item:not(:nth-child(1)), .payment-item:not(:nth-child(2))`).show();
-                    jQuery(`.webpay-form__sale-checkbox`).show();
-                    jQuery(`.toggle-checkbox`).show();
-                }
+			if (target.matches(`button`)) {
+				this._el.querySelector(`.ums-select__btn`).classList.toggle(`ums-select__btn_state-active`);
+				this._el.closest(`.form__select`).classList.toggle(`form__select_state-active`);
+				this._el.querySelector(`.ums-select__list`).classList.toggle(`ums-select__list_visibility-open`);
+			}
+			if (target.matches(`li`)) {
+				const paymentSections = document.querySelectorAll(`.payment-section`);
+				// RESET PAYMENT'S OPTIONS
+				const paymentMethodInputCollection = document.querySelectorAll(`.payment-item__input`);
+				if (paymentMethodInputCollection.length) {
+					for (const paymentMethodInput of paymentMethodInputCollection) {
+						paymentMethodInput.checked = false;
+					}
+					utilsModule.removeClass(paymentSections, `payment-section_state-active`);
+				}
+				const paymentLevel = +target.dataset.paymentLevel;
+				const partialPayment = target.dataset.partialPayment;
+				const paymentButton = this._el.querySelector(`.ums-select__btn`);
+				this.fillCourseData(target);
+				utilsModule.removeClass(courseListElements, `ums-select__list-item_state-active`);
+				target.classList.add(`ums-select__list-item_state-active`);
 
-                if (this._paymentType === `payment`) {
-                    paymentModule.setTotalPrice(this._courseData.salePrice);
-                    const saleInputs = document.querySelectorAll(`input[name="sale"]`);
-                    for (let input of saleInputs) {
-                        input.checked = false;
-                    }
-                } else {
-                    paymentModule.setTotalPrice(this._courseData.fullPrice);
-                }
+				if (paymentLevel === 2) {
+					const paymentSections = document.querySelectorAll(`.payment-section`);
+					paymentMethodModule.setPaymentMethodIndex(0);
+					utilsModule.removeClass(paymentSections, `payment-section_state-active`);
+					paymentSections[0].classList.add(`payment-section_state-active`);
+					paymentMethodModule.changePaymentMethod(0);
+					// Переписать JQuery
+					jQuery(`.payment-item:not(:nth-child(1))`).hide();
+					jQuery(`.webpay-form__sale-checkbox`).hide();
+					jQuery(`.toggle-checkbox`).hide();
+				} else {
+					// Переписать JQuery
+					jQuery(`.payment-item:not(:nth-child(1)), .payment-item:not(:nth-child(2))`).show();
+					jQuery(`.webpay-form__sale-checkbox`).show();
+					jQuery(`.toggle-checkbox`).show();
+				}
 
-                if (partialPayment === `no`) {
-                    jQuery(`.payment-item:nth-child(3)`).hide();
-                }
-                else {
-                    jQuery(`.payment-item:not(:nth-child(2))`).show();
-                }
+				if (this._paymentType === `payment`) {
+					paymentModule.setTotalPrice(this._courseData.salePrice);
+					const saleInputs = document.querySelectorAll(`input[name="sale"]`);
+					for (let input of saleInputs) {
+						input.checked = false;
+					}
+				} else {
+					paymentModule.setTotalPrice(this._courseData.fullPrice);
+				}
 
-                paymentButton.dataset.price = this._courseData.fullPrice;
-                paymentButton.dataset.salePrice = this._courseData.salePrice;
-                paymentButton.innerHTML = ``;
-                const targetChildNodes = target.childNodes;
-                for (const targetChildNode of Array.from(targetChildNodes)) {
-                    console.log(targetChildNode);
-                    if (targetChildNode.nodeType === 3) {
-                        paymentButton.textContent = targetChildNode.textContent;
-                    }
-                    else {
-                        paymentButton.appendChild(targetChildNode.cloneNode(true));
-                    }
-                }
-                paymentButton.classList.remove(`ums-select__btn_state-active`);
-                this._el.closest(`.form__select`).classList.toggle(`form__select_state-active`)
-                this._el.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);
+				if (partialPayment === `no`) {
+					jQuery(`.payment-item:nth-child(3)`).hide();
+				} else {
+					jQuery(`.payment-item:not(:nth-child(2))`).show();
+				}
 
-                paymentModule.setCurrent(this._courseData.title);
-                paymentModule.setPrice(this._courseData.fullPrice);
-                paymentModule.setSalePrice(this._courseData.salePrice);
-                paymentModule.changeInputPrice(paymentMethodModule.getPaymentMethodIndex());
-            }
-        }
-        
-        getPaymentType() {
-            return this._paymentType;
-        }
+				paymentButton.dataset.price = this._courseData.fullPrice;
+				paymentButton.dataset.salePrice = this._courseData.salePrice;
+				paymentButton.innerHTML = ``;
+				const targetChildNodes = target.childNodes;
+				for (const targetChildNode of Array.from(targetChildNodes)) {
+					console.log(targetChildNode);
+					if (targetChildNode.nodeType === 3) {
+						paymentButton.textContent = targetChildNode.textContent;
+					} else {
+						paymentButton.appendChild(targetChildNode.cloneNode(true));
+					}
+				}
+				paymentButton.classList.remove(`ums-select__btn_state-active`);
+				this._el.closest(`.form__select`).classList.toggle(`form__select_state-active`);
+				this._el.querySelector(`.ums-select__list`).classList.remove(`ums-select__list_visibility-open`);
 
-        getCourseData() {
-            return this._courseData;
-        }
+				paymentModule.setCurrent(this._courseData.title);
+				paymentModule.setPrice(this._courseData.fullPrice);
+				paymentModule.setSalePrice(this._courseData.salePrice);
+				paymentModule.changeInputPrice(paymentMethodModule.getPaymentMethodIndex());
+			}
+		}
 
-        fillCourseData(courseListElement) {
-            this._courseData.installmentProductName = courseListElement.dataset.courseName;
-            this._courseData.title = courseListElement.textContent;
-            this._courseData.fullPrice = +courseListElement.dataset.price;
-            this._courseData.salePrice = +courseListElement.dataset.salePrice;
-        }
-    }
+		getPaymentType() {
+			return this._paymentType;
+		}
 
-    const paymentSelectInstance = new PaymentSelect(`.ums-select`);
-    window.paymentSelect = {
-        instance: paymentSelectInstance
-    }
+		getCourseData() {
+			return this._courseData;
+		}
+
+		fillCourseData(courseListElement) {
+			this._courseData.installmentProductName = courseListElement.dataset.courseName;
+			this._courseData.title = courseListElement.textContent;
+			this._courseData.fullPrice = +courseListElement.dataset.price;
+			this._courseData.salePrice = +courseListElement.dataset.salePrice;
+		}
+	}
+
+	const paymentSelectInstance = new PaymentSelect(`.ums-select`);
+	window.paymentSelect = {
+		instance: paymentSelectInstance
+	};
 })();
+
 'use strict';
 
 (function () {
@@ -2321,8 +2320,23 @@ document.addEventListener('click', (evt) => {
 				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
-				const costPerMonth = priceInputElement.value - priceInputElement.value * 0.1;
-				priceInputElement.value = `${costPerMonth.toFixed()}`;
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const costPerMonth = priceInputElement.value;
+				priceInputElement.value = `${costPerMonth}`;
+			}
+		} else {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+			const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
+
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentInstallmentField.checked) {
+				priceInputElement.value = courseTypeButton.dataset.price;
+				const costPerMonth = priceInputElement.value / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			} else {
+				priceInputElement.value = courseTypeButton.dataset.price;
+				claculatePriceLength(priceInputElement);
 			}
 		}
 	}
@@ -2333,11 +2347,6 @@ document.addEventListener('click', (evt) => {
 
 		if (priceInputElement) {
 			claculatePriceLength(priceInputElement);
-			// if (window.innerWidth <= 767) {
-			// 	priceInputElement.style.width = `${priceNumberCount * 16}px`;
-			// } else {
-			// 	priceInputElement.style.width = `${priceNumberCount * 25}px`;
-			// }
 		}
 		textAfterInput.innerHTML = 'BYN';
 	}
