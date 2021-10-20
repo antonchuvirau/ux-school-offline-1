@@ -297,249 +297,268 @@ tpl:'<div class="fancybox-share"><h1>{{SHARE}}</h1><p><a class="fancybox-share__
 'use strict';
 
 // Скидка 10%
-const SCHOOL_SALE_VALUE = .1;
+const SCHOOL_SALE_VALUE = 0.1;
 // Промокод
 const PROMOCODE_SALE_VALUE = 50;
 
-(function () {
-    const utilsModule = window.utils;
+(function() {
+	const utilsModule = window.utils;
 
-    class Payment {
-        _totalPrice;
-        _price;
-        _current;
-        _dropdownType;
-        _salePrice;
-        _saleType;
-        _saleValue;
+	class Payment {
+		_totalPrice;
+		_price;
+		_current;
+		_dropdownType;
+		_salePrice;
+		_saleType;
+		_saleValue;
 
-        constructor() {
-            this.setTotalPrice(0);
-            this.setPrice(0);
-            this.setSalePrice(0);
-            this.setSaleValue(0);
-            this.setSaleType(`Без скидки`);
-        }
+		constructor() {
+			this.setTotalPrice(0);
+			this.setPrice(0);
+			this.setSalePrice(0);
+			this.setSaleValue(0);
+			this.setSaleType(`Без скидки`);
+		}
 
-        getTotalPrice() {
-            return this._totalPrice;
-        }
-        setTotalPrice(value) {
-            this._totalPrice = value;
-        }
-        getPrice() {
-            return this._price;
-        }
-        setPrice(value) {
-            this._price = value;
-        }
-        getCurrent() {
-            return this._current;
-        }
-        setCurrent(value) {
-            this._current = value;
-        }
-        getDropdownType() {
-            return this._dropdownType;
-        }
-        setDropdownType(value) {
-            this._dropdownType = value;
-        }
-        getSalePrice() {
-            return this._salePrice;
-        }
-        setSalePrice(value) {
-            this._salePrice = value;
-        }
-        getSaleType() {
-            return this._saleType;
-        }
-        setSaleType(value) {
-            this._saleType = value;
-        }
-        getSaleValue() {
-            return this._saleValue;
-        }
-        setSaleValue(value) {
-            this._saleValue = value;
-        }
-        updatePrices(index, isSale = false) {
-            const data = window.paymentSelect.instance.getCourseData();
-            // if (index === 3) {
-            //     this.setTotalPrice(data.fullPrice);
-            //     return;
-            // }
-            if (isSale) {
-                console.log(`we are here`);
-                this.setTotalPrice(((this.getSalePrice() / 3) - (this.getSalePrice() / 3 * SCHOOL_SALE_VALUE)).toFixed(2));
-                this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
-                this.setSaleValue(10);
-            }
-            else {
-                this.setTotalPrice(data.salePrice);
-            }
-        }
-        changeInputPrice(index, isSale = false, promocode = {}) {
-            switch (index) {
-                case 5:
-                case 4:
-                case 0:
-                    if (isSale) {
-                        const selectCourseElement = document.querySelector(`.ums-select`);
-                        if (selectCourseElement.dataset.installment === `true`) {
-                            this.setTotalPrice(((this.getSalePrice() / 3) - (this.getSalePrice() / 3 * SCHOOL_SALE_VALUE)).toFixed(2));
-                        }
-                        else {
-                            this.setTotalPrice(this.getSalePrice() - (this.getSalePrice() * SCHOOL_SALE_VALUE));
-                        }
-                        this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
-                        this.setSaleValue(10);
-                    } else if (Object.values(promocode).length) {
-                        if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-                            this.setTotalPrice(+this.getSalePrice() - +promocode.value);
-                            this.setSaleType(`${promocode.name}`);
-                            this.setSaleValue(`${promocode.value}`);
-                        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-                            this.setTotalPrice(+this.getPrice() - +promocode.value);
-                            this.setSaleType(`${promocode.name}`);
-                            this.setSaleValue(`${promocode.value}`);
-                        }
-                    } else {
-                        const selectCourseElement = document.querySelector(`.ums-select`);
-                        if (selectCourseElement.dataset.installment === `true`) {
-                            if (isSale) {
-                                this.setTotalPrice(((this.getSalePrice() / 3) - (this.getSalePrice() / 3 * SCHOOL_SALE_VALUE)).toFixed(2));
-                                this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
-                                this.setSaleValue(10);
-                            }
-                            else {
-                                this.setTotalPrice((this.getSalePrice() / 3).toFixed(2));
-                                this.setSaleType(`Нет скидки`);
-                                this.setSaleValue(0);
-                            }
-                        }
-                        else if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-                            this.setTotalPrice(this.getSalePrice());
-                            this.setSaleType(`Нет скидки`);
-                            this.setSaleValue(0);
-                        } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-                            this.setTotalPrice(this.getPrice());
-                            this.setSaleType(`Нет скидки`);
-                            this.setSaleValue(0);
-                        }
-                    }
-                    break;
-                // case 1:
-                //     if (isSale) {
-                //         this.setTotalPrice(Math.round(this.getSalePrice() / 2 - this.getSalePrice() / 2 * .1));
-                //         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
-                //         this.setSaleValue(10);
-                //     } else {
-                //         this.setTotalPrice(this.getSalePrice() / 2);
-                //         this.setSaleType(`Нет скидки`);
-                //         this.setSaleValue(0);
-                //     }
-                //     break;
-                case 3:
-                case 1:
-                    this.setTotalPrice(this.getSalePrice());
-                    break;
-            }
-            this.changeCurenciesPrice(index);
-            if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-                let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
-                let totalInputElementName = totalInputElement.length ? 'input[name="wsb_total"]' : 'input[name="total"]';
-                jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
-                jQuery('.payment-section').eq(index).find(totalInputElementName).next().addClass('form__label_active').parent().addClass('form__input_filled');
-            } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-                let totalInputElement = document.querySelector('input[name="total"]');
-                totalInputElement.value = this.getTotalPrice();
-                totalInputElement.nextElementSibling.classList.add('form__label_active');
-                totalInputElement.parentElement.classList.add('form__input_filled');
-            }
-        }
-        changeCurenciesPrice(index) {
-            let totalPriceInUsd = (this.getTotalPrice() / parseFloat(rates['usd'])).toFixed(0);
-            let totalPriceInRub = (this.getTotalPrice() / (parseFloat(rates['rub']) / 100)).toFixed(0);
-            let currenciesPriceTemplate = `
+		getTotalPrice() {
+			return this._totalPrice;
+		}
+		setTotalPrice(value) {
+			this._totalPrice = value;
+		}
+		getPrice() {
+			return this._price;
+		}
+		setPrice(value) {
+			this._price = value;
+		}
+		getCurrent() {
+			return this._current;
+		}
+		setCurrent(value) {
+			this._current = value;
+		}
+		getDropdownType() {
+			return this._dropdownType;
+		}
+		setDropdownType(value) {
+			this._dropdownType = value;
+		}
+		getSalePrice() {
+			return this._salePrice;
+		}
+		setSalePrice(value) {
+			this._salePrice = value;
+		}
+		getSaleType() {
+			return this._saleType;
+		}
+		setSaleType(value) {
+			this._saleType = value;
+		}
+		getSaleValue() {
+			return this._saleValue;
+		}
+		setSaleValue(value) {
+			this._saleValue = value;
+		}
+		updatePrices(index, isSale = false) {
+			const data = window.paymentSelect.instance.getCourseData();
+			// if (index === 3) {
+			//     this.setTotalPrice(data.fullPrice);
+			//     return;
+			// }
+			if (isSale) {
+				console.log(`we are here`);
+				this.setTotalPrice((this.getSalePrice() / 3 - this.getSalePrice() / 3 * SCHOOL_SALE_VALUE).toFixed(2));
+				this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
+				this.setSaleValue(10);
+			} else {
+				this.setTotalPrice(data.salePrice);
+			}
+		}
+		changeInputPrice(index, isSale = false, promocode = {}) {
+			switch (index) {
+				case 5:
+				case 4:
+				case 0:
+					if (isSale) {
+						const selectCourseElement = document.querySelector(`.ums-select`);
+						if (selectCourseElement.dataset.installment === `true`) {
+							this.setTotalPrice(
+								(this.getSalePrice() / 3 - this.getSalePrice() / 3 * SCHOOL_SALE_VALUE).toFixed(2)
+							);
+						} else {
+							this.setTotalPrice(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE);
+						}
+						this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
+						this.setSaleValue(10);
+					} else if (Object.values(promocode).length) {
+						if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+							this.setTotalPrice(+this.getSalePrice() - +promocode.value);
+							this.setSaleType(`${promocode.name}`);
+							this.setSaleValue(`${promocode.value}`);
+						} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+							this.setTotalPrice(+this.getPrice() - +promocode.value);
+							this.setSaleType(`${promocode.name}`);
+							this.setSaleValue(`${promocode.value}`);
+						}
+					} else {
+						const selectCourseElement = document.querySelector(`.ums-select`);
+						if (selectCourseElement.dataset.installment === `true`) {
+							if (isSale) {
+								this.setTotalPrice(
+									(this.getSalePrice() / 3 - this.getSalePrice() / 3 * SCHOOL_SALE_VALUE).toFixed(2)
+								);
+								this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
+								this.setSaleValue(10);
+							} else {
+								this.setTotalPrice((this.getSalePrice() / 3).toFixed(2));
+								this.setSaleType(`Нет скидки`);
+								this.setSaleValue(0);
+							}
+						} else if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+							this.setTotalPrice(this.getSalePrice());
+							this.setSaleType(`Нет скидки`);
+							this.setSaleValue(0);
+						} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+							this.setTotalPrice(this.getPrice());
+							this.setSaleType(`Нет скидки`);
+							this.setSaleValue(0);
+						}
+					}
+					break;
+				// case 1:
+				//     if (isSale) {
+				//         this.setTotalPrice(Math.round(this.getSalePrice() / 2 - this.getSalePrice() / 2 * .1));
+				//         this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
+				//         this.setSaleValue(10);
+				//     } else {
+				//         this.setTotalPrice(this.getSalePrice() / 2);
+				//         this.setSaleType(`Нет скидки`);
+				//         this.setSaleValue(0);
+				//     }
+				//     break;
+				case 3:
+				case 1:
+					this.setTotalPrice(this.getSalePrice());
+					break;
+			}
+			this.changeCurenciesPrice(index);
+			if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+				let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
+				let totalInputElementName = totalInputElement.length
+					? 'input[name="wsb_total"]'
+					: 'input[name="total"]';
+				jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
+				jQuery('.payment-section')
+					.eq(index)
+					.find(totalInputElementName)
+					.next()
+					.addClass('form__label_active')
+					.parent()
+					.addClass('form__input_filled');
+			} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+				let totalInputElement = document.querySelector('input[name="total"]');
+				totalInputElement.value = this.getTotalPrice();
+				totalInputElement.nextElementSibling.classList.add('form__label_active');
+				totalInputElement.parentElement.classList.add('form__input_filled');
+			}
+		}
+		changeCurenciesPrice(index) {
+			let totalPriceInUsd = (this.getTotalPrice() / parseFloat(rates['usd'])).toFixed(0);
+			let totalPriceInRub = (this.getTotalPrice() / (parseFloat(rates['rub']) / 100)).toFixed(0);
+			let currenciesPriceTemplate = `
                     <p class="ums-currency__value ums-currency__symbol">BYN</p>
                     <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-dollar_color-gray">&nbsp;≈&nbsp;${totalPriceInUsd}</p>
                     <p class="ums-currency__value ums-currency__value_color-gray icon-currency icon-ruble_color-gray">&nbsp;≈&nbsp;${totalPriceInRub}</p>`;
-            if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-                const container = document.querySelectorAll('.payment-section');
-                const input = container[index].querySelector('.ums-currency');
-                if (input) {
-                    input.innerHTML = '';
-                    input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-                }
-            } else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
-                const input = document.querySelector('.ums-currency');
-                if (input) {
-                    input.innerHTML = '';
-                    input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
-                }
-            }
-        }
-        updateEripPrice(isPromocode = {}, isSale = false, isInstallment = false) {
-            const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
+			if (window.paymentSelect.instance.getPaymentType() === 'payment') {
+				const container = document.querySelectorAll('.payment-section');
+				const input = container[index].querySelector('.ums-currency');
+				if (input) {
+					input.innerHTML = '';
+					input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+				}
+			} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
+				const input = document.querySelector('.ums-currency');
+				if (input) {
+					input.innerHTML = '';
+					input.insertAdjacentHTML('afterBegin', currenciesPriceTemplate);
+				}
+			}
+		}
+		updateEripPrice(isPromocode = {}, isSale = false, isInstallment = false) {
+			const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
 
-            if (eripPaymentPriceElement) {
-                let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
-                if (Object.values(isPromocode).length && isInstallment) {
-                    eripPaymentPriceValue = `${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
-                }
-                else if (isSale && isInstallment) {
-                    eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
-                }
-                else if (isInstallment) {
-                    eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
-                }
-                else if (isSale) {
-                    eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${(this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE)} BYN`;
-                }
-                else if (Object.values(isPromocode).length) {
-                    eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() - +window.promocodeData.value} BYN`;
-                }
-                eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
-            }
-        }
-        // INSTALLMENT
-        updateInstallmentPrice() {
-            const courseData = window.paymentSelect.instance.getCourseData();
-            const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
-            const installmentPaymentIdInput = document.querySelector(`input[name="installment-id"]`);
-            const installmentPaymentPriceInput = document.querySelector(`input[name="installment-price"]`);
-            const installmentPaymentCourseName = document.querySelector(`input[name="installment-course-name"]`);
-            installmentPaymentIdInput.value = utilsModule.getRandId() + INSTALLMENT_SHOP_ID;
-            installmentPaymentPriceInput.value = this.getSalePrice();
-            installmentPaymentCourseName.value = courseData.installmentProductName;
-            const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), INSTALLMENT_TERM);
-            installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) / INSTALLMENT_TERM).toFixed(2)} BYN x ${INSTALLMENT_TERM} месяцев ≈ ${(this.getSalePrice() + installmentDebtPayment).toFixed(2)} BYN`;
-        }
-        recalculateInstallmentPrice(installmentTerm) {
-            const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
-            const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), installmentTerm);
-            installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) / installmentTerm).toFixed(2)} BYN x ${installmentTerm} месяцев ≈ ${(this.getSalePrice() + installmentDebtPayment).toFixed(2)} BYN`;
-        }
-        getInstallmentDebt(coursePrice, installmentTerm = 12 ) {
-            const installmentMonthPayment = coursePrice / installmentTerm;
-            const installmentMonthPercentageDebt = INSTALLMENT_RATE / installmentTerm;
-            // Only for the first payment
-            let installmentDebtPayment = coursePrice * (installmentMonthPercentageDebt / 100);
-            while ( installmentTerm ) {
-                installmentDebtPayment += ( coursePrice - installmentMonthPayment ) * ( installmentMonthPercentageDebt / 100 );
-                installmentTerm--;
-                coursePrice = coursePrice - installmentMonthPayment;
-            }
-            return installmentDebtPayment;
-        }
-    }
+			if (eripPaymentPriceElement) {
+				let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
+				if (Object.values(isPromocode).length && isInstallment) {
+					eripPaymentPriceValue = `${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
+						2
+					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+				} else if (isSale && isInstallment) {
+					eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /
+						3).toFixed(
+						2
+					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+				} else if (isInstallment) {
+					eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(
+						2
+					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+				} else if (isSale) {
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
+						this.getSalePrice() * SCHOOL_SALE_VALUE} BYN`;
+				} else if (Object.values(isPromocode).length) {
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
+						+window.promocodeData.value} BYN`;
+				}
+				eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
+			}
+		}
+		// INSTALLMENT
+		updateInstallmentPrice() {
+			const courseData = window.paymentSelect.instance.getCourseData();
+			const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
+			const installmentPaymentIdInput = document.querySelector(`input[name="installment-id"]`);
+			const installmentPaymentPriceInput = document.querySelector(`input[name="installment-price"]`);
+			const installmentPaymentCourseName = document.querySelector(`input[name="installment-course-name"]`);
+			installmentPaymentIdInput.value = utilsModule.getRandId() + INSTALLMENT_SHOP_ID;
+			installmentPaymentPriceInput.value = this.getSalePrice();
+			installmentPaymentCourseName.value = courseData.installmentProductName;
+			const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), INSTALLMENT_TERM);
+			installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) /
+				INSTALLMENT_TERM).toFixed(2)} BYN x ${INSTALLMENT_TERM} месяцев ≈ ${(this.getSalePrice() +
+				installmentDebtPayment).toFixed(2)} BYN`;
+		}
+		recalculateInstallmentPrice(installmentTerm) {
+			const installmentPaymentPriceElement = document.querySelector(`.installment-payment__price-value`);
+			const installmentDebtPayment = this.getInstallmentDebt(this.getSalePrice(), installmentTerm);
+			installmentPaymentPriceElement.textContent = `${((this.getSalePrice() + installmentDebtPayment) /
+				installmentTerm).toFixed(2)} BYN x ${installmentTerm} месяцев ≈ ${(this.getSalePrice() +
+				installmentDebtPayment).toFixed(2)} BYN`;
+		}
+		getInstallmentDebt(coursePrice, installmentTerm = 12) {
+			const installmentMonthPayment = coursePrice / installmentTerm;
+			const installmentMonthPercentageDebt = INSTALLMENT_RATE / installmentTerm;
+			// Only for the first payment
+			let installmentDebtPayment = coursePrice * (installmentMonthPercentageDebt / 100);
+			while (installmentTerm) {
+				installmentDebtPayment +=
+					(coursePrice - installmentMonthPayment) * (installmentMonthPercentageDebt / 100);
+				installmentTerm--;
+				coursePrice = coursePrice - installmentMonthPayment;
+			}
+			return installmentDebtPayment;
+		}
+	}
 
-    const paymentInstance = new Payment();
-    window.payment = {
-        instance: paymentInstance
-    }
+	const paymentInstance = new Payment();
+	window.payment = {
+		instance: paymentInstance
+	};
 })();
+
 'use strict';
 
 (function() {
@@ -1112,8 +1131,8 @@ const PROMOCODE_SALE_VALUE = 50;
 })();
 'use strict';
 
-function claculatePriceLength(btn, element) {
-	const priceNumberCount = btn.dataset.price.length;
+function claculatePriceLength(element) {
+	const priceNumberCount = element.value.length;
 
 	if (window.innerWidth <= 767) {
 		element.style.width = `${priceNumberCount * 16}px`;
@@ -2237,41 +2256,6 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// for payment-card page
-	//if (target.matches(`input[name="card-installment-school"]`)) {
-	// const priceInputElement = document.querySelector('.payment-form input[name="total"]');
-	// const priceInputElementValue = priceInputElement.value;
-	// const textAfterInput = document.querySelector('.payment-form__price-value span');
-
-	// if (target.checked) {
-	// 	if (priceInputElementValue === '0') {
-	// 		return;
-	// 	} else if (eripPaymentSaleField.checked) {
-	// 		const costPerMonth = (priceInputElementValue - priceInputElementValue * 0.1) / 2;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	} else {
-	// 		const costPerMonth = priceInputElementValue / 2;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	}
-	// 	textAfterInput.innerHTML = '';
-	// 	priceInputElement.style.width = `${400}px`;
-	// } else {
-	// 	const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
-
-	// 	if (priceInputElementValue === '0') {
-	// 		return;
-	// 	} else if (eripPaymentSaleField.checked) {
-	// 		priceInputElement.value = `${priceInputElementValue - priceInputElementValue * 0.1}`;
-	// 		claculatePriceLength(courseTypeButton, priceInputElement);
-	// 	} else {
-	// 		priceInputElement.value = `${priceInputElementValue}`;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	}
-	// 	textAfterInput.innerHTML = 'BYN';
-	// 	priceInputElement.style.width = `${400}px`;
-	// }
-	//}
-	//
 	if (target.matches(`input[name="sale-school"]`)) {
 		const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
 		document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
@@ -2290,33 +2274,65 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// if (target.matches(`input[name="card-sale-school"]`)) {
-	// 	const priceInputElement = document.querySelector('.payment-form input[name="total"]');
-	// 	const priceInputElementValue = priceInputElement.value;
+	// for payment-card page
+	if (target.matches(`input[name="card-installment-school"]`)) {
+		const priceInputElement = document.querySelector('input[name="total"]');
+		const textAfterInput = document.querySelector('.payment-form__price-value span');
+		const paymentSaleField = document.querySelector('input[name="card-sale-school');
 
-	// 	if (target.checked) {
-	// 		const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
-	// 		if (priceInputElementValue === '0') {
-	// 			return;
-	// 		} else if (eripPaymentInstallmentField.checked) {
-	// 			const costPerMonth = (priceInputElementValue - priceInputElementValue * 0.1) / 2;
-	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 		} else {
-	// 			const costPerMonth = priceInputElementValue * 0.1;
-	// 			priceInputElement.value = `${costPerMonth.toFixed(2)}`;
-	// 		}
-	// 	}
-	//}
+		if (target.checked) {
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentSaleField.checked) {
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			} else {
+				const costPerMonth = priceInputElement.value / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			}
+			textAfterInput.innerHTML = '';
+			priceInputElement.style.width = `${450}px`;
+		} else {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentSaleField.checked) {
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				claculatePriceLength(priceInputElement);
+			} else {
+				priceInputElement.value = courseTypeButton.dataset.price;
+				claculatePriceLength(priceInputElement);
+			}
+			textAfterInput.innerHTML = 'BYN';
+		}
+	}
+	if (target.matches(`input[name="card-sale-school"]`)) {
+		const priceInputElement = document.querySelector('input[name="total"]');
+
+		if (target.checked) {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+			const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
+
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentInstallmentField.checked) {
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			} else {
+				const costPerMonth = priceInputElement.value - priceInputElement.value * 0.1;
+				priceInputElement.value = `${costPerMonth.toFixed()}`;
+			}
+		}
+	}
 	//Changes size of the input at payment-with-card page
 	if (target.matches(`.payment-form .ums-select__list-item`)) {
-		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 		const priceInputElement = document.querySelector('.payment-form input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
 
 		if (priceInputElement) {
-			const priceNumberCount = courseTypeButton.dataset.price.length;
-			claculatePriceLength(courseTypeButton, priceInputElement);
+			claculatePriceLength(priceInputElement);
 			// if (window.innerWidth <= 767) {
 			// 	priceInputElement.style.width = `${priceNumberCount * 16}px`;
 			// } else {

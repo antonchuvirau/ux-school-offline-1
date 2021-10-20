@@ -1,7 +1,7 @@
 'use strict';
 
-function claculatePriceLength(btn, element) {
-	const priceNumberCount = btn.dataset.price.length;
+function claculatePriceLength(element) {
+	const priceNumberCount = element.value.length;
 
 	if (window.innerWidth <= 767) {
 		element.style.width = `${priceNumberCount * 16}px`;
@@ -1125,41 +1125,6 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// for payment-card page
-	//if (target.matches(`input[name="card-installment-school"]`)) {
-	// const priceInputElement = document.querySelector('.payment-form input[name="total"]');
-	// const priceInputElementValue = priceInputElement.value;
-	// const textAfterInput = document.querySelector('.payment-form__price-value span');
-
-	// if (target.checked) {
-	// 	if (priceInputElementValue === '0') {
-	// 		return;
-	// 	} else if (eripPaymentSaleField.checked) {
-	// 		const costPerMonth = (priceInputElementValue - priceInputElementValue * 0.1) / 2;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	} else {
-	// 		const costPerMonth = priceInputElementValue / 2;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	}
-	// 	textAfterInput.innerHTML = '';
-	// 	priceInputElement.style.width = `${400}px`;
-	// } else {
-	// 	const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
-
-	// 	if (priceInputElementValue === '0') {
-	// 		return;
-	// 	} else if (eripPaymentSaleField.checked) {
-	// 		priceInputElement.value = `${priceInputElementValue - priceInputElementValue * 0.1}`;
-	// 		claculatePriceLength(courseTypeButton, priceInputElement);
-	// 	} else {
-	// 		priceInputElement.value = `${priceInputElementValue}`;
-	// 		priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 	}
-	// 	textAfterInput.innerHTML = 'BYN';
-	// 	priceInputElement.style.width = `${400}px`;
-	// }
-	//}
-	//
 	if (target.matches(`input[name="sale-school"]`)) {
 		const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
 		document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
@@ -1178,33 +1143,65 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// if (target.matches(`input[name="card-sale-school"]`)) {
-	// 	const priceInputElement = document.querySelector('.payment-form input[name="total"]');
-	// 	const priceInputElementValue = priceInputElement.value;
+	// for payment-card page
+	if (target.matches(`input[name="card-installment-school"]`)) {
+		const priceInputElement = document.querySelector('input[name="total"]');
+		const textAfterInput = document.querySelector('.payment-form__price-value span');
+		const paymentSaleField = document.querySelector('input[name="card-sale-school');
 
-	// 	if (target.checked) {
-	// 		const eripPaymentInstallmentField = document.querySelector(`input[name="installment-school"]`);
-	// 		if (priceInputElementValue === '0') {
-	// 			return;
-	// 		} else if (eripPaymentInstallmentField.checked) {
-	// 			const costPerMonth = (priceInputElementValue - priceInputElementValue * 0.1) / 2;
-	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
-	// 		} else {
-	// 			const costPerMonth = priceInputElementValue * 0.1;
-	// 			priceInputElement.value = `${costPerMonth.toFixed(2)}`;
-	// 		}
-	// 	}
-	//}
+		if (target.checked) {
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentSaleField.checked) {
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			} else {
+				const costPerMonth = priceInputElement.value / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			}
+			textAfterInput.innerHTML = '';
+			priceInputElement.style.width = `${450}px`;
+		} else {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentSaleField.checked) {
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				claculatePriceLength(priceInputElement);
+			} else {
+				priceInputElement.value = courseTypeButton.dataset.price;
+				claculatePriceLength(priceInputElement);
+			}
+			textAfterInput.innerHTML = 'BYN';
+		}
+	}
+	if (target.matches(`input[name="card-sale-school"]`)) {
+		const priceInputElement = document.querySelector('input[name="total"]');
+
+		if (target.checked) {
+			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+			const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
+
+			if (priceInputElement.value === '0') {
+				return;
+			} else if (paymentInstallmentField.checked) {
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+			} else {
+				const costPerMonth = priceInputElement.value - priceInputElement.value * 0.1;
+				priceInputElement.value = `${costPerMonth.toFixed()}`;
+			}
+		}
+	}
 	//Changes size of the input at payment-with-card page
 	if (target.matches(`.payment-form .ums-select__list-item`)) {
-		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 		const priceInputElement = document.querySelector('.payment-form input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
 
 		if (priceInputElement) {
-			const priceNumberCount = courseTypeButton.dataset.price.length;
-			claculatePriceLength(courseTypeButton, priceInputElement);
+			claculatePriceLength(priceInputElement);
 			// if (window.innerWidth <= 767) {
 			// 	priceInputElement.style.width = `${priceNumberCount * 16}px`;
 			// } else {
