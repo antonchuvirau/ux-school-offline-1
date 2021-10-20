@@ -1,5 +1,7 @@
 'use strict';
 
+// Ф-я для изменения длины инпута с ценой курса
+// Костыль card-page
 function claculatePriceLength(element) {
 	const priceNumberCount = element.value.length;
 
@@ -9,6 +11,7 @@ function claculatePriceLength(element) {
 		element.style.width = `${priceNumberCount * 25}px`;
 	}
 }
+//
 function addErrorClass(inputElement, errorTextElement) {
 	inputElement.classList.add('wpcf7-not-valid');
 	errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
@@ -1143,7 +1146,7 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// for payment-card page
+	// Костыль card-page
 	if (target.matches(`input[name="card-installment-school"]`)) {
 		const priceInputElement = document.querySelector('input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
@@ -1179,6 +1182,7 @@ document.addEventListener('click', (evt) => {
 			textAfterInput.innerHTML = 'BYN';
 		}
 	}
+	// Костыль card-page
 	if (target.matches(`input[name="card-sale-school"]`)) {
 		const priceInputElement = document.querySelector('input[name="total"]');
 
@@ -1213,7 +1217,8 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	//Changes size of the input at payment-with-card page
+	// Changes size of the input at payment-with-card page
+	// Костыль card-page
 	if (target.matches(`.payment-form .ums-select__list-item`)) {
 		const priceInputElement = document.querySelector('.payment-form input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
