@@ -1130,6 +1130,8 @@ const PROMOCODE_SALE_VALUE = 50;
 })();
 'use strict';
 
+// Ф-я для изменения длины инпута с ценой курса
+// Костыль card-page
 function claculatePriceLength(element) {
 	const priceNumberCount = element.value.length;
 
@@ -1139,6 +1141,7 @@ function claculatePriceLength(element) {
 		element.style.width = `${priceNumberCount * 25}px`;
 	}
 }
+//
 function addErrorClass(inputElement, errorTextElement) {
 	inputElement.classList.add('wpcf7-not-valid');
 	errorTextElement.querySelector('.form__error-label').classList.add('form__error-label_active');
@@ -2273,7 +2276,7 @@ document.addEventListener('click', (evt) => {
 			}
 		}
 	}
-	// for payment-card page
+	// Костыль card-page
 	if (target.matches(`input[name="card-installment-school"]`)) {
 		const priceInputElement = document.querySelector('input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
@@ -2286,9 +2289,10 @@ document.addEventListener('click', (evt) => {
 				return;
 			} else if (paymentSaleField.checked) {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = priceInputElement.value / 2;
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				const costPerMonth = priceInputElement.value / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			}
@@ -2300,15 +2304,17 @@ document.addEventListener('click', (evt) => {
 			if (priceInputElement.value === '0') {
 				return;
 			} else if (paymentSaleField.checked) {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+				priceInputElement.value = salePrice;
 				claculatePriceLength(priceInputElement);
 			} else {
-				priceInputElement.value = courseTypeButton.dataset.price;
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				claculatePriceLength(priceInputElement);
 			}
 			textAfterInput.innerHTML = 'BYN';
 		}
 	}
+	// Костыль card-page
 	if (target.matches(`input[name="card-sale-school"]`)) {
 		const priceInputElement = document.querySelector('input[name="total"]');
 
@@ -2319,11 +2325,13 @@ document.addEventListener('click', (evt) => {
 			if (priceInputElement.value === '0') {
 				return;
 			} else if (paymentInstallmentField.checked) {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+				priceInputElement.value = salePrice;
 				const costPerMonth = priceInputElement.value / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
+				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+				priceInputElement.value = salePrice;
 				const costPerMonth = priceInputElement.value;
 				priceInputElement.value = `${costPerMonth}`;
 			}
@@ -2334,16 +2342,17 @@ document.addEventListener('click', (evt) => {
 			if (priceInputElement.value === '0') {
 				return;
 			} else if (paymentInstallmentField.checked) {
-				priceInputElement.value = courseTypeButton.dataset.price;
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				const costPerMonth = priceInputElement.value / 2;
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
-				priceInputElement.value = courseTypeButton.dataset.price;
+				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				claculatePriceLength(priceInputElement);
 			}
 		}
 	}
-	//Changes size of the input at payment-with-card page
+	// Changes size of the input at payment-with-card page
+	// Костыль card-page
 	if (target.matches(`.payment-form .ums-select__list-item`)) {
 		const priceInputElement = document.querySelector('.payment-form input[name="total"]');
 		const textAfterInput = document.querySelector('.payment-form__price-value span');
