@@ -4893,17 +4893,9 @@ div.wpcf7-response-output {
       letter-spacing: -.03em;
       font-weight: 800;
       color: #112230; }
-    .payment-form__price-value-old {
+    .payment-form__price-value-old:first-child {
       color: #CCC6D1;
       text-decoration: line-through; }
-      .payment-form__price-value-old::before {
-        content: '';
-        position: absolute;
-        top: 52%;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: #5D6266; }
 
 .payment-form__grid {
   margin-top: 18px; }

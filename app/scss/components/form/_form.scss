@@ -340,20 +340,20 @@ div {
         }
     }
 	& .promocode {
-			margin-bottom: 40px;
+		margin-bottom: 40px;
 	}
 	&__price {
-			margin-bottom: 15px;
-			& input {
-					width: 25px;
-					margin-right: 3px;
-					padding: 0;
-					font-size: 4rem;
-					line-height: 1.25;
-					letter-spacing: -.03em;
-					font-family: $font;
-					font-weight: 700;
-			}
+		margin-bottom: 15px;
+		& input {
+			width: 25px;
+			margin-right: 3px;
+			padding: 0;
+			font-size: 4rem;
+			line-height: 1.25;
+			letter-spacing: -.03em;
+			font-family: $font;
+			font-weight: 700;
+		}
 	}
     &__section {
         margin-bottom: 55px;
@@ -372,75 +372,66 @@ div {
         &-options {
             @include flex(row, center, flex-start, wrap);
         }
-				&-grid.grid-second {
-						padding: 50px;
-						padding-top: 25px;
-						border: 1px solid $gray-50;
-						border-radius: 10px;
-				}
+		&-grid.grid-second {
+			padding: 50px;
+			padding-top: 25px;
+			border: 1px solid $gray-50;
+			border-radius: 10px;
+		}
     }
-		&__price {
-				font-family: $secondary-font;
-				@include flex(column);
-				color: $gray-300;
-				font-size: 1.7rem;
-				line-height: 1.45;
-				&-note {
-						font-family: $secondary-font;
-						position: absolute;
-						left: calc(100% + 20px);
-						top: 50%;
-						transform: translateY(-50%);
-						font-size: 1.2rem;
-						line-height: 1.25;
-						color: $gray-900;
-						padding: .625em 1.04em;
-						background: $primary-150;
-						border-radius: $br-erip-installment;
-						width: 300px;
-						letter-spacing: normal;
-						font-weight: 400;
-						&::before {
-								content: '';
-								position: absolute;
-								width: 0;
-								height: 0;
-								border: 5px solid transparent;
-								border-right-color: $primary-150;
-								right: 100%;
-								top: 50%;
-								margin-top: -5px;
-						}
-				}
-				&-value {
-					position: relative;
-					margin-top: .075em;
-					& span {
-						font-family: $font;
-						font-size: 4rem;
-						line-height: 1.25;
-						letter-spacing: -.03em;
-						font-weight: 800;
-						color: $gray-900;
-					}
-					&-old {
-						color: $gray-100;
-						text-decoration: line-through;
-						&::before {
-							content: '';
-							position: absolute;
-							top: 52%;
-							left: 0;
-							width: 100%;
-							height: 1px;
-							background: $gray-300;
-						}
-					}
-				}
+	&__price {
+		font-family: $secondary-font;
+		@include flex(column);
+		color: $gray-300;
+		font-size: 1.7rem;
+		line-height: 1.45;
+		&-note {
+			font-family: $secondary-font;
+			position: absolute;
+			left: calc(100% + 20px);
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 1.2rem;
+			line-height: 1.25;
+			color: $gray-900;
+			padding: .625em 1.04em;
+			background: $primary-150;
+			border-radius: $br-erip-installment;
+			width: 300px;
+			letter-spacing: normal;
+			font-weight: 400;
+			&::before {
+				content: '';
+				position: absolute;
+				width: 0;
+				height: 0;
+				border: 5px solid transparent;
+				border-right-color: $primary-150;
+				right: 100%;
+				top: 50%;
+				margin-top: -5px;
+			}
 		}
-		&__grid {
-				margin-top: 18px;
+		&-value {
+			position: relative;
+			margin-top: .075em;
+			& span {
+				font-family: $font;
+				font-size: 4rem;
+				line-height: 1.25;
+				letter-spacing: -.03em;
+				font-weight: 800;
+				color: $gray-900;
+			}
+			&-old:first-child {
+				color: $gray-100;
+				text-decoration: line-through;
+			}
 		}
+	}
+	&__grid {
+		margin-top: 18px;
+	}
     &__input {
         max-width: 570px;
         &_width {

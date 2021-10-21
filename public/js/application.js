@@ -2172,7 +2172,7 @@ document.addEventListener('click', (evt) => {
 
 		for (let input of inputs) {
 			const value = input.value;
-			const label = input.nextElementSibling.nextElementSibling;
+			let label = input.nextElementSibling.nextElementSibling || input.nextElementSibling;
 
 			if (!value) {
 				input.classList.add('wpcf7-not-valid');
@@ -2192,7 +2192,7 @@ document.addEventListener('click', (evt) => {
 
 		if (isValid) {
 			inputs.forEach((item) => {
-				const label = item.nextElementSibling.nextElementSibling;
+				const label = item.nextElementSibling.nextElementSibling || item.nextElementSibling;
 
 				item.classList.remove('wpcf7-not-valid');
 				label.classList.remove('form__error-label_active');
@@ -2317,6 +2317,7 @@ document.addEventListener('click', (evt) => {
 	// Костыль card-page
 	if (target.matches(`input[name="card-sale-school"]`)) {
 		const priceInputElement = document.querySelector('input[name="total"]');
+		document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
 
 		if (target.checked) {
 			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
@@ -2331,9 +2332,15 @@ document.addEventListener('click', (evt) => {
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			} else {
 				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
-				priceInputElement.value = salePrice;
-				const costPerMonth = priceInputElement.value;
+				const costPerMonth = salePrice;
 				priceInputElement.value = `${costPerMonth}`;
+
+				const priceWrapper = document.querySelector('.payment-form__price-value');
+				const newEl = document.createElement('span');
+				newEl.classList.add('payment-form__price-value-old');
+				newEl.innerHTML = courseTypeButton.dataset.salePrice;
+				newEl.style.marginRight = `8px`;
+				priceWrapper.prepend(newEl);
 			}
 		} else {
 			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
@@ -2348,6 +2355,9 @@ document.addEventListener('click', (evt) => {
 			} else {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				claculatePriceLength(priceInputElement);
+
+				const priceWrapper = document.querySelector('.payment-form__price-value');
+				priceWrapper.removeChild(document.querySelector('.payment-form__price-value-old'));
 			}
 		}
 	}
