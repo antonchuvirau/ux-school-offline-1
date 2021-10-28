@@ -16,11 +16,11 @@ $seo_text = get_field( 'we_seo_text', 2 );
             <div class="row justify-content-center">
                 <div class="col-12 col-xl-11">
                     <h3 class="title title_style-dark title_size-m section__title we__title">В чём мы хороши</h3>
-                    <?php if ( $seo_text ): ?>
+                    <!-- <?php if ( $seo_text ): ?>
                     <div class="section__text">
                         <p><?php echo $seo_text; ?></p>
                     </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 </div>
             </div>
         </div>

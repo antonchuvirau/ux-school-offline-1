@@ -46,7 +46,7 @@ $course_start_date_timestamp = $course_start_date_object->getTimestamp();
 				</p>
 				<?php endif; ?>
 			</a>
-			<div class="course-list-item__select">
+			<!-- <div class="course-list-item__select">
 				<p class="course-list-item__select-name"><?php echo date_i18n('j F', $course_start_date_timestamp); ?>
 					<svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M0.833496 1.99984C0.833496 1.26346 1.43045 0.666504 2.16683 0.666504C2.90321 0.666504 3.50016 1.26346 3.50016 1.99984C3.50016 2.73622 2.90321 3.33317 2.16683 3.33317C1.43045 3.33317 0.833496 2.73622 0.833496 1.99984Z" fill="#665D5D"/>
@@ -84,23 +84,25 @@ $course_start_date_timestamp = $course_start_date_object->getTimestamp();
 						<?php endif; ?>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 			<div class="course-list-item__meta">
 				<p class="d-xl-none course-list-item__meta-item">
 					<span data-title="Старт:" class="course-list-item__meta-value"><?php echo date_i18n('j F', $course_start_date_timestamp) . ' (' . $course_length .')'; ?></span>
 				</p>
-				<p class="d-none d-xl-flex course-list-item__meta-item">
-					<span class="course-list-item__meta-value"><?php echo $course_length; ?></span>
+				<p class="d-none d-xl-flex flex-direction-column course-list-item__meta-item">
+					<span data-title-lg="Старт" class="course-list-item__meta-value"><?php echo date_i18n('j F', $course_start_date_timestamp); ?> (<?php echo $course_length; ?>)</span>
 				</p>
 				<p class="course-list-item__meta-item">
-					<span data-title="Мест:" class="course-list-item__meta-value<?php if ($is_course_full): ?> course-list-item__meta-value_data-null<?php endif; ?>"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></span>
+					<span data-title="Мест:" data-title-lg="Мест" class="course-list-item__meta-value<?php if ($is_course_full): ?> course-list-item__meta-value_data-null<?php endif; ?>"><?php if ($is_course_full): echo 'Группа набрана'; else: echo $course_places; endif; ?></span>
 				</p>
 				<?php if ( $course_sale_price && !$is_course_free ): ?>
 				<div class="course-list-item__meta-item">
-					<p data-title="Цена:" class="course-list-item__meta-value course-list-item__meta-price" data-price="<?php echo $course_sale_price; ?>">
-						<span class="course-list-item__meta-inner"><?php echo $course_price; ?></span>
-						<?php echo $course_sale_price; ?> <?php echo CURRENCY_CODE; ?>
-					</p>
+					<div data-title="Цена:" data-title-lg="Стоимость" class="course-list-item__meta-value course-list-item__meta-price" data-price="<?php echo $course_sale_price; ?>">
+						<div>
+							<span class="course-list-item__meta-inner"><?php echo $course_price; ?></span>
+							<span><?php echo $course_sale_price; ?><?php echo CURRENCY_CODE; ?></span>
+						</div>
+					</div>
 					<div class="info course-list-item__meta-info">
 						<svg class="info__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8 0C3.5888 0 0 3.5888 0 8C0 12.4112 3.5888 16 8 16C12.4112 16 16 12.4112 16 8C16 3.5888 12.4112 0 8 0ZM9 12H7V7H9V12ZM9 6H7V4H9V6Z" fill="#E0E6EB"/>

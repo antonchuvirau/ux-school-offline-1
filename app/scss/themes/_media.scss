@@ -71,6 +71,9 @@
 								&::before {
 										position: absolute;
 										left: 0;
+										font-size: 1.5rem;
+										line-height: 1.33;
+										color: $gray-300;
 										top: 0;
 										content: attr(data-title);
 								}
@@ -102,6 +105,7 @@
 				&__row {
 						padding: 20px;
 						width: 50%;
+						border: none;
 				}
 				&__footer {
 						margin-top: 20px;

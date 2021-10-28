@@ -28,21 +28,24 @@ $ums_images = get_field('ums_about_gallery_images', $post_id);
             <div class="row no-gutters">
                 <div class="col-12">
                     <?php if ($ums_about_excerpt): ?>
-                        <p class="about-page__excerpt">
-                            <?php echo $ums_about_excerpt; ?>
-                        </p>
+										<p class="about-page__excerpt">
+												<?php echo $ums_about_excerpt; ?>
+										</p>
                     <?php endif; ?>
                     <?php if ($ums_about_video_bg): ?>
-                        <button type="button" data-modal="#video-modal" data-video-id="<?php echo $ums_about_video_id; ?>" style="background-image: url(<?php echo $ums_about_video_bg; ?>);" class="modal-video-button about-page__video">
-                            <div class="play-button about-page__video-button">
-                                <div class="play-button__icon play-button__icon_style-transparent">
-							        <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-								        <path d="M28 16L0 32L1.41326e-06 0L28 16Z" fill="white"></path>
-							        </svg>
-						        </div>
-						        <p class="play-button__name play-button__name-js">Видео о школе</p>
-                            </div>
-                        </button>
+                    <!-- <button type="button" data-modal="#video-modal" data-video-id="<?php echo $ums_about_video_id; ?>" style="background-image: url(<?php echo $ums_about_video_bg; ?>);" class="modal-video-button about-page__video">
+                      	<div class="play-button about-page__video-button">
+														<div class="play-button__icon play-button__icon_style-transparent">
+															<svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path d="M28 16L0 32L1.41326e-06 0L28 16Z" fill="white"></path>
+															</svg>
+														</div>
+						        				<p class="play-button__name play-button__name-js">Видео о школе</p>
+                			  </div>
+                    </button> -->
+										<div class="about-page__video">
+												<iframe width="100%" height="100%" src="https://www.youtube.com/embed/EJWL0ZACABc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										</div>
                     <?php endif; ?>
                     <div class="row no-gutters justify-content-center">
                         <div class="col-12 col-xl-10">
