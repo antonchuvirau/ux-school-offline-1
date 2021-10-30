@@ -1136,7 +1136,7 @@ function claculatePriceLength(element) {
 	const priceNumberCount = element.value.length;
 
 	if (window.innerWidth <= 767) {
-		element.style.width = `${priceNumberCount * 16}px`;
+		element.style.width = `${priceNumberCount * 18}px`;
 	} else {
 		element.style.width = `${priceNumberCount * 25}px`;
 	}
@@ -2297,7 +2297,11 @@ document.addEventListener('click', (evt) => {
 				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
 			}
 			textAfterInput.innerHTML = '';
-			priceInputElement.style.width = `${450}px`;
+			if (window.innerWidth <= 767) {
+				priceInputElement.style.width = `${100}%`;
+			} else {
+				priceInputElement.style.width = `${450}px`;
+			}
 		} else {
 			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 

@@ -11526,7 +11526,8 @@ div.wpcf7-response-output {
     line-height: 1.5;
     letter-spacing: -.01em; }
   .payment-form__price-value,
-  .payment-form__price input {
+  .payment-form__price input,
+  .payment-form__price-value span {
     font-size: 2.8rem;
     line-height: 1.25; }
   .payment-form__price input {

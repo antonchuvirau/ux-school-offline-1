@@ -97,7 +97,7 @@ $is_promocode = get_field('promocode_bool', 2);
 												</label>
 											</div>
 											<div class="webpay-form__item">
-												<label class="toggle-checkbox">
+												<label class="webpay-form__sale-checkbox toggle-checkbox">
 													<input type="checkbox" name="card-sale-school" class="toggle-checkbox__input">
 													<div class="toggle-checkbox__element"></div>
 													<p class="toggle-checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
