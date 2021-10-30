@@ -20,6 +20,22 @@
     &__select {
         width: 130px;
     }
+		&__menu {
+				&-messengers {
+						@include flex(row, center);
+						list-style: none;
+						padding: 0;
+						margin-left: 18px;
+				}
+				&-messenger {
+						display: grid;
+						place-items: center;
+						margin-right: 8px;
+						&:last-child {
+								margin-right: 0;
+						}
+				}
+		}
     &__phone {
         &-number {
             font-family: $font, sans-serif;

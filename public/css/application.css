@@ -689,6 +689,31 @@ sup {
         flex-wrap: nowrap; }
   .header__select {
     width: 130px; }
+  .header__menu-messengers {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    list-style: none;
+    padding: 0;
+    margin-left: 18px; }
+  .header__menu-messenger {
+    display: grid;
+    place-items: center;
+    margin-right: 8px; }
+    .header__menu-messenger:last-child {
+      margin-right: 0; }
   .header__phone-number {
     font-family: "Manrope", sans-serif, sans-serif;
     text-align: right;
