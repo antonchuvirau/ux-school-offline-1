@@ -103,7 +103,6 @@ $ums_course_price = get_field('ums_course_info_price', $course_post_id);
 								</div>
 							</div>
 						</div>
-						
 					</div>
 					<div class="course-info__options">
 						<?php if ($is_course_free): ?>
