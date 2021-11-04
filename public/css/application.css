@@ -9471,6 +9471,9 @@ div.wpcf7-response-output {
 .payment-page__title {
   margin-bottom: 40px; }
 
+.payment-page .webpay-form__sale-checkbox {
+  margin-left: 0; }
+
 .payment-item {
   position: relative;
   display: block;

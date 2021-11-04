@@ -27,7 +27,7 @@ $page_id = $page_queried_object->ID;
 						<?php bcn_display($return = false, $linked = true, $reverse = false, $force = false); ?>
 					</div>
 					<div class="template__header category-template__header">
-						<h1 class="title template__title">Ближайшие курсы в Минске</h1>
+						<h1 class="title template__title">Ближайшие курсы</h1>
 					</div>
 				</div>
 				<div class="col-12">

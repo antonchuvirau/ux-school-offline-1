@@ -2289,12 +2289,13 @@ document.addEventListener('click', (evt) => {
 				return;
 			} else if (paymentSaleField.checked) {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 2;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+				priceInputElement.nextElementSibling.innerHTML = '';
+				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 3;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
 			} else {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = priceInputElement.value / 2;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+				const costPerMonth = priceInputElement.value / 3;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
 			}
 			textAfterInput.innerHTML = '';
 			if (window.innerWidth <= 767) {
@@ -2304,18 +2305,21 @@ document.addEventListener('click', (evt) => {
 			}
 		} else {
 			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+			const oldPrice = courseTypeButton.dataset.salePrice;
 
 			if (priceInputElement.value === '0') {
 				return;
 			} else if (paymentSaleField.checked) {
 				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+				priceInputElement.nextElementSibling.innerHTML = 'BYN';
 				priceInputElement.value = salePrice;
 				claculatePriceLength(priceInputElement);
+				textAfterInput.innerHTML = oldPrice;
 			} else {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				claculatePriceLength(priceInputElement);
+				textAfterInput.innerHTML = 'BYN';
 			}
-			textAfterInput.innerHTML = 'BYN';
 		}
 	}
 	// Костыль card-page
@@ -2332,8 +2336,8 @@ document.addEventListener('click', (evt) => {
 			} else if (paymentInstallmentField.checked) {
 				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
 				priceInputElement.value = salePrice;
-				const costPerMonth = priceInputElement.value / 2;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+				const costPerMonth = priceInputElement.value / 3;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
 			} else {
 				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
 				const costPerMonth = salePrice;
@@ -2354,8 +2358,8 @@ document.addEventListener('click', (evt) => {
 				return;
 			} else if (paymentInstallmentField.checked) {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = priceInputElement.value / 2;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 2 месяца`;
+				const costPerMonth = priceInputElement.value / 3;
+				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
 			} else {
 				priceInputElement.value = courseTypeButton.dataset.salePrice;
 				claculatePriceLength(priceInputElement);

@@ -93,7 +93,7 @@ $is_promocode = get_field('promocode_bool', 2);
 												<label class="toggle-checkbox">
 													<input type="checkbox" name="card-installment-school" class="toggle-checkbox__input">
 													<div class="toggle-checkbox__element"></div>
-													<p class="toggle-checkbox__name">Рассрочка на 2 месяца от UX Mind School</p>
+													<p class="toggle-checkbox__name">Рассрочка на 3 месяца от UX Mind School</p>
 												</label>
 											</div>
 											<div class="webpay-form__item">
