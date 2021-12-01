@@ -15,7 +15,7 @@
 					<div class="advantages__img">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/money.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
 					</div>
-					<p class="advantages__name">Скидка 10% студентам&nbsp;-&nbsp;очникам</p>
+					<p class="advantages__name">Рассрочка до&nbsp;12&nbsp;месяцев</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">
@@ -23,7 +23,6 @@
 					<div class="advantages__img">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/cup.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
 					</div>
-					<p class="advantages__name">Рассрочка</br>до&nbsp;6&nbsp;месяцев</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">
@@ -31,7 +30,7 @@
 					<div class="advantages__img">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/student.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
 					</div>
-					<p class="advantages__name">Занятие 2-3 часа с&nbsp;перерывом на кофе</p>
+					<p class="advantages__name">Ёмкие курсы без «воды»</p>
 				</div>
 			</div>
 			<div class="col-6 col-lg-3 advantages__col">
@@ -39,7 +38,7 @@
 					<div class="advantages__img">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/icons/rock.svg" alt="<?php echo esc_attr( get_bloginfo('name') ); ?>">
 					</div>
-					<p class="advantages__name">Скидка 10% ученикам&nbsp;школы</p>
+					<p class="advantages__name">Скидка 10% выпускникам&nbsp;школы</p>
 				</div>
 			</div>
 		</div>

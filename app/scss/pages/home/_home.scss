@@ -23,12 +23,12 @@
 	&__title {
 		&-secondary {
 			font-size: 2.8rem;
-			color: rgba($white, 0.8);
+			color: $secondary-900;
 			line-height: 1.429;
 			letter-spacing: -0.01em;
 			font-weight: 400;
 			margin-top: 9px;
-			font-size: $secondary-font;
+			font-family: $secondary-font;
 		}
 	}
 }
@@ -74,7 +74,7 @@
 		top: 45%;
 		right: 9%;
 		&::after {
-			content: "";
+			content: '';
 			position: absolute;
 			width: 100%;
 			height: 1px;
@@ -95,11 +95,11 @@
 			content: attr(data-desktop-title);
 		}
 		&::after {
-			content: "";
+			content: '';
 			position: absolute;
 			width: 100%;
 			height: 1px;
-			background: icon("dashed-line.svg") no-repeat 50% / cover;
+			background: icon('dashed-line.svg') no-repeat 50% / cover;
 			top: calc(100% + 3px);
 			left: 0;
 		}

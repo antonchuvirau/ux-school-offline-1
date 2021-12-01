@@ -9,9 +9,9 @@ $base-path: '../';
 
 // Border radius
 $border-radius: (
-    'default': 10px,
-    'video': 80px,
-    'middle': 25px
+	'default': 10px,
+	'video': 80px,
+	'middle': 25px,
 );
 $br-payment-method: 20px;
 $br-erip-payment: 20px;
@@ -26,79 +26,80 @@ $br-info-message: 10px;
 
 // Buttons variables
 $button-height: (
-    'small': 30px,
-    'medium': 50px,
-    'large': 60px
+	'small': 30px,
+	'medium': 50px,
+	'large': 60px,
 );
 $button-radius: (
-    'default': 35px,
-    'mobile': 15px
+	'default': 35px,
+	'mobile': 15px,
 );
 
 // GRADIENTS
-$lg-primary: #3D9FF5;
-$lg-secondary: #4C2AD5;
+$lg-primary: #3d9ff5;
+$lg-secondary: #4c2ad5;
 
 //Colors
 $white: #fff;
 $dark: #211130;
-$dark-100: #434E57;
-$dark-200: #3C2E49;
-$dark-300: #1D2D3B;
+$dark-100: #434e57;
+$dark-200: #3c2e49;
+$dark-300: #1d2d3b;
 $gray-900: #112230;
-$gray-700: #2E3C49;
-$gray-600: #434E57;
-$gray-500: #665D5D;
-$gray-300: #5D6266;
-$gray-200: #9D98A3;
-$gray-100: #CCC6D1;
-$gray-50: #E0E6EB;
-$primary-50: #F0FBFF;
-$primary-100: #F8F0FF;
-$primary-150: #F2F5F7;
-$primary-200: #E6E0EB;
-$primary-250: #D2F3FE;
-$primary-300: #A5E4FE;
-$primary-500: #2698FC;
-$primary-600: #2698FC;
-$primary-700: #1459B4;
-$secondary: #CC30CF;
-$secondary-50: #F8F0FF;
-$secondary-100: #B7B3F2;
-$secondary-200: #F2CCFF;
-$secondary-500: #AF3FFF;
-$secondary-600: #842FFB;
-$secondary-800: #6625D8;
-$secondary-700: #8800FF;
-$attention: #F10D0C;
-$brown: #743B03;
-$green: #056D30;
-$green-100: #13C42B;
+$gray-700: #2e3c49;
+$gray-600: #434e57;
+$gray-500: #665d5d;
+$gray-300: #5d6266;
+$gray-200: #9d98a3;
+$gray-100: #ccc6d1;
+$gray-50: #e0e6eb;
+$primary-50: #f0fbff;
+$primary-100: #f8f0ff;
+$primary-150: #f2f5f7;
+$primary-200: #e6e0eb;
+$primary-250: #d2f3fe;
+$primary-300: #a5e4fe;
+$primary-500: #2698fc;
+$primary-600: #2698fc;
+$primary-700: #1459b4;
+$secondary: #cc30cf;
+$secondary-50: #f8f0ff;
+$secondary-100: #b7b3f2;
+$secondary-200: #f2ccff;
+$secondary-500: #af3fff;
+$secondary-600: #842ffb;
+$secondary-800: #6625d8;
+$secondary-700: #8800ff;
+$secondary-900: #e799ff;
+$attention: #f10d0c;
+$brown: #743b03;
+$green: #056d30;
+$green-100: #13c42b;
 $shadow: rgb(55, 61, 67);
 $type: (
-    'default': #E0E6EB,
-    0: #D2F3FE,
-    1: #E4FBDB,
-    3: #FFF6AB
+	'default': #e0e6eb,
+	0: #d2f3fe,
+	1: #e4fbdb,
+	3: #fff6ab,
 );
 $type-text: (
-    'default': #2E3C49,
-    0: #1459B4,
-    1: #26863F,
-    3: #7A6615
+	'default': #2e3c49,
+	0: #1459b4,
+	1: #26863f,
+	3: #7a6615,
 );
 $social: (
-    'vk': #45668E,
-    'fb': #3B5998,
-    'tg': #0088CC,
-    'tw': #1DA1F2
+	'vk': #45668e,
+	'fb': #3b5998,
+	'tg': #0088cc,
+	'tw': #1da1f2,
 );
 
 //Font weight
 $font-weight: (
-    'normal': normal,
-    'medium': 500,
-    'bold': bold,
-    'extra': 800,
-    'heavy': 900
+	'normal': normal,
+	'medium': 500,
+	'bold': bold,
+	'extra': 800,
+	'heavy': 900,
 );

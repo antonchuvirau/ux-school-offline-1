@@ -1,110 +1,110 @@
 .header {
-		// margin-top: 50px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    left: 0;
-    padding: 25px 0;
-    z-index: 10;
-    &_style {
-        &-default {
-            position: relative;
-        }
-    }
-    &__logo {
-        @include flex(row, center);
-    }
-    &__info {
-        @include flex(row, center, flex-end);
-    }
-    &__select {
-        width: 130px;
-    }
-		&__menu {
-				&-messengers {
-						@include flex(row, center);
-						list-style: none;
-						padding: 0;
-						margin-left: 18px;
-				}
-				&-messenger {
-						display: grid;
-						place-items: center;
-						margin-right: 8px;
-						&:last-child {
-								margin-right: 0;
-						}
-				}
+	// margin-top: 50px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	left: 0;
+	padding: 25px 0;
+	z-index: 10;
+	&_style {
+		&-default {
+			position: relative;
 		}
-    &__phone {
-        &-number {
-            font-family: $font, sans-serif;
-            text-align: right;
-            font-size: 2rem;
-            @include font-weight('extra');
-            text-decoration: none;
-            letter-spacing: -.3px;
-            color: $white;
-            margin-left: 50px;
-            line-height: 1.5;
-            &:hover {
-                color: rgba($white, .9);
-            }
-            & span {
-                font-family: $secondary-font, sans-serif;
-                display: block;
-                font-size: 1.2rem;
-                letter-spacing: 0;
-                @include font-weight('normal');
-                color: rgba($white, .7);
-                line-height: 1.3;
-            }
-            &_style {
-                &-dark {
-                    color: $dark;
-                    & span {
-                        color: $gray-500;
-                    }
-                    &:hover {
-                        color: rgba($dark, .8);
-                    }
-                }
-            }
-        }
-    }
+	}
+	&__logo {
+		@include flex(row, center);
+	}
+	&__info {
+		@include flex(row, center, flex-end);
+	}
+	&__select {
+		width: 130px;
+	}
+	&__menu {
+		&-messengers {
+			@include flex(row, center);
+			list-style: none;
+			padding: 0;
+			margin-left: 18px;
+		}
+		&-messenger {
+			display: grid;
+			place-items: center;
+			margin-right: 8px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+	&__phone {
+		&-number {
+			font-family: $font, sans-serif;
+			text-align: right;
+			font-size: 2rem;
+			@include font-weight('extra');
+			text-decoration: none;
+			letter-spacing: -0.3px;
+			color: $white;
+			margin-left: 50px;
+			line-height: 1.5;
+			&:hover {
+				color: rgba($white, 0.9);
+			}
+			& span {
+				font-family: $secondary-font, sans-serif;
+				display: block;
+				font-size: 1.2rem;
+				letter-spacing: 0;
+				@include font-weight('normal');
+				color: rgba($white, 0.7);
+				line-height: 1.3;
+			}
+			&_style {
+				&-dark {
+					color: $dark;
+					& span {
+						color: $gray-500;
+					}
+					&:hover {
+						color: rgba($dark, 0.8);
+					}
+				}
+			}
+		}
+	}
 }
 
 .admin-bar {
-    & .header {
-        top: 32px;
-        &_style {
-            &-default {
-                top: 0;
-            }
-        }
-    }
+	& .header {
+		top: 32px;
+		&_style {
+			&-default {
+				top: 0;
+			}
+		}
+	}
 }
 
 //Media
 @media screen and (max-width: 1229px) {
-    .header {
-        padding: 20px 0;
-        &__select {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        &__phone-number {
-            margin: 0;
-            text-align: center;
-        }
-        &__logo {
-            opacity: .7;
-        }
-    }
+	.header {
+		padding: 20px 0;
+		&__select {
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		&__phone-number {
+			margin: 0;
+			text-align: center;
+		}
+		&__logo {
+			opacity: 0.7;
+		}
+	}
 }
 @media screen and (max-width: 991px) {
-    .header {
-        padding: 15px 0;
-        border-bottom: 1px solid rgba($white, .15);
-    }
+	.header {
+		padding: 15px 0;
+		border-bottom: 1px solid rgba($white, 0.15);
+	}
 }

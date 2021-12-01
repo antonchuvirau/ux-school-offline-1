@@ -19,7 +19,7 @@ $blog_image = get_field('ums_blog_img', $post_id);
 	<div class="blog-item__info">
 		<a href="<?php echo esc_url(the_permalink()); ?>" class="blog-item__title"><?php the_title(); ?></a>
 		<div class="blog-item__meta">
-			<?php if($post_tags): foreach($post_tags as $tag): ?><p class="blog-item__tag"><?php echo $tag->name; ?></p><?php endforeach; endif; ?>
+			<!-- <?php if($post_tags): foreach($post_tags as $tag): ?><p class="blog-item__tag"><?php echo $tag->name; ?></p><?php endforeach; endif; ?> -->
 			<span class="blog-item__date"><?php echo get_the_date('d.m.Y'); ?></span>
 		</div>
 	</div>
