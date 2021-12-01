@@ -176,19 +176,86 @@
 
 .certificate {
 	position: relative;
-	&__text {
-		font-family: $font;
-		margin: 0;
+	&::before {
+		content: '';
 		position: absolute;
+		transform: rotate(40deg);
+		width: 414px;
+		height: 191px;
+		left: 0;
+		bottom: 0;
+		pointer-events: none;
+		background: image('certificate-left.svg') no-repeat 50% / cover;
+		filter: blur(22px);
+	}
+	&::after {
+		content: '';
+		position: absolute;
+		right: -15px;
+		bottom: 175px;
+		width: 210px;
+		height: 137px;
+		pointer-events: none;
+		background: image('certificate-right.svg') no-repeat 50% / cover;
+		filter: blur(15px);
+	}
+	&__note {
+		margin: 0;
+		margin-top: 20px;
+		font-family: $secondary-font;
+		font-size: 1.5rem;
+		line-height: 1.33;
+		color: $gray-300;
+	}
+	&__title {
+		color: $secondary-150;
+		text-transform: uppercase;
+		font-family: $secondary-font;
+		font-size: 1.2rem;
+		line-height: 1.25;
+		margin: 0;
+		margin-top: 38px;
+		position: relative;
+		&::after {
+			content: '';
+			position: absolute;
+			height: 1px;
+			width: 700px;
+			left: 0;
+			top: calc(100% + 16px);
+			background: $secondary-250;
+		}
+	}
+	&__text {
+		font-family: $secondary-font;
+		margin: 0;
+		margin-top: 67px;
 		font-size: 2.8rem;
 		line-height: 1.42;
 		letter-spacing: -0.03em;
 		max-width: 350px;
-		left: 50%;
-		top: 50%;
-		transform: translateY(-50%);
-		margin-left: -175px;
 		text-align: left;
+		position: relative;
+		&::before {
+			content: '';
+			position: absolute;
+			width: 250px;
+			height: 250px;
+			left: -100px;
+			top: -80px;
+			pointer-events: none;
+			background: image('certificate-text.svg') no-repeat 50% / cover;
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			width: 128px;
+			height: 128px;
+			top: -54px;
+			right: 0;
+			pointer-events: none;
+			background: image('certificate-star.svg') no-repeat 50%;
+		}
 	}
 	&__img {
 		@include flex(row, flex-end, flex-end);
@@ -203,10 +270,15 @@
 		&-gradient {
 			position: absolute;
 			bottom: 0;
-			right: -30%;
-			width: calc(100% * 1.5);
+			right: -37%;
+			width: calc(100% * 1.8);
 			max-width: none;
 			z-index: 1;
+		}
+		&-wrapper {
+			&:nth-child(2) {
+				pointer-events: none;
+			}
 		}
 	}
 }
@@ -606,6 +678,10 @@
 	}
 	.certificate {
 		overflow: visible;
+		&::before,
+		&::after {
+			content: none;
+		}
 		&__img {
 			display: block;
 			&-media {
@@ -613,11 +689,16 @@
 				margin: 0 auto;
 			}
 			&-gradient {
-				display: none;
-				width: 530px;
-				right: 50%;
+				width: 600px;
+				height: 470px;
+				top: -20px;
 				transform: translateX(-50%);
 			}
+		}
+		&__note {
+			max-width: 290px;
+			margin: 0 auto;
+			margin-top: 13px;
 		}
 		&__text {
 			position: relative;
@@ -626,11 +707,10 @@
 			transform: none;
 			max-width: 290px;
 			margin: 0 auto;
-			margin-top: 20px;
+			margin-top: 37px;
 			letter-spacing: 0.01em;
 			font-size: 1.7rem;
 			line-height: 1.47;
-			text-align: center;
 		}
 	}
 }
@@ -644,9 +724,26 @@
 			}
 		}
 	}
+	.certificate {
+		&__img {
+			&-gradient {
+				transform: translateX(-50%);
+				left: 50%;
+			}
+		}
+	}
 	.section {
 		&__text {
 			padding: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.certificate {
+		&__text,
+		&__note {
+			max-width: 260px;
 		}
 	}
 }

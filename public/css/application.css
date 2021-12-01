@@ -8289,21 +8289,83 @@ div.wpcf7-response-output {
 
 .certificate {
   position: relative; }
-  .certificate__text {
-    font-family: "Manrope", sans-serif;
-    margin: 0;
+  .certificate::before {
+    content: '';
     position: absolute;
+    -webkit-transform: rotate(40deg);
+        -ms-transform: rotate(40deg);
+            transform: rotate(40deg);
+    width: 414px;
+    height: 191px;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: url("../img/certificate-left.svg") no-repeat 50%/cover;
+    -webkit-filter: blur(22px);
+            filter: blur(22px); }
+  .certificate::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    bottom: 175px;
+    width: 210px;
+    height: 137px;
+    pointer-events: none;
+    background: url("../img/certificate-right.svg") no-repeat 50%/cover;
+    -webkit-filter: blur(15px);
+            filter: blur(15px); }
+  .certificate__note {
+    margin: 0;
+    margin-top: 20px;
+    font-family: "Arial", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.33;
+    color: #5d6266; }
+  .certificate__title {
+    color: #c17afc;
+    text-transform: uppercase;
+    font-family: "Arial", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.25;
+    margin: 0;
+    margin-top: 38px;
+    position: relative; }
+    .certificate__title::after {
+      content: '';
+      position: absolute;
+      height: 1px;
+      width: 700px;
+      left: 0;
+      top: calc(100% + 16px);
+      background: #efd2fe; }
+  .certificate__text {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    margin-top: 67px;
     font-size: 2.8rem;
     line-height: 1.42;
     letter-spacing: -0.03em;
     max-width: 350px;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-    margin-left: -175px;
-    text-align: left; }
+    text-align: left;
+    position: relative; }
+    .certificate__text::before {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      left: -100px;
+      top: -80px;
+      pointer-events: none;
+      background: url("../img/certificate-text.svg") no-repeat 50%/cover; }
+    .certificate__text::after {
+      content: '';
+      position: absolute;
+      width: 128px;
+      height: 128px;
+      top: -54px;
+      right: 0;
+      pointer-events: none;
+      background: url("../img/certificate-star.svg") no-repeat 50%; }
   .certificate__img {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -8331,10 +8393,12 @@ div.wpcf7-response-output {
     .certificate__img-gradient {
       position: absolute;
       bottom: 0;
-      right: -30%;
-      width: calc(100% * 1.5);
+      right: -37%;
+      width: calc(100% * 1.8);
       max-width: none;
       z-index: 1; }
+    .certificate__img-wrapper:nth-child(2) {
+      pointer-events: none; }
 
 .section {
   padding: 50px 0; }
@@ -8721,18 +8785,24 @@ div.wpcf7-response-output {
     margin-bottom: 20px; }
   .certificate {
     overflow: visible; }
+    .certificate::before, .certificate::after {
+      content: none; }
     .certificate__img {
       display: block; }
       .certificate__img-media {
         max-width: 290px;
         margin: 0 auto; }
       .certificate__img-gradient {
-        display: none;
-        width: 530px;
-        right: 50%;
+        width: 600px;
+        height: 470px;
+        top: -20px;
         -webkit-transform: translateX(-50%);
             -ms-transform: translateX(-50%);
                 transform: translateX(-50%); }
+    .certificate__note {
+      max-width: 290px;
+      margin: 0 auto;
+      margin-top: 13px; }
     .certificate__text {
       position: relative;
       top: auto;
@@ -8742,17 +8812,25 @@ div.wpcf7-response-output {
               transform: none;
       max-width: 290px;
       margin: 0 auto;
-      margin-top: 20px;
+      margin-top: 37px;
       letter-spacing: 0.01em;
       font-size: 1.7rem;
-      line-height: 1.47;
-      text-align: center; } }
+      line-height: 1.47; } }
 
 @media screen and (max-width: 767px) {
   .payment-options__item .checkbox__name {
     text-align: left; }
+  .certificate__img-gradient {
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    left: 50%; }
   .section__text {
     padding: 0; } }
+
+@media screen and (max-width: 576px) {
+  .certificate__text, .certificate__note {
+    max-width: 260px; } }
 
 .home-template__certificate {
   margin-top: 125px;
