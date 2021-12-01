@@ -5233,7 +5233,7 @@ div.wpcf7-response-output {
     .testimonials__pagination .swiper-pagination-bullet {
       width: 10px;
       height: 10px;
-      background: #9d98a3;
+      background: #e0e6eb;
       margin-right: 15px;
       opacity: 1; }
       .testimonials__pagination .swiper-pagination-bullet:last-child {
@@ -5277,7 +5277,7 @@ div.wpcf7-response-output {
   height: 80px;
   padding: 0 30px;
   background: #fff;
-  border-radius: 5px;
+  border-radius: 15px;
   -webkit-box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
           box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1); }
   .social-testimonials::before {
@@ -5295,7 +5295,7 @@ div.wpcf7-response-output {
   .social-testimonials__name {
     margin: 0;
     font-size: 1.7rem;
-    letter-spacing: .01em; }
+    letter-spacing: 0.01em; }
   .social-testimonials__link {
     margin-left: 35px;
     -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -5316,7 +5316,7 @@ div.wpcf7-response-output {
   display: inline-block;
   text-decoration: none;
   font-size: 1.7rem;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   color: #434e57;
   padding-left: 30px;
   position: relative;
@@ -5332,9 +5332,9 @@ div.wpcf7-response-output {
   .testimonial-item__link_vk::before {
     background: url("../img/icons/ums-icon-vk.svg") no-repeat 50%; }
   .testimonial-item__link_instagram::before {
-    background: url("../img/icons/ums-icon-instagram.svg") no-repeat 50%; }
+    background: url("../img/icons/instagram.svg") no-repeat 50%; }
   .testimonial-item__link:hover {
-    opacity: .8; }
+    opacity: 0.8; }
   .testimonial-item__link:active {
     color: #434e57; }
 
@@ -10714,8 +10714,6 @@ div.wpcf7-response-output {
       margin-bottom: 0; }
   .about {
     overflow: hidden; }
-    .about picture img {
-      min-width: 100%; }
     .about-course {
       padding-top: 100px;
       padding-bottom: 90px; }

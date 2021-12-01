@@ -1,115 +1,115 @@
 .testimonials {
-    padding: 100px 0;
-    &__item {
-        @include flex(row, center);
-    }
-    &__wrapper {
-        padding-bottom: 50px;
-    }
-    &__quote-icon {
-        position: absolute;
-        z-index: 1;
-        right: calc(100% + 10px);
-        bottom: 95%;
-    }
-    &__btn {
-        position: absolute;
-        @include flex(row, center, center);
-        width: 40px;
-        height: 40px;
-        top: calc(50% - 50px);
-        margin-top: 30px;
-        z-index: 1;
-        &-prev {
-            right: calc(100% - 20px);
-        }
-        &-next {
-            left: calc(100% - 20px);
-        }
-    }
-    &__option {
-        position: absolute;
-        @include flex(row, center);
-        width: 50%;
-        bottom: 50px;
-        right: 0;
-        z-index: 1;
-    }
-    &__pagination {
-        margin-right: 35px;
-        @include flex(row, center);
-        & .swiper-pagination-bullet {
-            width: 10px;
-            height: 10px;
-            background: $gray-200;
-            margin-right: 15px;
-            opacity: 1;
-            &:last-child {
-                margin-right: 0;
-            }
-            &-active {
-                background: $dark-200;
-            }
-        }
-    }
-    &__all-link {
-        text-decoration: none;
-        font-size: 1.5rem;
-        line-height: 1.3;
-        &::before {
-            background: $primary-200;
-        }
-        &:hover {
-            &::before {
-                background: $gray-200;
-            }
-        }
-        &:active {
-            &::before {
-                background: $dark;
-            }
-        }
-    }
-    &__carousel {
-        overflow: visible;
-    }
-    &__social-links {
-        width: 100%;
-        max-width: 970px;
-        margin: 0 auto;
-    }
+	padding: 100px 0;
+	&__item {
+		@include flex(row, center);
+	}
+	&__wrapper {
+		padding-bottom: 50px;
+	}
+	&__quote-icon {
+		position: absolute;
+		z-index: 1;
+		right: calc(100% + 10px);
+		bottom: 95%;
+	}
+	&__btn {
+		position: absolute;
+		@include flex(row, center, center);
+		width: 40px;
+		height: 40px;
+		top: calc(50% - 50px);
+		margin-top: 30px;
+		z-index: 1;
+		&-prev {
+			right: calc(100% - 20px);
+		}
+		&-next {
+			left: calc(100% - 20px);
+		}
+	}
+	&__option {
+		position: absolute;
+		@include flex(row, center);
+		width: 50%;
+		bottom: 50px;
+		right: 0;
+		z-index: 1;
+	}
+	&__pagination {
+		margin-right: 35px;
+		@include flex(row, center);
+		& .swiper-pagination-bullet {
+			width: 10px;
+			height: 10px;
+			background: $gray-50;
+			margin-right: 15px;
+			opacity: 1;
+			&:last-child {
+				margin-right: 0;
+			}
+			&-active {
+				background: $dark-200;
+			}
+		}
+	}
+	&__all-link {
+		text-decoration: none;
+		font-size: 1.5rem;
+		line-height: 1.3;
+		&::before {
+			background: $primary-200;
+		}
+		&:hover {
+			&::before {
+				background: $gray-200;
+			}
+		}
+		&:active {
+			&::before {
+				background: $dark;
+			}
+		}
+	}
+	&__carousel {
+		overflow: visible;
+	}
+	&__social-links {
+		width: 100%;
+		max-width: 970px;
+		margin: 0 auto;
+	}
 }
 
 .social-testimonials {
-    position: relative;
-    @include flex(row, center, center);
-    height: 80px;
-    padding: 0 30px;
-    background: $white;
-    border-radius: 5px;
-    box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
-    &::before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 10px solid $white;
-        bottom: calc(100% - 10px);
-        left: 50%;
-        margin-left: -10px;
-        transform: rotate(45deg);
-    }
-    &__name {
-        margin: 0;
-        font-size: 1.7rem;
-        letter-spacing: .01em;
-    }
-    &__link {
-        margin-left: 35px;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        will-change: transform;
-        &:hover {
-            transform: translateY(-3px);
-        }
-    }
+	position: relative;
+	@include flex(row, center, center);
+	height: 80px;
+	padding: 0 30px;
+	background: $white;
+	border-radius: 15px;
+	box-shadow: 0 5px 40px 0 rgba(65, 1, 121, 0.05), 0 1px 1px 0 rgba(65, 1, 121, 0.1);
+	&::before {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 10px solid $white;
+		bottom: calc(100% - 10px);
+		left: 50%;
+		margin-left: -10px;
+		transform: rotate(45deg);
+	}
+	&__name {
+		margin: 0;
+		font-size: 1.7rem;
+		letter-spacing: 0.01em;
+	}
+	&__link {
+		margin-left: 35px;
+		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		will-change: transform;
+		&:hover {
+			transform: translateY(-3px);
+		}
+	}
 }

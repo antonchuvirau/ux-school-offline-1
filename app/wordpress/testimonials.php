@@ -63,13 +63,13 @@ if ( $query->have_posts() ):
 					<!-- <a href="<?php echo esc_url(get_page_link(58)); ?>" class="link testimonials__all-link">Все отзывы</a> -->
 				</div>
 				<button class="testimonials__btn testimonials__btn-prev">
-					<svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M9.29282 17.7071L10.707 16.2929L3.41414 9.00002L10.707 1.70713L9.29282 0.292915L0.585711 9.00002L9.29282 17.7071Z" fill="#9E98A3" />
+					<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M22.6465 30.6465C22.8417 30.8417 23.1583 30.8417 23.3536 30.6465L25.6465 28.3536C25.8417 28.1583 25.8417 27.8417 25.6465 27.6465L18.3536 20.3536C18.1583 20.1583 18.1583 19.8417 18.3536 19.6465L25.6465 12.3536C25.8417 12.1583 25.8417 11.8417 25.6465 11.6465L23.3536 9.35357C23.1583 9.15831 22.8417 9.15831 22.6465 9.35357L12.3536 19.6465C12.1583 19.8417 12.1583 20.1583 12.3536 20.3536L22.6465 30.6465Z" fill="#C6CCD1"/>
 					</svg>
 				</button>
 				<button class="testimonials__btn testimonials__btn-next">
-					<svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M1.70718 17.7071L0.292969 16.2929L7.58586 9.00002L0.292968 1.70713L1.70718 0.292915L10.4143 9.00002L1.70718 17.7071Z" fill="#9E98A3" />
+					<svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M3.3536 21.6465C3.15834 21.8417 2.84176 21.8417 2.64649 21.6465L0.3536 19.3536C0.158338 19.1583 0.158337 18.8417 0.353599 18.6465L7.64649 11.3536C7.84175 11.1583 7.84176 10.8417 7.64649 10.6465L0.353599 3.35357C0.158337 3.15831 0.158337 2.84172 0.353599 2.64646L2.64649 0.353569C2.84175 0.158306 3.15834 0.158306 3.3536 0.353569L13.6465 10.6465C13.8418 10.8417 13.8418 11.1583 13.6465 11.3536L3.3536 21.6465Z" fill="#C6CCD1"/>
 					</svg>
 				</button>
 			</div>

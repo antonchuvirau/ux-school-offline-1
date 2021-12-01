@@ -379,11 +379,6 @@
 	}
 	.about {
 		overflow: hidden;
-		& picture {
-			& img {
-				min-width: 100%;
-			}
-		}
 		&-course {
 			padding-top: 100px;
 			padding-bottom: 90px;
