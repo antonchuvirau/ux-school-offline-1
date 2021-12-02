@@ -13,6 +13,11 @@
  * @package UX_Mind_School
  */
 get_header();
+
+// PARAMS
+define( 'HOME_PAGE_ID', 2 );
+$home_page_title = get_field( 'title', 'option' );
+$home_page_description = get_field( 'description', 'option' );
 ?>
 <!-- Begin all-courses -->
 <div class="all-courses d-none">
@@ -74,8 +79,8 @@ get_header();
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="template__header home-template__header">
-                        <h1 class="title template__title home-template__title">Школа дизайна в&nbsp;Беларуси</h1>
-						<h2 class="title home-template__title-secondary">Учим дизайну и&nbsp;меняем жизни</h2>
+                        <h1 class="title template__title home-template__title"><?php echo $home_page_title; ?></h1>
+						<p class="title home-template__title-secondary"><?php echo $home_page_description; ?></p>
                         <button type="button" data-modal="#free-start-modal" class="btn btn_theme-pink home-template__header-btn">Начни учиться бесплатно!</button>
                     </div>
                 </div>

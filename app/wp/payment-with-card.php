@@ -40,7 +40,7 @@ $is_promocode = get_field('promocode_bool', 2);
 											$courses_array = array(
 												'post_type'=>'post',
 												'post_status'=>'publish',
-												'cat'=>'15,1,2,4,5,99,121,124',
+												'cat'=>'1,15,2,4,99,121,124,127,3',
 												'posts_per_page'=>-1,
 												'meta_key'=>'ums_course_info_start',
 												'orderby'=>'meta_value',
@@ -48,9 +48,12 @@ $is_promocode = get_field('promocode_bool', 2);
 											);
 											$courses_query = new WP_Query($courses_array); if ($courses_query->have_posts()): ?>
 											<div data-type="payment" class="ums-select">
-												<button data-price="0" data-sale-price="0" type="button" class="ums-select__btn">Нажмите, чтобы выбрать курс</button>
+												<button data-price="0" data-sale-price="0" type="button"
+													class="ums-select__btn">Нажмите, чтобы выбрать курс</button>
 												<ul class="ums-select__list">
-													<li data-payment-level="2" data-price="0" data-sale-price="0" class="ums-select__list-item">Оплата следующего этапа действующего курса</li>
+													<li data-payment-level="2" data-price="0" data-sale-price="0"
+														class="ums-select__list-item">Оплата следующего этапа
+														действующего курса</li>
 													<?php
 														$counter = 0;
 														while ( $courses_query->have_posts() ): $courses_query->the_post();
@@ -62,97 +65,108 @@ $is_promocode = get_field('promocode_bool', 2);
 															$course_type = get_field( 'ums_course_info_type' );
 															$is_partial_payment = get_field( 'is_partial_payment' );
 													?>
-													<li data-price="<?php echo $course_full_price; ?>" data-partial-payment="<?php if ( $is_partial_payment ): ?>yes<?php else: ?>no<?php endif; ?>" data-sale-price="<?php if($course_sale_price): echo $course_sale_price; else: echo $course_full_price; endif; ?>" class="ums-select__list-item"><?php echo date_i18n('j F', $course_date_string); ?> – <?php esc_html( the_title() ); ?><span> (<?php echo mb_strtolower( $course_type ); ?>)</span></li>
-														<?php endwhile; ?>
-												</ul>	
+													<li data-course-name="<?php echo esc_attr( the_title() . ', ' . date_i18n('j F', $course_date_string) . ', ' . mb_strtolower( $course_type ) ); ?>"
+														data-price="<?php echo $course_full_price; ?>"
+														data-partial-payment="<?php if ( $is_partial_payment ): ?>yes<?php else: ?>no<?php endif; ?>"
+														data-sale-price="<?php if($course_sale_price): echo $course_sale_price; else: echo $course_full_price; endif; ?>"
+														class="ums-select__list-item">
+														<?php echo date_i18n('j F', $course_date_string); ?> –
+														<?php esc_html( the_title() ); ?><span>
+															(<?php echo mb_strtolower( $course_type ); ?>)</span></li>
+													<?php endwhile; ?>
+												</ul>
 											</div>
 											<?php endif; ?>
 										</div>
 									</div>
 								</section>
 								<section class="payment-form__section payment-section payment-section_state-active">
-									<div class="form webpay-form payment-form__section-item">
+									<div class="form erip-payment webpay-form payment-form__section-item">
 										<p class="payment-form__section-name">2. Введите ваши данные</p>
 										<div class="payment-form__section-grid grid-second">
-											<div class="payment-form__price">Сумма для оплаты<span class="payment-form__price-value"><input type="text" required="" name="total" value="0"><span> BYN</span></span></div>
-											<?php if ($is_promocode): ?>
-											<div class="webpay-form__item promocode b-promocode">
-												<label class="toggle-checkbox">
-													<input type="checkbox" name="promocode-toggle" class="toggle-checkbox__input">
-													<p class="toggle-checkbox__name toggle-checkbox__promocode">У меня есть промо-код</p>
-												</label>
-												<div class="form__input promocode-input payment-form__input">
-													<input type="text" inputmode="text" name="promocode">
-													<span class="form__label">Промо-код</span>
-													<span role="alert" class="form__error-label">Недействительный промокод</span>
-													<button type="button" class="promocode-input__btn">Применить</button>
+											<div class="webpay-form__item">
+												<div class="erip-payment__price">Сумма для оплаты<span class="erip-payment__price-value">0 BYN</span></div>
+												<input type="text" val="0" name="total" hidden>
+												<div class="erip-payment__grid">
+													<div class="promocode b-promocode erip-payment__promocode">
+														<label class="toggle-checkbox b-promocode__toggle-button">
+															<input type="checkbox" name="promocode-toggle"
+																class="toggle-checkbox__input">
+															<div class="toggle-checkbox__element"></div>
+															<p class="toggle-checkbox__name">У меня есть промокод</p>
+														</label>
+														<div
+															class="form__input promocode-input payment-form__input b-promocode__input">
+															<input data-payment="erip" type="text"
+																class="b-promocode__input-field" inputmode="text"
+																name="promocode">
+															<span class="form__label">Промокод</span>
+															<span role="alert" class="form__error-label">Промокод не
+																найден</span>
+															<button type="button"
+																class="btn promocode-input__btn b-promocode__button">Применить</button>
+														</div>
+													</div>
+													<div
+														class="payment-options payment-options_d-vertical erip-payment__options">
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="installment-school"
+																class="checkbox__input">
+															<p class="checkbox__name">Рассрочка на 3 месяца от UX Mind
+																School</p>
+														</label>
+														<label class="checkbox payment-options__item">
+															<input type="checkbox" name="sale-school"
+																class="checkbox__input">
+															<p class="checkbox__name">Скидка 10% выпускникам UX Mind
+																School</p>
+														</label>
+													</div>
 												</div>
-											</div>
-											<?php endif; ?>
-											<div class="webpay-form__item">
-												<label class="toggle-checkbox">
-													<input type="checkbox" name="card-installment-school" class="toggle-checkbox__input">
-													<div class="toggle-checkbox__element"></div>
-													<p class="toggle-checkbox__name">Рассрочка на 3 месяца от UX Mind School</p>
-												</label>
-											</div>
-											<div class="webpay-form__item">
-												<label class="webpay-form__sale-checkbox toggle-checkbox">
-													<input type="checkbox" name="card-sale-school" class="toggle-checkbox__input">
-													<div class="toggle-checkbox__element"></div>
-													<p class="toggle-checkbox__name">Я студент-очник / я раньше учился у вас (скидка 10%)</p>
-												</label>
-											</div>
-											<div class="webpay-form__item">
-												<p class="payment-message erip-payment__message">
-													<span class="erip-payment__message-note erip-payment__message-note_active">*Скидки не суммируются.</span>
-													После внесения платежа, отправьте копию квитанции на&nbsp;
-													<a href="mailto:hello@ux-school.by">hello@ux-school.by</a>
-												</p>
+												<p class="payment-message erip-payment__message"><span
+														class="erip-payment__message-note">*Скидки по акциям и
+														промокодам не суммируются.</span>После внесения платежа,
+													отправьте копию квитанции на <a
+														href="mailto:hello@ux-school.by">hello@ux-school.by</a></p>
 											</div>
 											<div class="webpay-form__item">
 												<div class="form__input payment-form__input">
 													<input type="text" inputmode="text" required name="name">
 													<span class="form__label">Имя и фамилия ученика</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
+													<span role="alert" class="form__error-label">Поле обязательно для
+														заполнения</span>
 												</div>
 											</div>
 											<div>
-												<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
+											<button type="button" data-payment-method="alfa" class="btn webpay-form__btn webpay-form__btn-ajax">Перейти к оплате</button>
 											</div>
 											<label class="checkbox privacy-checkbox">
-												<input type="checkbox" checked="" class="checkbox__input privacy-checkbox__input">
+												<input type="checkbox" checked=""
+													class="checkbox__input privacy-checkbox__input">
 												<p class="checkbox__name">Я согласен с условиями обработки
-													<button type="button" data-modal="#personal-data-modal" class="link checkbox__link">персональных данных</button>
+													<button type="button" data-modal="#personal-data-modal"
+														class="link checkbox__link">персональных данных</button>
 												</p>
 											</label>
-										</div>	
-											<!-- <div class="webpay-form__item">
-												<div class="form__input payment-form__input currency-input-wrapper">
-													<input type="text" required name="total" value="">
-													<span class="form__label">Сумма для оплаты</span>
-													<span role="alert" class="form__error-label">Поле обязательно для заполнения</span>
-													<div class="ums-currency form__ums-currency"></div>
-												</div>
-											</div> -->
 										</div>
 									</div>
-								</section>
 							</div>
+							</section>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
 </main>
 <!-- End main -->
 <!-- Begin templates -->
 <template id="payment-method">
 	<label class="payment-item payment-form__method">
-		<input type="radio" name="payment" class="payment-item__input"/>
+		<input type="radio" name="payment" class="payment-item__input" />
 		<p class="payment-item__name"></p>
-    </label>
+	</label>
 </template>
 <!-- End template -->
 <?php get_footer();

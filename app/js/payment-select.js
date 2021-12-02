@@ -87,7 +87,6 @@
 				paymentButton.innerHTML = ``;
 				const targetChildNodes = target.childNodes;
 				for (const targetChildNode of Array.from(targetChildNodes)) {
-					console.log(targetChildNode);
 					if (targetChildNode.nodeType === 3) {
 						paymentButton.textContent = targetChildNode.textContent;
 					} else {
@@ -101,6 +100,7 @@
 				paymentModule.setCurrent(this._courseData.title);
 				paymentModule.setPrice(this._courseData.fullPrice);
 				paymentModule.setSalePrice(this._courseData.salePrice);
+				paymentModule.setTotalPrice(this._courseData.fullPrice);
 				paymentModule.changeInputPrice(paymentMethodModule.getPaymentMethodIndex());
 			}
 		}

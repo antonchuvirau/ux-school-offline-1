@@ -74,7 +74,6 @@ const PROMOCODE_SALE_VALUE = 50;
 			//     return;
 			// }
 			if (isSale) {
-				console.log(`we are here`);
 				this.setTotalPrice((this.getSalePrice() / 3 - this.getSalePrice() / 3 * SCHOOL_SALE_VALUE).toFixed(2));
 				this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
 				this.setSaleValue(10);
@@ -151,18 +150,30 @@ const PROMOCODE_SALE_VALUE = 50;
 			}
 			this.changeCurenciesPrice(index);
 			if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-				let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
-				let totalInputElementName = totalInputElement.length
-					? 'input[name="wsb_total"]'
-					: 'input[name="total"]';
-				jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
-				jQuery('.payment-section')
-					.eq(index)
-					.find(totalInputElementName)
-					.next()
-					.addClass('form__label_active')
-					.parent()
-					.addClass('form__input_filled');
+				const paymentSectionCollection = document.querySelectorAll(`.payment-section`);
+				if (paymentSectionCollection.length > 1) {
+					let totalInputElementName = 'input[name="wsb_total"]';
+					jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
+					jQuery('.payment-section')
+						.eq(index)
+						.find(totalInputElementName)
+						.next()
+						.addClass('form__label_active')
+						.parent()
+						.addClass('form__input_filled');
+					}
+				else {
+					const htmlTotalPriceElement = document.querySelector(`.erip-payment__price-value`);
+					let totalInputElementName = 'input[name="total"]';
+					document.querySelector(totalInputElementName).value = this.getTotalPrice();
+					htmlTotalPriceElement.textContent = `${this.getTotalPrice()} BYN`;
+					jQuery('.payment-section')
+						.find(totalInputElementName)
+						.next()
+						.addClass('form__label_active')
+						.parent()
+						.addClass('form__input_filled');
+				}
 			} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
 				let totalInputElement = document.querySelector('input[name="total"]');
 				totalInputElement.value = this.getTotalPrice();
@@ -193,31 +204,76 @@ const PROMOCODE_SALE_VALUE = 50;
 			}
 		}
 		updateEripPrice(isPromocode = {}, isSale = false, isInstallment = false) {
-			const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
+			let eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
 
 			if (eripPaymentPriceElement) {
+				const eripPaymentTotalInputElement = eripPaymentPriceElement.closest(`.erip-payment`).querySelector(`input[name="total"]`);
 				let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
+				if (eripPaymentTotalInputElement) {
+					eripPaymentTotalInputElement.value = +this.getSalePrice();
+					this.setTotalPrice(+this.getSalePrice());
+				}
 				if (Object.values(isPromocode).length && isInstallment) {
-					eripPaymentPriceValue = `${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
+					eripPaymentPriceValue = `${((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
 						2
 					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = ((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(2);
+						this.setTotalPrice(((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(2));
+					}
 				} else if (isSale && isInstallment) {
-					eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /
-						3).toFixed(
-						2
-					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = ((+this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2);
+						this.setTotalPrice(((+this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2));
+					}
 				} else if (isInstallment) {
-					eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(
-						2
-					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = (+this.getSalePrice() / 3).toFixed(2);
+						this.setTotalPrice((+this.getSalePrice() / 3).toFixed(2));
+					}
 				} else if (isSale) {
-					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
-						this.getSalePrice() * SCHOOL_SALE_VALUE} BYN`;
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${+this.getSalePrice()}</span> ${+this.getSalePrice() -
+						+this.getSalePrice() * SCHOOL_SALE_VALUE} BYN`;
+						if (eripPaymentTotalInputElement) {
+							eripPaymentTotalInputElement.value = +this.getSalePrice() - +this.getSalePrice() * SCHOOL_SALE_VALUE;
+							this.setTotalPrice(+this.getSalePrice() - +this.getSalePrice() * SCHOOL_SALE_VALUE);
+						}
 				} else if (Object.values(isPromocode).length) {
-					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
-						+window.promocodeData.value} BYN`;
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${+this.getSalePrice()}</span> ${+this.getSalePrice() - +window.promocodeData.value} BYN`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = +this.getSalePrice() - +window.promocodeData.value;
+						this.setTotalPrice(+this.getSalePrice() - +window.promocodeData.value);
+					}
 				}
 				eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
+			}
+			else {
+				eripPaymentPriceElement = document.querySelector(`input[name="total"]`);
+				let eripPaymentPriceValue = +`${this.getSalePrice()}`;
+				if (Object.values(isPromocode).length && isInstallment) {
+					eripPaymentPriceValue = +`${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
+						0
+					)}`;
+				} else if (isSale && isInstallment) {
+					eripPaymentPriceValue = +`${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /
+						3).toFixed(
+						0
+					)}`;
+				} else if (isInstallment) {
+					eripPaymentPriceValue = +`${(this.getSalePrice() / 3).toFixed(
+						0
+					)}`;
+				} else if (isSale) {
+					eripPaymentPriceValue = +`${this.getSalePrice() -
+						this.getSalePrice() * SCHOOL_SALE_VALUE}`;
+				} else if (Object.values(isPromocode).length) {
+					eripPaymentPriceValue = +`${this.getSalePrice() -
+						+window.promocodeData.value}`;
+				}
+				eripPaymentPriceElement.value = eripPaymentPriceValue;
+				this.setTotalPrice(eripPaymentPriceValue);
 			}
 		}
 		// INSTALLMENT

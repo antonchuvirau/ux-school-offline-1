@@ -155,11 +155,15 @@
                 promocodeInputElement.querySelector('.form__label').classList.remove('form__label_active');
 
                 if (paymentSelect.getPaymentType() === 'payment') {
-                    if (promocodeInputElement.closest('.payment-form__section-grid')) {
-                        promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
-                        promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
+                    const promocodeInputElementWrapper = promocodeInputElement.closest('.payment-form__section-grid');
+                    if (promocodeInputElementWrapper) {
+                        const promocodeSaleInputElement = promocodeInputElementWrapper.querySelector('.webpay-form__sale-checkbox');
+                        if (promocodeSaleInputElement) {
+                            promocodeSaleInputElement.querySelector('input').checked = false;
+                            promocodeSaleInputElement.querySelector('input').classList.toggle('webpay-form__sale-checkbox_state-disabled');
+                            paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
+                        }
                     }
-                    paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
                 }
             }
             if (target.matches('button')) {

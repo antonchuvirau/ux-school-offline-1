@@ -456,6 +456,11 @@ div {
         &:last-child {
             margin-bottom: 0;
         }
+        &_direction {
+            &-column {
+                @include flex(column);
+            }
+        }
     }
     &__sale-checkbox {
         margin-left: 15px;

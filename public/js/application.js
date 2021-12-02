@@ -370,7 +370,6 @@ const PROMOCODE_SALE_VALUE = 50;
 			//     return;
 			// }
 			if (isSale) {
-				console.log(`we are here`);
 				this.setTotalPrice((this.getSalePrice() / 3 - this.getSalePrice() / 3 * SCHOOL_SALE_VALUE).toFixed(2));
 				this.setSaleType(`Я студент-очник / я раньше уже учился у вас`);
 				this.setSaleValue(10);
@@ -447,18 +446,30 @@ const PROMOCODE_SALE_VALUE = 50;
 			}
 			this.changeCurenciesPrice(index);
 			if (window.paymentSelect.instance.getPaymentType() === 'payment') {
-				let totalInputElement = jQuery('.payment-section').eq(index).find('input[name="wsb_total"]');
-				let totalInputElementName = totalInputElement.length
-					? 'input[name="wsb_total"]'
-					: 'input[name="total"]';
-				jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
-				jQuery('.payment-section')
-					.eq(index)
-					.find(totalInputElementName)
-					.next()
-					.addClass('form__label_active')
-					.parent()
-					.addClass('form__input_filled');
+				const paymentSectionCollection = document.querySelectorAll(`.payment-section`);
+				if (paymentSectionCollection.length > 1) {
+					let totalInputElementName = 'input[name="wsb_total"]';
+					jQuery('.payment-section').eq(index).find(totalInputElementName).val(this.getTotalPrice());
+					jQuery('.payment-section')
+						.eq(index)
+						.find(totalInputElementName)
+						.next()
+						.addClass('form__label_active')
+						.parent()
+						.addClass('form__input_filled');
+					}
+				else {
+					const htmlTotalPriceElement = document.querySelector(`.erip-payment__price-value`);
+					let totalInputElementName = 'input[name="total"]';
+					document.querySelector(totalInputElementName).value = this.getTotalPrice();
+					htmlTotalPriceElement.textContent = `${this.getTotalPrice()} BYN`;
+					jQuery('.payment-section')
+						.find(totalInputElementName)
+						.next()
+						.addClass('form__label_active')
+						.parent()
+						.addClass('form__input_filled');
+				}
 			} else if (window.paymentSelect.instance.getPaymentType() === 'certificate') {
 				let totalInputElement = document.querySelector('input[name="total"]');
 				totalInputElement.value = this.getTotalPrice();
@@ -489,31 +500,76 @@ const PROMOCODE_SALE_VALUE = 50;
 			}
 		}
 		updateEripPrice(isPromocode = {}, isSale = false, isInstallment = false) {
-			const eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
+			let eripPaymentPriceElement = document.querySelector(`.erip-payment__price-value`);
 
 			if (eripPaymentPriceElement) {
+				const eripPaymentTotalInputElement = eripPaymentPriceElement.closest(`.erip-payment`).querySelector(`input[name="total"]`);
 				let eripPaymentPriceValue = `${this.getSalePrice()} BYN`;
+				if (eripPaymentTotalInputElement) {
+					eripPaymentTotalInputElement.value = +this.getSalePrice();
+					this.setTotalPrice(+this.getSalePrice());
+				}
 				if (Object.values(isPromocode).length && isInstallment) {
-					eripPaymentPriceValue = `${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
+					eripPaymentPriceValue = `${((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
 						2
 					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = ((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(2);
+						this.setTotalPrice(((+this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(2));
+					}
 				} else if (isSale && isInstallment) {
-					eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /
-						3).toFixed(
-						2
-					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					eripPaymentPriceValue = `${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = ((+this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2);
+						this.setTotalPrice(((+this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) / 3).toFixed(2));
+					}
 				} else if (isInstallment) {
-					eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(
-						2
-					)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					eripPaymentPriceValue = `${(this.getSalePrice() / 3).toFixed(2)} BYN x 3 месяца<span class="erip-payment__price-note">Следующий платёж производится через месяц после&nbsp;осуществления&nbsp;предыдущего&nbsp;платежа.</span>`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = (+this.getSalePrice() / 3).toFixed(2);
+						this.setTotalPrice((+this.getSalePrice() / 3).toFixed(2));
+					}
 				} else if (isSale) {
-					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
-						this.getSalePrice() * SCHOOL_SALE_VALUE} BYN`;
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${+this.getSalePrice()}</span> ${+this.getSalePrice() -
+						+this.getSalePrice() * SCHOOL_SALE_VALUE} BYN`;
+						if (eripPaymentTotalInputElement) {
+							eripPaymentTotalInputElement.value = +this.getSalePrice() - +this.getSalePrice() * SCHOOL_SALE_VALUE;
+							this.setTotalPrice(+this.getSalePrice() - +this.getSalePrice() * SCHOOL_SALE_VALUE);
+						}
 				} else if (Object.values(isPromocode).length) {
-					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${this.getSalePrice()}</span> ${this.getSalePrice() -
-						+window.promocodeData.value} BYN`;
+					eripPaymentPriceValue = `<span class="erip-payment__price-value-old">${+this.getSalePrice()}</span> ${+this.getSalePrice() - +window.promocodeData.value} BYN`;
+					if (eripPaymentTotalInputElement) {
+						eripPaymentTotalInputElement.value = +this.getSalePrice() - +window.promocodeData.value;
+						this.setTotalPrice(+this.getSalePrice() - +window.promocodeData.value);
+					}
 				}
 				eripPaymentPriceElement.innerHTML = eripPaymentPriceValue;
+			}
+			else {
+				eripPaymentPriceElement = document.querySelector(`input[name="total"]`);
+				let eripPaymentPriceValue = +`${this.getSalePrice()}`;
+				if (Object.values(isPromocode).length && isInstallment) {
+					eripPaymentPriceValue = +`${((this.getSalePrice() - +window.promocodeData.value) / 3).toFixed(
+						0
+					)}`;
+				} else if (isSale && isInstallment) {
+					eripPaymentPriceValue = +`${((this.getSalePrice() - this.getSalePrice() * SCHOOL_SALE_VALUE) /
+						3).toFixed(
+						0
+					)}`;
+				} else if (isInstallment) {
+					eripPaymentPriceValue = +`${(this.getSalePrice() / 3).toFixed(
+						0
+					)}`;
+				} else if (isSale) {
+					eripPaymentPriceValue = +`${this.getSalePrice() -
+						this.getSalePrice() * SCHOOL_SALE_VALUE}`;
+				} else if (Object.values(isPromocode).length) {
+					eripPaymentPriceValue = +`${this.getSalePrice() -
+						+window.promocodeData.value}`;
+				}
+				eripPaymentPriceElement.value = eripPaymentPriceValue;
+				this.setTotalPrice(eripPaymentPriceValue);
 			}
 		}
 		// INSTALLMENT
@@ -745,7 +801,6 @@ const PROMOCODE_SALE_VALUE = 50;
 				paymentButton.innerHTML = ``;
 				const targetChildNodes = target.childNodes;
 				for (const targetChildNode of Array.from(targetChildNodes)) {
-					console.log(targetChildNode);
 					if (targetChildNode.nodeType === 3) {
 						paymentButton.textContent = targetChildNode.textContent;
 					} else {
@@ -759,6 +814,7 @@ const PROMOCODE_SALE_VALUE = 50;
 				paymentModule.setCurrent(this._courseData.title);
 				paymentModule.setPrice(this._courseData.fullPrice);
 				paymentModule.setSalePrice(this._courseData.salePrice);
+				paymentModule.setTotalPrice(this._courseData.fullPrice);
 				paymentModule.changeInputPrice(paymentMethodModule.getPaymentMethodIndex());
 			}
 		}
@@ -942,11 +998,15 @@ const PROMOCODE_SALE_VALUE = 50;
                 promocodeInputElement.querySelector('.form__label').classList.remove('form__label_active');
 
                 if (paymentSelect.getPaymentType() === 'payment') {
-                    if (promocodeInputElement.closest('.payment-form__section-grid')) {
-                        promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').querySelector('input').checked = false;
-                        promocodeInputElement.closest('.payment-form__section-grid').querySelector('.webpay-form__sale-checkbox').classList.toggle('webpay-form__sale-checkbox_state-disabled');
+                    const promocodeInputElementWrapper = promocodeInputElement.closest('.payment-form__section-grid');
+                    if (promocodeInputElementWrapper) {
+                        const promocodeSaleInputElement = promocodeInputElementWrapper.querySelector('.webpay-form__sale-checkbox');
+                        if (promocodeSaleInputElement) {
+                            promocodeSaleInputElement.querySelector('input').checked = false;
+                            promocodeSaleInputElement.querySelector('input').classList.toggle('webpay-form__sale-checkbox_state-disabled');
+                            paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
+                        }
                     }
-                    paymentInstance.changeInputPrice(paymentMethod.getPaymentMethodIndex(), false, false);
                 }
             }
             if (target.matches('button')) {
@@ -2160,7 +2220,7 @@ document.addEventListener('click', (evt) => {
 		const inputs = form.querySelectorAll('input[required]');
 		const customer =
 			method === 'alfa'
-				? form.querySelector('input[name="name"]').value
+				? form.querySelector('input[name="total"]').value
 				: form.querySelector('input[name="wsb_customer_name"]').value;
 		let isValid;
 		let ajaxData = {
@@ -2277,115 +2337,115 @@ document.addEventListener('click', (evt) => {
 		}
 	}
 	// Костыль card-page
-	if (target.matches(`input[name="card-installment-school"]`)) {
-		const priceInputElement = document.querySelector('input[name="total"]');
-		const textAfterInput = document.querySelector('.payment-form__price-value span');
-		const paymentSaleField = document.querySelector('input[name="card-sale-school');
+	// if (target.matches(`input[name="card-installment-school"]`)) {
+	// 	const priceInputElement = document.querySelector('input[name="total"]');
+	// 	const textAfterInput = document.querySelector('.payment-form__price-value span');
+	// 	const paymentSaleField = document.querySelector('input[name="card-sale-school');
 
-		if (target.checked) {
-			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+	// 	if (target.checked) {
+	// 		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
 
-			if (priceInputElement.value === '0') {
-				return;
-			} else if (paymentSaleField.checked) {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				priceInputElement.nextElementSibling.innerHTML = '';
-				const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 3;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
-			} else {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = priceInputElement.value / 3;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
-			}
-			textAfterInput.innerHTML = '';
-			if (window.innerWidth <= 767) {
-				priceInputElement.style.width = `${100}%`;
-			} else {
-				priceInputElement.style.width = `${450}px`;
-			}
-		} else {
-			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
-			const oldPrice = courseTypeButton.dataset.salePrice;
+	// 		if (priceInputElement.value === '0') {
+	// 			return;
+	// 		} else if (paymentSaleField.checked) {
+	// 			priceInputElement.value = courseTypeButton.dataset.salePrice;
+	// 			priceInputElement.nextElementSibling.innerHTML = '';
+	// 			const costPerMonth = (priceInputElement.value - priceInputElement.value * 0.1) / 3;
+	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
+	// 		} else {
+	// 			priceInputElement.value = courseTypeButton.dataset.salePrice;
+	// 			const costPerMonth = priceInputElement.value / 3;
+	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
+	// 		}
+	// 		textAfterInput.innerHTML = '';
+	// 		if (window.innerWidth <= 767) {
+	// 			priceInputElement.style.width = `${100}%`;
+	// 		} else {
+	// 			priceInputElement.style.width = `${450}px`;
+	// 		}
+	// 	} else {
+	// 		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+	// 		const oldPrice = courseTypeButton.dataset.salePrice;
 
-			if (priceInputElement.value === '0') {
-				return;
-			} else if (paymentSaleField.checked) {
-				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
-				priceInputElement.nextElementSibling.innerHTML = 'BYN';
-				priceInputElement.value = salePrice;
-				claculatePriceLength(priceInputElement);
-				textAfterInput.innerHTML = oldPrice;
-			} else {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				claculatePriceLength(priceInputElement);
-				textAfterInput.innerHTML = 'BYN';
-			}
-		}
-	}
+	// 		if (priceInputElement.value === '0') {
+	// 			return;
+	// 		} else if (paymentSaleField.checked) {
+	// 			const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+	// 			priceInputElement.nextElementSibling.innerHTML = 'BYN';
+	// 			priceInputElement.value = salePrice;
+	// 			claculatePriceLength(priceInputElement);
+	// 			textAfterInput.innerHTML = oldPrice;
+	// 		} else {
+	// 			priceInputElement.value = courseTypeButton.dataset.salePrice;
+	// 			claculatePriceLength(priceInputElement);
+	// 			textAfterInput.innerHTML = 'BYN';
+	// 		}
+	// 	}
+	// }
 	// Костыль card-page
-	if (target.matches(`input[name="card-sale-school"]`)) {
-		const priceInputElement = document.querySelector('input[name="total"]');
-		document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
+	// if (target.matches(`input[name="card-sale-school"]`)) {
+	// 	const priceInputElement = document.querySelector('input[name="total"]');
+	// 	document.querySelector(`.b-promocode`).classList.toggle(`b-promocode_disabled`);
 
-		if (target.checked) {
-			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
-			const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
+	// 	if (target.checked) {
+	// 		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+	// 		const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
 
-			if (priceInputElement.value === '0') {
-				return;
-			} else if (paymentInstallmentField.checked) {
-				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
-				priceInputElement.value = salePrice;
-				const costPerMonth = priceInputElement.value / 3;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
-			} else {
-				const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
-				const costPerMonth = salePrice;
-				priceInputElement.value = `${costPerMonth}`;
+	// 		if (priceInputElement.value === '0') {
+	// 			return;
+	// 		} else if (paymentInstallmentField.checked) {
+	// 			const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+	// 			priceInputElement.value = salePrice;
+	// 			const costPerMonth = priceInputElement.value / 3;
+	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
+	// 		} else {
+	// 			const salePrice = courseTypeButton.dataset.salePrice - courseTypeButton.dataset.salePrice * 0.1;
+	// 			const costPerMonth = salePrice;
+	// 			priceInputElement.value = `${costPerMonth}`;
 
-				const priceWrapper = document.querySelector('.payment-form__price-value');
-				const newEl = document.createElement('span');
-				newEl.classList.add('payment-form__price-value-old');
-				newEl.innerHTML = courseTypeButton.dataset.salePrice;
-				newEl.style.marginRight = `8px`;
-				priceWrapper.prepend(newEl);
-			}
-		} else {
-			const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
-			const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
+	// 			const priceWrapper = document.querySelector('.payment-form__price-value');
+	// 			const newEl = document.createElement('span');
+	// 			newEl.classList.add('payment-form__price-value-old');
+	// 			newEl.innerHTML = courseTypeButton.dataset.salePrice;
+	// 			newEl.style.marginRight = `8px`;
+	// 			priceWrapper.prepend(newEl);
+	// 		}
+	// 	} else {
+	// 		const courseTypeButton = document.querySelector('.payment-form .ums-select__btn');
+	// 		const paymentInstallmentField = document.querySelector(`input[name="card-installment-school"]`);
 
-			if (priceInputElement.value === '0') {
-				return;
-			} else if (paymentInstallmentField.checked) {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				const costPerMonth = priceInputElement.value / 3;
-				priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
-			} else {
-				priceInputElement.value = courseTypeButton.dataset.salePrice;
-				claculatePriceLength(priceInputElement);
+	// 		if (priceInputElement.value === '0') {
+	// 			return;
+	// 		} else if (paymentInstallmentField.checked) {
+	// 			priceInputElement.value = courseTypeButton.dataset.salePrice;
+	// 			const costPerMonth = priceInputElement.value / 3;
+	// 			priceInputElement.value = `${costPerMonth.toFixed(2)} BYN x 3 месяца`;
+	// 		} else {
+	// 			priceInputElement.value = courseTypeButton.dataset.salePrice;
+	// 			claculatePriceLength(priceInputElement);
 
-				const priceWrapper = document.querySelector('.payment-form__price-value');
-				priceWrapper.removeChild(document.querySelector('.payment-form__price-value-old'));
-			}
-		}
-	}
+	// 			const priceWrapper = document.querySelector('.payment-form__price-value');
+	// 			priceWrapper.removeChild(document.querySelector('.payment-form__price-value-old'));
+	// 		}
+	// 	}
+	// }
 	// Changes size of the input at payment-with-card page
 	// Костыль card-page
-	if (target.matches(`.payment-form .ums-select__list-item`)) {
-		const priceInputElement = document.querySelector('.payment-form input[name="total"]');
-		const textAfterInput = document.querySelector('.payment-form__price-value span');
+	// if (target.matches(`.payment-form .ums-select__list-item`)) {
+	// 	const priceInputElement = document.querySelector('.payment-form input[name="total"]');
+	// 	const textAfterInput = document.querySelector('.payment-form__price-value span');
 
-		if (priceInputElement) {
-			claculatePriceLength(priceInputElement);
-		}
-		textAfterInput.innerHTML = 'BYN';
-	}
+	// 	if (priceInputElement) {
+	// 		claculatePriceLength(priceInputElement);
+	// 	}
+	// 	textAfterInput.innerHTML = 'BYN';
+	// }
 	//
-	if (target.matches(`input[name="installment-length"]`)) {
-		const installmentPaymentTermInput = document.querySelector(`input[name="installment-term"]`);
-		installmentPaymentTermInput.value = target.value;
-		paymentInstance.recalculateInstallmentPrice(+target.value);
-	}
+	// if (target.matches(`input[name="installment-length"]`)) {
+	// 	const installmentPaymentTermInput = document.querySelector(`input[name="installment-term"]`);
+	// 	installmentPaymentTermInput.value = target.value;
+	// 	paymentInstance.recalculateInstallmentPrice(+target.value);
+	// }
 });
 
 jQuery('.modal').on('modal:open', onModalOpenHandler);
